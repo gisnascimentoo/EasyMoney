@@ -22,7 +22,6 @@ public class ManipuladorBanco {
 		try {
 			this.conexao = this.conectasgbd();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -30,9 +29,9 @@ public class ManipuladorBanco {
 	public Connection conectasgbd() throws SQLException {
 		Connection conectando = null;
 		try {
-			Class.forName("org.postgresql.Driver");
-			conectando = DriverManager.getConnection("jdbc:postgresql://localhost:5432/distribuidora", "everton",
-					"everton");
+			Class.forName("com.mysql.jdbc.Driver");
+			conectando = DriverManager.getConnection("jdbc:mysql://localhost:5432/easymoney", "??",
+					"??");
 		} catch (ClassNotFoundException e) {
 			//JOptionPane.showMessageDialog(null, "Erro classe: " + e.getMessage());
 		} catch (SQLException e) {
@@ -48,5 +47,7 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 }
