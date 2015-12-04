@@ -6,12 +6,12 @@ public class DadosFinanceiros {
 	private String banco;
 	private String agencia;
 	private int contaCorrente;
-	private String rendaFamiliar;
-	private String rendaPessoal;
+	private double rendaFamiliar;
+	private double rendaPessoal;
 	private String observacao;
 	
 	public DadosFinanceiros(int idDadosFinanceiros, String banco, String agencia, int contaCorrente,
-			String rendaFamiliar, String rendaPessoal, String observacao) {
+			double rendaFamiliar, double rendaPessoal, String observacao) {
 		super();
 		this.idDadosFinanceiros = idDadosFinanceiros;
 		this.banco = banco;
@@ -22,7 +22,7 @@ public class DadosFinanceiros {
 		this.observacao = observacao;
 	}
 	
-	public DadosFinanceiros(String banco, String agencia, int contaCorrente, String rendaFamiliar, String rendaPessoal,
+	public DadosFinanceiros(String banco, String agencia, int contaCorrente, double rendaFamiliar, double rendaPessoal,
 			String observacao) {
 		super();
 		this.banco = banco;
@@ -65,19 +65,19 @@ public class DadosFinanceiros {
 		this.contaCorrente = contaCorrente;
 	}
 
-	public String getRendaFamiliar() {
+	public double getRendaFamiliar() {
 		return rendaFamiliar;
 	}
 
-	public void setRendaFamiliar(String rendaFamiliar) {
+	public void setRendaFamiliar(double rendaFamiliar) {
 		this.rendaFamiliar = rendaFamiliar;
 	}
 
-	public String getRendaPessoal() {
+	public double getRendaPessoal() {
 		return rendaPessoal;
 	}
 
-	public void setRendaPessoal(String rendaPessoal) {
+	public void setRendaPessoal(double rendaPessoal) {
 		this.rendaPessoal = rendaPessoal;
 	}
 

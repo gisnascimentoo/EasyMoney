@@ -36,7 +36,7 @@ import model.Viagem;
  *
  * @author Giselle
  */
-public class ManipuladorBancoDados {
+public class Base_ManipuladorBancoDados {
 
 	// INSERT
 	private final String INSERT_ENDERECO = "INSERT INTO ENDERECO(nm_rua, nu_cep, nm_bairro, nu_numero, nm_complemento) VALUES(?,?,?,?,?)";
@@ -74,7 +74,7 @@ public class ManipuladorBancoDados {
 		} catch (ClassNotFoundException e) {
 			JOptionPane.showMessageDialog(null, "Erro classe: " + e.getMessage());
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro conexão: " + e.getMessage());
+			JOptionPane.showMessageDialog(null, "Erro conexï¿½o: " + e.getMessage());
 		}
 	}
 
