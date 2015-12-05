@@ -5,10 +5,10 @@ import java.sql.Date;
 public class Cliente {
 
 	private int idCliente;
-	private int CPF;
 	private String nomeCompleto;
-	private int RG;
 	private Date dataNascimento;
+	private int CPF;
+	private int RG;
 	private Endereco endereco;
 	private DadosFinanceiros dadosFinanceiros;
 
