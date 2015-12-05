@@ -28,6 +28,22 @@ public class ManipuladorBanco {
 	private final String INSERT_PLANOEMPRESTIMO = "INSERT INTO PLANOEMPRESTIMO(nome, dataCadastro, jurosTotal, jurosMensal, valorMinimo, valorMaximo, maxParcelas, minParcelas, observacao, idFuncionarioResponsavel) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String INSERT_CONTRATO = "INSERT INTO CONTRATO(qtdParcelas, valorEmprestimo, valorParcelas, dataCriacaoContrato, dataTerminoContrato, statusContrato, idCliente, idFuncionarioResponsavel, idplanoEmprestimo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
+	private final String SELECT_CLIENTE_BY_ID = "SELECT * FROM CLIENTE WHERE ID = ?";
+	private final String SELECT_PLANOEMPRESTIMO_BY_ID = "";
+	private final String SELECT_FUNCIONARIO_BY_ID = "";
+	private final String SELECT_ENDERECO_BY_ID = "";
+	private final String SELECT_CONTRATO_BY_ID = "";
+	private final String SELECT_DADOSFINANCEIROS_BY_ID = "";
+	
+	private final String UPDATE_CLIENTE_BY_ID = "";
+	private final String UPDATE_PLANOEMPRESTIMO_BY_ID = "";
+	private final String UPDATE_FUNCIONARIO_BY_ID = "";
+	private final String UPDATE_ENDERECO_BY_ID = "";
+	private final String UPDATE_CONTRATO_BY_ID = "";
+	private final String UPDATE_DADOSFINANCEIROS_BY_ID = "";
+	
+	private final String REMOVE_PLANOEMPRESTIMO_BY_ID = "";
+	
 	Connection conexao;
 	
 	public ManipuladorBanco() {
@@ -168,6 +184,7 @@ public class ManipuladorBanco {
 		return idCliente;
 	}
 
+	//tem que ter update
 	public int salvarFuncionarioBanco(Funcionario funcionario) {
 		int idFuncionario = 0;
 		int idFKEndereco = 0;
@@ -194,6 +211,7 @@ public class ManipuladorBanco {
 		return idFuncionario;
 	}
 	
+	//tem que dar update
 	public int salvarPlanoEmprestimoBanco(PlanoEmprestimo planoEmprestimo) {
 		int idPlanoEmprestimo = 0;
 		try {
