@@ -4,18 +4,18 @@ public class Cidade {
 
 	private int idCidade;
 	private String nome;
-	private Endereco endereco;
+	private Estado estado;
 	
-	public Cidade(String nome, Endereco endereco) {
+	public Cidade(String nome, Estado estado) {
 		super();
 		this.nome = nome;
-		this.endereco = endereco;
+		this.estado = estado;
 	}
-	public Cidade(int idCidade, String nome, Endereco endereco) {
+	public Cidade(int idCidade, String nome, Estado estado) {
 		super();
 		this.idCidade = idCidade;
 		this.nome = nome;
-		this.endereco = endereco;
+		this.estado = estado;
 	}
 	
 	public int getIdCidade() {
@@ -34,11 +34,11 @@ public class Cidade {
 		this.nome = nome;
 	}
 	
-	public Endereco getEndereco() {
-		return endereco;
+	public Estado getEstado() {
+		return estado;
 	}
 	
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 }

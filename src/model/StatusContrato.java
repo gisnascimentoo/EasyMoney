@@ -1,34 +1,16 @@
-	package model;
+package model;
 
-public class StatusContrato {
+public enum StatusContrato {
 
-	private int idStatusContrato;
-	private String nome;
+	APROVADO ("Aprovado"), REJEITADO ("Rejeitado"), PRÉ_REJEITADO ("Pré-rejeitado"), PRÉ_APROVADO ("Pré-aprovado"), ENCERRADO ("Encerrado");
+	
+	private final String name;
+	
+    private StatusContrato (String name) {
+        this.name = name;
+    }
 
-	public StatusContrato(int idStatusContrato, String nome) {
-		super();
-		this.idStatusContrato = idStatusContrato;
-		this.nome = nome;
-	}
-	
-	public StatusContrato(String nome) {
-		super();
-		this.nome = nome;
-	}
-	
-	public int getIdStatusContrato() {
-		return idStatusContrato;
-	}
-	
-	public void setIdStatusContrato(int idStatusContrato) {
-		this.idStatusContrato = idStatusContrato;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-	
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getName() {
+        return name;
+    }
 }
