@@ -1,5 +1,7 @@
 package control;
 
+import view.InterfaceUsuario;
+import view.LoginView;
 import db.ManipuladorBanco;
 
 public class Controller {
@@ -7,7 +9,7 @@ public class Controller {
 	ManipuladorBanco db;
 
 	public Controller() {
-		this.db = new ManipuladorBanco();
+		this.db = new ManipuladorBanco("tEMP");
 	}
 
 	// TODO validações
@@ -54,4 +56,18 @@ public class Controller {
 	public void removerPlanoEmprestimoBanco() {
 
 	}
+	
+	public void realizarLogin(String nome, String senha){
+		boolean logado = db.realizarLogin(nome, senha);
+		if(logado){
+			InterfaceUsuario.loginValido();
+		}else{
+			InterfaceUsuario.informaLoginInvalido();
+		}
+		
+	}
+	
+	
+	
+	
 }

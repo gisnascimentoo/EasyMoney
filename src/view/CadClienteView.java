@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
@@ -55,22 +58,6 @@ public class CadClienteView extends JFrame {
 	private JButton btnCancelar;
 	private JLabel lblR;
 	private JLabel label;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadClienteView frame = new CadClienteView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -273,5 +260,45 @@ public class CadClienteView extends JFrame {
 		label = new JLabel("R$");
 		label.setBounds(209, 391, 23, 14);
 		contentPane.add(label);
+		
+		btnCancelar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cancelar();
+
+			}
+		});
+		btnExcluir.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				excluir();
+
+			}
+		});
+		btnSalvar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				salvar();
+
+			}
+		});
 	}
+
+	protected void salvar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void excluir() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void cancelar() {
+		this.dispose();
+	}
+	
 }
