@@ -2,7 +2,7 @@ package model;
 
 public enum StatusContrato {
 
-	APROVADO ("Aprovado"), REJEITADO ("Rejeitado"), PRÉ_REJEITADO ("Pré-rejeitado"), PRÉ_APROVADO ("Pré-aprovado"), ENCERRADO ("Encerrado");
+	APROVADO ("Aprovado"), REJEITADO ("Rejeitado"), PRE_REJEITADO ("Pré-rejeitado"), PRE_APROVADO ("Pré-aprovado"), ENCERRADO ("Encerrado");
 	
 	private final String name;
 	
