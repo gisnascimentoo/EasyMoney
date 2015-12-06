@@ -15,12 +15,11 @@ import model.Endereco;
 import model.Estado;
 import model.Funcionario;
 import model.PlanoEmprestimo;
+import model.StatusContrato;
 
 public class ManipuladorBanco {
 
-	/*
-	 * Insert
-	 */
+	// INSERT
 	private final String INSERT_ENDERECO = "INSERT INTO ENDERECO(logradouro, numero, bairro, CEP, idCidade) VALUES(?, ?, ?, ?)";
 	private final String INSERT_CIDADE = "INSERT INTO CIDADE(nome, idEstado) VALUES(?, ?)";
 	private final String INSERT_ESTADO = "INSERT INTO ESTADO(sigla) VALUES(?)";
@@ -30,27 +29,15 @@ public class ManipuladorBanco {
 	private final String INSERT_PLANOEMPRESTIMO = "INSERT INTO PLANOEMPRESTIMO(nome, dataCadastro, jurosTotal, jurosMensal, valorMinimo, valorMaximo, maxParcelas, minParcelas, observacao, idFuncionarioResponsavel) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String INSERT_CONTRATO = "INSERT INTO CONTRATO(qtdParcelas, valorEmprestimo, valorParcelas, dataCriacaoContrato, dataTerminoContrato, statusContrato, idCliente, idFuncionarioResponsavel, idplanoEmprestimo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	/*
-	 * Select Cliente by 
-	 */
+	// SELECT
 	private final String SELECT_CLIENTE_BY_ID = "SELECT * FROM CLIENTE WHERE IDCLIENTE = ?";
-	private final String SELECT_CLIENTE_BY_NOME = "SELECT * FROM CLIENTE WHERE NOMECOMPLETO = ?";
-	private final String SELECT_CLIENTE_BY_CPF = "SELECT * FROM CLIENTE WHERE CPF = ?";
-	private final String SELECT_CLIENTE_BY_DATANASCIMENTO = "SELECT * FROM CLIENTE WHERE DATANASCIMENTO = ?";
-	
-	
 	private final String SELECT_PLANOEMPRESTIMO_BY_ID = "SELECT * FROM PLANOEMPRESTIMO WHERE IDPLANOEMPRESTIMO = ?";
 	private final String SELECT_FUNCIONARIO_BY_ID = "SELECT * FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
 	private final String SELECT_ENDERECO_BY_ID = "SELECT * FROM ENDERECO WHERE IDENDERECO = ?";
 	private final String SELECT_CONTRATO_BY_ID = "SELECT * FROM CONTRATO WHERE IDCONTRATO = ?";
 	private final String SELECT_DADOSFINANCEIROS_BY_ID = "SELECT * FROM DADOSFINANCEIROS WHERE IDDADOSFINANCEIROS = ?";
-	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM tb_user_login WHERE login = ? and password = ?";
-	
-	
-	
-	/*
-	 * Update
-	 */
+
+	// UPDATE
 	private final String UPDATE_CLIENTE_BY_ID = "UPDATE CLIENTE SET nomeCompleto = ?, dataNascimento = ?, CPF = ?, RG = ?, idEndereco = ?, idDadosFinanceiros = ? WHERE IDCLIENTE = ?";
 	private final String UPDATE_PLANOEMPRESTIMO_BY_ID = "UPDATE PLANOEMPRESTIMO SET nome = ?, dataCadastro = ?, jurosTotal = ?, jurosMensal = ?, valorMinimo = ?, valorMaximo = ?, minParcelas = ?, maxParcelas = ?, observacao = ?, idFuncionario = ? WHERE IDPLANOEMPRESTIMO = ?";
 	private final String UPDATE_FUNCIONARIO_BY_ID = "UPDATE FUNCIONARIO SET nome = ?, dataNascimento = ?, CPF = ?, RG = ?, cargo = ?, email = ?, telefone = ?, idEndereco = ? WHERE IDFUNCIONARIO = ?";
@@ -58,9 +45,7 @@ public class ManipuladorBanco {
 	private final String UPDATE_CONTRATO_BY_ID = "UPDATE CONTRATO SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dataCriacaoContrato = ?, dadaTerminoContrato = ?, idCliente = ?, idFuncionarioResponsavel = ?, idPlanoEmprestimo = ? WHERE IDCONTRATO = ?";
 	private final String UPDATE_DADOSFINANCEIROS_BY_ID = "UPDATE DADOSFINANCEIROS SET banco = ?, agencia = ?, contaCorrente = ?, rendaFamiliar = ?, rendaPessoal = ?, observacao = ? WHERE IDDADOSFINANCEIROS = ?";
 
-	/*
-	 * Delete
-	 */
+	// DELETE
 	private final String DELETE_PLANOEMPRESTIMO_BY_ID = "DELETE FROM PLANOEMPRESTIMO WHERE IDPLANOEMPRESTIMO = ?";
 
 	Connection conexao;
@@ -102,6 +87,12 @@ public class ManipuladorBanco {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Endereco buscarEnderecoBanco(Endereco endereco) {
+		Endereco enderecoBuscado = null;
+
+		return enderecoBuscado;
 	}
 
 	public int salvarEnderecoBanco(Endereco endereco) {
@@ -393,20 +384,6 @@ public class ManipuladorBanco {
 			prepared.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
-	public boolean realizarLogin(String nome, String senha) {
-		try {
-			PreparedStatement prepared = this.conexao
-					.prepareStatement(SELECT_USUARIO_LOGIN);
-			prepared.setString(1, nome);
-			prepared.setString(2, senha);
-			ResultSet rs;
-			rs = prepared.executeQuery();
-			return rs.next();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
 		}
 	}
 }

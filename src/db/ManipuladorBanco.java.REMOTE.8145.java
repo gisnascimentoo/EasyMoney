@@ -44,9 +44,6 @@ public class ManipuladorBanco {
 	private final String SELECT_ENDERECO_BY_ID = "SELECT * FROM ENDERECO WHERE IDENDERECO = ?";
 	private final String SELECT_CONTRATO_BY_ID = "SELECT * FROM CONTRATO WHERE IDCONTRATO = ?";
 	private final String SELECT_DADOSFINANCEIROS_BY_ID = "SELECT * FROM DADOSFINANCEIROS WHERE IDDADOSFINANCEIROS = ?";
-	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM tb_user_login WHERE login = ? and password = ?";
-	
-	
 	
 	/*
 	 * Update
@@ -393,20 +390,6 @@ public class ManipuladorBanco {
 			prepared.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
-	public boolean realizarLogin(String nome, String senha) {
-		try {
-			PreparedStatement prepared = this.conexao
-					.prepareStatement(SELECT_USUARIO_LOGIN);
-			prepared.setString(1, nome);
-			prepared.setString(2, senha);
-			ResultSet rs;
-			rs = prepared.executeQuery();
-			return rs.next();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
 		}
 	}
 }
