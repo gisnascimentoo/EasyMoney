@@ -28,6 +28,10 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 
+	public Endereco() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Cidade getCidade() {
 		return cidade;
 	}

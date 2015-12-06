@@ -1,11 +1,14 @@
 package db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Cidade;
 import model.Cliente;
@@ -31,23 +34,17 @@ public class ManipuladorBanco {
 	private final String INSERT_CONTRATO = "INSERT INTO CONTRATO(qtdParcelas, valorEmprestimo, valorParcelas, dataCriacaoContrato, dataTerminoContrato, statusContrato, idCliente, idFuncionarioResponsavel, idplanoEmprestimo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	/*
-	 * Select Cliente by 
+	 * Select Cliente by
 	 */
-	private final String SELECT_CLIENTE_BY_ID = "SELECT * FROM CLIENTE WHERE IDCLIENTE = ?";
-	private final String SELECT_CLIENTE_BY_NOME = "SELECT * FROM CLIENTE WHERE NOMECOMPLETO = ?";
-	private final String SELECT_CLIENTE_BY_CPF = "SELECT * FROM CLIENTE WHERE CPF = ?";
-	private final String SELECT_CLIENTE_BY_DATANASCIMENTO = "SELECT * FROM CLIENTE WHERE DATANASCIMENTO = ?";
 	
-	
+
 	private final String SELECT_PLANOEMPRESTIMO_BY_ID = "SELECT * FROM PLANOEMPRESTIMO WHERE IDPLANOEMPRESTIMO = ?";
 	private final String SELECT_FUNCIONARIO_BY_ID = "SELECT * FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
 	private final String SELECT_ENDERECO_BY_ID = "SELECT * FROM ENDERECO WHERE IDENDERECO = ?";
 	private final String SELECT_CONTRATO_BY_ID = "SELECT * FROM CONTRATO WHERE IDCONTRATO = ?";
 	private final String SELECT_DADOSFINANCEIROS_BY_ID = "SELECT * FROM DADOSFINANCEIROS WHERE IDDADOSFINANCEIROS = ?";
 	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM tb_user_login WHERE login = ? and password = ?";
-	
-	
-	
+
 	/*
 	 * Update
 	 */
@@ -92,6 +89,33 @@ public class ManipuladorBanco {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	//TODO INCOMPLETA
+	//Obs: vou terminar ja ja, só to ajeitando trabalho de compiladores
+	public List<Cliente> buscarClienteBancoPorDadoParametro(String nome, int id, int cpf, Date dataNascimento) {
+		List<Cliente> listaClientes = new ArrayList<Cliente>();
+		Cliente cliente = null;
+		String SELECT_CLIENTE_BY_= "SELECT * FROM CLIENTE";
+		
+		try {
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CLIENTE_BY_);
+			preparedStatement.setInt(1, id);
+			ResultSet set = preparedStatement.executeQuery();
+			while (set.next()) {
+				//definir se preciso montar os objetos inteiros, fazendo as buscas completas
+				Endereco endereco = new Endereco();
+				endereco.setIdEndereco(set.getInt("idEndereco"));
+				DadosFinanceiros dadosFinanceiros = new DadosFinanceiros();
+				dadosFinanceiros.setIdDadosFinanceiros(set.getInt("idDadosFinanceiros"));
+				cliente = new Cliente(set.getInt("idCliente"), set.getInt("CPF"), set.getString("nomeCompleto"), set.getInt("RG"),
+						set.getDate("dataNascimento"), endereco, dadosFinanceiros);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return listaClientes;
 	}
 
 	public void removerPlanoEmprestimoBanco(PlanoEmprestimo planoEmprestimo) {
@@ -285,7 +309,7 @@ public class ManipuladorBanco {
 		}
 		return idContrato;
 	}
-	
+
 	public void editarEnderecoBanco(Endereco endereco) {
 		try {
 			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_ENDERECO_BY_ID,
@@ -301,7 +325,7 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void editarDadosFinanceirosBanco(DadosFinanceiros dadosFinanceiros) {
 		try {
 			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_DADOSFINANCEIROS_BY_ID,
@@ -318,10 +342,11 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void editarClienteBanco(Cliente cliente) {
 		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_CLIENTE_BY_ID, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_CLIENTE_BY_ID,
+					Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, cliente.getNomeCompleto());
 			prepared.setDate(2, cliente.getDataNascimento());
 			prepared.setInt(3, cliente.getCPF());
@@ -334,7 +359,7 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void editarFuncionarioBanco(Funcionario funcionario) {
 		try {
 			this.editarEnderecoBanco(funcionario.getEndereco());
@@ -375,7 +400,7 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void editarContratoBanco(Contrato contrato) {
 		try {
 			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_CONTRATO_BY_ID,
@@ -395,10 +420,10 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 		}
 	}
+
 	public boolean realizarLogin(String nome, String senha) {
 		try {
-			PreparedStatement prepared = this.conexao
-					.prepareStatement(SELECT_USUARIO_LOGIN);
+			PreparedStatement prepared = this.conexao.prepareStatement(SELECT_USUARIO_LOGIN);
 			prepared.setString(1, nome);
 			prepared.setString(2, senha);
 			ResultSet rs;

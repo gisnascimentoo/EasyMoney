@@ -33,6 +33,10 @@ public class DadosFinanceiros {
 		this.observacao = observacao;
 	}
 
+	public DadosFinanceiros() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdDadosFinanceiros() {
 		return idDadosFinanceiros;
 	}
