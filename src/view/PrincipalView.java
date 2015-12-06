@@ -8,11 +8,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import java.awt.SystemColor;
+
+import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import java.awt.ComponentOrientation;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextPane;
 import javax.swing.JSeparator;
 
@@ -79,6 +84,15 @@ public class PrincipalView extends JFrame {
 		JMenuItem mntmSair = new JMenuItem("Sair");
 		mnCadastro.add(mntmSair);
 		
+		mntmSair.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				sair();
+				
+			}
+		});
+		
 		JMenu mnEmprestimo = new JMenu("Empr\u00E9stimo");
 		menuBar.add(mnEmprestimo);
 		
@@ -96,5 +110,22 @@ public class PrincipalView extends JFrame {
 		
 		JMenuItem mntmEmprestimos = new JMenuItem("Empr\u00E9stimos");
 		mnRelatorio.add(mntmEmprestimos);
+	}
+
+	protected void sair() {
+		InterfaceUsuario.logout();
+		
+	}
+
+	public boolean encerrarSessao() {
+		Object[] options = { "Sim", "Não" };  
+		int opcao = JOptionPane.showOptionDialog(null,  
+		                "Deseja fazer logout?",  
+		                "Exemplo", JOptionPane.YES_NO_OPTION,  
+		                JOptionPane.QUESTION_MESSAGE, null, options, options[0]); 
+		if(opcao == 0)
+			return true;
+		else
+			return false;
 	}
 }

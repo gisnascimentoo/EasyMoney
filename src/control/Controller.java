@@ -9,7 +9,7 @@ public class Controller {
 	ManipuladorBanco db;
 
 	public Controller() {
-		this.db = new ManipuladorBanco("tEMP");
+		this.db = new ManipuladorBanco();
 	}
 
 	// TODO validações
@@ -65,6 +65,12 @@ public class Controller {
 			InterfaceUsuario.informaLoginInvalido();
 		}
 		
+	}
+
+	public void logout() {
+		boolean confirmacao = InterfaceUsuario.encerrarSessao();
+		if(confirmacao)
+			InterfaceUsuario.deslogar();
 	}
 	
 	

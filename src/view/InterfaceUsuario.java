@@ -17,7 +17,7 @@ public class  InterfaceUsuario {
 	public InterfaceUsuario() {
 		loginView = new LoginView();
 		loginView.setVisible(true);
-		cadClienteView();
+		loginValido();
 	}
 	
 	public static void fazerLogin(LoginView loginView, String nome, String senha){
@@ -64,6 +64,20 @@ public class  InterfaceUsuario {
 	public static void simulacaoView(){
 		simulacaoView = new SimulacaoView();
 		simulacaoView.setVisible(true);
+	}
+
+	public static void logout() {
+		controller.logout();
+		
+	}
+
+	public static boolean encerrarSessao() {
+		return principalView.encerrarSessao();
+	}
+
+	public static void deslogar() {
+		principalView.dispose();
+		
 	}
 	
 	
