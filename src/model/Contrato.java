@@ -14,10 +14,11 @@ public class Contrato {
 	private StatusContrato statusContrato;
 	private Funcionario funcionarioResponsavel;
 	private PlanoEmprestimo planoEmprestimo;
+	private String observacoes;
 
 	public Contrato(int idContrato, int qntdParcelas, double valorEmprestimo, double valorParcelas,
 			Date dataCriacaoContrato, Date dataTerminoContrato, Cliente cliente, StatusContrato statusContrato,
-			Funcionario funcionarioResponsavel, PlanoEmprestimo planoEmprestimo) {
+			Funcionario funcionarioResponsavel, PlanoEmprestimo planoEmprestimo, String observacoes) {
 		super();
 		this.idContrato = idContrato;
 		this.qntdParcelas = qntdParcelas;
@@ -29,11 +30,12 @@ public class Contrato {
 		this.statusContrato = statusContrato;
 		this.funcionarioResponsavel = funcionarioResponsavel;
 		this.planoEmprestimo = planoEmprestimo;
+		this.observacoes = observacoes;
 	}
 
 	public Contrato(int qntdParcelas, double valorEmprestimo, double valorParcelas, Date dataCriacaoContrato,
 			Date dataTerminoContrato, Cliente cliente, StatusContrato statusContrato,
-			Funcionario funcionarioResponsavel, PlanoEmprestimo planoEmprestimo) {
+			Funcionario funcionarioResponsavel, PlanoEmprestimo planoEmprestimo, String observacoes) {
 		super();
 		this.qntdParcelas = qntdParcelas;
 		this.valorEmprestimo = valorEmprestimo;
@@ -44,6 +46,7 @@ public class Contrato {
 		this.statusContrato = statusContrato;
 		this.funcionarioResponsavel = funcionarioResponsavel;
 		this.planoEmprestimo = planoEmprestimo;
+		this.observacoes = observacoes;
 	}
 
 	public int getIdContrato() {
@@ -124,6 +127,14 @@ public class Contrato {
 
 	public void setPlanoEmprestimo(PlanoEmprestimo planoEmprestimo) {
 		this.planoEmprestimo = planoEmprestimo;
+	}
+	
+	public String getObservacoes() {
+		return observacoes;
+	}
+
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
 	}
 
 }

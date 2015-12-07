@@ -17,6 +17,7 @@ import model.DadosFinanceiros;
 import model.Endereco;
 import model.Estado;
 import model.Funcionario;
+import model.PerfilCliente;
 import model.PlanoEmprestimo;
 
 public class ManipuladorBanco {
@@ -31,7 +32,7 @@ public class ManipuladorBanco {
 	private final String INSERT_CLIENTE = "INSERT INTO CLIENTE(nomeCompleto, dataNascimento, CPF, RG, idEndereco, idDadosFinanceiros) VALUES(?, ?, ?, ?, ?, ?)";
 	private final String INSERT_FUNCIONARIO = "INSERT INTO FUNCIONARIO(nome, dataNascimento, CPF, RG, cargo, email, telefone, idEndereco) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String INSERT_PLANOEMPRESTIMO = "INSERT INTO PLANOEMPRESTIMO(nome, dataCadastro, jurosTotal, jurosMensal, valorMinimo, valorMaximo, maxParcelas, minParcelas, observacao, idFuncionarioResponsavel) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private final String INSERT_CONTRATO = "INSERT INTO CONTRATO(qtdParcelas, valorEmprestimo, valorParcelas, dataCriacaoContrato, dataTerminoContrato, statusContrato, idCliente, idFuncionarioResponsavel, idplanoEmprestimo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private final String INSERT_CONTRATO = "INSERT INTO CONTRATO(qtdParcelas, valorEmprestimo, valorParcelas, dataCriacaoContrato, dataTerminoContrato, statusContrato, idCliente, idFuncionarioResponsavel, idplanoEmprestimo, observacoes) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	private final String SELECT_PLANOEMPRESTIMO_BY_ID = "SELECT * FROM PLANOEMPRESTIMO WHERE IDPLANOEMPRESTIMO = ?";
 	private final String SELECT_FUNCIONARIO_BY_ID = "SELECT * FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
@@ -261,6 +262,7 @@ public class ManipuladorBanco {
 			prepared.setInt(7, contrato.getCliente().getIdCliente());
 			prepared.setInt(8, contrato.getFuncionarioResponsavel().getIdFuncionario());
 			prepared.setInt(9, contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());
+			prepared.setString(10, contrato.getObservacoes());
 			prepared.executeUpdate();
 			ResultSet set = prepared.getGeneratedKeys();
 			if (set.next()) {
@@ -527,16 +529,10 @@ public class ManipuladorBanco {
 		return false;
 	}
 
-	public Contrato buscarContatoId(int codContrato) {
+	public Contrato buscarContratoId(int codContrato) {
 		// TODO Auto-generated method stub
 		//Retorna contrato por id
 		
-		return null;
-	}
-
-	public Cliente buscarClienteId(int idCliente) {
-		// TODO Auto-generated method stub
-		//Retorna Cliente por id
 		return null;
 	}
 
@@ -552,7 +548,7 @@ public class ManipuladorBanco {
 		return null;
 	}
 
-	public List<PlanoEmprestimo> buscarPlanoEmprestimoPorPerfil(String perfilCliente) {
+	public List<PlanoEmprestimo> buscarPlanoEmprestimoPorPerfil(PerfilCliente perfilCliente) {
 		// TODO Auto-generated method stub
 		//Retorna todos os planos de determinado perfil
 		return null;
