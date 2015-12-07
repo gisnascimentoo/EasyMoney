@@ -12,9 +12,17 @@ import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
+
+import view.InterfaceUsuario;
+
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.TextEvent;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CadFuncionarioView extends JFrame {
 
@@ -37,6 +45,10 @@ public class CadFuncionarioView extends JFrame {
 	private JTextField textFieldTelefone;
 	private JButton btnSalvar;
 	private JButton btnCancelar;
+	private boolean edicao;
+	private JComboBox comboBoxCargo;
+	private JComboBox comboBoxUF;
+	private JComboBox comboBoxSexo;
 
 	/**
 	 * Create the frame.
@@ -59,6 +71,7 @@ public class CadFuncionarioView extends JFrame {
 		textFieldCodFuncionario.setBounds(109, 11, 95, 19);
 		contentPane.add(textFieldCodFuncionario);
 		textFieldCodFuncionario.setColumns(10);
+		textFieldCodFuncionario.setEditable(false);
 
 		lblNome = new JLabel("Nome");
 		lblNome.setBounds(10, 41, 95, 19);
@@ -101,7 +114,7 @@ public class CadFuncionarioView extends JFrame {
 		lblSexo.setBounds(400, 91, 46, 14);
 		contentPane.add(lblSexo);
 
-		JComboBox comboBoxSexo = new JComboBox();
+		comboBoxSexo = new JComboBox();
 		comboBoxSexo.setBounds(400, 108, 110, 19);
 		contentPane.add(comboBoxSexo);
 
@@ -109,7 +122,7 @@ public class CadFuncionarioView extends JFrame {
 		lblCargo.setBounds(10, 141, 46, 14);
 		contentPane.add(lblCargo);
 
-		JComboBox comboBoxCargo = new JComboBox();
+		comboBoxCargo = new JComboBox();
 		comboBoxCargo.setBounds(10, 159, 180, 19);
 		contentPane.add(comboBoxCargo);
 
@@ -157,7 +170,7 @@ public class CadFuncionarioView extends JFrame {
 		lblUf.setBounds(436, 273, 46, 14);
 		contentPane.add(lblUf);
 
-		JComboBox comboBoxUF = new JComboBox();
+		comboBoxUF = new JComboBox();
 		comboBoxUF.setBounds(436, 292, 74, 19);
 		contentPane.add(comboBoxUF);
 
@@ -207,21 +220,65 @@ public class CadFuncionarioView extends JFrame {
 		btnCancelar.setBounds(318, 477, 89, 23);
 		contentPane.add(btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				fechar();
-				
+
 			}
 		});
 	}
 
+	public CadFuncionarioView(int codigo, String nome,
+			java.util.Date dataNascimento, int CPF, int RG, String cargo,
+			String email, int telefone, String logradouro, int numero,
+			String bairro, String CEP, String nomeCidade, String uf) {
+		textFieldCodFuncionario.setText(""+codigo);
+		textFieldNome.setText(nome);
+		textFieldDataNascimento.setText(""+dataNascimento);
+		textFieldCPF.setText(""+CPF);
+		textFieldRG.setText(""+RG);
+		comboBoxCargo.setSelectedItem(cargo);
+		textFieldEmail.setText(email);
+		textFieldTelefone.setText(""+telefone);
+		textFieldLogradouro.setText(logradouro);
+		textFieldNome.setText(""+numero);
+		textFieldBairro.setText(bairro);
+		//CEP
+		textFieldCidade.setText(nomeCidade);
+		comboBoxUF.setSelectedItem(uf);
+		edicao = true;
+	}
+
 	protected void fechar() {
 		this.dispose();
-		
+
 	}
 
 	protected void salvar() {
-		// TODO
+		DateFormat formatter = new SimpleDateFormat("dd/mm/aaaa");
+		Date dateNasc = null;
+		if (textFieldDataNascimento.getText().trim().length() > 0)
+			try {
+				dateNasc = (Date) formatter.parse(textFieldDataNascimento
+						.getText());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		if (edicao) {
+			InterfaceUsuario.editarFuncionario(Integer.parseInt(textFieldCodFuncionario.getText()), textFieldNome.getText(),
+					dateNasc, Integer.parseInt(textFieldCPF.getText()), Integer.parseInt(textFieldRG.getText()),
+					comboBoxCargo.getSelectedItem().toString(), textFieldEmail.getText(),
+					Integer.parseInt(textFieldTelefone.getText()), 
+					textFieldLogradouro.getText(), Integer.parseInt(textFieldNumero.getText()),
+					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), comboBoxSexo.getSelectedItem().toString());
+		} else {
+			InterfaceUsuario.cadastrarFuncionario(textFieldNome.getText(),
+					dateNasc, Integer.parseInt(textFieldCPF.getText()), Integer.parseInt(textFieldRG.getText()),
+					comboBoxCargo.getSelectedItem().toString(), textFieldEmail.getText(),
+					Integer.parseInt(textFieldTelefone.getText()), 
+					textFieldLogradouro.getText(), Integer.parseInt(textFieldNumero.getText()),
+					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), comboBoxSexo.getSelectedItem().toString());
+		}
 	}
 }

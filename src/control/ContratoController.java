@@ -1,21 +1,15 @@
 package control;
 
-import view.InterfaceUsuario;
-
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
-import javax.swing.text.PlainDocument;
-
-import db.ManipuladorBanco;
 import model.Cliente;
 import model.Contrato;
 import model.PerfilCliente;
 import model.PlanoEmprestimo;
 import model.StatusContrato;
+import db.ManipuladorBanco;
 
 public class ContratoController {
 	
@@ -35,7 +29,7 @@ public class ContratoController {
 			//Repassa as infos para a tela
 			//TODO
 		}else{
-			//retorna erro cliente não encontrado
+			//retorna erro cliente nï¿½o encontrado
 			//TODO
 		}
 	}
@@ -55,7 +49,7 @@ public class ContratoController {
 			if (renda <= PerfilCliente.PERFIL_C.getValorMaximo()){
 				return PerfilCliente.PERFIL_C;
 			}else{
-				//Se a rendar não estiver em nenhum dos outros, ela é do tipo D
+				//Se a rendar nï¿½o estiver em nenhum dos outros, ela ï¿½ do tipo D
 				return PerfilCliente.PERFIL_D;
 			}
 		}}
@@ -74,7 +68,7 @@ public class ContratoController {
 		return db.buscarPlanoEmprestimoId(idPlanoEmprestimo);
 	}
 	
-	//Retorna se o perfil do cliente é pré-aprovado ou pré-rejeitado
+	//Retorna se o perfil do cliente ï¿½ prï¿½-aprovado ou prï¿½-rejeitado
 	public boolean analisaPerfilComPlano(PlanoEmprestimo planoSelecionado){
 		PerfilCliente pfc = recuperaPerfilCliente(cl.getDadosFinanceiros().getRendaPessoal());
 		List<PlanoEmprestimo> lPlanosPossiveis = recuperaPlanosPerfil(pfc);
@@ -127,7 +121,7 @@ public class ContratoController {
 				persistidoSucesso = true;
 			}
 
-		//EDIÇÃO DE CONTRATO
+		//EDIï¿½ï¿½O DE CONTRATO
 		} else {
 			
 			if (analisaPerfilComPlano(plEmprestimo))

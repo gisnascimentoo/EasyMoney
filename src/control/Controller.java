@@ -185,7 +185,7 @@ public class Controller {
 	}
 
 	public void editarCadastrofuncionario(int codigo,String nome, Date dataNascimento, int CPF, int RG, String cargo, String email, int telefone,
-			Endereco endereco, String logradouro, int numero, String bairro, String CEP, String nomeCidade, String uf) {
+			String logradouro, int numero, String bairro, String CEP, String nomeCidade, String uf) {
 		Funcionario funcionario = new Funcionario(codigo, nome, dataNascimento, CPF, RG, cargo, email, telefone, new Endereco(logradouro, numero, bairro, CEP, new Cidade(
 				nomeCidade, new Estado(uf))));
 		String msg = db.editarFuncionarioBanco(funcionario);
@@ -193,7 +193,7 @@ public class Controller {
 	}
 	
 	public void criarCadastrofuncionario(String nome, Date dataNascimento, int CPF, int RG, String cargo, String email, int telefone,
-			Endereco endereco, String logradouro, int numero, String bairro, String CEP, String nomeCidade, String uf){
+			String logradouro, int numero, String bairro, String CEP, String nomeCidade, String uf){
 		boolean cpfExiste = db.verificarCpfFuncionario(CPF);
 		if(cpfExiste){
 			int opcao = InterfaceUsuario.exibirMensagemCpfExistenteFuncionario();

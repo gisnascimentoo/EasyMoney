@@ -63,18 +63,18 @@ public class ManipuladorBanco {
 	Connection conexao;
 
 	public ManipuladorBanco() {
-		/*try {
+		try {
 			this.conexao = this.conectasgbd();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 
 	public Connection conectasgbd() throws SQLException {
 		Connection conectando = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conectando = DriverManager.getConnection("jdbc:mysql://localhost:5432/easymoney", "??", "??");
+			conectando = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "everton", "everton");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -538,13 +538,13 @@ public class ManipuladorBanco {
 
 	public PlanoEmprestimo buscarPlanoEmprestimoId(int idPlanoEmprestimo) {
 		// TODO Auto-generated method stub
-		//Retorna o Plano de Empréstimo de acordo com o ID
+		//Retorna o Plano de Emprï¿½stimo de acordo com o ID
 		return null;
 	}
 
 	public List<PlanoEmprestimo> buscarPlanoEmprestimo() {
 		// TODO Auto-generated method stub
-		//Retorna todos os planos de empréstimo
+		//Retorna todos os planos de emprï¿½stimo
 		return null;
 	}
 

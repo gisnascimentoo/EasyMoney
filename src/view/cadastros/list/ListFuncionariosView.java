@@ -138,7 +138,6 @@ public class ListFuncionariosView extends JFrame {
 			if (textFieldCodigo.getText().trim().length() > 0)
 				Integer.parseInt(textFieldCodigo.getText());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		InterfaceUsuario.buscarCliente(codigo, textFieldNome.getText(),
@@ -179,7 +178,6 @@ public class ListFuncionariosView extends JFrame {
 
 	public void addTabela(List<Funcionario> funcionariosBusca) {
 		// TODO Auto-generated method stub
-		
 	}
 }
 
