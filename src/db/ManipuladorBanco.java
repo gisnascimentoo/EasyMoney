@@ -33,11 +33,6 @@ public class ManipuladorBanco {
 	private final String INSERT_PLANOEMPRESTIMO = "INSERT INTO PLANOEMPRESTIMO(nome, dataCadastro, jurosTotal, jurosMensal, valorMinimo, valorMaximo, maxParcelas, minParcelas, observacao, idFuncionarioResponsavel) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String INSERT_CONTRATO = "INSERT INTO CONTRATO(qtdParcelas, valorEmprestimo, valorParcelas, dataCriacaoContrato, dataTerminoContrato, statusContrato, idCliente, idFuncionarioResponsavel, idplanoEmprestimo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	/*
-	 * Select Cliente by
-	 */
-	
-
 	private final String SELECT_PLANOEMPRESTIMO_BY_ID = "SELECT * FROM PLANOEMPRESTIMO WHERE IDPLANOEMPRESTIMO = ?";
 	private final String SELECT_FUNCIONARIO_BY_ID = "SELECT * FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
 	private final String SELECT_ENDERECO_BY_ID = "SELECT * FROM ENDERECO WHERE IDENDERECO = ?";
@@ -45,6 +40,8 @@ public class ManipuladorBanco {
 	private final String SELECT_DADOSFINANCEIROS_BY_ID = "SELECT * FROM DADOSFINANCEIROS WHERE IDDADOSFINANCEIROS = ?";
 	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM tb_user_login WHERE login = ? and password = ?";
 
+	private final String SELECT_FUNCIONARIO_BY_CPF = "SELECT * FROM FUNCIONARIO WHERE CPF = ?";
+	private final String SELECT_CLIENTE_BY_CPF = "SELECT * FROM CLIENTE WHERE CPF = ?";
 	/*
 	 * Update
 	 */
@@ -52,13 +49,15 @@ public class ManipuladorBanco {
 	private final String UPDATE_PLANOEMPRESTIMO_BY_ID = "UPDATE PLANOEMPRESTIMO SET nome = ?, dataCadastro = ?, jurosTotal = ?, jurosMensal = ?, valorMinimo = ?, valorMaximo = ?, minParcelas = ?, maxParcelas = ?, observacao = ?, idFuncionario = ? WHERE IDPLANOEMPRESTIMO = ?";
 	private final String UPDATE_FUNCIONARIO_BY_ID = "UPDATE FUNCIONARIO SET nome = ?, dataNascimento = ?, CPF = ?, RG = ?, cargo = ?, email = ?, telefone = ?, idEndereco = ? WHERE IDFUNCIONARIO = ?";
 	private final String UPDATE_ENDERECO_BY_ID = "UPDATE ENDERECO SET logradouro = ?, numero = ?, bairro = ?, CEP = ?, cidade = ? WHERE IDENDERECO = ?";
-	private final String UPDATE_CONTRATO_BY_ID = "UPDATE CONTRATO SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dataCriacaoContrato = ?, dadaTerminoContrato = ?, idCliente = ?, idFuncionarioResponsavel = ?, idPlanoEmprestimo = ? WHERE IDCONTRATO = ?";
+	private final String UPDATE_CONTRATO_BY_ID = "UPDATE CONTRATO SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dadaTerminoContrato = ?, idCliente = ?, idFuncionarioResponsavel = ?, idPlanoEmprestimo = ? WHERE IDCONTRATO = ?";
 	private final String UPDATE_DADOSFINANCEIROS_BY_ID = "UPDATE DADOSFINANCEIROS SET banco = ?, agencia = ?, contaCorrente = ?, rendaFamiliar = ?, rendaPessoal = ?, observacao = ? WHERE IDDADOSFINANCEIROS = ?";
 
 	/*
 	 * Delete
 	 */
 	private final String DELETE_PLANOEMPRESTIMO_BY_ID = "DELETE FROM PLANOEMPRESTIMO WHERE IDPLANOEMPRESTIMO = ?";
+	private final String DELETE_CLIENTE_BY_ID = "DELETE FROM CLIENTE WHERE IDCLIENTE = ?";
+	private final String DELETE_FUNCIONARIO_BY_ID = "DELETE FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
 
 	Connection conexao;
 
@@ -86,43 +85,6 @@ public class ManipuladorBanco {
 	public void closeConnnection(Connection con) {
 		try {
 			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	//TODO INCOMPLETA
-	//Obs: vou terminar ja ja, só to ajeitando trabalho de compiladores
-	public List<Cliente> buscarClienteBancoPorDadoParametro(String nome, int id, int cpf, Date dataNascimento) {
-		List<Cliente> listaClientes = new ArrayList<Cliente>();
-		Cliente cliente = null;
-		String SELECT_CLIENTE_BY_= "SELECT * FROM CLIENTE";
-		
-		try {
-			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CLIENTE_BY_);
-			preparedStatement.setInt(1, id);
-			ResultSet set = preparedStatement.executeQuery();
-			while (set.next()) {
-				//definir se preciso montar os objetos inteiros, fazendo as buscas completas
-				Endereco endereco = new Endereco();
-				endereco.setIdEndereco(set.getInt("idEndereco"));
-				DadosFinanceiros dadosFinanceiros = new DadosFinanceiros();
-				dadosFinanceiros.setIdDadosFinanceiros(set.getInt("idDadosFinanceiros"));
-				cliente = new Cliente(set.getInt("idCliente"), set.getInt("CPF"), set.getString("nomeCompleto"), set.getInt("RG"),
-						set.getDate("dataNascimento"), endereco, dadosFinanceiros);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return listaClientes;
-	}
-
-	public void removerPlanoEmprestimoBanco(PlanoEmprestimo planoEmprestimo) {
-		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_PLANOEMPRESTIMO_BY_ID);
-			prepared.setInt(1, planoEmprestimo.getIdPlanoEmprestimo());
-			prepared.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -412,13 +374,12 @@ public class ManipuladorBanco {
 			prepared.setInt(1, contrato.getQntdParcelas());
 			prepared.setDouble(2, contrato.getValorEmprestimo());
 			prepared.setDouble(3, contrato.getValorParcelas());
-			prepared.setDate(4, contrato.getDataCriacaoContrato());
-			prepared.setDate(5, contrato.getDataTerminoContrato());
-			prepared.setString(6, contrato.getStatusContrato().getName());
-			prepared.setInt(7, contrato.getCliente().getIdCliente());
-			prepared.setInt(8, contrato.getFuncionarioResponsavel().getIdFuncionario());
-			prepared.setInt(9, contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());
-			prepared.setInt(10, contrato.getIdContrato());
+			prepared.setDate(4, contrato.getDataTerminoContrato());
+			prepared.setString(5, contrato.getStatusContrato().getName());
+			prepared.setInt(6, contrato.getCliente().getIdCliente());
+			prepared.setInt(7, contrato.getFuncionarioResponsavel().getIdFuncionario());
+			prepared.setInt(8, contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());
+			prepared.setInt(9, contrato.getIdContrato());
 			prepared.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -440,37 +401,129 @@ public class ManipuladorBanco {
 	}
 
 	public List<Cliente> buscarCliente(int codigo, String nome, String cpf, Date dataNasc) {
-		// TODO Auto-generated method stub
 		List<Cliente> buscarCliente = new ArrayList<Cliente>();
+		String SELECT_CLIENTE_BY_= "SELECT * FROM CLIENTE WHERE 1 = 1";
+		
+		if (codigo > 0) {
+			SELECT_CLIENTE_BY_ += "AND idCliente = " + codigo;
+		} 
+		if (nome != null) {
+			SELECT_CLIENTE_BY_ += "AND nomeCompleto = " + nome;
+		}
+		if (cpf != null) {
+			SELECT_CLIENTE_BY_ += "AND cpf" + cpf;
+		}
+		if (dataNasc != null) {
+			SELECT_CLIENTE_BY_ += "AND dataNascimento = " + dataNasc;
+		}
+		
+		try {
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CLIENTE_BY_);
+			ResultSet set = preparedStatement.executeQuery();
+			while (set.next()) {
+				Endereco endereco = new Endereco();
+				endereco.setIdEndereco(set.getInt("idEndereco"));
+				DadosFinanceiros dadosFinanceiros = new DadosFinanceiros();
+				dadosFinanceiros.setIdDadosFinanceiros(set.getInt("idDadosFinanceiros"));
+				Cliente cliente = new Cliente(set.getInt("idCliente"), set.getInt("CPF"), set.getString("nomeCompleto"), set.getInt("RG"),
+						set.getDate("dataNascimento"), endereco, dadosFinanceiros);
+				buscarCliente.add(cliente);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return buscarCliente;
 		
 	}
-
-	public String excluiCliente(int id) {
-		// TODO Auto-generated method stub
-		return "";
-		
-	}
-
 	
-	public List<Funcionario> buscarFuncionario(int codigo, String nome,
-			String cpf, Date date) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Funcionario> buscarFuncionario(int codigo, String nome, String cpf, Date date) {
+		List<Funcionario> buscarFuncionario = new ArrayList<Funcionario>();
+		String SELECT_FUNCIONARIO_BY_= "SELECT * FROM FUNCIONARIO WHERE 1 = 1";
+		
+		if (codigo > 0) {
+			SELECT_FUNCIONARIO_BY_ += "AND idFuncionario = " + codigo;
+		} 
+		if (nome != null) {
+			SELECT_FUNCIONARIO_BY_ += "AND nome = " + nome;
+		}
+		if (cpf != null) {
+			SELECT_FUNCIONARIO_BY_ += "AND cpf" + cpf;
+		}
+		if (date != null) {
+			SELECT_FUNCIONARIO_BY_ += "AND dataNascimento = " + date;
+		}
+		
+		try {
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_FUNCIONARIO_BY_);
+			ResultSet set = preparedStatement.executeQuery();
+			while (set.next()) {
+				Endereco endereco = new Endereco();
+				endereco.setIdEndereco(set.getInt("idEndereco"));
+				Funcionario funcionario = new Funcionario(set.getInt("idFuncionario"), set.getString("nome"), set.getDate("dataNascimento"), set.getInt("CPF"), set.getInt("RG"),
+						set.getString("cargo"), set.getString("email"), set.getInt("telefone"), endereco);
+				buscarFuncionario.add(funcionario);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return buscarFuncionario;
 	}
-
+	
+	public void removerPlanoEmprestimoBanco(PlanoEmprestimo planoEmprestimo) {
+		try {
+			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_PLANOEMPRESTIMO_BY_ID);
+			prepared.setInt(1, planoEmprestimo.getIdPlanoEmprestimo());
+			prepared.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public String excluiCliente(int id) {
+		try {
+			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_CLIENTE_BY_ID);
+			prepared.setInt(1, id);
+			prepared.executeUpdate();
+			return "Cliente deletado com sucesso!";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "Cliente não pôde ser deletado!";
+		}
+	}
+	
 	public String excluiFuncionario(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_FUNCIONARIO_BY_ID);
+			prepared.setInt(1, id);
+			prepared.executeUpdate();
+			return "Funcionário deletado com sucesso!";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "Funcionário não pôde ser deletado!";
+		}
 	}
 
 	public boolean verificarCpfCliente(int cpf) {
-		// TODO Auto-generated method stub
+		try {
+			PreparedStatement prepared = this.conexao.prepareStatement(SELECT_CLIENTE_BY_CPF);
+			prepared.setInt(1, cpf);
+			ResultSet set = prepared.executeQuery();
+			return set.next();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
 	public boolean verificarCpfFuncionario(int cpf) {
-		// TODO Auto-generated method stub
+		try {
+			PreparedStatement prepared = this.conexao.prepareStatement(SELECT_FUNCIONARIO_BY_CPF);
+			prepared.setInt(1, cpf);
+			ResultSet set = prepared.executeQuery();
+			return set.next();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 }
