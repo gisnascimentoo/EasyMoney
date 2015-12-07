@@ -154,10 +154,6 @@ public class NovoContratoView extends JFrame {
 		separator_1.setBounds(10, 319, 514, 2);
 		contentPane.add(separator_1);
 		
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(10, 466, 89, 23);
-		contentPane.add(btnExcluir);
-		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(435, 466, 89, 23);
 		contentPane.add(btnSalvar);
