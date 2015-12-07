@@ -526,4 +526,35 @@ public class ManipuladorBanco {
 		}
 		return false;
 	}
+
+	public Contrato buscarContatoId(int codContrato) {
+		// TODO Auto-generated method stub
+		//Retorna contrato por id
+		
+		return null;
+	}
+
+	public Cliente buscarClienteId(int idCliente) {
+		// TODO Auto-generated method stub
+		//Retorna Cliente por id
+		return null;
+	}
+
+	public PlanoEmprestimo buscarPlanoEmprestimoId(int idPlanoEmprestimo) {
+		// TODO Auto-generated method stub
+		//Retorna o Plano de Empréstimo de acordo com o ID
+		return null;
+	}
+
+	public List<PlanoEmprestimo> buscarPlanoEmprestimo() {
+		// TODO Auto-generated method stub
+		//Retorna todos os planos de empréstimo
+		return null;
+	}
+
+	public List<PlanoEmprestimo> buscarPlanoEmprestimoPorPerfil(String perfilCliente) {
+		// TODO Auto-generated method stub
+		//Retorna todos os planos de determinado perfil
+		return null;
+	}
 }
