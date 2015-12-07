@@ -63,7 +63,6 @@ public class CadClienteView extends JFrame {
 	 */
 	public CadClienteView() {
 		setTitle("Cadastro Cliente");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

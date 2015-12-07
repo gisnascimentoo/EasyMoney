@@ -43,7 +43,6 @@ public class ListClientesView extends JFrame {
 
 	private void initComponents() {
 		setTitle("Cliente");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 541, 425);
 		jTextFieldCodigo = new JTextField();
 		jLabel1 = new JLabel();

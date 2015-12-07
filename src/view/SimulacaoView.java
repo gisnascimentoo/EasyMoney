@@ -26,7 +26,6 @@ public class SimulacaoView extends JFrame {
 	 */
 	public SimulacaoView() {
 		setTitle("Simula\u00E7\u00E3o");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 439, 380);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

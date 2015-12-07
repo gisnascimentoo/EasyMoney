@@ -30,7 +30,6 @@ public class LoginView extends JFrame {
 	 */
 	public LoginView() {
 		setTitle("EasyMoney");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 283, 424);
 		contentPane = new JPanel();
 		contentPane.setAlignmentX(Component.RIGHT_ALIGNMENT);

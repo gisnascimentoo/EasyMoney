@@ -34,7 +34,6 @@ public class CadPlanoEmprestimoView extends JFrame {
 	 */
 	public CadPlanoEmprestimoView() {
 		setTitle("Novo Plano de Empr\u00E9stimo");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

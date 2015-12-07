@@ -62,11 +62,11 @@ public class ManipuladorBanco {
 	Connection conexao;
 
 	public ManipuladorBanco() {
-		try {
+		/*try {
 			this.conexao = this.conectasgbd();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	public Connection conectasgbd() throws SQLException {

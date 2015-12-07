@@ -43,7 +43,6 @@ public class CadFuncionarioView extends JFrame {
 	 */
 	public CadFuncionarioView() {
 		setTitle("Cadastro Funcion\u00E1rio");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

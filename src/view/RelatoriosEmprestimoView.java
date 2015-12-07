@@ -26,7 +26,6 @@ public class RelatoriosEmprestimoView extends JFrame {
 	 */
 	public RelatoriosEmprestimoView() {
 		setTitle("Relat\u00F3rio Empr\u00E9stimo");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 465, 454);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
