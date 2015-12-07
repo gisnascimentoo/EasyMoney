@@ -1,4 +1,4 @@
-package view;
+package view.cadastros.viewsCad;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -53,7 +53,6 @@ public class CadClienteView extends JFrame {
 	private JTextField textFieldRendaPessoal;
 	private JLabel lblObservacoesFinanceiras;
 	private JTextField textFieldObsFinanceiras;
-	private JButton btnExcluir;
 	private JButton btnSalvar;
 	private JButton btnCancelar;
 	private JLabel lblR;
@@ -241,9 +240,6 @@ public class CadClienteView extends JFrame {
 		contentPane.add(textFieldObsFinanceiras);
 		textFieldObsFinanceiras.setColumns(10);
 		
-		btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(10, 477, 89, 23);
-		contentPane.add(btnExcluir);
 		
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(435, 477, 89, 23);
@@ -269,14 +265,6 @@ public class CadClienteView extends JFrame {
 
 			}
 		});
-		btnExcluir.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				excluir();
-
-			}
-		});
 		btnSalvar.addActionListener(new ActionListener() {
 
 			@Override
@@ -288,11 +276,6 @@ public class CadClienteView extends JFrame {
 	}
 
 	protected void salvar() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	protected void excluir() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,4 +1,4 @@
-package view;
+package view.cadastros.viewsCad;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -37,21 +37,6 @@ public class CadFuncionarioView extends JFrame {
 	private JButton btnSalvar;
 	private JButton btnCancelar;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadFuncionarioView frame = new CadFuncionarioView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

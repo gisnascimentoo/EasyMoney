@@ -19,21 +19,7 @@ public class RelatoriosEmprestimoView extends JFrame {
 	private JTextField textFieldBuscaCliente;
 	private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RelatoriosEmprestimoView frame = new RelatoriosEmprestimoView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.

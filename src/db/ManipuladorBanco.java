@@ -343,7 +343,9 @@ public class ManipuladorBanco {
 		}
 	}
 
-	public void editarClienteBanco(Cliente cliente) {
+	
+	
+	public String editarClienteBanco(Cliente cliente) {
 		try {
 			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_CLIENTE_BY_ID,
 					Statement.RETURN_GENERATED_KEYS);
@@ -355,12 +357,13 @@ public class ManipuladorBanco {
 			prepared.setInt(6, cliente.getDadosFinanceiros().getIdDadosFinanceiros());
 			prepared.setInt(7, cliente.getIdCliente());
 			prepared.executeUpdate();
+			return "Cadastro alterado com sucesso";
 		} catch (Exception e) {
-			e.printStackTrace();
+			return ""+ e.getMessage();
 		}
 	}
-
-	public void editarFuncionarioBanco(Funcionario funcionario) {
+	
+	public String editarFuncionarioBanco(Funcionario funcionario) {
 		try {
 			this.editarEnderecoBanco(funcionario.getEndereco());
 			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_FUNCIONARIO_BY_ID,
@@ -375,8 +378,9 @@ public class ManipuladorBanco {
 			prepared.setInt(8, funcionario.getEndereco().getIdEndereco());
 			prepared.setInt(9, funcionario.getIdFuncionario());
 			prepared.executeUpdate();
+			return "Cadastro alterado com sucesso";
 		} catch (Exception e) {
-			e.printStackTrace();
+			return ""+ e.getMessage();
 		}
 	}
 
@@ -433,5 +437,40 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public List<Cliente> buscarCliente(int codigo, String nome, String cpf, Date dataNasc) {
+		// TODO Auto-generated method stub
+		List<Cliente> buscarCliente = new ArrayList<Cliente>();
+		return buscarCliente;
+		
+	}
+
+	public String excluiCliente(int id) {
+		// TODO Auto-generated method stub
+		return "";
+		
+	}
+
+	
+	public List<Funcionario> buscarFuncionario(int codigo, String nome,
+			String cpf, Date date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String excluiFuncionario(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean verificarCpfCliente(int cpf) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean verificarCpfFuncionario(int cpf) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

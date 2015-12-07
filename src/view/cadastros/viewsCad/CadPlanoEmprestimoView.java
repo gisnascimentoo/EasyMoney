@@ -1,4 +1,4 @@
-package view;
+package view.cadastros.viewsCad;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -25,21 +25,6 @@ public class CadPlanoEmprestimoView extends JFrame {
 	private JTextField textFieldJurosMensal;
 	private JTextField textFieldObservacoes;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadPlanoEmprestimoView frame = new CadPlanoEmprestimoView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

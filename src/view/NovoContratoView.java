@@ -27,21 +27,7 @@ public class NovoContratoView extends JFrame {
 	private JTextField textFieldDataTerminoContrato;
 	private JTextField textFieldObservacoes;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					NovoContratoView frame = new NovoContratoView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
