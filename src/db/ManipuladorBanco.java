@@ -36,7 +36,6 @@ public class ManipuladorBanco {
 	/*
 	 * Select Cliente by
 	 */
-	
 
 	private final String SELECT_PLANOEMPRESTIMO_BY_ID = "SELECT * FROM PLANOEMPRESTIMO WHERE IDPLANOEMPRESTIMO = ?";
 	private final String SELECT_FUNCIONARIO_BY_ID = "SELECT * FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
@@ -68,13 +67,15 @@ public class ManipuladorBanco {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	public Connection conectasgbd() throws SQLException {
 		Connection conectando = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conectando = DriverManager.getConnection("jdbc:mysql://localhost:5432/easymoney", "??", "??");
+			conectando = DriverManager.getConnection(
+					"jdbc:mysql://localhost:5432/easymoney", "??", "??");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -91,25 +92,31 @@ public class ManipuladorBanco {
 		}
 	}
 
-	//TODO INCOMPLETA
-	//Obs: vou terminar ja ja, só to ajeitando trabalho de compiladores
-	public List<Cliente> buscarClienteBancoPorDadoParametro(String nome, int id, int cpf, Date dataNascimento) {
+	// TODO INCOMPLETA
+	// Obs: vou terminar ja ja, só to ajeitando trabalho de compiladores
+	public List<Cliente> buscarClienteBancoPorDadoParametro(String nome,
+			int id, int cpf, Date dataNascimento) {
 		List<Cliente> listaClientes = new ArrayList<Cliente>();
 		Cliente cliente = null;
-		String SELECT_CLIENTE_BY_= "SELECT * FROM CLIENTE";
-		
+		String SELECT_CLIENTE_BY_ = "SELECT * FROM CLIENTE";
+
 		try {
-			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CLIENTE_BY_);
+			PreparedStatement preparedStatement = this.conexao
+					.prepareStatement(SELECT_CLIENTE_BY_);
 			preparedStatement.setInt(1, id);
 			ResultSet set = preparedStatement.executeQuery();
 			while (set.next()) {
-				//definir se preciso montar os objetos inteiros, fazendo as buscas completas
+				// definir se preciso montar os objetos inteiros, fazendo as
+				// buscas completas
 				Endereco endereco = new Endereco();
 				endereco.setIdEndereco(set.getInt("idEndereco"));
 				DadosFinanceiros dadosFinanceiros = new DadosFinanceiros();
-				dadosFinanceiros.setIdDadosFinanceiros(set.getInt("idDadosFinanceiros"));
-				cliente = new Cliente(set.getInt("idCliente"), set.getInt("CPF"), set.getString("nomeCompleto"), set.getInt("RG"),
-						set.getDate("dataNascimento"), endereco, dadosFinanceiros);
+				dadosFinanceiros.setIdDadosFinanceiros(set
+						.getInt("idDadosFinanceiros"));
+				cliente = new Cliente(set.getInt("idCliente"),
+						set.getInt("CPF"), set.getString("nomeCompleto"),
+						set.getInt("RG"), set.getDate("dataNascimento"),
+						endereco, dadosFinanceiros);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,7 +127,8 @@ public class ManipuladorBanco {
 
 	public void removerPlanoEmprestimoBanco(PlanoEmprestimo planoEmprestimo) {
 		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_PLANOEMPRESTIMO_BY_ID);
+			PreparedStatement prepared = this.conexao
+					.prepareStatement(DELETE_PLANOEMPRESTIMO_BY_ID);
 			prepared.setInt(1, planoEmprestimo.getIdPlanoEmprestimo());
 			prepared.executeUpdate();
 		} catch (SQLException e) {
@@ -133,8 +141,8 @@ public class ManipuladorBanco {
 		int idFKCidade = 0;
 		try {
 			idFKCidade = this.salvarCidadeBanco(endereco.getCidade());
-			PreparedStatement prepared = this.conexao.prepareStatement(INSERT_ENDERECO,
-					Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement prepared = this.conexao.prepareStatement(
+					INSERT_ENDERECO, Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, endereco.getLogradouro());
 			prepared.setInt(2, endereco.getNumero());
 			prepared.setString(3, endereco.getBairro());
@@ -156,7 +164,8 @@ public class ManipuladorBanco {
 		int idFKEstado = 0;
 		try {
 			idFKEstado = this.salvarEstadoBanco(cidade.getEstado());
-			PreparedStatement prepared = this.conexao.prepareStatement(INSERT_CIDADE, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement prepared = this.conexao.prepareStatement(
+					INSERT_CIDADE, Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, cidade.getNome());
 			prepared.setInt(2, idFKEstado);
 			prepared.executeUpdate();
@@ -173,7 +182,8 @@ public class ManipuladorBanco {
 	public int salvarEstadoBanco(Estado estado) {
 		int idEstado = 0;
 		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(INSERT_ESTADO, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement prepared = this.conexao.prepareStatement(
+					INSERT_ESTADO, Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, estado.getUf());
 			prepared.executeUpdate();
 			ResultSet set = prepared.getGeneratedKeys();
@@ -189,8 +199,8 @@ public class ManipuladorBanco {
 	public int salvarDadosFinanceirosBanco(DadosFinanceiros dadosFinanceiros) {
 		int idDadosFinanceiros = 0;
 		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(INSERT_DADOSFINANCEIROS,
-					Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement prepared = this.conexao.prepareStatement(
+					INSERT_DADOSFINANCEIROS, Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, dadosFinanceiros.getBanco());
 			prepared.setString(2, dadosFinanceiros.getAgencia());
 			prepared.setInt(3, dadosFinanceiros.getContaCorrente());
@@ -214,8 +224,10 @@ public class ManipuladorBanco {
 		int idFKDadosFinanceiros = 0;
 		try {
 			idFKEndereco = this.salvarEnderecoBanco(cliente.getEndereco());
-			idFKDadosFinanceiros = this.salvarDadosFinanceirosBanco(cliente.getDadosFinanceiros());
-			PreparedStatement prepared = this.conexao.prepareStatement(INSERT_CLIENTE, Statement.RETURN_GENERATED_KEYS);
+			idFKDadosFinanceiros = this.salvarDadosFinanceirosBanco(cliente
+					.getDadosFinanceiros());
+			PreparedStatement prepared = this.conexao.prepareStatement(
+					INSERT_CLIENTE, Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, cliente.getNomeCompleto());
 			prepared.setDate(2, cliente.getDataNascimento());
 			prepared.setInt(3, cliente.getCPF());
@@ -238,8 +250,8 @@ public class ManipuladorBanco {
 		int idFKEndereco = 0;
 		try {
 			idFKEndereco = this.salvarEnderecoBanco(funcionario.getEndereco());
-			PreparedStatement prepared = this.conexao.prepareStatement(INSERT_FUNCIONARIO,
-					Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement prepared = this.conexao.prepareStatement(
+					INSERT_FUNCIONARIO, Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, funcionario.getNome());
 			prepared.setDate(2, funcionario.getDataNascimento());
 			prepared.setInt(3, funcionario.getCPF());
@@ -262,8 +274,8 @@ public class ManipuladorBanco {
 	public int salvarPlanoEmprestimoBanco(PlanoEmprestimo planoEmprestimo) {
 		int idPlanoEmprestimo = 0;
 		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(INSERT_PLANOEMPRESTIMO,
-					Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement prepared = this.conexao.prepareStatement(
+					INSERT_PLANOEMPRESTIMO, Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, planoEmprestimo.getNome());
 			prepared.setDate(2, planoEmprestimo.getDataCadastro());
 			prepared.setDouble(3, planoEmprestimo.getJurosTotal());
@@ -273,7 +285,8 @@ public class ManipuladorBanco {
 			prepared.setInt(7, planoEmprestimo.getMaxParcelas());
 			prepared.setInt(8, planoEmprestimo.getMinParcelas());
 			prepared.setString(9, planoEmprestimo.getObservacao());
-			prepared.setInt(10, planoEmprestimo.getFuncionario().getIdFuncionario());
+			prepared.setInt(10, planoEmprestimo.getFuncionario()
+					.getIdFuncionario());
 			prepared.executeUpdate();
 			ResultSet set = prepared.getGeneratedKeys();
 			if (set.next()) {
@@ -288,8 +301,8 @@ public class ManipuladorBanco {
 	public int salvarContratoBanco(Contrato contrato) {
 		int idContrato = 0;
 		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(INSERT_CONTRATO,
-					Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement prepared = this.conexao.prepareStatement(
+					INSERT_CONTRATO, Statement.RETURN_GENERATED_KEYS);
 			prepared.setInt(1, contrato.getQntdParcelas());
 			prepared.setDouble(2, contrato.getValorEmprestimo());
 			prepared.setDouble(3, contrato.getValorParcelas());
@@ -297,8 +310,10 @@ public class ManipuladorBanco {
 			prepared.setDate(5, contrato.getDataTerminoContrato());
 			prepared.setString(6, contrato.getStatusContrato().getName());
 			prepared.setInt(7, contrato.getCliente().getIdCliente());
-			prepared.setInt(8, contrato.getFuncionarioResponsavel().getIdFuncionario());
-			prepared.setInt(9, contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());
+			prepared.setInt(8, contrato.getFuncionarioResponsavel()
+					.getIdFuncionario());
+			prepared.setInt(9, contrato.getPlanoEmprestimo()
+					.getIdPlanoEmprestimo());
 			prepared.executeUpdate();
 			ResultSet set = prepared.getGeneratedKeys();
 			if (set.next()) {
@@ -312,8 +327,8 @@ public class ManipuladorBanco {
 
 	public void editarEnderecoBanco(Endereco endereco) {
 		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_ENDERECO_BY_ID,
-					Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement prepared = this.conexao.prepareStatement(
+					UPDATE_ENDERECO_BY_ID, Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, endereco.getLogradouro());
 			prepared.setInt(2, endereco.getNumero());
 			prepared.setString(3, endereco.getBairro());
@@ -328,7 +343,8 @@ public class ManipuladorBanco {
 
 	public void editarDadosFinanceirosBanco(DadosFinanceiros dadosFinanceiros) {
 		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_DADOSFINANCEIROS_BY_ID,
+			PreparedStatement prepared = this.conexao.prepareStatement(
+					UPDATE_DADOSFINANCEIROS_BY_ID,
 					Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, dadosFinanceiros.getBanco());
 			prepared.setString(2, dadosFinanceiros.getAgencia());
@@ -343,31 +359,30 @@ public class ManipuladorBanco {
 		}
 	}
 
-	
-	
 	public String editarClienteBanco(Cliente cliente) {
 		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_CLIENTE_BY_ID,
-					Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement prepared = this.conexao.prepareStatement(
+					UPDATE_CLIENTE_BY_ID, Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, cliente.getNomeCompleto());
 			prepared.setDate(2, cliente.getDataNascimento());
 			prepared.setInt(3, cliente.getCPF());
 			prepared.setInt(4, cliente.getRG());
 			prepared.setInt(5, cliente.getEndereco().getIdEndereco());
-			prepared.setInt(6, cliente.getDadosFinanceiros().getIdDadosFinanceiros());
+			prepared.setInt(6, cliente.getDadosFinanceiros()
+					.getIdDadosFinanceiros());
 			prepared.setInt(7, cliente.getIdCliente());
 			prepared.executeUpdate();
 			return "Cadastro alterado com sucesso";
 		} catch (Exception e) {
-			return ""+ e.getMessage();
+			return "" + e.getMessage();
 		}
 	}
-	
+
 	public String editarFuncionarioBanco(Funcionario funcionario) {
 		try {
 			this.editarEnderecoBanco(funcionario.getEndereco());
-			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_FUNCIONARIO_BY_ID,
-					Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement prepared = this.conexao.prepareStatement(
+					UPDATE_FUNCIONARIO_BY_ID, Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, funcionario.getNome());
 			prepared.setDate(2, funcionario.getDataNascimento());
 			prepared.setInt(3, funcionario.getCPF());
@@ -380,13 +395,14 @@ public class ManipuladorBanco {
 			prepared.executeUpdate();
 			return "Cadastro alterado com sucesso";
 		} catch (Exception e) {
-			return ""+ e.getMessage();
+			return "" + e.getMessage();
 		}
 	}
 
 	public void editarPlanoEmprestimoBanco(PlanoEmprestimo planoEmprestimo) {
 		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_PLANOEMPRESTIMO_BY_ID,
+			PreparedStatement prepared = this.conexao.prepareStatement(
+					UPDATE_PLANOEMPRESTIMO_BY_ID,
 					Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, planoEmprestimo.getNome());
 			prepared.setDate(2, planoEmprestimo.getDataCadastro());
@@ -397,7 +413,8 @@ public class ManipuladorBanco {
 			prepared.setInt(7, planoEmprestimo.getMaxParcelas());
 			prepared.setInt(8, planoEmprestimo.getMinParcelas());
 			prepared.setString(9, planoEmprestimo.getObservacao());
-			prepared.setInt(10, planoEmprestimo.getFuncionario().getIdFuncionario());
+			prepared.setInt(10, planoEmprestimo.getFuncionario()
+					.getIdFuncionario());
 			prepared.setInt(11, planoEmprestimo.getIdPlanoEmprestimo());
 			prepared.executeUpdate();
 		} catch (Exception e) {
@@ -407,8 +424,8 @@ public class ManipuladorBanco {
 
 	public void editarContratoBanco(Contrato contrato) {
 		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_CONTRATO_BY_ID,
-					Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement prepared = this.conexao.prepareStatement(
+					UPDATE_CONTRATO_BY_ID, Statement.RETURN_GENERATED_KEYS);
 			prepared.setInt(1, contrato.getQntdParcelas());
 			prepared.setDouble(2, contrato.getValorEmprestimo());
 			prepared.setDouble(3, contrato.getValorParcelas());
@@ -416,8 +433,10 @@ public class ManipuladorBanco {
 			prepared.setDate(5, contrato.getDataTerminoContrato());
 			prepared.setString(6, contrato.getStatusContrato().getName());
 			prepared.setInt(7, contrato.getCliente().getIdCliente());
-			prepared.setInt(8, contrato.getFuncionarioResponsavel().getIdFuncionario());
-			prepared.setInt(9, contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());
+			prepared.setInt(8, contrato.getFuncionarioResponsavel()
+					.getIdFuncionario());
+			prepared.setInt(9, contrato.getPlanoEmprestimo()
+					.getIdPlanoEmprestimo());
 			prepared.setInt(10, contrato.getIdContrato());
 			prepared.executeUpdate();
 		} catch (Exception e) {
@@ -427,7 +446,8 @@ public class ManipuladorBanco {
 
 	public boolean realizarLogin(String nome, String senha) {
 		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(SELECT_USUARIO_LOGIN);
+			PreparedStatement prepared = this.conexao
+					.prepareStatement(SELECT_USUARIO_LOGIN);
 			prepared.setString(1, nome);
 			prepared.setString(2, senha);
 			ResultSet rs;
@@ -439,20 +459,19 @@ public class ManipuladorBanco {
 		}
 	}
 
-	public List<Cliente> buscarCliente(int codigo, String nome, String cpf, Date dataNasc) {
+	public List<Cliente> buscarCliente(int codigo, String nome, String cpf,
+			Date dataNasc) {
 		// TODO Auto-generated method stub
 		List<Cliente> buscarCliente = new ArrayList<Cliente>();
 		return buscarCliente;
-		
 	}
 
 	public String excluiCliente(int id) {
 		// TODO Auto-generated method stub
 		return "";
-		
+
 	}
 
-	
 	public List<Funcionario> buscarFuncionario(int codigo, String nome,
 			String cpf, Date date) {
 		// TODO Auto-generated method stub

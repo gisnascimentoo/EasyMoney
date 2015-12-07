@@ -79,6 +79,15 @@ public class PrincipalView extends JFrame {
 
 		JMenuItem mntmPlanos = new JMenuItem("Planos");
 		mnCadastro.add(mntmPlanos);
+		
+		mntmPlanos.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cadastroPlanos();
+				
+			}
+		});
 
 		JSeparator separator_2 = new JSeparator();
 		mnCadastro.add(separator_2);
@@ -121,6 +130,11 @@ public class PrincipalView extends JFrame {
 
 			}
 		});
+	}
+
+	protected void cadastroPlanos() {
+		InterfaceUsuario.listPlanosView();
+		
 	}
 
 	protected void cadastrarFuncionario() {

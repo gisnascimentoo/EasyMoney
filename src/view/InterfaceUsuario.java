@@ -6,6 +6,7 @@ import model.Cliente;
 import model.Funcionario;
 import view.cadastros.list.ListClientesView;
 import view.cadastros.list.ListFuncionariosView;
+import view.cadastros.list.ListPlanosView;
 import view.cadastros.viewsCad.CadClienteView;
 import view.cadastros.viewsCad.CadFuncionarioView;
 import view.cadastros.viewsCad.CadPlanoEmprestimoView;
@@ -24,6 +25,7 @@ public class InterfaceUsuario {
 	private static SimulacaoView simulacaoView;
 	private static ListClientesView listClienteView;
 	private static ListFuncionariosView listFuncionariosView;
+	private static ListPlanosView listPlanosView;
 
 	public InterfaceUsuario() {
 		loginView = new LoginView();
@@ -147,6 +149,11 @@ public class InterfaceUsuario {
 
 	public static int exibirMensagemCpfExistenteFuncionario() {
 		return listFuncionariosView.MensagemCpfExistente();
+	}
+	
+	public static void listPlanosView(){
+		listPlanosView = new ListPlanosView();
+		listPlanosView.setVisible(true);
 	}
 
 }

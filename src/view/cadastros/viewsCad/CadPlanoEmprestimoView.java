@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 
 public class CadPlanoEmprestimoView extends JFrame {
@@ -145,17 +148,38 @@ public class CadPlanoEmprestimoView extends JFrame {
 		contentPane.add(textFieldObservacoes);
 		textFieldObservacoes.setColumns(10);
 		
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(10, 477, 89, 23);
-		contentPane.add(btnExcluir);
-		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(435, 477, 89, 23);
 		contentPane.add(btnSalvar);
+		btnSalvar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				salvar();
+			}
+		});
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(336, 477, 89, 23);
 		contentPane.add(btnCancelar);
+		btnCancelar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			     fechar();
+			}
+		});
+	}
+
+
+	protected void salvar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	protected void fechar() {
+		this.dispose();
 	}
 
 }
