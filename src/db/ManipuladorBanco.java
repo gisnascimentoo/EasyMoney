@@ -553,4 +553,9 @@ public class ManipuladorBanco {
 		//Retorna todos os planos de determinado perfil
 		return null;
 	}
+
+	public Cliente buscarDadosCliente(int codigo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

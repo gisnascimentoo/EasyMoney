@@ -1,11 +1,7 @@
 package view;
 
 import java.sql.Date;
-import java.util.List;
 
-import model.Cliente;
-import model.Endereco;
-import model.Funcionario;
 import view.cadastros.list.ListClientesView;
 import view.cadastros.list.ListFuncionariosView;
 import view.cadastros.list.ListPlanosView;
@@ -104,8 +100,8 @@ public class InterfaceUsuario {
 
 	}
 
-	public static void carregaListaCliente(List<Cliente> clientesBusca) {
-		listClienteView.addTabela(clientesBusca);
+	public static void carregaListaCliente(String[][] dados) {
+		listClienteView.addTabela(dados);
 
 	}
 
@@ -133,8 +129,8 @@ public class InterfaceUsuario {
 	}
 
 	public static void carregaListaFuncionario(
-			List<Funcionario> funcionariosBusca) {
-		listFuncionariosView.addTabela(funcionariosBusca);
+			String[][] dados) {
+		listFuncionariosView.addTabela(dados);
 	}
 
 	public static void exibirMensagemFuncionario(String mensagem) {
@@ -220,6 +216,12 @@ public class InterfaceUsuario {
 				numero, bairro, cep, nomeCidade,
 				uf, banco, agencia, contaCorrente,
 				rendaFamiliar, rendaPessoal, observacao);
+	}
+
+	public static void buscarFuncionario(int codigo, String nome, String cpf,
+			java.util.Date date) {
+		controller.buscarFuncionario(codigo, nome, cpf, date);
+		
 	}
 	
 	

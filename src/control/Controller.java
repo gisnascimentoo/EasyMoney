@@ -84,16 +84,19 @@ public class Controller {
 
 	public void buscarCliente(int codigo, String nome, String cpf,
 			java.util.Date date) {
-		List<Cliente> clientesBusca = db.buscarCliente(codigo, nome, cpf,
-				(Date) date);
-		List<view.cadastros.representacoesInterface.PessoaView> clientesView = new ArrayList<view.cadastros.representacoesInterface.PessoaView>();
-		for (Cliente cliente : clientesBusca) {
-			clientesView
-					.add(new view.cadastros.representacoesInterface.PessoaView(
-							cliente.getIdCliente(), cliente.getNomeCompleto(),
-							cliente.getDataNascimento(), "" + cliente.getCPF()));
+		
+		List<Cliente> clientesBusca = db.buscarCliente(codigo,
+				nome, cpf, (Date) date);
+		String[][] dados = new String[clientesBusca.size()][4];
+		int indice = 0;
+		for (Cliente cliente: clientesBusca) {
+			dados[indice][0] = ""+cliente.getIdCliente();
+			dados[indice][1] = cliente.getNomeCompleto();
+			dados[indice][2] = ""+cliente.getDataNascimento();
+			dados[indice][3] = ""+cliente.getCPF();
+
 		}
-		InterfaceUsuario.carregaListaCliente(clientesBusca);
+		InterfaceUsuario.carregaListaCliente(dados);
 	}
 
 	public void excluirCliente(int id) {
@@ -104,52 +107,54 @@ public class Controller {
 		}
 	}
 
-	public void editarCadastroCliente(int codigo, int cpf, String nomeCompleto, int rg,
-			Date dataNascimento, String logradouro, int numero, String bairro,
-			String cep, String nomeCidade, String uf, String banco,
-			String agencia, int contaCorrente, double rendaFamiliar,
-			double rendaPessoal, String observacao) {
-		Cliente cliente = new Cliente(codigo, cpf, nomeCompleto, rg, dataNascimento,
-				new Endereco(logradouro, numero, bairro, cep, new Cidade(
-						nomeCidade, new Estado(uf))), new DadosFinanceiros(
-						banco, agencia, contaCorrente, rendaFamiliar,
-						rendaPessoal, observacao));
+	public void editarCadastroCliente(int codigo, int cpf, String nomeCompleto,
+			int rg, Date dataNascimento, String logradouro, int numero,
+			String bairro, String cep, String nomeCidade, String uf,
+			String banco, String agencia, int contaCorrente,
+			double rendaFamiliar, double rendaPessoal, String observacao) {
+		Cliente cliente = new Cliente(codigo, cpf, nomeCompleto, rg,
+				dataNascimento, new Endereco(logradouro, numero, bairro, cep,
+						new Cidade(nomeCidade, new Estado(uf))),
+				new DadosFinanceiros(banco, agencia, contaCorrente,
+						rendaFamiliar, rendaPessoal, observacao));
 		String msg = db.editarClienteBanco(cliente);
 		InterfaceUsuario.exibirMensagemCliente(msg);
 	}
-	
+
 	public void criarCadastroCliente(int cpf, String nomeCompleto, int rg,
 			Date dataNascimento, String logradouro, int numero, String bairro,
 			String cep, String nomeCidade, String uf, String banco,
 			String agencia, int contaCorrente, double rendaFamiliar,
-			double rendaPessoal, String observacao){
+			double rendaPessoal, String observacao) {
 		boolean cpfExiste = db.verificarCpfCliente(cpf);
-		if(cpfExiste){
+		if (cpfExiste) {
 			int opcao = InterfaceUsuario.exibirMensagemCpfExistente();
-			if(opcao == 1){
+			if (opcao == 1) {
 				InterfaceUsuario.cancelarCriacaoCliente();
 			}
-		}else{
+		} else {
 			boolean idadeValida = verificarIdadeCliente(dataNascimento);
-			if(!idadeValida){
-				//TODO
-			}else{
-			   boolean camposOK =verificaCamposObrigatoriosCliente();	
-			   if(!camposOK){
-				   InterfaceUsuario.exibirMensagemCliente("Existem campos obrigatórios não preenchidos");
-			   }else{
-				   Cliente cliente = new Cliente(cpf, nomeCompleto, rg, dataNascimento,
-							new Endereco(logradouro, numero, bairro, cep, new Cidade(
-									nomeCidade, new Estado(uf))), new DadosFinanceiros(
-									banco, agencia, contaCorrente, rendaFamiliar,
-									rendaPessoal, observacao));
-				   db.salvarClienteBanco(cliente);
-				   InterfaceUsuario.exibirMensagemCliente("Cadastro realizado com sucesso");
-			   }
+			if (!idadeValida) {
+				// TODO
+			} else {
+				boolean camposOK = verificaCamposObrigatoriosCliente();
+				if (!camposOK) {
+					InterfaceUsuario
+							.exibirMensagemCliente("Existem campos obrigatórios não preenchidos");
+				} else {
+					Cliente cliente = new Cliente(cpf, nomeCompleto, rg,
+							dataNascimento, new Endereco(logradouro, numero,
+									bairro, cep, new Cidade(nomeCidade,
+											new Estado(uf))),
+							new DadosFinanceiros(banco, agencia, contaCorrente,
+									rendaFamiliar, rendaPessoal, observacao));
+					db.salvarClienteBanco(cliente);
+					InterfaceUsuario
+							.exibirMensagemCliente("Cadastro realizado com sucesso");
+				}
 			}
 		}
-		
-		
+
 	}
 
 	private boolean verificaCamposObrigatoriosCliente() {
@@ -161,19 +166,21 @@ public class Controller {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	public void buscarFuncionario(int codigo, String nome, String cpf,
 			java.util.Date date) {
-		List<Funcionario> funcionariosBusca = db.buscarFuncionario(codigo, nome, cpf,
-				(Date) date);
-		List<view.cadastros.representacoesInterface.PessoaView> funcionariosView = new ArrayList<view.cadastros.representacoesInterface.PessoaView>();
+		List<Funcionario> funcionariosBusca = db.buscarFuncionario(codigo,
+				nome, cpf, (Date) date);
+		String[][] dados = new String[funcionariosBusca.size()][4];
+		int indice = 0;
 		for (Funcionario funcionario : funcionariosBusca) {
-			funcionariosView
-					.add(new view.cadastros.representacoesInterface.PessoaView(
-							funcionario.getIdFuncionario(), funcionario.getNome(),
-							funcionario.getDataNascimento(), "" + funcionario.getCPF()));
+			dados[indice][0] = ""+funcionario.getIdFuncionario();
+			dados[indice][1] = funcionario.getNome();
+			dados[indice][2] = ""+funcionario.getDataNascimento();
+			dados[indice][3] = ""+funcionario.getCPF();
+
 		}
-		InterfaceUsuario.carregaListaFuncionario(funcionariosBusca);
+		InterfaceUsuario.carregaListaFuncionario(dados);
 	}
 
 	public void excluirfuncionario(int id) {
@@ -184,37 +191,53 @@ public class Controller {
 		}
 	}
 
-	public void editarCadastrofuncionario(int codigo,String nome, Date dataNascimento, int CPF, int RG, String cargo, String email, int telefone,
-			String logradouro, int numero, String bairro, String CEP, String nomeCidade, String uf) {
-		Funcionario funcionario = new Funcionario(codigo, nome, dataNascimento, CPF, RG, cargo, email, telefone, new Endereco(logradouro, numero, bairro, CEP, new Cidade(
-				nomeCidade, new Estado(uf))));
+	public void editarCadastrofuncionario(int codigo, String nome,
+			Date dataNascimento, int CPF, int RG, String cargo, String email,
+			int telefone, String logradouro, int numero, String bairro,
+			String CEP, String nomeCidade, String uf) {
+		Funcionario funcionario = new Funcionario(codigo, nome, dataNascimento,
+				CPF, RG, cargo, email, telefone, new Endereco(logradouro,
+						numero, bairro, CEP, new Cidade(nomeCidade, new Estado(
+								uf))));
 		String msg = db.editarFuncionarioBanco(funcionario);
 		InterfaceUsuario.exibirMensagemFuncionario(msg);
 	}
-	
-	public void criarCadastrofuncionario(String nome, Date dataNascimento, int CPF, int RG, String cargo, String email, int telefone,
-			String logradouro, int numero, String bairro, String CEP, String nomeCidade, String uf){
+
+	public void criarCadastrofuncionario(String nome, Date dataNascimento,
+			int CPF, int RG, String cargo, String email, int telefone,
+			String logradouro, int numero, String bairro, String CEP,
+			String nomeCidade, String uf) {
 		boolean cpfExiste = db.verificarCpfFuncionario(CPF);
-		if(cpfExiste){
-			int opcao = InterfaceUsuario.exibirMensagemCpfExistenteFuncionario();
-			if(opcao == 1){
+		if (cpfExiste) {
+			int opcao = InterfaceUsuario
+					.exibirMensagemCpfExistenteFuncionario();
+			if (opcao == 1) {
 				InterfaceUsuario.cancelarCriacaoFuncionario();
 			}
-		}else{
-			   boolean camposOK =verificaCamposObrigatoriosFuncionario();	
-			   if(!camposOK){
-				   InterfaceUsuario.exibirMensagemFuncionario("Campos obrigatórios não preenchidos");
-			   }else{
-				   Funcionario funcionario = new Funcionario(nome, dataNascimento, CPF, RG, cargo, email, telefone, new Endereco(logradouro, numero, bairro, CEP, new Cidade(
-							nomeCidade, new Estado(uf))));
-				   db.salvarFuncionarioBanco(funcionario);
-				   InterfaceUsuario.exibirMensagemFuncionario("Cadastro realizado com sucesso");
-			   }
+		} else {
+			boolean camposOK = verificaCamposObrigatoriosFuncionario();
+			if (!camposOK) {
+				InterfaceUsuario
+						.exibirMensagemFuncionario("Campos obrigatórios não preenchidos");
+			} else {
+				Funcionario funcionario = new Funcionario(nome, dataNascimento,
+						CPF, RG, cargo, email, telefone, new Endereco(
+								logradouro, numero, bairro, CEP, new Cidade(
+										nomeCidade, new Estado(uf))));
+				db.salvarFuncionarioBanco(funcionario);
+				InterfaceUsuario
+						.exibirMensagemFuncionario("Cadastro realizado com sucesso");
 			}
 		}
+	}
 
 	private boolean verificaCamposObrigatoriosFuncionario() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	private void buscaDadosCliente(int codigo) {
+		Cliente cliente = db.buscarDadosCliente(codigo);
+
 	}
 }

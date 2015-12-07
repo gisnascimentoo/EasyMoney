@@ -318,7 +318,6 @@ public class CadClienteView extends JFrame {
 				dateNasc = (Date) formatter.parse(textFieldDataNascimento
 						.getText());
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		if (edicao) {

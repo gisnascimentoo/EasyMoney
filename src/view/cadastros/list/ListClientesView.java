@@ -6,7 +6,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -17,8 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.table.DefaultTableModel;
 
-import model.Cliente;
 import view.InterfaceUsuario;
 
 public class ListClientesView extends JFrame {
@@ -36,6 +35,10 @@ public class ListClientesView extends JFrame {
 	private JTextField jTextFieldCodigo;
 	private JTextField jTextFieldDataNascimento;
 	private JTextField jTextFieldNome;
+	JScrollPane rolagem;
+	DefaultTableModel modelo;
+	String[] colunas = new String[] { "Código", "Nome", "Data de Nascimento",
+			"CPF"};
 
 	public ListClientesView() {
 		initComponents();
@@ -67,18 +70,7 @@ public class ListClientesView extends JFrame {
 		jButtonFechar.setText("Fechar");
 
 		jLabel4.setText("CPF");
-
-		jTableListagemCliente.setModel(new javax.swing.table.DefaultTableModel(
-				null, new String[] { "Código", "Nome", "Data de Nascimento",
-						"CPF", "Ação" }) {
-			Class[] types = new Class[] { java.lang.Object.class,
-					java.lang.Object.class, java.lang.Object.class,
-					java.lang.Object.class, java.lang.Object.class };
-
-			public Class getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-		});
+       
 		jScrollPane1.setViewportView(jTableListagemCliente);
 
 		jButtonBuscar.setText("Buscar");
@@ -266,7 +258,6 @@ public class ListClientesView extends JFrame {
 			if (jTextFieldCodigo.getText().trim().length() > 0)
 				Integer.parseInt(jTextFieldCodigo.getText());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		InterfaceUsuario.buscarCliente(codigo, jTextFieldNome.getText(),
@@ -279,8 +270,10 @@ public class ListClientesView extends JFrame {
 
 	}
 
-	public void addTabela(List<Cliente> clientesBusca) {
-		// TODO
+	public void addTabela(String[][] dados) {
+		modelo = new DefaultTableModel(dados, colunas);
+		jTableListagemCliente = new JTable(modelo);
+		rolagem = new JScrollPane(jTableListagemCliente);
 	}
 
 	public boolean confirmaExclusao() {
@@ -301,10 +294,12 @@ public class ListClientesView extends JFrame {
 
 	public int MensagemCpfExistente() {
 		Object[] options = { "Retornar", "Cancelar" };
-		return JOptionPane.showOptionDialog(null,
-				"Já existe um cliente cadastrado com este cpf. Retornar ao cadasto ou cancelar ação?", "CPF Existente",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-				options, options[0]);
-		
+		return JOptionPane
+				.showOptionDialog(
+						null,
+						"Já existe um cliente cadastrado com este cpf. Retornar ao cadasto ou cancelar ação?",
+						"CPF Existente", JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
 	}
 }
