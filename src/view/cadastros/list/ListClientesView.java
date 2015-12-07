@@ -35,7 +35,6 @@ public class ListClientesView extends JFrame {
 	private JTextField jTextFieldCodigo;
 	private JTextField jTextFieldDataNascimento;
 	private JTextField jTextFieldNome;
-	JScrollPane rolagem;
 	DefaultTableModel modelo;
 	String[] colunas = new String[] { "Código", "Nome", "Data de Nascimento",
 			"CPF"};
@@ -76,6 +75,10 @@ public class ListClientesView extends JFrame {
 		jButtonBuscar.setText("Buscar");
 
 		jButtonAdicionarCliente.setText("Adicionar Cliente");
+		
+		modelo = new DefaultTableModel(null, colunas);
+		jTableListagemCliente = new JTable(modelo);
+		jScrollPane1 = new JScrollPane(jTableListagemCliente);
 
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
@@ -273,7 +276,7 @@ public class ListClientesView extends JFrame {
 	public void addTabela(String[][] dados) {
 		modelo = new DefaultTableModel(dados, colunas);
 		jTableListagemCliente = new JTable(modelo);
-		rolagem = new JScrollPane(jTableListagemCliente);
+		jScrollPane1 = new JScrollPane(jTableListagemCliente);
 	}
 
 	public boolean confirmaExclusao() {

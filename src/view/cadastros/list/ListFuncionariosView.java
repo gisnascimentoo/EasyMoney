@@ -36,6 +36,7 @@ public class ListFuncionariosView extends JFrame {
 	String[] colunas = new String[] { "Código", "Nome", "Data de Nascimento",
 			"CPF"};
 
+
 	/**
 	 * Create the frame.
 	 */
@@ -82,6 +83,10 @@ public class ListFuncionariosView extends JFrame {
 		textFieldCPF.setBounds(159, 85, 181, 20);
 		contentPane.add(textFieldCPF);
 		textFieldCPF.setColumns(10);
+		
+		modelo = new DefaultTableModel(null, colunas);
+		tabela = new JTable(modelo);
+		rolagem = new JScrollPane(tabela);
 
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(373, 75, 164, 36);
@@ -95,9 +100,7 @@ public class ListFuncionariosView extends JFrame {
 			}
 		});
 		
-		modelo = new DefaultTableModel(null, colunas);
-		tabela = new JTable(modelo);
-		rolagem = new JScrollPane(tabela);
+
 
 		JButton btnAdicionarFuncionario = new JButton("Adicionar Funcion�rio");
 		btnAdicionarFuncionario.setBounds(25, 122, 164, 23);
@@ -111,8 +114,8 @@ public class ListFuncionariosView extends JFrame {
 			}
 		});
 
-		tabela.setBounds(25, 168, 520, 157);
-		contentPane.add(tabela);
+		rolagem.setBounds(25, 168, 520, 157);
+		contentPane.add(rolagem);
 
 		JButton btnFechar = new JButton("Fechar");
 		btnFechar.setBounds(446, 336, 101, 30);

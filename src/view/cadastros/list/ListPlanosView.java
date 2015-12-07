@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.table.DefaultTableModel;
 
 import view.InterfaceUsuario;
 
@@ -24,11 +25,14 @@ public class ListPlanosView extends JFrame {
 	private JTable jTableListagemPlano;
 	private JTextField jTextFieldCodigo;
 	private JTextField jTextFieldPlano;
+	String[] colunas = new String[] { "Código", "Plano" };
+	JScrollPane rolagem;
+	DefaultTableModel modelo;
 
-	public ListPlanosView(){
+	public ListPlanosView() {
 		init();
 	}
-	
+
 	private void init() {
 		setTitle("Cliente");
 		setBounds(100, 100, 698, 381);
@@ -41,7 +45,7 @@ public class ListPlanosView extends JFrame {
 		jButtonAdicionarPlano = new JButton();
 		jScrollPane1 = new JScrollPane();
 		jTableListagemPlano = new JTable();
-		
+
 		jLabel1.setText("Código");
 
 		jButtonFechar.setText("Fechar");
@@ -57,31 +61,19 @@ public class ListPlanosView extends JFrame {
 
 		jButtonAdicionarPlano.setText("Adicionar Plano");
 
-		jTableListagemPlano.setModel(new javax.swing.table.DefaultTableModel(
-				new Object[][] {
-
-				}, new String[] { "Código", "Plano" }) {
-			Class[] types = new Class[] { java.lang.String.class,
-					java.lang.String.class };
-
-			public Class getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-		});
-		
+		modelo = new DefaultTableModel(null, colunas);
+		jTableListagemPlano = new JTable(modelo);
+		rolagem = new JScrollPane(jTableListagemPlano);
 		jButtonAdicionarPlano.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				adicionarPlano();
-				
+
 			}
 		});
-		
-		jScrollPane1.setViewportView(jTableListagemPlano);
 
-		GroupLayout layout = new GroupLayout(
-				getContentPane());
+		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(layout
 				.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -129,14 +121,12 @@ public class ListPlanosView extends JFrame {
 														GroupLayout.PREFERRED_SIZE,
 														653,
 														GroupLayout.PREFERRED_SIZE))
-								.addContainerGap(
-										GroupLayout.DEFAULT_SIZE,
+								.addContainerGap(GroupLayout.DEFAULT_SIZE,
 										Short.MAX_VALUE))
 				.addGroup(
 						GroupLayout.Alignment.TRAILING,
 						layout.createSequentialGroup()
-								.addContainerGap(
-										GroupLayout.DEFAULT_SIZE,
+								.addContainerGap(GroupLayout.DEFAULT_SIZE,
 										Short.MAX_VALUE)
 								.addComponent(jButtonFechar).addContainerGap()));
 		layout.setVerticalGroup(layout
@@ -171,21 +161,19 @@ public class ListPlanosView extends JFrame {
 								.addPreferredGap(
 										LayoutStyle.ComponentPlacement.UNRELATED)
 								.addComponent(jScrollPane1,
-										GroupLayout.PREFERRED_SIZE,
-										199,
+										GroupLayout.PREFERRED_SIZE, 199,
 										GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(
 										LayoutStyle.ComponentPlacement.RELATED)
 								.addComponent(jButtonFechar)
-								.addContainerGap(
-										GroupLayout.DEFAULT_SIZE,
+								.addContainerGap(GroupLayout.DEFAULT_SIZE,
 										Short.MAX_VALUE)));
 
 	}
 
 	protected void adicionarPlano() {
 		InterfaceUsuario.cadPlanoEmprestimoView();
-		
+
 	}
 
 	protected void fechar(ActionEvent evt) {
