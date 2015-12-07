@@ -258,7 +258,7 @@ public class ManipuladorBanco {
 			prepared.setDouble(3, contrato.getValorParcelas());
 			prepared.setDate(4, contrato.getDataCriacaoContrato());
 			prepared.setDate(5, contrato.getDataTerminoContrato());
-			prepared.setString(6, contrato.getStatusContrato().getName());
+			prepared.setString(6, contrato.getStatusContrato());
 			prepared.setInt(7, contrato.getCliente().getIdCliente());
 			prepared.setInt(8, contrato.getFuncionarioResponsavel().getIdFuncionario());
 			prepared.setInt(9, contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());
@@ -377,7 +377,7 @@ public class ManipuladorBanco {
 			prepared.setDouble(2, contrato.getValorEmprestimo());
 			prepared.setDouble(3, contrato.getValorParcelas());
 			prepared.setDate(4, contrato.getDataTerminoContrato());
-			prepared.setString(5, contrato.getStatusContrato().getName());
+			prepared.setString(5, contrato.getStatusContrato());
 			prepared.setInt(6, contrato.getCliente().getIdCliente());
 			prepared.setInt(7, contrato.getFuncionarioResponsavel().getIdFuncionario());
 			prepared.setInt(8, contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());

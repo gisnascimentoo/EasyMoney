@@ -11,13 +11,13 @@ public class Contrato {
 	private Date dataCriacaoContrato;
 	private Date dataTerminoContrato;
 	private Cliente cliente;
-	private StatusContrato statusContrato;
+	private String statusContrato;
 	private Funcionario funcionarioResponsavel;
 	private PlanoEmprestimo planoEmprestimo;
 	private String observacoes;
 
 	public Contrato(int idContrato, int qntdParcelas, double valorEmprestimo, double valorParcelas,
-			Date dataCriacaoContrato, Date dataTerminoContrato, Cliente cliente, StatusContrato statusContrato,
+			Date dataCriacaoContrato, Date dataTerminoContrato, Cliente cliente, String statusContrato,
 			Funcionario funcionarioResponsavel, PlanoEmprestimo planoEmprestimo, String observacoes) {
 		super();
 		this.idContrato = idContrato;
@@ -34,7 +34,7 @@ public class Contrato {
 	}
 
 	public Contrato(int qntdParcelas, double valorEmprestimo, double valorParcelas, Date dataCriacaoContrato,
-			Date dataTerminoContrato, Cliente cliente, StatusContrato statusContrato,
+			Date dataTerminoContrato, Cliente cliente, String statusContrato,
 			Funcionario funcionarioResponsavel, PlanoEmprestimo planoEmprestimo, String observacoes) {
 		super();
 		this.qntdParcelas = qntdParcelas;
@@ -105,11 +105,11 @@ public class Contrato {
 		this.cliente = cliente;
 	}
 
-	public StatusContrato getStatusContrato() {
+	public String getStatusContrato() {
 		return statusContrato;
 	}
 
-	public void setStatusContrato(StatusContrato statusContrato) {
+	public void setStatusContrato(String statusContrato) {
 		this.statusContrato = statusContrato;
 	}
 

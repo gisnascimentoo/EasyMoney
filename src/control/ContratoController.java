@@ -95,7 +95,7 @@ public class ContratoController {
 	}
 	
 	//SALVA ou edita o contrato
-	public boolean enviarContrato(Integer codContrato, int idCliente, StatusContrato status, int idPlanoEmprestimo, int numParcelas, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes)
+	public boolean enviarContrato(Integer codContrato, int idCliente, String status, int idPlanoEmprestimo, int numParcelas, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes)
 	{
 		PlanoEmprestimo plEmprestimo = recuperaPlanoEmprestimo(idPlanoEmprestimo);
 		
@@ -108,11 +108,11 @@ public class ContratoController {
 			
 			//Necessita Refazer a analise caso o status esteja como pre_aprovado ou pre_rejeitado
 			if (analisaPerfilComPlano(plEmprestimo)&&
-					((status == null)||(status == StatusContrato.PRE_APROVADO)||(status == StatusContrato.PRE_REJEITADO)))
+					((status == null)||(status == StatusContrato.PRE_APROVADO.getName())||(status == StatusContrato.PRE_REJEITADO.getName())))
 			{
-				status = StatusContrato.PRE_APROVADO; 
+				status = StatusContrato.PRE_APROVADO.getName(); 
 			} else {
-				status = StatusContrato.PRE_REJEITADO;
+				status = StatusContrato.PRE_REJEITADO.getName();
 			}	
 			
 			Contrato contrato = new Contrato(numParcelas, valorEmprestimo, valorParcelas, (java.sql.Date) new Date(), (java.sql.Date) dataTermino, clt, status, null, plEmprestimo, observacoes);
@@ -126,9 +126,9 @@ public class ContratoController {
 			
 			if (analisaPerfilComPlano(plEmprestimo))
 			{
-				status = StatusContrato.PRE_APROVADO; 
+				status = StatusContrato.PRE_APROVADO.getName(); 
 			} else {
-				status = StatusContrato.PRE_REJEITADO;
+				status = StatusContrato.PRE_REJEITADO.getName();
 			}	
 			
 			Contrato contrato = db.buscarContratoId(codContrato);
