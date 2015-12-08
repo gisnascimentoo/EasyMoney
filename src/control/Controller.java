@@ -190,8 +190,10 @@ public class Controller {
 	public void editarCadastrofuncionario(int codigo, String nome, Date dataNascimento, int CPF, int RG, String cargo,
 			String email, int telefone, String logradouro, int numero, String bairro, String CEP, String nomeCidade,
 			String uf) {
-		Funcionario funcionario = new Funcionario(codigo, nome, dataNascimento, CPF, RG, cargo, email, telefone,
-				new Endereco(logradouro, numero, bairro, CEP, new Cidade(nomeCidade, new Estado(uf))));
+		Estado estado = new Estado(uf);
+		Cidade cidade = new Cidade(nomeCidade, estado);
+		Endereco endereco = new Endereco(logradouro, numero, bairro, CEP, cidade);
+		Funcionario funcionario = new Funcionario(nome, dataNascimento, CPF, RG, cargo, email, telefone, endereco);
 		String msg = db.editarFuncionarioBanco(funcionario);
 		InterfaceUsuario.exibirMensagemFuncionario(msg);
 	}
