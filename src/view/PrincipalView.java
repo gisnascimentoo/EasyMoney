@@ -167,9 +167,9 @@ public class PrincipalView extends JFrame {
 	}
 
 	public boolean encerrarSessao() {
-		Object[] options = { "Sim", "N√£o" };
+		Object[] options = { "Sim", "N„o" };
 		int opcao = JOptionPane.showOptionDialog(null, "Deseja fazer logout?",
-				"Encerrar sess√£o", JOptionPane.YES_NO_OPTION,
+				"Encerrar sess„o", JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 		if (opcao == 0)
 			return true;
