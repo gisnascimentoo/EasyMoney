@@ -21,10 +21,8 @@ public class ContratoController {
 		this.db = new ManipuladorBanco();
 	}
 	
-	//DEVE SER ACIONADO QUANDO UM VALOR NO COMBO CLIENTE FOR SELECIONADO
 	public void localizaCliente(int idCliente)
 	{
-		//Recebe o cliente
 		cl = (Cliente) db.buscarCliente(idCliente, null, null, null);
 		if (cl != null){
 			String agencia = cl.getDadosFinanceiros().getAgencia();
@@ -36,8 +34,8 @@ public class ContratoController {
 		}
 	}
 	
-	
-	public String recuperaPerfilCliente(double renda)
+	//Usado para pre_aprovação - pre_reprovacao
+	private String recuperaPerfilCliente(double renda)
 	{
 		//Verifica se a renda esta no perfil A
 		if (renda <= PerfilCliente.PERFIL_A.getValorMaximo()){
@@ -57,7 +55,8 @@ public class ContratoController {
 		}}
 	}
 	
-	public List<PlanoEmprestimo> recuperaPlanosPerfil(String perfilCliente)
+	//
+	private List<PlanoEmprestimo> recuperaPlanosPerfil(String perfilCliente)
 	{
 		return db.buscarPlanoEmprestimoPorPerfil(perfilCliente); 
 	}
@@ -70,7 +69,7 @@ public class ContratoController {
 		return db.buscarPlanoEmprestimoId(idPlanoEmprestimo);
 	}
 	
-	//Retorna se o perfil do cliente ï¿½ prï¿½-aprovado ou prï¿½-rejeitado
+	//Retorna se o perfil do cliente é aprovado ou reprovado
 	public boolean analisaPerfilComPlano(PlanoEmprestimo planoSelecionado){
 		String pfc = recuperaPerfilCliente(cl.getDadosFinanceiros().getRendaPessoal());
 		List<PlanoEmprestimo> lPlanosPossiveis = recuperaPlanosPerfil(pfc);
