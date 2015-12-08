@@ -327,4 +327,31 @@ public class InterfaceUsuario {
 		novoContratoView.povoarDadosCliente(banco, agencia, contaCorrente);		
 	}
 
+	public static void editarClienteCarregarPorId(int codigo) {
+	    controller.buscaDadosCliente(codigo);
+		
+	}
+
+	public static void excluirCliente(int codigo) {
+		controller.excluirCliente(codigo);
+	}
+
+	public static void editarFuncionarioCarregarPorId(int codigo) {
+		controller.buscaDadosCliente(codigo);
+		
+	}
+
+	public static void excluirFuncionarioCarregarPorId(int codigo) {
+		controller.excluirfuncionario(codigo);
+		
+	}
+
+	public static void editarPlanoCarregarPorId(int codigo) {
+		controller.buscaDadosPlano(codigo);
+		
+	}
+
+	public static void excluirPlanoCarregarPorId(int codigo) {
+		controller.excluirPlano(codigo);
+	}
 }

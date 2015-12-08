@@ -102,6 +102,24 @@ public class ListFuncionariosView extends JFrame {
 			}
 		});
 		
+		btnEditar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editar();
+				
+			}
+		});
+		
+		btnExcluir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			    excluir();
+				
+			}
+		});
+		
 
 
 		JButton btnAdicionarFuncionario = new JButton("Adicionar Funcion�rio");
@@ -138,6 +156,33 @@ public class ListFuncionariosView extends JFrame {
 
 			}
 		});
+	}
+
+	protected void excluir() {
+		int codigo = getIdTabela();
+		if(codigo >= 0 ){
+			InterfaceUsuario.excluirFuncionarioCarregarPorId(codigo);
+		}
+		
+	}
+
+	protected void editar() {
+		int codigo = getIdTabela();
+		if(codigo >= 0 ){
+			InterfaceUsuario.editarFuncionarioCarregarPorId(codigo);
+		}
+	}
+	
+	private int getIdTabela(){
+		int row = tabela.getSelectedRow();
+		int codigo = -1;
+		if(row >= 0){
+			String codigoS = (String)tabela.getModel().getValueAt(row, 0);
+			codigo  = Integer.parseInt(codigoS); 
+		}else{
+			JOptionPane.showMessageDialog(null, "Selecione uma linha para ação");
+		}
+		return codigo;
 	}
 
 	protected void fechar() {

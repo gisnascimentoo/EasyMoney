@@ -85,7 +85,25 @@ public class ListClientesView extends JFrame {
 		
 		JButton btnEditar = new JButton("Editar");
 		
+		btnEditar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			    editar();
+				
+			}
+		});
+		
 		JButton btnExcluir = new JButton("Excluir");
+		
+		btnExcluir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			     excluir();
+				
+			}
+		});
 
 		GroupLayout layout = new GroupLayout(getContentPane());
 		layout.setHorizontalGroup(
@@ -177,6 +195,32 @@ public class ListClientesView extends JFrame {
 			}
 		});
 
+	}
+
+	protected void excluir() {
+		int codigo = getIdTabela();
+		if(codigo >= 0 ){
+			InterfaceUsuario.excluirCliente(codigo);
+		}
+	}
+
+	protected void editar() {
+		int codigo = getIdTabela();
+		if(codigo >= 0 ){
+			InterfaceUsuario.editarClienteCarregarPorId(codigo);
+		}
+	}
+	
+	private int getIdTabela(){
+		int row = jTableListagemCliente.getSelectedRow();
+		int codigo = -1;
+		if(row >= 0){
+			String codigoS = (String)jTableListagemCliente.getModel().getValueAt(row, 0);
+			codigo  = Integer.parseInt(codigoS); 
+		}else{
+			JOptionPane.showMessageDialog(null, "Selecione uma linha para ação");
+		}
+		return codigo;
 	}
 
 	protected void fechar() {

@@ -89,7 +89,24 @@ public class ListPlanosView extends JFrame {
 		
 		btnEditar = new JButton("Editar");
 		
+		btnEditar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editar();
+			}
+		});
+		
 		btnExcluir = new JButton("Excluir");
+		
+		btnExcluir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				excluir();
+				
+			}
+		});
 
 		GroupLayout layout = new GroupLayout(getContentPane());
 		layout.setHorizontalGroup(
@@ -146,6 +163,20 @@ public class ListPlanosView extends JFrame {
 
 	}
 
+	protected void excluir() {
+		int codigo = getIdTabela();
+		if(codigo >= 0 ){
+			InterfaceUsuario.excluirPlanoCarregarPorId(codigo);
+		}
+	}
+
+	protected void editar() {
+		int codigo = getIdTabela();
+		if(codigo >= 0 ){
+			InterfaceUsuario.editarPlanoCarregarPorId(codigo);
+		}
+	}
+
 	protected void adicionarPlano() {
 		InterfaceUsuario.cadPlanoEmprestimoView();
 
@@ -175,6 +206,18 @@ public class ListPlanosView extends JFrame {
 			return true;
 		else
 			return false;
+	}
+	
+	private int getIdTabela(){
+		int row = jTableListagemPlano.getSelectedRow();
+		int codigo = -1;
+		if(row >= 0){
+			String codigoS = (String)jTableListagemPlano.getModel().getValueAt(row, 0);
+			codigo  = Integer.parseInt(codigoS); 
+		}else{
+			JOptionPane.showMessageDialog(null, "Selecione uma linha para ação");
+		}
+		return codigo;
 	}
 
 	protected void buscar() {
