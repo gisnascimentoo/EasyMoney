@@ -268,18 +268,18 @@ public class CadFuncionarioView extends JFrame {
 				e.printStackTrace();
 			}
 		if (edicao) {
-			InterfaceUsuario.editarFuncionario(InterfaceUsusario.transformaStringInt(textFieldCodFuncionario.getText()), textFieldNome.getText(),
-					dateNasc, InterfaceUsusario.transformaStringInt(textFieldCPF.getText()), InterfaceUsusario.transformaStringInt(textFieldRG.getText()),
+			InterfaceUsuario.editarFuncionario(InterfaceUsuario.transformaStringInt(textFieldCodFuncionario.getText()), textFieldNome.getText(),
+					dateNasc, InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
 					comboBoxCargo.getSelectedItem().toString(), textFieldEmail.getText(),
-					InterfaceUsusario.transformaStringInt(textFieldTelefone.getText()), 
-					textFieldLogradouro.getText(),InterfaceUsusario.transformaStringInt(textFieldNumero.getText()),
+					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
+					textFieldLogradouro.getText(),InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
 					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), comboBoxSexo.getSelectedItem().toString());
 		} else {
 			InterfaceUsuario.cadastrarFuncionario(textFieldNome.getText(),
-					dateNasc, InterfaceUsusario.transformaStringInt(textFieldCPF.getText()), InterfaceUsusario.transformaStringInt(textFieldRG.getText()),
+					dateNasc, InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
 					comboBoxCargo.getSelectedItem().toString(), textFieldEmail.getText(),
-					InterfaceUsusario.transformaStringInt(textFieldTelefone.getText()), 
-					textFieldLogradouro.getText(), InterfaceUsusario.transformaStringInt(textFieldNumero.getText()),
+					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
+					textFieldLogradouro.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
 					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), comboBoxSexo.getSelectedItem().toString());
 		}
 	}

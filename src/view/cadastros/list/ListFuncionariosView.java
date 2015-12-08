@@ -178,7 +178,7 @@ public class ListFuncionariosView extends JFrame {
 		int codigo = -1;
 		if(row >= 0){
 			String codigoS = (String)tabela.getModel().getValueAt(row, 0);
-			codigo  = InterfaceUsusario.transformaStringInt(codigoS); 
+			codigo  = InterfaceUsuario.transformaStringInt(codigoS); 
 		}else{
 			JOptionPane.showMessageDialog(null, "Selecione uma linha para ação");
 		}
@@ -197,7 +197,7 @@ public class ListFuncionariosView extends JFrame {
 			if (textFieldDataNasc.getText().trim().length() > 0)
 				date = (Date) formatter.parse(textFieldDataNasc.getText());
 			if (textFieldCodigo.getText().trim().length() > 0)
-				InterfaceUsusario.transformaStringInt(textFieldCodigo.getText());
+				InterfaceUsuario.transformaStringInt(textFieldCodigo.getText());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

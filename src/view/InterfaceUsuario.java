@@ -355,11 +355,11 @@ public class InterfaceUsuario {
 		controller.excluirPlano(codigo);
 	}
 	
-	public int transformaStringInt(String texto) {
+	public static int transformaStringInt(String texto) {
 		return Integer.parseInt(texto);
 	}
 	
-	public double transformaStringDouble(String texto) {
+	public static double transformaStringDouble(String texto) {
 		return  Double.parseDouble(texto);
 	}
 }

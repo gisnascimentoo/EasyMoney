@@ -210,24 +210,24 @@ public class CadPlanoEmprestimoView extends JFrame {
 		if (edicao) {
 
 			InterfaceUsuario.editarPlano(
-					InterfaceUsusario.transformaStringInt(textFieldCodPlano.getText()),
+					InterfaceUsuario.transformaStringInt(textFieldCodPlano.getText()),
 					textFieldPlanoEmprestimo.getText(), dataCadastro,
-					transformaStringDouble(textFieldJurosValorTotal.getText()),
-					transformaStringDouble(textFieldJurosMensal.getText()),
-					transformaStringDouble(textFieldValorMinimo.getText()),
-					transformaStringDouble(textFieldValorMaximo.getText()),
-					InterfaceUsusario.transformaStringInt(textFieldNumMinimoParcelas.getText()),
-					InterfaceUsusario.transformaStringInt(textFieldNumMaxParcelas.getText()),
+					InterfaceUsuario.transformaStringDouble(textFieldJurosValorTotal.getText()),
+					InterfaceUsuario.transformaStringDouble(textFieldJurosMensal.getText()),
+					InterfaceUsuario.transformaStringDouble(textFieldValorMinimo.getText()),
+					InterfaceUsuario.transformaStringDouble(textFieldValorMaximo.getText()),
+					InterfaceUsuario.transformaStringInt(textFieldNumMinimoParcelas.getText()),
+					InterfaceUsuario.transformaStringInt(textFieldNumMaxParcelas.getText()),
 					textFieldObservacoes.getText());
 		} else {
 			InterfaceUsuario.cadastrarPlano(textFieldPlanoEmprestimo.getText(),
 					dataCadastro,
-					transformaStringDouble(textFieldJurosValorTotal.getText()),
-					transformaStringDouble(textFieldJurosMensal.getText()),
-					transformaStringDouble(textFieldValorMinimo.getText()),
-					transformaStringDouble(textFieldValorMaximo.getText()),
-					InterfaceUsusario.transformaStringInt(textFieldNumMinimoParcelas.getText()),
-					InterfaceUsusario.transformaStringInt(textFieldNumMaxParcelas.getText()),
+					InterfaceUsuario.transformaStringDouble(textFieldJurosValorTotal.getText()),
+					InterfaceUsuario.transformaStringDouble(textFieldJurosMensal.getText()),
+					InterfaceUsuario.transformaStringDouble(textFieldValorMinimo.getText()),
+					InterfaceUsuario.transformaStringDouble(textFieldValorMaximo.getText()),
+					InterfaceUsuario.transformaStringInt(textFieldNumMinimoParcelas.getText()),
+					InterfaceUsuario.transformaStringInt(textFieldNumMaxParcelas.getText()),
 					textFieldObservacoes.getText());
 		}
 

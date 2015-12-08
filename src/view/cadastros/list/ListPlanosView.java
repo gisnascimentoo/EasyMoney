@@ -213,7 +213,7 @@ public class ListPlanosView extends JFrame {
 		int codigo = -1;
 		if(row >= 0){
 			String codigoS = (String)jTableListagemPlano.getModel().getValueAt(row, 0);
-			codigo  = InterfaceUsusario.transformaStringInt(codigoS); 
+			codigo  = InterfaceUsuario.transformaStringInt(codigoS); 
 		}else{
 			JOptionPane.showMessageDialog(null, "Selecione uma linha para ação");
 		}
@@ -223,7 +223,7 @@ public class ListPlanosView extends JFrame {
 	protected void buscar() {
 		int codigo = 0;
 		if (jTextFieldCodigo.getText().trim().length() > 0)
-			InterfaceUsusario.transformaStringInt(jTextFieldCodigo.getText());
+			InterfaceUsuario.transformaStringInt(jTextFieldCodigo.getText());
 		InterfaceUsuario.buscarPlano(codigo, jTextFieldPlano.getText());
 
 	}

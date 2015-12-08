@@ -216,7 +216,7 @@ public class ListClientesView extends JFrame {
 		int codigo = -1;
 		if(row >= 0){
 			String codigoS = (String)jTableListagemCliente.getModel().getValueAt(row, 0);
-			codigo  = InterfaceUsusario.transformaStringInt(codigoS); 
+			codigo  = InterfaceUsuario.transformaStringInt(codigoS); 
 		}else{
 			JOptionPane.showMessageDialog(null, "Selecione uma linha para ação");
 		}
@@ -237,7 +237,7 @@ public class ListClientesView extends JFrame {
 				date = (Date) formatter.parse(jTextFieldDataNascimento
 						.getText());
 			if (jTextFieldCodigo.getText().trim().length() > 0)
-				InterfaceUsusario.transformaStringInt(jTextFieldCodigo.getText());
+				InterfaceUsuario.transformaStringInt(jTextFieldCodigo.getText());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

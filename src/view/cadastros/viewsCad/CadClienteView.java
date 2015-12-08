@@ -1,14 +1,5 @@
 package view.cadastros.viewsCad;
 
-import java.awt.BorderLayout;
-
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,11 +8,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JComboBox;
-import javax.swing.JSeparator;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import view.InterfaceUsuario;
 
@@ -322,26 +317,26 @@ public class CadClienteView extends JFrame {
 				e.printStackTrace();
 			}
 		if (!edicao) {
-			InterfaceUsuario.cadastrarCliente(InterfaceUsusario.transformaStringInt(textFieldCPF
-					.getText()), textFieldNome.getText(),InterfaceUsusario.transformaStringInt(textFieldRG.getText()), dateNasc,
-					textFieldLogradouro.getText(), InterfaceUsusario.transformaStringInt(textFieldNumero.getText()),
+			InterfaceUsuario.cadastrarCliente(InterfaceUsuario.transformaStringInt(textFieldCPF
+					.getText()), textFieldNome.getText(),InterfaceUsuario.transformaStringInt(textFieldRG.getText()), dateNasc,
+					textFieldLogradouro.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
 					textFieldBairro.getText(), "cep",
 					textFieldCidade.getText(), comboBoxUF.getSelectedItem()
 							.toString(), textFieldBanco.getText(),
-					textFieldAgencia.getText(),InterfaceUsusario.transformaStringInt(textFieldContaCorrente.getText()), transformaStringDouble(textFieldRendaFamiliar.getText()),
-					transformaStringDouble(textFieldRendaPessoal.getText()),
+					textFieldAgencia.getText(),InterfaceUsuario.transformaStringInt(textFieldContaCorrente.getText()), InterfaceUsuario.transformaStringDouble(textFieldRendaFamiliar.getText()),
+					InterfaceUsuario.transformaStringDouble(textFieldRendaPessoal.getText()),
 					textFieldObsFinanceiras.getText());
 		} else {
-			InterfaceUsuario.editarCliente(InterfaceUsusario.transformaStringInt(textFieldCodCliente
-					.getText()), InterfaceUsusario.transformaStringInt(textFieldCPF.getText()),
-					textFieldNome.getText(), InterfaceUsusario.transformaStringInt(textFieldRG
+			InterfaceUsuario.editarCliente(InterfaceUsuario.transformaStringInt(textFieldCodCliente
+					.getText()), InterfaceUsuario.transformaStringInt(textFieldCPF.getText()),
+					textFieldNome.getText(), InterfaceUsuario.transformaStringInt(textFieldRG
 							.getText()), dateNasc, textFieldLogradouro
-							.getText(), InterfaceUsusario.transformaStringInt(textFieldNumero
+							.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero
 							.getText()), textFieldBairro.getText(), "cep",
 					textFieldCidade.getText(), comboBoxUF.getSelectedItem()
 							.toString(), textFieldBanco.getText(),
-					textFieldAgencia.getText(), InterfaceUsusario.transformaStringInt(textFieldContaCorrente.getText()), transformaStringDouble(textFieldRendaFamiliar.getText()),
-					transformaStringDouble(textFieldRendaPessoal.getText()),
+					textFieldAgencia.getText(), InterfaceUsuario.transformaStringInt(textFieldContaCorrente.getText()), InterfaceUsuario.transformaStringDouble(textFieldRendaFamiliar.getText()),
+					InterfaceUsuario.transformaStringDouble(textFieldRendaPessoal.getText()),
 					textFieldObsFinanceiras.getText());
 		}
 
