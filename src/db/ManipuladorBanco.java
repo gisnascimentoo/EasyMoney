@@ -549,7 +549,7 @@ public class ManipuladorBanco {
 		return null;
 	}
 
-	public List<PlanoEmprestimo> buscarPlanoEmprestimoPorPerfil(PerfilCliente perfilCliente) {
+	public List<PlanoEmprestimo> buscarPlanoEmprestimoPorPerfil(String perfilCliente) {
 		// TODO Auto-generated method stub
 		//Retorna todos os planos de determinado perfil
 		return null;
