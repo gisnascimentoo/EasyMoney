@@ -7,6 +7,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -26,7 +27,6 @@ public class ListPlanosView extends JFrame {
 	private JTextField jTextFieldCodigo;
 	private JTextField jTextFieldPlano;
 	String[] colunas = new String[] { "Código", "Plano" };
-	JScrollPane rolagem;
 	DefaultTableModel modelo;
 
 	public ListPlanosView() {
@@ -34,7 +34,7 @@ public class ListPlanosView extends JFrame {
 	}
 
 	private void init() {
-		setTitle("Cliente");
+		setTitle("Planos");
 		setBounds(100, 100, 698, 381);
 		jTextFieldCodigo = new JTextField();
 		jTextFieldPlano = new JTextField();
@@ -48,6 +48,10 @@ public class ListPlanosView extends JFrame {
 
 		jLabel1.setText("Código");
 
+		modelo = new DefaultTableModel(null, colunas);
+		jTableListagemPlano = new JTable(modelo);
+		jScrollPane1 = new JScrollPane(jTableListagemPlano);
+
 		jButtonFechar.setText("Fechar");
 		jButtonFechar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,12 +62,17 @@ public class ListPlanosView extends JFrame {
 		jLabel2.setText("Plano");
 
 		jButtonBuscar.setText("Buscar");
+		
+		jButtonBuscar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				buscar();
+			}
+		});
 
 		jButtonAdicionarPlano.setText("Adicionar Plano");
 
-		modelo = new DefaultTableModel(null, colunas);
-		jTableListagemPlano = new JTable(modelo);
-		rolagem = new JScrollPane(jTableListagemPlano);
 		jButtonAdicionarPlano.addActionListener(new ActionListener() {
 
 			@Override
@@ -180,4 +189,33 @@ public class ListPlanosView extends JFrame {
 		this.dispose();
 	}
 
+	public void addTabela(String[][] dados) {
+		modelo = new DefaultTableModel(dados, colunas);
+		jTableListagemPlano = new JTable(modelo);
+		jScrollPane1 = new JScrollPane(jTableListagemPlano);
+	}
+
+	public void mostrarMensagem(String mensagem) {
+		JOptionPane.showMessageDialog(null, mensagem);
+	}
+
+	public boolean confirmaExclusao() {
+		Object[] options = { "Sim", "Não" };
+		int opcao = JOptionPane.showOptionDialog(null,
+				"Deseja excluir o plano?", "Excluir Plano",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				options, options[0]);
+		if (opcao == 0)
+			return true;
+		else
+			return false;
+	}
+
+	protected void buscar() {
+		int codigo = 0;
+		if (jTextFieldCodigo.getText().trim().length() > 0)
+			Integer.parseInt(jTextFieldCodigo.getText());
+		InterfaceUsuario.buscarPlano(codigo, jTextFieldPlano.getText());
+
+	}
 }

@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
@@ -69,8 +70,8 @@ public class CadClienteView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadClienteView(boolean edicao) {
-		this.edicao = edicao;
+	public CadClienteView() {
+		this.edicao = false;
 		setTitle("Cadastro Cliente");
 		setBounds(100, 100, 550, 550);
 		contentPane = new JPanel();
@@ -320,7 +321,7 @@ public class CadClienteView extends JFrame {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		if (edicao) {
+		if (!edicao) {
 			InterfaceUsuario.cadastrarCliente(Integer.parseInt(textFieldCPF
 					.getText()), textFieldNome.getText(), Integer
 					.parseInt(textFieldRG.getText()), dateNasc,
@@ -355,5 +356,10 @@ public class CadClienteView extends JFrame {
 	protected void cancelar() {
 		this.dispose();
 	}
+	
+	public void mostrarMensagem(String mensagem) {
+		JOptionPane.showMessageDialog(null, mensagem);
+	}
+
 
 }

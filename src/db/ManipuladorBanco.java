@@ -1,6 +1,7 @@
 package db;
 
 import java.sql.Connection;
+
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -557,5 +558,25 @@ public class ManipuladorBanco {
 	public Cliente buscarDadosCliente(int codigo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<PlanoEmprestimo> buscarPlano(int codigo, String plano) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String excluiPlano(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String editarPlanoBanco(PlanoEmprestimo planoEmprestimo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void salvarPlanoBanco(PlanoEmprestimo planoEmprestimo) {
+		// TODO Auto-generated method stub
+		
 	}
 }
