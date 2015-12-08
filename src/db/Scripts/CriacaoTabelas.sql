@@ -17,8 +17,10 @@ USE `mydb` ;
 -- -----------------------------------------------------
 -- Table `mydb`.`GrupoUsuario`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`GrupoUsuario` ;
+
 CREATE TABLE IF NOT EXISTS `mydb`.`GrupoUsuario` (
-  `idGrupoUsuario` INT NOT NULL,
+  `idGrupoUsuario` INT NOT NULL AUTO_INCREMENT,
   `NomeGrupoUsuario` VARCHAR(50) NULL,
   PRIMARY KEY (`idGrupoUsuario`),
   UNIQUE INDEX `NomeGrupoUsuario_UNIQUE` (`NomeGrupoUsuario` ASC))
@@ -28,15 +30,17 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Usuario`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Usuario` ;
+
 CREATE TABLE IF NOT EXISTS `mydb`.`Usuario` (
-  `idUsuario` INT NOT NULL,
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(500) NOT NULL,
   `login` VARCHAR(60) NOT NULL,
   `passwd` VARCHAR(15) NOT NULL,
   `idGrupoUsuario` INT NOT NULL,
-  PRIMARY KEY (`idUsuario`),
   UNIQUE INDEX `login_UNIQUE` (`login` ASC),
   INDEX `fk_Usuario_GrupoUsuario_idx` (`idGrupoUsuario` ASC),
+  PRIMARY KEY (`idUsuario`),
   CONSTRAINT `fk_Usuario_GrupoUsuario`
     FOREIGN KEY (`idGrupoUsuario`)
     REFERENCES `mydb`.`GrupoUsuario` (`idGrupoUsuario`)
@@ -48,8 +52,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Estado`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Estado` ;
+
 CREATE TABLE IF NOT EXISTS `mydb`.`Estado` (
-  `idEstado` INT NOT NULL,
+  `idEstado` INT NOT NULL AUTO_INCREMENT,
   `sigla` VARCHAR(2) NULL,
   PRIMARY KEY (`idEstado`))
 ENGINE = InnoDB;
@@ -58,8 +64,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Cidade`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Cidade` ;
+
 CREATE TABLE IF NOT EXISTS `mydb`.`Cidade` (
-  `idCidade` INT NOT NULL,
+  `idCidade` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(250) NULL,
   `idEstado` INT NULL,
   PRIMARY KEY (`idCidade`),
@@ -75,8 +83,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Endereco`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Endereco` ;
+
 CREATE TABLE IF NOT EXISTS `mydb`.`Endereco` (
-  `idEndereco` INT NOT NULL,
+  `idEndereco` INT NOT NULL AUTO_INCREMENT,
   `logradouro` VARCHAR(150) NULL,
   `numero` INT NULL,
   `bairro` VARCHAR(150) NULL,
@@ -95,8 +105,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`DadosFinanceiros`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`DadosFinanceiros` ;
+
 CREATE TABLE IF NOT EXISTS `mydb`.`DadosFinanceiros` (
-  `idDadosFinanceiros` INT NOT NULL,
+  `idDadosFinanceiros` INT NOT NULL AUTO_INCREMENT,
   `banco` VARCHAR(145) NULL,
   `agencia` VARCHAR(145) NULL,
   `contaCorrente` INT NULL,
@@ -110,8 +122,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Cliente`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Cliente` ;
+
 CREATE TABLE IF NOT EXISTS `mydb`.`Cliente` (
-  `idCliente` INT NOT NULL,
+  `idCliente` INT NOT NULL AUTO_INCREMENT,
   `nomeCompleto` VARCHAR(500) NULL,
   `dataNascimento` DATE NULL,
   `CPF` INT(11) NULL,
@@ -138,8 +152,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Funcionario`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Funcionario` ;
+
 CREATE TABLE IF NOT EXISTS `mydb`.`Funcionario` (
-  `idfuncionario` INT NOT NULL,
+  `idfuncionario` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(150) NULL,
   `dataNascimento` DATE NULL,
   `CPF` INT(11) NULL,
@@ -161,8 +177,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`planoEmprestimo`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`planoEmprestimo` ;
+
 CREATE TABLE IF NOT EXISTS `mydb`.`planoEmprestimo` (
-  `idplanoEmprestimo` INT NOT NULL,
+  `idplanoEmprestimo` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(150) NULL,
   `dataCadastro` DATE NULL,
   `jurosTotal` FLOAT NULL,
@@ -186,17 +204,20 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Contrato`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Contrato` ;
+
 CREATE TABLE IF NOT EXISTS `mydb`.`Contrato` (
-  `idContrato` INT NOT NULL,
+  `idContrato` INT NOT NULL AUTO_INCREMENT,
   `qtdParcelas` INT NULL,
   `valorEmprestimo` FLOAT NULL,
   `valorParcelas` FLOAT NULL,
   `dataCriacaoContrato` DATE NULL,
   `dataTerminoContrato` DATE NULL,
-  `statusContrato` VARCHAR(150) NOT NULL,
+  `statusContrato` VARCHAR(150) NULL,
   `idCliente` INT NOT NULL,
-  `idFuncionarioResponsavel` INT NOT NULL,
+  `idFuncionarioResponsavel` INT NULL,
   `idplanoEmprestimo` INT NOT NULL,
+  `observacao` VARCHAR(4000) NULL,
   PRIMARY KEY (`idContrato`),
   INDEX `fk_Contrato_Cliente1_idx` (`idCliente` ASC),
   INDEX `fk_Contrato_funcionario1_idx` (`idFuncionarioResponsavel` ASC),

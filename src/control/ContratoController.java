@@ -35,27 +35,27 @@ public class ContratoController {
 	}
 	
 	
-	public PerfilCliente recuperaPerfilCliente(double renda)
+	public String recuperaPerfilCliente(double renda)
 	{
 		//Verifica se a renda esta no perfil A
 		if (renda <= PerfilCliente.PERFIL_A.getValorMaximo()){
-			return PerfilCliente.PERFIL_A;
+			return PerfilCliente.PERFIL_A.getName();
 		}else
 			//Verifica se a renda esta no perfil B
 		{ if (renda <= PerfilCliente.PERFIL_B.getValorMaximo()){
-			return PerfilCliente.PERFIL_B;
+			return PerfilCliente.PERFIL_B.getName();
 		} else {
 			//Verifica se a renda esta no perfil C
 			if (renda <= PerfilCliente.PERFIL_C.getValorMaximo()){
-				return PerfilCliente.PERFIL_C;
+				return PerfilCliente.PERFIL_C.getName();
 			}else{
 				//Se a rendar n�o estiver em nenhum dos outros, ela � do tipo D
-				return PerfilCliente.PERFIL_D;
+				return PerfilCliente.PERFIL_D.getName();
 			}
 		}}
 	}
 	
-	public List<PlanoEmprestimo> recuperaPlanosPerfil(PerfilCliente perfilCliente)
+	public List<PlanoEmprestimo> recuperaPlanosPerfil(String perfilCliente)
 	{
 		return db.buscarPlanoEmprestimoPorPerfil(perfilCliente); 
 	}
@@ -70,7 +70,7 @@ public class ContratoController {
 	
 	//Retorna se o perfil do cliente � pr�-aprovado ou pr�-rejeitado
 	public boolean analisaPerfilComPlano(PlanoEmprestimo planoSelecionado){
-		PerfilCliente pfc = recuperaPerfilCliente(cl.getDadosFinanceiros().getRendaPessoal());
+		String pfc = recuperaPerfilCliente(cl.getDadosFinanceiros().getRendaPessoal());
 		List<PlanoEmprestimo> lPlanosPossiveis = recuperaPlanosPerfil(pfc);
 		boolean aprovado = false;
 		for (int i = 0; i < lPlanosPossiveis.size(); i++){
@@ -106,7 +106,7 @@ public class ContratoController {
 		//CONTRATO NOVO!
 		if (codContrato == null){
 			
-			//Necessita Refazer a analise caso o status esteja como pre_aprovado ou pre_rejeitado
+			//Refaz a analise caso o status esteja como pre_aprovado ou pre_rejeitado
 			if (analisaPerfilComPlano(plEmprestimo)&&
 					((status == null)||(status == StatusContrato.PRE_APROVADO.getName())||(status == StatusContrato.PRE_REJEITADO.getName())))
 			{
@@ -121,7 +121,7 @@ public class ContratoController {
 				persistidoSucesso = true;
 			}
 
-		//EDI��O DE CONTRATO
+		//EDICAOO DE CONTRATO
 		} else {
 			
 			if (analisaPerfilComPlano(plEmprestimo))

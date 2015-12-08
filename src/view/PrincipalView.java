@@ -61,7 +61,7 @@ public class PrincipalView extends JFrame {
 			}
 		});
 
-		JMenuItem mntmFuncionario = new JMenuItem("Funcion\u00E1rios");
+		JMenuItem mntmFuncionario = new JMenuItem("Funcionários");
 		mnCadastro.add(mntmFuncionario);
 		
 		mntmFuncionario.addActionListener(new ActionListener() {
@@ -103,23 +103,30 @@ public class PrincipalView extends JFrame {
 			}
 		});
 
-		JMenu mnEmprestimo = new JMenu("Empr\u00E9stimo");
+		JMenu mnEmprestimo = new JMenu("Empréstimo");
 		menuBar.add(mnEmprestimo);
 
 		JMenuItem mntmContratos = new JMenuItem("Contratos");
 		mnEmprestimo.add(mntmContratos);
+		mntmContratos.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				contrato();
+			}
+		});
+
 
 		JSeparator separator_3 = new JSeparator();
 		mnEmprestimo.add(separator_3);
 
-		JMenuItem mntmSimulacao = new JMenuItem("Simula\u00E7\u00E3o");
+		JMenuItem mntmSimulacao = new JMenuItem("Simulação");
 		mnEmprestimo.add(mntmSimulacao);
 
 
-		JMenu mnRelatorio = new JMenu("Relat\u00F3rio");
+		JMenu mnRelatorio = new JMenu("Relatório");
 		menuBar.add(mnRelatorio);
 
-		JMenuItem mntmEmprestimos = new JMenuItem("Empr\u00E9stimos");
+		JMenuItem mntmEmprestimos = new JMenuItem("Empréstimos");
 		mnRelatorio.add(mntmEmprestimos);
 		mntmEmprestimos.addActionListener(new ActionListener() {
 
@@ -145,6 +152,10 @@ public class PrincipalView extends JFrame {
 		
 	}
 
+	protected void contrato(){
+		InterfaceUsuario.novoContratoView();
+	}
+	
 	protected void relatorioEmprestimo() {
 		InterfaceUsuario.relatoriosEmprestimoView();
 		
@@ -156,9 +167,9 @@ public class PrincipalView extends JFrame {
 	}
 
 	public boolean encerrarSessao() {
-		Object[] options = { "Sim", "NÃ£o" };
+		Object[] options = { "Sim", "Não" };
 		int opcao = JOptionPane.showOptionDialog(null, "Deseja fazer logout?",
-				"Encerrar sessÃ£o", JOptionPane.YES_NO_OPTION,
+				"Encerrar sessão", JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 		if (opcao == 0)
 			return true;
