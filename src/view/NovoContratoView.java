@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.Color;
@@ -227,8 +228,7 @@ public class NovoContratoView extends JFrame {
 	}
 
 	protected void salvar() {
-		DateFormat formatter = new SimpleDateFormat("dd/mm/aaaa");
-		Date dataCadastro = null;
+	
 		/*
 		if (textFieldCodContrato.getText().trim().length() == 0){
 			//InterfaceUsuario.cadastrarContrato(
@@ -238,35 +238,20 @@ public class NovoContratoView extends JFrame {
 			//InterfaceUsuario.editarContrato();
 		}
 		
-		
-		/*
-		if (edicao) {
-
-			InterfaceUsuario.editarPlano(
-					Integer.parseInt(textFieldCodPlano.getText()),
-					textFieldPlanoEmprestimo.getText(), dataCadastro,
-					Double.parseDouble(textFieldJurosValorTotal.getText()),
-					Double.parseDouble(textFieldJurosMensal.getText()),
-					Double.parseDouble(textFieldValorMinimo.getText()),
-					Double.parseDouble(textFieldValorMaximo.getText()),
-					Integer.parseInt(textFieldNumMinimoParcelas.getText()),
-					Integer.parseInt(textFieldNumMaxParcelas.getText()),
-					textFieldObservacoes.getText());
-		} else {
-			InterfaceUsuario.cadastrarPlano(textFieldPlanoEmprestimo.getText(),
-					dataCadastro,
-					Double.parseDouble(textFieldJurosValorTotal.getText()),
-					Double.parseDouble(textFieldJurosMensal.getText()),
-					Double.parseDouble(textFieldValorMinimo.getText()),
-					Double.parseDouble(textFieldValorMaximo.getText()),
-					Integer.parseInt(textFieldNumMinimoParcelas.getText()),
-					Integer.parseInt(textFieldNumMaxParcelas.getText()),
-					textFieldObservacoes.getText());
-		}		*/
+	*/	
+	
+	
 	}
 
 	protected void fechar() {
 		this.dispose();		
 	}
+	
+	public void mostrarMensagem(String mensagem) {
+		JOptionPane.showMessageDialog(null, mensagem);
+	}
 
+	public void povoarDadosCliente(String banco, String agencia, int contaCorrente){
+		
+	}
 }

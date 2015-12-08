@@ -9,6 +9,7 @@ import model.Contrato;
 import model.PerfilCliente;
 import model.PlanoEmprestimo;
 import model.StatusContrato;
+import view.InterfaceUsuario;
 import db.ManipuladorBanco;
 
 public class ContratoController {
@@ -20,22 +21,21 @@ public class ContratoController {
 		this.db = new ManipuladorBanco();
 	}
 	
-	//DEVE SER ACIONADO QUANDO UM VALOR NO COMBO CLIENTE FOR SELECIONADO
 	public void localizaCliente(int idCliente)
 	{
-		//Recebe o cliente
 		cl = (Cliente) db.buscarCliente(idCliente, null, null, null);
 		if (cl != null){
-			//Repassa as infos para a tela
-			//TODO
+			String agencia = cl.getDadosFinanceiros().getAgencia();
+			String banco = cl.getDadosFinanceiros().getBanco();
+			int contaCorrente = cl.getDadosFinanceiros().getContaCorrente();
+			InterfaceUsuario.carregarDadosCliente(agencia, banco, contaCorrente);
 		}else{
-			//retorna erro cliente nï¿½o encontrado
-			//TODO
+			InterfaceUsuario.exibirMensagemContratoCadastro("Cliente não encontrado.");
 		}
 	}
 	
-	
-	public String recuperaPerfilCliente(double renda)
+	//Usado para pre_aprovação - pre_reprovacao
+	private String recuperaPerfilCliente(double renda)
 	{
 		//Verifica se a renda esta no perfil A
 		if (renda <= PerfilCliente.PERFIL_A.getValorMaximo()){
@@ -55,7 +55,8 @@ public class ContratoController {
 		}}
 	}
 	
-	public List<PlanoEmprestimo> recuperaPlanosPerfil(String perfilCliente)
+	//
+	private List<PlanoEmprestimo> recuperaPlanosPerfil(String perfilCliente)
 	{
 		return db.buscarPlanoEmprestimoPorPerfil(perfilCliente); 
 	}
@@ -68,7 +69,7 @@ public class ContratoController {
 		return db.buscarPlanoEmprestimoId(idPlanoEmprestimo);
 	}
 	
-	//Retorna se o perfil do cliente ï¿½ prï¿½-aprovado ou prï¿½-rejeitado
+	//Retorna se o perfil do cliente é aprovado ou reprovado
 	public boolean analisaPerfilComPlano(PlanoEmprestimo planoSelecionado){
 		String pfc = recuperaPerfilCliente(cl.getDadosFinanceiros().getRendaPessoal());
 		List<PlanoEmprestimo> lPlanosPossiveis = recuperaPlanosPerfil(pfc);
@@ -94,8 +95,7 @@ public class ContratoController {
 		return cal.getTime();
 	}
 	
-	//SALVA ou edita o contrato
-	public boolean salvarContrato(int idCliente, String status, int idPlanoEmprestimo, int numParcelas, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes)
+	public void salvarContrato(int idCliente, String status, int idPlanoEmprestimo, int numParcelas, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes)
 	{
 		PlanoEmprestimo plEmprestimo = recuperaPlanoEmprestimo(idPlanoEmprestimo);
 		
@@ -104,21 +104,30 @@ public class ContratoController {
 		Cliente clt = (Cliente) db.buscarCliente(idCliente, null, null, null);
 		//Refaz a analise caso o status esteja como pre_aprovado ou pre_rejeitado
 		if (analisaPerfilComPlano(plEmprestimo))
-			{
-				status = StatusContrato.PRE_APROVADO.getName(); 
-			} else {
-				status = StatusContrato.PRE_REJEITADO.getName();
-			}	
+		{
+			status = StatusContrato.PRE_APROVADO.getName(); 
+		} else {
+			status = StatusContrato.PRE_REJEITADO.getName();
+		}	
 			
-			Contrato contrato = new Contrato(numParcelas, valorEmprestimo, valorParcelas, (java.sql.Date) new Date(), (java.sql.Date) dataTermino, clt, status, null, plEmprestimo, observacoes);
-			Integer idCont = db.salvarContratoBanco(contrato);
-			if (idCont != null){
-				persistidoSucesso = true;
-			}
-		return persistidoSucesso;
+		Contrato contrato = new Contrato(numParcelas, valorEmprestimo, valorParcelas, (java.sql.Date) new Date(), (java.sql.Date) dataTermino, clt, status, null, plEmprestimo, observacoes);
+		
+		try
+		{
+			db.salvarContratoBanco(contrato);
+			persistidoSucesso = true;
+		} catch (Exception e) {
+			persistidoSucesso = false;
+		}
+				
+		if (persistidoSucesso){
+			InterfaceUsuario.exibirMensagemContratoCadastro("Contrato cadastrado com sucesso.");
+		}else{
+			InterfaceUsuario.exibirMensagemContratoCadastro("Não foi possível cadastrar o contrato.");
+		}
 	}
 
-	public boolean editarContrato(int codContrato, int idCliente, String status, int idPlanoEmprestimo, int numParcelas, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes)
+	public void editarContrato(int codContrato, int idCliente, String status, int idPlanoEmprestimo, int numParcelas, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes)
 	{
 		PlanoEmprestimo plEmprestimo = recuperaPlanoEmprestimo(idPlanoEmprestimo);
 		
@@ -152,7 +161,12 @@ public class ContratoController {
 		} catch (Exception e) {
 			persistidoSucesso = false;
 		}
-		return persistidoSucesso;
+		
+		if (persistidoSucesso){
+			InterfaceUsuario.exibirMensagemContratoCadastro("Contrato alterado com sucesso.");
+		}else{
+			InterfaceUsuario.exibirMensagemContratoCadastro("Não foi possível alterar o contrato.");
+		}
 	}
 	
 	public boolean verificaCamposObrigatoriosContrato(){
