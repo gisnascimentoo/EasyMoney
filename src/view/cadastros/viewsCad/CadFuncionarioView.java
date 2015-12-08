@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 
@@ -227,6 +228,7 @@ public class CadFuncionarioView extends JFrame {
 
 			}
 		});
+		edicao = false;
 	}
 
 	public CadFuncionarioView(int codigo, String nome,
@@ -281,4 +283,9 @@ public class CadFuncionarioView extends JFrame {
 					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), comboBoxSexo.getSelectedItem().toString());
 		}
 	}
+	
+	public void mostrarMensagem(String mensagem) {
+		JOptionPane.showMessageDialog(null, mensagem);
+	}
+
 }

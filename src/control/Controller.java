@@ -1,7 +1,6 @@
 package control;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import model.Cidade;
@@ -10,6 +9,7 @@ import model.DadosFinanceiros;
 import model.Endereco;
 import model.Estado;
 import model.Funcionario;
+import model.PlanoEmprestimo;
 import view.InterfaceUsuario;
 import db.ManipuladorBanco;
 
@@ -84,17 +84,17 @@ public class Controller {
 
 	public void buscarCliente(int codigo, String nome, String cpf,
 			java.util.Date date) {
-		
-		List<Cliente> clientesBusca = db.buscarCliente(codigo,
-				nome, cpf, (Date) date);
+
+		List<Cliente> clientesBusca = db.buscarCliente(codigo, nome, cpf,
+				(Date) date);
 		String[][] dados = new String[clientesBusca.size()][4];
 		int indice = 0;
-		for (Cliente cliente: clientesBusca) {
-			dados[indice][0] = ""+cliente.getIdCliente();
+		for (Cliente cliente : clientesBusca) {
+			dados[indice][0] = "" + cliente.getIdCliente();
 			dados[indice][1] = cliente.getNomeCompleto();
-			dados[indice][2] = ""+cliente.getDataNascimento();
-			dados[indice][3] = ""+cliente.getCPF();
-
+			dados[indice][2] = "" + cliente.getDataNascimento();
+			dados[indice][3] = "" + cliente.getCPF();
+			indice++;
 		}
 		InterfaceUsuario.carregaListaCliente(dados);
 	}
@@ -118,7 +118,7 @@ public class Controller {
 				new DadosFinanceiros(banco, agencia, contaCorrente,
 						rendaFamiliar, rendaPessoal, observacao));
 		String msg = db.editarClienteBanco(cliente);
-		InterfaceUsuario.exibirMensagemCliente(msg);
+		InterfaceUsuario.exibirMensagemClienteCadastro(msg);
 	}
 
 	public void criarCadastroCliente(int cpf, String nomeCompleto, int rg,
@@ -140,7 +140,7 @@ public class Controller {
 				boolean camposOK = verificaCamposObrigatoriosCliente();
 				if (!camposOK) {
 					InterfaceUsuario
-							.exibirMensagemCliente("Existem campos obrigatórios não preenchidos");
+							.exibirMensagemClienteCadastro("Existem campos obrigatórios não preenchidos");
 				} else {
 					Cliente cliente = new Cliente(cpf, nomeCompleto, rg,
 							dataNascimento, new Endereco(logradouro, numero,
@@ -150,7 +150,7 @@ public class Controller {
 									rendaFamiliar, rendaPessoal, observacao));
 					db.salvarClienteBanco(cliente);
 					InterfaceUsuario
-							.exibirMensagemCliente("Cadastro realizado com sucesso");
+							.exibirMensagemClienteCadastro("Cadastro realizado com sucesso");
 				}
 			}
 		}
@@ -174,11 +174,11 @@ public class Controller {
 		String[][] dados = new String[funcionariosBusca.size()][4];
 		int indice = 0;
 		for (Funcionario funcionario : funcionariosBusca) {
-			dados[indice][0] = ""+funcionario.getIdFuncionario();
+			dados[indice][0] = "" + funcionario.getIdFuncionario();
 			dados[indice][1] = funcionario.getNome();
-			dados[indice][2] = ""+funcionario.getDataNascimento();
-			dados[indice][3] = ""+funcionario.getCPF();
-
+			dados[indice][2] = "" + funcionario.getDataNascimento();
+			dados[indice][3] = "" + funcionario.getCPF();
+			indice++;
 		}
 		InterfaceUsuario.carregaListaFuncionario(dados);
 	}
@@ -218,7 +218,7 @@ public class Controller {
 			boolean camposOK = verificaCamposObrigatoriosFuncionario();
 			if (!camposOK) {
 				InterfaceUsuario
-						.exibirMensagemFuncionario("Campos obrigatórios não preenchidos");
+						.exibirMensagemFuncionarioCadastro("Campos obrigatórios não preenchidos");
 			} else {
 				Funcionario funcionario = new Funcionario(nome, dataNascimento,
 						CPF, RG, cargo, email, telefone, new Endereco(
@@ -226,7 +226,7 @@ public class Controller {
 										nomeCidade, new Estado(uf))));
 				db.salvarFuncionarioBanco(funcionario);
 				InterfaceUsuario
-						.exibirMensagemFuncionario("Cadastro realizado com sucesso");
+						.exibirMensagemFuncionarioCadastro("Cadastro realizado com sucesso");
 			}
 		}
 	}
@@ -240,4 +240,60 @@ public class Controller {
 		Cliente cliente = db.buscarDadosCliente(codigo);
 
 	}
+
+	public void buscarPlano(int codigo, String plano) {
+		List<PlanoEmprestimo> planosBusca = db.buscarPlano(codigo, plano);
+		String[][] dados = new String[planosBusca.size()][2];
+		int indice = 0;
+		for (PlanoEmprestimo planoEmprestimo : planosBusca) {
+			dados[indice][0] = "" + planoEmprestimo.getIdPlanoEmprestimo();
+			dados[indice][1] = planoEmprestimo.getNome();
+			indice++;
+		}
+		InterfaceUsuario.carregaListaPlano(dados);
+	}
+
+	public void excluirPlano(int id) {
+		boolean confirmacao = InterfaceUsuario.confirmarExclusaoPlano();
+		if (confirmacao) {
+			String mensagem = db.excluiPlano(id);
+			InterfaceUsuario.exibirMensagemPlano(mensagem);
+		}
+	}
+
+	public void editarCadastroPlano(int idPlanoEmprestimo, String nome,
+			Date dataCadastro, double jurosTotal, double jurosMensal,
+			double valorMinimo, double valorMaximo, int minParcelas,
+			int maxParcelas, String observacao) {
+		PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo(
+				idPlanoEmprestimo, nome, dataCadastro, jurosTotal, jurosMensal,
+				valorMinimo, valorMaximo, minParcelas, maxParcelas, observacao,
+				null);
+		String msg = db.editarPlanoBanco(planoEmprestimo);
+		InterfaceUsuario.exibirMensagemPlanoCadastro(msg);
+	}
+
+	public void criarCadastroPlano(String nome, Date dataCadastro,
+			double jurosTotal, double jurosMensal, double valorMinimo,
+			double valorMaximo, int minParcelas, int maxParcelas,
+			String observacao) {
+		boolean camposOK = verificaCamposObrigatoriosPlano();
+		if (!camposOK) {
+			InterfaceUsuario
+					.exibirMensagemPlanoCadastro("Campos obrigatórios não preenchidos");
+		} else {
+			PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo(nome,
+					dataCadastro, jurosTotal, jurosMensal, valorMinimo,
+					valorMaximo, minParcelas, maxParcelas, observacao, null);
+			db.salvarPlanoBanco(planoEmprestimo);
+			InterfaceUsuario
+					.exibirMensagemPlanoCadastro("Cadastro realizado com sucesso");
+		}
+	}
+
+	private boolean verificaCamposObrigatoriosPlano() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

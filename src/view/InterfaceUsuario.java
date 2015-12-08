@@ -52,7 +52,7 @@ public class InterfaceUsuario {
 	}
 
 	public static void cadClienteView() {
-		cadClienteView = new CadClienteView(false);
+		cadClienteView = new CadClienteView();
 		cadClienteView.setVisible(true);
 	}
 
@@ -128,8 +128,7 @@ public class InterfaceUsuario {
 		listClienteView.dispose();
 	}
 
-	public static void carregaListaFuncionario(
-			String[][] dados) {
+	public static void carregaListaFuncionario(String[][] dados) {
 		listFuncionariosView.addTabela(dados);
 	}
 
@@ -178,51 +177,105 @@ public class InterfaceUsuario {
 
 	}
 
-	public static void cadastrarFuncionario(String nome, java.util.Date dataNascimento,
-			int CPF, int RG, String cargo, String email, int telefone,
-			String logradouro, int numero, String bairro,
-			String CEP, String nomeCidade, String uf) {
-		controller.criarCadastrofuncionario(nome, (Date)dataNascimento, CPF, RG,
-				cargo, email, telefone, logradouro, numero, bairro,
-				CEP, nomeCidade, uf);
+	public static void cadastrarFuncionario(String nome,
+			java.util.Date dataNascimento, int CPF, int RG, String cargo,
+			String email, int telefone, String logradouro, int numero,
+			String bairro, String CEP, String nomeCidade, String uf) {
+		controller.criarCadastrofuncionario(nome, (Date) dataNascimento, CPF,
+				RG, cargo, email, telefone, logradouro, numero, bairro, CEP,
+				nomeCidade, uf);
 	}
 
 	public static void editarFuncionario(int codigo, String nome,
-			java.util.Date dataNascimento, int CPF, int RG, String cargo, String email,
-			int telefone, String logradouro, int numero,
+			java.util.Date dataNascimento, int CPF, int RG, String cargo,
+			String email, int telefone, String logradouro, int numero,
 			String bairro, String CEP, String nomeCidade, String uf) {
-		controller.editarCadastrofuncionario(codigo, nome, (Date)dataNascimento, CPF,
-				RG, cargo, email, telefone, logradouro, numero,
-				bairro, CEP, nomeCidade, uf);
+		controller.editarCadastrofuncionario(codigo, nome,
+				(Date) dataNascimento, CPF, RG, cargo, email, telefone,
+				logradouro, numero, bairro, CEP, nomeCidade, uf);
 	}
-	
+
 	public static void carregaEdicaoFuncionario(int codigo, String nome,
-			java.util.Date dataNascimento, int CPF, int RG, String cargo, String email,
-			int telefone, String logradouro, int numero,
-			String bairro, String CEP, String nomeCidade, String uf){
+			java.util.Date dataNascimento, int CPF, int RG, String cargo,
+			String email, int telefone, String logradouro, int numero,
+			String bairro, String CEP, String nomeCidade, String uf) {
 		cadFuncionarioView = new CadFuncionarioView(codigo, nome,
-				dataNascimento, CPF, RG, cargo, email,
-				telefone,logradouro, numero,
-				bairro, CEP, nomeCidade, uf);
+				dataNascimento, CPF, RG, cargo, email, telefone, logradouro,
+				numero, bairro, CEP, nomeCidade, uf);
 	}
-	
-	public static void carregaEdicaoCliente(int codigo, int cpf, String nomeCompleto,
-			int rg, java.util.Date dataNascimento, String logradouro,
-			int numero, String bairro, String cep, String nomeCidade,
-			String uf, String banco, String agencia, int contaCorrente,
-			double rendaFamiliar, double rendaPessoal, String observacao){
-		cadClienteView = new CadClienteView(codigo, cpf, nomeCompleto,
-				rg, dataNascimento, logradouro,
-				numero, bairro, cep, nomeCidade,
-				uf, banco, agencia, contaCorrente,
-				rendaFamiliar, rendaPessoal, observacao);
+
+	public static void carregaEdicaoCliente(int codigo, int cpf,
+			String nomeCompleto, int rg, java.util.Date dataNascimento,
+			String logradouro, int numero, String bairro, String cep,
+			String nomeCidade, String uf, String banco, String agencia,
+			int contaCorrente, double rendaFamiliar, double rendaPessoal,
+			String observacao) {
+		cadClienteView = new CadClienteView(codigo, cpf, nomeCompleto, rg,
+				dataNascimento, logradouro, numero, bairro, cep, nomeCidade,
+				uf, banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal,
+				observacao);
 	}
 
 	public static void buscarFuncionario(int codigo, String nome, String cpf,
 			java.util.Date date) {
 		controller.buscarFuncionario(codigo, nome, cpf, date);
-		
+
+	}
+
+	public static void buscarPlano(int codigo, String plano) {
+		controller.buscarPlano(codigo, plano);
+		System.out.println("Passei aqyu");
+
+	}
+
+	public static void carregaListaPlano(String[][] dados) {
+	    listPlanosView.addTabela(dados);
+	}
+
+	public static boolean confirmarExclusaoPlano() {
+		return listPlanosView.confirmaExclusao();
+	}
+
+	public static void exibirMensagemPlano(String mensagem) {
+		listPlanosView.mostrarMensagem(mensagem);
 	}
 	
+	public static void exibirMensagemPlanoCadastro(String mensagem) {
+		cadPlanoEmprestimoView.mostrarMensagem(mensagem);
+	}
 	
+	public static void exibirMensagemClienteCadastro(String mensagem) {
+		cadClienteView.mostrarMensagem(mensagem);
+	}
+
+	
+	public static void exibirMensagemFuncionarioCadastro(String mensagem) {
+		cadFuncionarioView.mostrarMensagem(mensagem);
+	}
+	
+	public static void cadastrarPlano(String nome, Date dataCadastro,
+			double jurosTotal, double jurosMensal, double valorMinimo,
+			double valorMaximo, int minParcelas, int maxParcelas,
+			String observacao){
+		controller.criarCadastroPlano(nome, dataCadastro, jurosTotal, jurosMensal, valorMinimo, valorMaximo, minParcelas, maxParcelas, observacao);
+	}
+	
+	public static void editarPlano(int idPlanoEmprestimo, String nome, java.sql.Date dataCadastro,
+			double jurosTotal, double jurosMensal, double valorMinimo,
+			double valorMaximo, int minParcelas, int maxParcelas,
+			String observacao){
+		controller.editarCadastroPlano(idPlanoEmprestimo, nome, dataCadastro, jurosTotal, jurosMensal, valorMinimo, valorMaximo, minParcelas, maxParcelas, observacao);
+	}
+	
+	public static void carregarPlano(int idPlanoEmprestimo, String nome, Date dataCadastro,
+			double jurosTotal, double jurosMensal, double valorMinimo,
+			double valorMaximo, int minParcelas, int maxParcelas,
+			String observacao){
+		cadPlanoEmprestimoView = new CadPlanoEmprestimoView(idPlanoEmprestimo, nome, dataCadastro,
+				jurosTotal, jurosMensal, valorMinimo,
+				valorMaximo, minParcelas, maxParcelas,
+				observacao);
+	}
+
+
 }
