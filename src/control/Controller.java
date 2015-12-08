@@ -209,8 +209,11 @@ public class Controller {
 			if (!camposOK) {
 				InterfaceUsuario.exibirMensagemFuncionarioCadastro("Campos obrigatórios não preenchidos");
 			} else {
+				Estado estado = new Estado(uf);
+				Cidade cidade = new Cidade(nomeCidade, estado);
+				Endereco endereco = new Endereco(logradouro, numero, bairro, CEP, cidade);
 				Funcionario funcionario = new Funcionario(nome, dataNascimento, CPF, RG, cargo, email, telefone,
-						new Endereco(logradouro, numero, bairro, CEP, new Cidade(nomeCidade, new Estado(uf))));
+						endereco);
 				db.salvarFuncionarioBanco(funcionario);
 				InterfaceUsuario.exibirMensagemFuncionarioCadastro("Cadastro realizado com sucesso");
 			}
@@ -290,12 +293,10 @@ public class Controller {
 		if (!camposOK) {
 			InterfaceUsuario.exibirMensagemPlanoCadastro("Campos obrigatórios não preenchidos");
 		} else {
-			PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo(nome,
-					dataCadastro, jurosTotal, jurosMensal, valorMinimo,
-					valorMaximo, minParcelas, maxParcelas, observacao, null);
+			PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo(nome, dataCadastro, jurosTotal, jurosMensal,
+					valorMinimo, valorMaximo, minParcelas, maxParcelas, observacao, null);
 			db.salvarPlanoEmprestimoBanco(planoEmprestimo);
-			InterfaceUsuario
-					.exibirMensagemPlanoCadastro("Cadastro realizado com sucesso");
+			InterfaceUsuario.exibirMensagemPlanoCadastro("Cadastro realizado com sucesso");
 		}
 	}
 
