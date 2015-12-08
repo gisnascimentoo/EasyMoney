@@ -291,9 +291,6 @@ public class InterfaceUsuario {
 		
 	}
 
-
-
-	
 	public static void cadastrarContrato(int idCliente, String status, int idPlanoEmprestimo, int numParcelas, 
 			double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes){
 		contratoController.salvarContrato(idCliente, status, idPlanoEmprestimo, numParcelas, valorEmprestimo, valorParcelas, dataTermino, observacoes);
@@ -317,5 +314,18 @@ public class InterfaceUsuario {
 	public static void carregarContrato(double valorEmprestimo, int valorParcelas, int indexPlanoEmprestimo, int indexNumeroParcelas){
 		novoContratoView = new NovoContratoView(valorEmprestimo, valorParcelas, indexPlanoEmprestimo, indexNumeroParcelas);
 	}
+	
+	public static void exibirMensagemContratoCadastro(String mensagem) {
+		novoContratoView.mostrarMensagem(mensagem);
+	}
+	
+	public static void buscarDadosCliente(int idCliente){
+		contratoController.localizaCliente(idCliente);
+	}
+	
+	public static void carregarDadosCliente(String banco, String agencia, int contaCorrente){
+		novoContratoView.povoarDadosCliente(banco, agencia, contaCorrente);		
+	}
+	
 
 }
