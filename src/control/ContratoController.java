@@ -95,20 +95,15 @@ public class ContratoController {
 	}
 	
 	//SALVA ou edita o contrato
-	public boolean enviarContrato(Integer codContrato, int idCliente, String status, int idPlanoEmprestimo, int numParcelas, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes)
+	public boolean salvarContrato(int idCliente, String status, int idPlanoEmprestimo, int numParcelas, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes)
 	{
 		PlanoEmprestimo plEmprestimo = recuperaPlanoEmprestimo(idPlanoEmprestimo);
 		
-		Cliente clt = (Cliente) db.buscarCliente(idCliente, null, null, null);
-		
 		boolean persistidoSucesso = false;
 		
-		//CONTRATO NOVO!
-		if (codContrato == null){
-			
-			//Refaz a analise caso o status esteja como pre_aprovado ou pre_rejeitado
-			if (analisaPerfilComPlano(plEmprestimo)&&
-					((status == null)||(status == StatusContrato.PRE_APROVADO.getName())||(status == StatusContrato.PRE_REJEITADO.getName())))
+		Cliente clt = (Cliente) db.buscarCliente(idCliente, null, null, null);
+		//Refaz a analise caso o status esteja como pre_aprovado ou pre_rejeitado
+		if (analisaPerfilComPlano(plEmprestimo))
 			{
 				status = StatusContrato.PRE_APROVADO.getName(); 
 			} else {
@@ -120,36 +115,49 @@ public class ContratoController {
 			if (idCont != null){
 				persistidoSucesso = true;
 			}
+		return persistidoSucesso;
+	}
 
-		//EDICAOO DE CONTRATO
-		} else {
-			
-			if (analisaPerfilComPlano(plEmprestimo))
-			{
+	public boolean editarContrato(int codContrato, int idCliente, String status, int idPlanoEmprestimo, int numParcelas, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes)
+	{
+		PlanoEmprestimo plEmprestimo = recuperaPlanoEmprestimo(idPlanoEmprestimo);
+		
+		Cliente clt = (Cliente) db.buscarCliente(idCliente, null, null, null);
+		
+		boolean persistidoSucesso = false;
+						
+		if (status == StatusContrato.PRE_APROVADO.getName()||(status == StatusContrato.PRE_REJEITADO.getName())){
+		
+			if (analisaPerfilComPlano(plEmprestimo)){
 				status = StatusContrato.PRE_APROVADO.getName(); 
 			} else {
 				status = StatusContrato.PRE_REJEITADO.getName();
-			}	
+			}
+		}
 			
-			Contrato contrato = db.buscarContratoId(codContrato);
-			contrato.setCliente(clt);
-			contrato.setDataTerminoContrato((java.sql.Date) dataTermino);
-			contrato.setQntdParcelas(numParcelas);
-			contrato.setValorEmprestimo(valorEmprestimo);
-			contrato.setValorParcelas(valorParcelas);
-			contrato.setPlanoEmprestimo(plEmprestimo);
-			contrato.setStatusContrato(status);
-			contrato.setFuncionarioResponsavel(null);
-			contrato.setPlanoEmprestimo(plEmprestimo);
-			contrato.setObservacoes(observacoes);
+		Contrato contrato = db.buscarContratoId(codContrato);
+		contrato.setCliente(clt);
+		contrato.setDataTerminoContrato((java.sql.Date) dataTermino);
+		contrato.setQntdParcelas(numParcelas);
+		contrato.setValorEmprestimo(valorEmprestimo);
+		contrato.setValorParcelas(valorParcelas);
+		contrato.setPlanoEmprestimo(plEmprestimo);
+		contrato.setStatusContrato(status);
+		contrato.setFuncionarioResponsavel(null);
+		contrato.setPlanoEmprestimo(plEmprestimo);
+		contrato.setObservacoes(observacoes);
+		try{
 			db.editarContratoBanco(contrato);
 			persistidoSucesso = true;
+		} catch (Exception e) {
+			persistidoSucesso = false;
 		}
-		return persistidoSucesso;		
+		return persistidoSucesso;
 	}
 	
-	public void verificaCamposObrigatoriosContrato(){
-		
+	public boolean verificaCamposObrigatoriosContrato(){
+		//TODO
+		return true;
 	}
 	
 	

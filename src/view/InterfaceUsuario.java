@@ -8,11 +8,13 @@ import view.cadastros.list.ListPlanosView;
 import view.cadastros.viewsCad.CadClienteView;
 import view.cadastros.viewsCad.CadFuncionarioView;
 import view.cadastros.viewsCad.CadPlanoEmprestimoView;
+import control.ContratoController;
 import control.Controller;
 
 public class InterfaceUsuario {
 
 	private static Controller controller = new Controller();
+	private static ContratoController contratoController = new ContratoController();
 	private static LoginView loginView;
 	private static PrincipalView principalView;
 	private static CadClienteView cadClienteView;
@@ -277,6 +279,7 @@ public class InterfaceUsuario {
 				observacao);
 	}
 
+
 	public static void carregarEdicaoPlano(int codigo, String nome, Date dataCadastro,
 			double jurosTotal, double jurosMensal, double valorMinimo,
 			double valorMaximo, int minParcelas, int maxParcelas,
@@ -288,5 +291,31 @@ public class InterfaceUsuario {
 		
 	}
 
+
+
+	
+	public static void cadastrarContrato(int idCliente, String status, int idPlanoEmprestimo, int numParcelas, 
+			double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes){
+		contratoController.salvarContrato(idCliente, status, idPlanoEmprestimo, numParcelas, valorEmprestimo, valorParcelas, dataTermino, observacoes);
+	}
+	
+	public static void editarContrato(int codContrato, int idCliente, String status, int idPlanoEmprestimo, int numParcelas, 
+			double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes){
+		contratoController.editarContrato(codContrato, idCliente, status, idPlanoEmprestimo, numParcelas, valorEmprestimo, valorParcelas, dataTermino, observacoes);
+	}
+		
+	public static void carregarContrato(){
+		novoContratoView = new NovoContratoView();
+	}
+	
+	public static void carregarContrato(int codContrato, String nomeCliente, String banco, String agencia, String contaCorrente, double valorEmprestimo, 
+			double valorParcelas, Date dataTermino, String observacao, int indexPlanoEmprestimo, int indexParcelas, int indexSituacao){
+		novoContratoView = new NovoContratoView(codContrato, nomeCliente, banco, agencia, contaCorrente, valorEmprestimo, valorParcelas, dataTermino, observacao, indexPlanoEmprestimo, indexParcelas, indexSituacao);
+		
+	}
+	
+	public static void carregarContrato(double valorEmprestimo, int valorParcelas, int indexPlanoEmprestimo, int indexNumeroParcelas){
+		//novoContratoView = new
+	}
 
 }

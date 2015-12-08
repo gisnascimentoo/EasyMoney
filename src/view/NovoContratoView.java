@@ -13,6 +13,8 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JSeparator;
@@ -197,6 +199,13 @@ public class NovoContratoView extends JFrame {
 		btnSalvar.setBounds(435, 466, 89, 23);
 		contentPane.add(btnSalvar);
 		
+		btnSalvar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				salvar();
+			}
+		});
+		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(327, 466, 89, 23);
 		contentPane.add(btnCancelar);
@@ -215,6 +224,45 @@ public class NovoContratoView extends JFrame {
 		JLabel label = new JLabel("R$");
 		label.setBounds(260, 272, 24, 14);
 		contentPane.add(label);
+	}
+
+	protected void salvar() {
+		DateFormat formatter = new SimpleDateFormat("dd/mm/aaaa");
+		Date dataCadastro = null;
+		/*
+		if (textFieldCodContrato.getText().trim().length() == 0){
+			//InterfaceUsuario.cadastrarContrato(
+					
+					);
+		}else{
+			//InterfaceUsuario.editarContrato();
+		}
+		
+		
+		/*
+		if (edicao) {
+
+			InterfaceUsuario.editarPlano(
+					Integer.parseInt(textFieldCodPlano.getText()),
+					textFieldPlanoEmprestimo.getText(), dataCadastro,
+					Double.parseDouble(textFieldJurosValorTotal.getText()),
+					Double.parseDouble(textFieldJurosMensal.getText()),
+					Double.parseDouble(textFieldValorMinimo.getText()),
+					Double.parseDouble(textFieldValorMaximo.getText()),
+					Integer.parseInt(textFieldNumMinimoParcelas.getText()),
+					Integer.parseInt(textFieldNumMaxParcelas.getText()),
+					textFieldObservacoes.getText());
+		} else {
+			InterfaceUsuario.cadastrarPlano(textFieldPlanoEmprestimo.getText(),
+					dataCadastro,
+					Double.parseDouble(textFieldJurosValorTotal.getText()),
+					Double.parseDouble(textFieldJurosMensal.getText()),
+					Double.parseDouble(textFieldValorMinimo.getText()),
+					Double.parseDouble(textFieldValorMaximo.getText()),
+					Integer.parseInt(textFieldNumMinimoParcelas.getText()),
+					Integer.parseInt(textFieldNumMaxParcelas.getText()),
+					textFieldObservacoes.getText());
+		}		*/
 	}
 
 	protected void fechar() {
