@@ -300,6 +300,6 @@ public class InterfaceUsuario {
 	}
 	
 	public static void carregarContrato(double valorEmprestimo, int valorParcelas, int indexPlanoEmprestimo, int indexNumeroParcelas){
-		//novoContratoView = new
+		novoContratoView = new NovoContratoView(valorEmprestimo, valorParcelas, indexPlanoEmprestimo, indexNumeroParcelas);
 	}
 }
