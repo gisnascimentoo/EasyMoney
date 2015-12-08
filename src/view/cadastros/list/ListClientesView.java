@@ -48,7 +48,7 @@ public class ListClientesView extends JFrame {
 
 	private void initComponents() {
 		setTitle("Cliente");
-		setBounds(100, 100, 541, 425);
+		setBounds(100, 100, 600, 500);
 		jTextFieldCodigo = new JTextField();
 		jLabel1 = new JLabel();
 		jTextFieldDataNascimento = new JTextField();

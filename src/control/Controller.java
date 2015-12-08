@@ -108,9 +108,12 @@ public class Controller {
 	public void editarCadastroCliente(int codigo, int cpf, String nomeCompleto, int rg, Date dataNascimento,
 			String logradouro, int numero, String bairro, String cep, String nomeCidade, String uf, String banco,
 			String agencia, int contaCorrente, double rendaFamiliar, double rendaPessoal, String observacao) {
-		Cliente cliente = new Cliente(codigo, cpf, nomeCompleto, rg, dataNascimento,
-				new Endereco(logradouro, numero, bairro, cep, new Cidade(nomeCidade, new Estado(uf))),
-				new DadosFinanceiros(banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao));
+		Estado novoUf = new Estado(uf);
+		Cidade novaCidade = new Cidade(nomeCidade, novoUf);
+		Endereco novoEndereco = new Endereco(logradouro, numero, bairro, cep, novaCidade);
+		DadosFinanceiros novoDadosFinanceiro = new DadosFinanceiros(banco, agencia, contaCorrente, rendaFamiliar,
+				rendaPessoal, observacao);
+		Cliente cliente = new Cliente(cpf, nomeCompleto, rg, dataNascimento, novoEndereco, novoDadosFinanceiro);
 		String msg = db.editarClienteBanco(cliente);
 		InterfaceUsuario.exibirMensagemClienteCadastro(msg);
 	}

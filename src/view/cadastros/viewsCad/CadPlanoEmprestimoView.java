@@ -47,21 +47,21 @@ public class CadPlanoEmprestimoView extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel lblCodigoPlano = new JLabel("C\u00F3digo Plano");
-		lblCodigoPlano.setBounds(10, 21, 87, 14);
+		lblCodigoPlano.setBounds(10, 21, 103, 14);
 		contentPane.add(lblCodigoPlano);
 
 		textFieldCodPlano = new JTextField();
 		textFieldCodPlano.setBackground(SystemColor.control);
-		textFieldCodPlano.setBounds(10, 39, 86, 20);
+		textFieldCodPlano.setBounds(10, 39, 103, 20);
 		contentPane.add(textFieldCodPlano);
 		textFieldCodPlano.setColumns(10);
 
 		JLabel lblDataDeCadastro = new JLabel("Data de Cadastro");
-		lblDataDeCadastro.setBounds(400, 21, 87, 14);
+		lblDataDeCadastro.setBounds(388, 21, 103, 14);
 		contentPane.add(lblDataDeCadastro);
 
 		textFieldCadaCadastro = new JTextField();
-		textFieldCadaCadastro.setBounds(403, 39, 103, 20);
+		textFieldCadaCadastro.setBounds(388, 39, 103, 20);
 		contentPane.add(textFieldCadaCadastro);
 		textFieldCadaCadastro.setColumns(10);
 
@@ -70,7 +70,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 		contentPane.add(lblPlanoDeEmprstimo);
 
 		textFieldPlanoEmprestimo = new JTextField();
-		textFieldPlanoEmprestimo.setBounds(10, 115, 496, 20);
+		textFieldPlanoEmprestimo.setBounds(10, 115, 477, 20);
 		contentPane.add(textFieldPlanoEmprestimo);
 		textFieldPlanoEmprestimo.setColumns(10);
 
@@ -127,12 +127,12 @@ public class CadPlanoEmprestimoView extends JFrame {
 		textFieldNumMaxParcelas.setColumns(10);
 
 		textFieldJurosValorTotal = new JTextField();
-		textFieldJurosValorTotal.setBounds(238, 291, 86, 20);
+		textFieldJurosValorTotal.setBounds(238, 291, 103, 20);
 		contentPane.add(textFieldJurosValorTotal);
 		textFieldJurosValorTotal.setColumns(10);
 
 		JLabel label_1 = new JLabel("%");
-		label_1.setBounds(330, 294, 46, 14);
+		label_1.setBounds(351, 298, 46, 14);
 		contentPane.add(label_1);
 
 		JLabel lblTaxaDeJuros = new JLabel("Taxa de juros mensal");
@@ -140,12 +140,12 @@ public class CadPlanoEmprestimoView extends JFrame {
 		contentPane.add(lblTaxaDeJuros);
 
 		textFieldJurosMensal = new JTextField();
-		textFieldJurosMensal.setBounds(10, 291, 86, 20);
+		textFieldJurosMensal.setBounds(10, 291, 103, 20);
 		contentPane.add(textFieldJurosMensal);
 		textFieldJurosMensal.setColumns(10);
 
 		JLabel label_2 = new JLabel("%");
-		label_2.setBounds(106, 294, 46, 14);
+		label_2.setBounds(119, 294, 46, 14);
 		contentPane.add(label_2);
 
 		JLabel lblObservaes = new JLabel("Observa\u00E7\u00F5es");
@@ -153,7 +153,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 		contentPane.add(lblObservaes);
 
 		textFieldObservacoes = new JTextField();
-		textFieldObservacoes.setBounds(10, 341, 514, 74);
+		textFieldObservacoes.setBounds(10, 341, 481, 74);
 		contentPane.add(textFieldObservacoes);
 		textFieldObservacoes.setColumns(10);
 

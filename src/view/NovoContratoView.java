@@ -25,7 +25,6 @@ public class NovoContratoView extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldCodContrato;
-	private JTextField textFieldCliente;
 	private JTextField textFieldBanco;
 	private JTextField textFieldAgencia;
 	private JTextField textFieldContaCorrente;
@@ -57,7 +56,7 @@ public class NovoContratoView extends JFrame {
 			double valorParcelas, Date dataTermino, String observacao, int indexPlanoEmprestimo, int indexParcelas, String status){
 			initComponents();
 			textFieldCodContrato.setText(String.valueOf(codContrato));
-			textFieldCliente.setText(nomeCliente);
+			//textFieldCliente.setText(nomeCliente);
 			textFieldBanco.setText(banco);
 			textFieldAgencia.setText(agencia);
 			textFieldContaCorrente.setText(String.valueOf(contaCorrente));
@@ -77,7 +76,7 @@ public class NovoContratoView extends JFrame {
 	 */
 	public void initComponents() {
 		setTitle("Contrato");
-		setBounds(100, 100, 550, 550);
+		setBounds(100, 100, 600, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -89,7 +88,7 @@ public class NovoContratoView extends JFrame {
 		
 		textFieldCodContrato = new JTextField();
 		textFieldCodContrato.setBackground(SystemColor.control);
-		textFieldCodContrato.setBounds(97, 8, 101, 20);
+		textFieldCodContrato.setBounds(117, 8, 250, 20);
 		contentPane.add(textFieldCodContrato);
 		textFieldCodContrato.setColumns(10);
 		
@@ -97,13 +96,8 @@ public class NovoContratoView extends JFrame {
 		lblCliente.setBounds(10, 46, 46, 14);
 		contentPane.add(lblCliente);
 		
-		textFieldCliente = new JTextField();
-		textFieldCliente.setBounds(10, 61, 322, 20);
-		contentPane.add(textFieldCliente);
-		textFieldCliente.setColumns(10);
-		
 		JLabel lblSituao = new JLabel("Situação");
-		lblSituao.setBounds(357, 46, 46, 14);
+		lblSituao.setBounds(357, 46, 59, 14);
 		contentPane.add(lblSituao);
 		
 		comboBoxSituacao = new JComboBox();
@@ -124,16 +118,16 @@ public class NovoContratoView extends JFrame {
 		contentPane.add(lblAgncia);
 		
 		textFieldAgencia = new JTextField();
-		textFieldAgencia.setBounds(242, 107, 125, 20);
+		textFieldAgencia.setBounds(242, 107, 105, 20);
 		contentPane.add(textFieldAgencia);
 		textFieldAgencia.setColumns(10);
 		
 		JLabel lblContacorrente = new JLabel("Conta-corrente");
-		lblContacorrente.setBounds(386, 92, 114, 14);
+		lblContacorrente.setBounds(357, 92, 114, 14);
 		contentPane.add(lblContacorrente);
 		
 		textFieldContaCorrente = new JTextField();
-		textFieldContaCorrente.setBounds(386, 107, 138, 20);
+		textFieldContaCorrente.setBounds(357, 107, 167, 20);
 		contentPane.add(textFieldContaCorrente);
 		textFieldContaCorrente.setColumns(10);
 		
@@ -146,7 +140,7 @@ public class NovoContratoView extends JFrame {
 		contentPane.add(comboBoxPlanoEmprestimo);
 		
 		JLabel lblParcelas = new JLabel("Parcelas");
-		lblParcelas.setBounds(260, 190, 46, 14);
+		lblParcelas.setBounds(260, 190, 87, 14);
 		contentPane.add(lblParcelas);
 		
 		comboBoxParcelas = new JComboBox();
@@ -163,7 +157,7 @@ public class NovoContratoView extends JFrame {
 		textFieldValorEmprestimo.setColumns(10);
 		
 		JLabel lblValorDasParcelas = new JLabel("Valor das Parcelas");
-		lblValorDasParcelas.setBounds(260, 253, 107, 14);
+		lblValorDasParcelas.setBounds(260, 253, 116, 14);
 		contentPane.add(lblValorDasParcelas);
 		
 		textFieldValorParcelas = new JTextField();
@@ -172,11 +166,11 @@ public class NovoContratoView extends JFrame {
 		textFieldValorParcelas.setColumns(10);
 		
 		JLabel lblDataDeTermino = new JLabel("Data de término do contrato");
-		lblDataDeTermino.setBounds(386, 253, 138, 14);
+		lblDataDeTermino.setBounds(386, 253, 167, 14);
 		contentPane.add(lblDataDeTermino);
 		
 		textFieldDataTerminoContrato = new JTextField();
-		textFieldDataTerminoContrato.setBounds(386, 269, 107, 20);
+		textFieldDataTerminoContrato.setBounds(386, 269, 138, 20);
 		contentPane.add(textFieldDataTerminoContrato);
 		textFieldDataTerminoContrato.setColumns(10);
 		
@@ -185,16 +179,16 @@ public class NovoContratoView extends JFrame {
 		contentPane.add(lblObservaes);
 		
 		textFieldObservacoes = new JTextField();
-		textFieldObservacoes.setBounds(10, 348, 514, 84);
+		textFieldObservacoes.setBounds(10, 348, 543, 84);
 		contentPane.add(textFieldObservacoes);
 		textFieldObservacoes.setColumns(10);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 158, 514, 2);
+		separator.setBounds(10, 158, 543, 2);
 		contentPane.add(separator);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 319, 514, 2);
+		separator_1.setBounds(10, 319, 543, 2);
 		contentPane.add(separator_1);
 		
 		JButton btnSalvar = new JButton("Salvar");
@@ -226,6 +220,10 @@ public class NovoContratoView extends JFrame {
 		JLabel label = new JLabel("R$");
 		label.setBounds(260, 272, 24, 14);
 		contentPane.add(label);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(10, 61, 337, 20);
+		contentPane.add(comboBox);
 	}
 
 	protected void salvar() {

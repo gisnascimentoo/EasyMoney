@@ -33,7 +33,7 @@ public class RelatoriosEmprestimoView extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblBuscaCliente = new JLabel("Busca Cliente");
-		lblBuscaCliente.setBounds(23, 24, 76, 14);
+		lblBuscaCliente.setBounds(23, 24, 139, 14);
 		contentPane.add(lblBuscaCliente);
 		
 		textFieldBuscaCliente = new JTextField();
@@ -42,15 +42,15 @@ public class RelatoriosEmprestimoView extends JFrame {
 		textFieldBuscaCliente.setColumns(10);
 		
 		JLabel lblTipoDeRelatrio = new JLabel("Tipo de Relat\u00F3rio:");
-		lblTipoDeRelatrio.setBounds(23, 92, 101, 14);
+		lblTipoDeRelatrio.setBounds(23, 92, 139, 14);
 		contentPane.add(lblTipoDeRelatrio);
 		
 		JRadioButton rdbtnEmprestimosAprovados = new JRadioButton("Empr\u00E9stimos Aprovados");
-		rdbtnEmprestimosAprovados.setBounds(59, 113, 148, 23);
+		rdbtnEmprestimosAprovados.setBounds(59, 113, 195, 23);
 		contentPane.add(rdbtnEmprestimosAprovados);
 		
 		JRadioButton rdbtnEmprestimosReprovados = new JRadioButton("Empr\u00E9stimos Reprovados");
-		rdbtnEmprestimosReprovados.setBounds(59, 139, 148, 23);
+		rdbtnEmprestimosReprovados.setBounds(59, 139, 195, 23);
 		contentPane.add(rdbtnEmprestimosReprovados);
 		
 		textField = new JTextField();

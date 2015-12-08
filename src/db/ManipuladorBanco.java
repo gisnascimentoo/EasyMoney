@@ -84,7 +84,7 @@ public class ManipuladorBanco {
 		Connection conectando = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conectando = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "everton", "everton");
+			conectando = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "root");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

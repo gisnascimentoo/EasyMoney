@@ -44,7 +44,7 @@ public class ListFuncionariosView extends JFrame {
 	 */
 	public ListFuncionariosView() {
 		setTitle("Buscar Funcion�rios");
-		setBounds(100, 100, 586, 416);
+		setBounds(100, 100, 600, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -82,7 +82,7 @@ public class ListFuncionariosView extends JFrame {
 		contentPane.add(lblCpf);
 
 		textFieldCPF = new JTextField();
-		textFieldCPF.setBounds(159, 85, 181, 20);
+		textFieldCPF.setBounds(159, 85, 236, 20);
 		contentPane.add(textFieldCPF);
 		textFieldCPF.setColumns(10);
 		
@@ -91,7 +91,7 @@ public class ListFuncionariosView extends JFrame {
 		rolagem = new JScrollPane(tabela);
 
 		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(373, 75, 164, 36);
+		btnBuscar.setBounds(428, 85, 119, 21);
 		contentPane.add(btnBuscar);
 		btnBuscar.addActionListener(new ActionListener() {
 
@@ -138,7 +138,7 @@ public class ListFuncionariosView extends JFrame {
 		contentPane.add(rolagem);
 
 		JButton btnFechar = new JButton("Fechar");
-		btnFechar.setBounds(446, 336, 89, 27);
+		btnFechar.setBounds(446, 343, 89, 20);
 		contentPane.add(btnFechar);
 		
 		btnEditar = new JButton("Editar");

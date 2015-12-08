@@ -59,11 +59,11 @@ public class SimulacaoView extends JFrame {
 		contentPane.add(label);
 		
 		JLabel lblNmeroDeMeses = new JLabel("N\u00FAmero de meses");
-		lblNmeroDeMeses.setBounds(24, 92, 104, 14);
+		lblNmeroDeMeses.setBounds(24, 92, 118, 14);
 		contentPane.add(lblNmeroDeMeses);
 		
 		textFieldNumMeses = new JTextField();
-		textFieldNumMeses.setBounds(24, 113, 86, 20);
+		textFieldNumMeses.setBounds(24, 113, 104, 20);
 		contentPane.add(textFieldNumMeses);
 		textFieldNumMeses.setColumns(10);
 		
@@ -76,7 +76,7 @@ public class SimulacaoView extends JFrame {
 		contentPane.add(comboBoxPlanoEmprestimo);
 		
 		JButton btnCalcular = new JButton("Calcular");
-		btnCalcular.setBounds(299, 101, 98, 34);
+		btnCalcular.setBounds(299, 112, 98, 23);
 		contentPane.add(btnCalcular);
 		
 		JLabel lblResultadoDaSimulao = new JLabel("Resultado da Simula\u00E7\u00E3o");
@@ -97,7 +97,7 @@ public class SimulacaoView extends JFrame {
 		contentPane.add(btnFechar);
 		
 		JButton btnGerarContrato = new JButton("Gerar Contrato");
-		btnGerarContrato.setBounds(24, 289, 138, 23);
+		btnGerarContrato.setBounds(24, 289, 117, 23);
 		contentPane.add(btnGerarContrato);
 	}
 }

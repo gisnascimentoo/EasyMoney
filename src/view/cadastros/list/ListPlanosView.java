@@ -40,7 +40,7 @@ public class ListPlanosView extends JFrame {
 
 	private void init() {
 		setTitle("Planos");
-		setBounds(100, 100, 698, 381);
+		setBounds(100, 100, 725, 500);
 		jTextFieldCodigo = new JTextField();
 		jTextFieldPlano = new JTextField();
 		jLabel1 = new JLabel();

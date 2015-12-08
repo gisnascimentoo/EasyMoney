@@ -69,7 +69,7 @@ public class CadFuncionarioView extends JFrame {
 		textFieldCodFuncionario = new JTextField();
 		textFieldCodFuncionario.setBackground(SystemColor.control);
 		textFieldCodFuncionario.setSelectedTextColor(Color.LIGHT_GRAY);
-		textFieldCodFuncionario.setBounds(109, 11, 95, 19);
+		textFieldCodFuncionario.setBounds(144, 11, 95, 19);
 		contentPane.add(textFieldCodFuncionario);
 		textFieldCodFuncionario.setColumns(10);
 		textFieldCodFuncionario.setEditable(false);
@@ -107,7 +107,7 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(lblRg);
 
 		textFieldRG = new JTextField();
-		textFieldRG.setBounds(220, 108, 129, 19);
+		textFieldRG.setBounds(220, 108, 155, 19);
 		contentPane.add(textFieldRG);
 		textFieldRG.setColumns(10);
 
@@ -136,7 +136,7 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(lblLogradouro);
 
 		textFieldLogradouro = new JTextField();
-		textFieldLogradouro.setBounds(10, 242, 365, 20);
+		textFieldLogradouro.setBounds(10, 242, 390, 20);
 		contentPane.add(textFieldLogradouro);
 		textFieldLogradouro.setColumns(10);
 
@@ -145,7 +145,7 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(lblNumero);
 
 		textFieldNumero = new JTextField();
-		textFieldNumero.setBounds(400, 242, 110, 20);
+		textFieldNumero.setBounds(410, 242, 100, 20);
 		contentPane.add(textFieldNumero);
 		textFieldNumero.setColumns(10);
 
@@ -163,16 +163,16 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(lblCidade);
 
 		textFieldCidade = new JTextField();
-		textFieldCidade.setBounds(230, 292, 196, 19);
+		textFieldCidade.setBounds(230, 292, 168, 19);
 		contentPane.add(textFieldCidade);
 		textFieldCidade.setColumns(10);
 
 		JLabel lblUf = new JLabel("UF");
-		lblUf.setBounds(436, 273, 46, 14);
+		lblUf.setBounds(421, 273, 46, 14);
 		contentPane.add(lblUf);
 
 		comboBoxUF = new JComboBox();
-		comboBoxUF.setBounds(436, 292, 74, 19);
+		comboBoxUF.setBounds(408, 293, 102, 19);
 		contentPane.add(comboBoxUF);
 
 		JLabel lblContato = new JLabel("CONTATO");
@@ -189,7 +189,7 @@ public class CadFuncionarioView extends JFrame {
 		textFieldEmail.setColumns(10);
 
 		JLabel lblTelefone = new JLabel("Telefone");
-		lblTelefone.setBounds(10, 404, 46, 14);
+		lblTelefone.setBounds(10, 404, 95, 14);
 		contentPane.add(lblTelefone);
 
 		textFieldTelefone = new JTextField();

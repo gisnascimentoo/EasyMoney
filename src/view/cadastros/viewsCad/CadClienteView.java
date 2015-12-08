@@ -80,12 +80,12 @@ public class CadClienteView extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel lblCdigoCliente = new JLabel("C\u00F3digo cliente");
-		lblCdigoCliente.setBounds(10, 11, 72, 14);
+		lblCdigoCliente.setBounds(10, 11, 100, 14);
 		contentPane.add(lblCdigoCliente);
 
 		textFieldCodCliente = new JTextField();
 		textFieldCodCliente.setBackground(SystemColor.control);
-		textFieldCodCliente.setBounds(84, 8, 104, 20);
+		textFieldCodCliente.setBounds(120, 8, 153, 20);
 		contentPane.add(textFieldCodCliente);
 		textFieldCodCliente.setColumns(10);
 
@@ -244,11 +244,11 @@ public class CadClienteView extends JFrame {
 
 		lblObservacoesFinanceiras = new JLabel(
 				"Observa\u00E7\u00F5es Financeiras");
-		lblObservacoesFinanceiras.setBounds(10, 419, 131, 14);
+		lblObservacoesFinanceiras.setBounds(10, 419, 153, 14);
 		contentPane.add(lblObservacoesFinanceiras);
 
 		textFieldObsFinanceiras = new JTextField();
-		textFieldObsFinanceiras.setBounds(142, 416, 382, 41);
+		textFieldObsFinanceiras.setBounds(160, 416, 364, 41);
 		contentPane.add(textFieldObsFinanceiras);
 		textFieldObsFinanceiras.setColumns(10);
 
