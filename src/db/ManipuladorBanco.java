@@ -579,4 +579,14 @@ public class ManipuladorBanco {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public Funcionario buscarDadosFuncionario(int codigo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public PlanoEmprestimo buscarDadosPlano() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

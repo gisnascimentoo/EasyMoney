@@ -277,5 +277,16 @@ public class InterfaceUsuario {
 				observacao);
 	}
 
+	public static void carregarEdicaoPlano(int codigo, String nome, Date dataCadastro,
+			double jurosTotal, double jurosMensal, double valorMinimo,
+			double valorMaximo, int minParcelas, int maxParcelas,
+			String observacao) {
+			cadPlanoEmprestimoView = new CadPlanoEmprestimoView(codigo, nome, dataCadastro,
+					jurosTotal, jurosMensal, valorMinimo,
+					valorMaximo, minParcelas, maxParcelas,
+					observacao);
+		
+	}
+
 
 }

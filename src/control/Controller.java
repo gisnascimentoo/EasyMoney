@@ -223,7 +223,8 @@ public class Controller {
 				InterfaceUsuario.cancelarCriacaoFuncionario();
 			}
 		} else {
-			boolean camposOK = verificaCamposObrigatoriosFuncionario(nomeCidade, dataNascimento, CPF, RG);
+			boolean camposOK = verificaCamposObrigatoriosFuncionario(
+					nomeCidade, dataNascimento, CPF, RG);
 			if (!camposOK) {
 				InterfaceUsuario
 						.exibirMensagemFuncionarioCadastro("Campos obrigatórios não preenchidos");
@@ -249,9 +250,40 @@ public class Controller {
 		}
 	}
 
-	private void buscaDadosCliente(int codigo) {
+	public void buscaDadosCliente(int codigo) {
 		Cliente cliente = db.buscarDadosCliente(codigo);
+		Endereco endereco = cliente.getEndereco();
+		DadosFinanceiros dadosFinanceiros = cliente.getDadosFinanceiros();
+		InterfaceUsuario.carregaEdicaoCliente(cliente.getIdCliente(),
+				cliente.getCPF(), cliente.getNomeCompleto(), cliente.getRG(),
+				cliente.getDataNascimento(), endereco.getLogradouro(),
+				endereco.getNumero(), endereco.getBairro(), endereco.getCEP(),
+				endereco.getCidade().getNome(), endereco.getCidade()
+						.getEstado().getUf(), dadosFinanceiros.getBanco(),
+				dadosFinanceiros.getAgencia(),
+				dadosFinanceiros.getContaCorrente(),
+				dadosFinanceiros.getRendaFamiliar(),
+				dadosFinanceiros.getRendaPessoal(),
+				dadosFinanceiros.getObservacao());
+	}
 
+	public void buscaDadosFuncionario(int codigo) {
+		Funcionario funcionario = db.buscarDadosFuncionario(codigo);
+		InterfaceUsuario.carregaEdicaoFuncionario(funcionario
+				.getIdFuncionario(), funcionario.getNome(), funcionario
+				.getDataNascimento(), funcionario.getCPF(),
+				funcionario.getRG(), funcionario.getCargo(), funcionario
+						.getEmail(), funcionario.getTelefone(), funcionario
+						.getEndereco().getLogradouro(), funcionario
+						.getEndereco().getNumero(), funcionario.getEndereco()
+						.getBairro(), funcionario.getEndereco().getCEP(),
+				funcionario.getEndereco().getCidade().getNome(), funcionario
+						.getEndereco().getCidade().getEstado().getUf());
+	}
+	
+	public void buscaDadosPlano(int codigo){
+		PlanoEmprestimo plano = db.buscarDadosPlano();
+		InterfaceUsuario.carregarEdicaoPlano(plano.getIdPlanoEmprestimo(), plano.getNome(), plano.getDataCadastro(), plano.getJurosTotal(), plano.getJurosMensal(), plano.getValorMinimo(), plano.getValorMaximo(), plano.getMinParcelas(), plano.getMaxParcelas(), plano.getObservacao());
 	}
 
 	public void buscarPlano(int codigo, String plano) {
@@ -317,6 +349,5 @@ public class Controller {
 			return true;
 		else
 			return false;
-
 	}
 }
