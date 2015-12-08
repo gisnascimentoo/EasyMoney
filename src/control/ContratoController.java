@@ -155,8 +155,9 @@ public class ContratoController {
 		return persistidoSucesso;
 	}
 	
-	public void verificaCamposObrigatoriosContrato(){
-		
+	public boolean verificaCamposObrigatoriosContrato(){
+		//TODO
+		return true;
 	}
 	
 	
