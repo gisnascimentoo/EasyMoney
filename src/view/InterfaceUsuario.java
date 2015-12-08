@@ -301,17 +301,13 @@ public class InterfaceUsuario {
 		contratoController.editarContrato(codContrato, idCliente, status, idPlanoEmprestimo, numParcelas, valorEmprestimo, valorParcelas, dataTermino, observacoes);
 	}
 		
-	public static void carregarContrato(){
-		novoContratoView = new NovoContratoView();
-	}
-	
-	public static void carregarContrato(int codContrato, String nomeCliente, String banco, String agencia, String contaCorrente, double valorEmprestimo, 
-			double valorParcelas, Date dataTermino, String observacao, int indexPlanoEmprestimo, int indexParcelas, int indexSituacao){
-		novoContratoView = new NovoContratoView(codContrato, nomeCliente, banco, agencia, contaCorrente, valorEmprestimo, valorParcelas, dataTermino, observacao, indexPlanoEmprestimo, indexParcelas, indexSituacao);
+	public static void carregarContrato(int codContrato, String nomeCliente, String banco, String agencia, int contaCorrente, double valorEmprestimo, 
+			double valorParcelas, Date dataTermino, String observacao, int indexPlanoEmprestimo, int indexParcelas, String status){
+		novoContratoView = new NovoContratoView(codContrato, nomeCliente, banco, agencia, contaCorrente, valorEmprestimo, valorParcelas, dataTermino, observacao, indexPlanoEmprestimo, indexParcelas, status);
 		
 	}
-	
-	public static void carregarContrato(double valorEmprestimo, int valorParcelas, int indexPlanoEmprestimo, int indexNumeroParcelas){
+		
+	public static void novoContratoView(double valorEmprestimo, int valorParcelas, int indexPlanoEmprestimo, int indexNumeroParcelas){
 		novoContratoView = new NovoContratoView(valorEmprestimo, valorParcelas, indexPlanoEmprestimo, indexNumeroParcelas);
 	}
 	
@@ -323,9 +319,12 @@ public class InterfaceUsuario {
 		contratoController.localizaCliente(idCliente);
 	}
 	
+	public static void novoContratoView(int idContrato){
+		contratoController.recuperaContrato(idContrato);
+	}
+	
 	public static void carregarDadosCliente(String banco, String agencia, int contaCorrente){
 		novoContratoView.povoarDadosCliente(banco, agencia, contaCorrente);		
 	}
-	
 
 }

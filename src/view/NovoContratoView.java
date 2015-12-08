@@ -53,21 +53,22 @@ public class NovoContratoView extends JFrame {
 	}
 	
 	//Construtor usado a partir de um contrato existente
-	public NovoContratoView(int codContrato, String nomeCliente, String banco, String agencia, String contaCorrente, double valorEmprestimo, 
-			double valorParcelas, Date dataTermino, String observacao, int indexPlanoEmprestimo, int indexParcelas, int indexSituacao){
+	public NovoContratoView(int codContrato, String nomeCliente, String banco, String agencia, int contaCorrente, double valorEmprestimo, 
+			double valorParcelas, Date dataTermino, String observacao, int indexPlanoEmprestimo, int indexParcelas, String status){
 			initComponents();
 			textFieldCodContrato.setText(String.valueOf(codContrato));
 			textFieldCliente.setText(nomeCliente);
 			textFieldBanco.setText(banco);
 			textFieldAgencia.setText(agencia);
-			textFieldContaCorrente.setText(contaCorrente);
+			textFieldContaCorrente.setText(String.valueOf(contaCorrente));
 			textFieldValorEmprestimo.setText(String.valueOf(valorEmprestimo));
 			textFieldValorParcelas.setText(String.valueOf(valorParcelas));
 			textFieldDataTerminoContrato.setText(String.valueOf(dataTermino));
 			textFieldObservacoes.setText(observacao);
 			comboBoxPlanoEmprestimo.setSelectedIndex(indexPlanoEmprestimo);
 			comboBoxParcelas.setSelectedIndex(indexParcelas);
-			comboBoxSituacao.setSelectedIndex(indexSituacao);	
+			//PRECISA PEGAR O INDEX DA SITUAÇÃO
+			//comboBoxSituacao.setSelectedIndex(indexSituacao);	
 			
 	}
 
@@ -228,8 +229,7 @@ public class NovoContratoView extends JFrame {
 	}
 
 	protected void salvar() {
-	
-		/*
+	/*
 		if (textFieldCodContrato.getText().trim().length() == 0){
 			//InterfaceUsuario.cadastrarContrato(
 					
@@ -252,6 +252,8 @@ public class NovoContratoView extends JFrame {
 	}
 
 	public void povoarDadosCliente(String banco, String agencia, int contaCorrente){
-		
+		textFieldBanco.setText(banco);;
+		textFieldAgencia.setText(agencia);
+		textFieldContaCorrente.setText(String.valueOf(contaCorrente));;
 	}
 }

@@ -153,7 +153,6 @@ public class ContratoController {
 		contrato.setPlanoEmprestimo(plEmprestimo);
 		contrato.setStatusContrato(status);
 		contrato.setFuncionarioResponsavel(null);
-		contrato.setPlanoEmprestimo(plEmprestimo);
 		contrato.setObservacoes(observacoes);
 		try{
 			db.editarContratoBanco(contrato);
@@ -169,6 +168,21 @@ public class ContratoController {
 		}
 	}
 	
+	public void recuperaContrato(int idContrato){
+		Contrato contrato = db.buscarContratoId(idContrato);
+		String cliente = contrato.getCliente().getNomeCompleto();
+		String banco = contrato.getCliente().getDadosFinanceiros().getBanco();
+		String agencia = contrato.getCliente().getDadosFinanceiros().getAgencia();
+		int contaCorrente = contrato.getCliente().getDadosFinanceiros().getContaCorrente();
+		Date dataTermino = contrato.getDataTerminoContrato();
+		int numParcelas = contrato.getQntdParcelas();
+		double valorEmprestimo = contrato.getValorEmprestimo();
+		double valorParcelas= contrato.getValorParcelas();
+		int idPlanoEmprestimo = contrato.getPlanoEmprestimo().getIdPlanoEmprestimo();
+		String status = contrato.getStatusContrato();
+		String observacoes = contrato.getObservacoes();
+		InterfaceUsuario.carregarContrato(idContrato, cliente, banco, agencia, contaCorrente, valorEmprestimo, valorParcelas, (java.sql.Date) dataTermino, observacoes, idPlanoEmprestimo, numParcelas, status);
+	}
 	public boolean verificaCamposObrigatoriosContrato(){
 		//TODO
 		return true;
