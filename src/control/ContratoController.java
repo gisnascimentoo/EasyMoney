@@ -106,7 +106,7 @@ public class ContratoController {
 		//CONTRATO NOVO!
 		if (codContrato == null){
 			
-			//Necessita Refazer a analise caso o status esteja como pre_aprovado ou pre_rejeitado
+			//Refaz a analise caso o status esteja como pre_aprovado ou pre_rejeitado
 			if (analisaPerfilComPlano(plEmprestimo)&&
 					((status == null)||(status == StatusContrato.PRE_APROVADO.getName())||(status == StatusContrato.PRE_REJEITADO.getName())))
 			{
@@ -121,7 +121,7 @@ public class ContratoController {
 				persistidoSucesso = true;
 			}
 
-		//EDI��O DE CONTRATO
+		//EDICAOO DE CONTRATO
 		} else {
 			
 			if (analisaPerfilComPlano(plEmprestimo))
