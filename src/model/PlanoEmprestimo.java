@@ -48,6 +48,10 @@ public class PlanoEmprestimo {
 		this.funcionario = funcionario;
 	}
 
+	public PlanoEmprestimo() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdPlanoEmprestimo() {
 		return idPlanoEmprestimo;
 	}

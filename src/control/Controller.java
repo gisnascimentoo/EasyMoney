@@ -287,10 +287,12 @@ public class Controller {
 		if (!camposOK) {
 			InterfaceUsuario.exibirMensagemPlanoCadastro("Campos obrigatórios não preenchidos");
 		} else {
-			PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo(nome, dataCadastro, jurosTotal, jurosMensal,
-					valorMinimo, valorMaximo, minParcelas, maxParcelas, observacao, null);
-			db.salvarPlanoBanco(planoEmprestimo);
-			InterfaceUsuario.exibirMensagemPlanoCadastro("Cadastro realizado com sucesso");
+			PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo(nome,
+					dataCadastro, jurosTotal, jurosMensal, valorMinimo,
+					valorMaximo, minParcelas, maxParcelas, observacao, null);
+			db.salvarPlanoEmprestimoBanco(planoEmprestimo);
+			InterfaceUsuario
+					.exibirMensagemPlanoCadastro("Cadastro realizado com sucesso");
 		}
 	}
 

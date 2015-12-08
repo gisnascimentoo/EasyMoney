@@ -35,6 +35,10 @@ public class Cliente {
 		this.dadosFinanceiros = dadosFinanceiros;
 	}
 
+	public Cliente() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdCliente() {
 		return idCliente;
 	}

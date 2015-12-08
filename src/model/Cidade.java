@@ -18,6 +18,9 @@ public class Cidade {
 		this.estado = estado;
 	}
 	
+	public Cidade() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getIdCidade() {
 		return idCidade;
 	}

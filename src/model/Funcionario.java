@@ -41,6 +41,10 @@ public class Funcionario {
 		this.endereco = endereco;
 	}
 
+	public Funcionario() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdFuncionario() {
 		return idFuncionario;
 	}
