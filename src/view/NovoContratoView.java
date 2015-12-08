@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Date;
 
 import javax.swing.JSeparator;
@@ -199,6 +201,13 @@ public class NovoContratoView extends JFrame {
 		btnCancelar.setBounds(327, 466, 89, 23);
 		contentPane.add(btnCancelar);
 		
+		btnCancelar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				fechar();
+			}
+		});
+		
 		JLabel lblR = new JLabel("R$");
 		lblR.setBounds(10, 272, 24, 14);
 		contentPane.add(lblR);
@@ -206,6 +215,10 @@ public class NovoContratoView extends JFrame {
 		JLabel label = new JLabel("R$");
 		label.setBounds(260, 272, 24, 14);
 		contentPane.add(label);
+	}
+
+	protected void fechar() {
+		this.dispose();		
 	}
 
 }
