@@ -19,6 +19,8 @@ import javax.swing.LayoutStyle;
 import javax.swing.table.DefaultTableModel;
 
 import view.InterfaceUsuario;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class ListClientesView extends JFrame {
 
@@ -30,6 +32,7 @@ public class ListClientesView extends JFrame {
 	private JLabel jLabel3;
 	private JLabel jLabel4;
 	private JScrollPane jScrollPane1;
+	private JScrollPane jScrollPane1_1;
 	private JTable jTableListagemCliente;
 	private JTextField jTextFieldCPF;
 	private JTextField jTextFieldCodigo;
@@ -78,146 +81,77 @@ public class ListClientesView extends JFrame {
 		
 		modelo = new DefaultTableModel(null, colunas);
 		jTableListagemCliente = new JTable(modelo);
-		jScrollPane1 = new JScrollPane(jTableListagemCliente);
+		jScrollPane1_1 = new JScrollPane(jTableListagemCliente);
+		
+		JButton btnEditar = new JButton("Editar");
+		
+		JButton btnExcluir = new JButton("Excluir");
 
 		GroupLayout layout = new GroupLayout(getContentPane());
+		layout.setHorizontalGroup(
+			layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup()
+					.addGap(22)
+					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(layout.createSequentialGroup()
+							.addComponent(btnExcluir)
+							.addGap(18)
+							.addComponent(btnEditar)
+							.addGap(18)
+							.addComponent(jButtonFechar))
+						.addGroup(layout.createParallelGroup(Alignment.LEADING)
+							.addComponent(jButtonAdicionarCliente)
+							.addGroup(layout.createSequentialGroup()
+								.addGroup(layout.createParallelGroup(Alignment.LEADING)
+									.addComponent(jLabel1)
+									.addComponent(jTextFieldCodigo, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+									.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(jTextFieldDataNascimento, Alignment.LEADING)
+										.addComponent(jLabel3, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+								.addGap(34)
+								.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(jLabel4)
+									.addComponent(jLabel2)
+									.addComponent(jTextFieldNome, GroupLayout.PREFERRED_SIZE, 333, GroupLayout.PREFERRED_SIZE)
+									.addGroup(layout.createSequentialGroup()
+										.addComponent(jTextFieldCPF, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(jButtonBuscar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+							.addComponent(jScrollPane1_1, GroupLayout.PREFERRED_SIZE, 507, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		layout.setVerticalGroup(
+			layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jLabel1)
+						.addComponent(jLabel2))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jTextFieldCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jTextFieldNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jLabel3)
+						.addComponent(jLabel4))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jTextFieldDataNascimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jTextFieldCPF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jButtonBuscar))
+					.addGap(18)
+					.addComponent(jButtonAdicionarCliente)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(jScrollPane1_1, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jButtonFechar)
+						.addComponent(btnEditar)
+						.addComponent(btnExcluir))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
 		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout
-				.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(
-						layout.createSequentialGroup()
-								.addGap(22, 22, 22)
-								.addGroup(
-										layout.createParallelGroup(
-												GroupLayout.Alignment.TRAILING)
-												.addComponent(jButtonFechar)
-												.addGroup(
-														layout.createParallelGroup(
-																GroupLayout.Alignment.LEADING)
-																.addComponent(
-																		jButtonAdicionarCliente)
-																.addGroup(
-																		layout.createSequentialGroup()
-																				.addGroup(
-																						layout.createParallelGroup(
-																								GroupLayout.Alignment.LEADING)
-																								.addComponent(
-																										jLabel1)
-																								.addComponent(
-																										jTextFieldCodigo,
-																										GroupLayout.PREFERRED_SIZE,
-																										137,
-																										GroupLayout.PREFERRED_SIZE)
-																								.addGroup(
-																										layout.createParallelGroup(
-																												GroupLayout.Alignment.TRAILING,
-																												false)
-																												.addComponent(
-																														jTextFieldDataNascimento,
-																														GroupLayout.Alignment.LEADING)
-																												.addComponent(
-																														jLabel3,
-																														GroupLayout.Alignment.LEADING,
-																														GroupLayout.DEFAULT_SIZE,
-																														GroupLayout.DEFAULT_SIZE,
-																														Short.MAX_VALUE)))
-																				.addGap(34,
-																						34,
-																						34)
-																				.addGroup(
-																						layout.createParallelGroup(
-																								GroupLayout.Alignment.LEADING,
-																								false)
-																								.addComponent(
-																										jLabel4)
-																								.addComponent(
-																										jLabel2)
-																								.addComponent(
-																										jTextFieldNome,
-																										GroupLayout.PREFERRED_SIZE,
-																										333,
-																										GroupLayout.PREFERRED_SIZE)
-																								.addGroup(
-																										layout.createSequentialGroup()
-																												.addComponent(
-																														jTextFieldCPF,
-																														GroupLayout.PREFERRED_SIZE,
-																														186,
-																														GroupLayout.PREFERRED_SIZE)
-																												.addPreferredGap(
-																														LayoutStyle.ComponentPlacement.RELATED)
-																												.addComponent(
-																														jButtonBuscar,
-																														GroupLayout.DEFAULT_SIZE,
-																														GroupLayout.DEFAULT_SIZE,
-																														Short.MAX_VALUE))))
-																.addComponent(
-																		jScrollPane1,
-																		GroupLayout.PREFERRED_SIZE,
-																		507,
-																		GroupLayout.PREFERRED_SIZE)))
-								.addContainerGap(GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)));
-		layout.setVerticalGroup(layout
-				.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(
-						layout.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(
-										layout.createParallelGroup(
-												GroupLayout.Alignment.BASELINE)
-												.addComponent(jLabel1)
-												.addComponent(jLabel2))
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(
-										layout.createParallelGroup(
-												GroupLayout.Alignment.BASELINE)
-												.addComponent(
-														jTextFieldCodigo,
-														GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(
-														jTextFieldNome,
-														GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.UNRELATED)
-								.addGroup(
-										layout.createParallelGroup(
-												GroupLayout.Alignment.BASELINE)
-												.addComponent(jLabel3)
-												.addComponent(jLabel4))
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(
-										layout.createParallelGroup(
-												GroupLayout.Alignment.BASELINE)
-												.addComponent(
-														jTextFieldDataNascimento,
-														GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(
-														jTextFieldCPF,
-														GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(jButtonBuscar))
-								.addGap(18, 18, 18)
-								.addComponent(jButtonAdicionarCliente)
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jScrollPane1,
-										GroupLayout.PREFERRED_SIZE, 199,
-										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jButtonFechar)
-								.addContainerGap(GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)));
 		jButtonAdicionarCliente.addActionListener(new ActionListener() {
 
 			@Override
@@ -276,7 +210,7 @@ public class ListClientesView extends JFrame {
 	public void addTabela(String[][] dados) {
 		modelo = new DefaultTableModel(dados, colunas);
 		jTableListagemCliente = new JTable(modelo);
-		jScrollPane1 = new JScrollPane(jTableListagemCliente);
+		jScrollPane1_1 = new JScrollPane(jTableListagemCliente);
 	}
 
 	public boolean confirmaExclusao() {

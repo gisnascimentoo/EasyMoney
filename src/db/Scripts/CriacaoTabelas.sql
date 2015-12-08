@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Contrato` (
   `idCliente` INT NOT NULL,
   `idFuncionarioResponsavel` INT NULL,
   `idplanoEmprestimo` INT NOT NULL,
-  `observacao` VARCHAR(4000) NULL,
+  `observacoes` VARCHAR(4000) NULL,
   PRIMARY KEY (`idContrato`),
   INDEX `fk_Contrato_Cliente1_idx` (`idCliente` ASC),
   INDEX `fk_Contrato_funcionario1_idx` (`idFuncionarioResponsavel` ASC),

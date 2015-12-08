@@ -40,7 +40,16 @@ public class ManipuladorBanco {
 	private final String SELECT_ENDERECO_BY_ID = "SELECT * FROM ENDERECO WHERE IDENDERECO = ?";
 	private final String SELECT_CONTRATO_BY_ID = "SELECT * FROM CONTRATO WHERE IDCONTRATO = ?";
 	private final String SELECT_DADOSFINANCEIROS_BY_ID = "SELECT * FROM DADOSFINANCEIROS WHERE IDDADOSFINANCEIROS = ?";
+
 	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM usuario WHERE login = ? and passwd = ?";
+	
+	private final String SELECT_INFO_CLIENTE_BY_ID = "SELECT C.IDCLIENTE AS IDCLIENTE, C.CPF AS CPF, C.NOMECOMPLETO AS NOMECLIENTE, "
+			+ "C.RG AS RG, C.DATANASCIMENTO AS DATANASCIMENTO, E.LOGRADOURO AS LOGRADOURO, E.NUMERO AS NUMERO, E.BAIRRO AS BAIRRO, "
+			+ "E.CEP AS CEP, CD.NOME AS NOMECIDADE, CD.UF AS UF, DF.BANCO AS BANCO, DF.AGENCIA AS AGENCIA, DF.CONTACORRENTE AS CONTACORRENTE, "
+			+ "DF.RENDAFAMILIAR AS RENDAFAMILIAR, DF.RENDAPESSOAL AS RENDAPESSOAL, DF.OBSERVACAO AS OBSERVACAO "
+			+ "FROM CLIENTE C LEFT JOIN ENDERECO E ON C.IDENDERECO = E.IDENDERECO LEFT JOIN CIDADE CD ON E.IDCIDADE = CD.IDCIDADE "
+			+ "LEFT JOIN DADOSFINANCEIROS DF ON DF.IDDADOSFINANCEIROS = C.IDDADOSFINANCEIROS "
+			+ "LEFT JOIN ESTADO ESTADO ON ESTADO.IDESTADO = CD.IDESTADO WHERE C.IDCLIENTE = ?";
 
 	private final String SELECT_FUNCIONARIO_BY_CPF = "SELECT * FROM FUNCIONARIO WHERE CPF = ?";
 	private final String SELECT_CLIENTE_BY_CPF = "SELECT * FROM CLIENTE WHERE CPF = ?";
@@ -529,12 +538,31 @@ public class ManipuladorBanco {
 		}
 		return false;
 	}
-
+	
 	public Contrato buscarContratoId(int codContrato) {
-		// TODO Auto-generated method stub
-		//Retorna contrato por id
-		
-		return null;
+		Contrato contrato = null;
+		Cliente cliente = null;
+		Funcionario funcionario = null;
+		PlanoEmprestimo planoEmprestimo = null;
+		try {
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CONTRATO_BY_ID);
+			preparedStatement.setInt(1, codContrato);
+			ResultSet set = preparedStatement.executeQuery();
+			while (set.next()) {
+				cliente = new Cliente();
+				cliente.setIdCliente(set.getInt("idCliente"));
+				funcionario = new Funcionario();
+				funcionario.setIdFuncionario(set.getInt("idFuncionarioResponsavel"));
+				planoEmprestimo = new PlanoEmprestimo();
+				planoEmprestimo.setIdPlanoEmprestimo(set.getInt("idPlanoEmprestimo"));
+				contrato = new Contrato(set.getInt("qntdParcelas"), set.getFloat("valorEmprestimo"), set.getFloat("valorParcelas"),
+						set.getDate("dataCriacaoContrato"), set.getDate("dataTerminoContrato"), cliente, set.getString("statusContrato"),
+						funcionario, planoEmprestimo, set.getString("observacoes"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return contrato;
 	}
 
 	public PlanoEmprestimo buscarPlanoEmprestimoId(int idPlanoEmprestimo) {
@@ -555,29 +583,54 @@ public class ManipuladorBanco {
 		return null;
 	}
 
-	public Cliente buscarDadosCliente(int codigo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public List<PlanoEmprestimo> buscarPlano(int codigo, String plano) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public String excluiPlano(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_PLANOEMPRESTIMO_BY_ID);
+			prepared.setInt(1, id);
+			prepared.executeUpdate();
+			return "Plano deletado com sucesso";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "Plano não pôde ser deletado! Tente novamente!";
+		}
 	}
 
 	public String editarPlanoBanco(PlanoEmprestimo planoEmprestimo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	public void salvarPlanoBanco(PlanoEmprestimo planoEmprestimo) {
-		// TODO Auto-generated method stub
+	
+	//TODO
+	//INCOMPLETA
+	public Cliente buscarDadosCliente(int codigo) {
+		Cliente cliente = null;
 		
+		try {
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_INFO_CLIENTE_BY_ID);
+			preparedStatement.setInt(1, codigo);
+			ResultSet set = preparedStatement.executeQuery();
+			while (set.next()) {
+				Estado estado = new Estado();
+				estado.setUf(set.getString("uf"));
+				Cidade cidade = new Cidade();
+				cidade.setNome(set.getString("nomecidade"));
+				cidade.setEstado(estado);
+				Endereco endereco = new Endereco();
+				endereco.setIdEndereco(set.getInt("idEndereco"));
+				DadosFinanceiros dadosFinanceiros = new DadosFinanceiros();
+				dadosFinanceiros.setIdDadosFinanceiros(set.getInt("idDadosFinanceiros"));
+				cliente = new Cliente(set.getInt("idCliente"), set.getInt("CPF"), set.getString("nomeCompleto"), set.getInt("RG"),
+						set.getDate("dataNascimento"), endereco, dadosFinanceiros);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cliente;
 	}
 
 	public Funcionario buscarDadosFuncionario(int codigo) {

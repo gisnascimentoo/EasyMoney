@@ -15,6 +15,8 @@ import javax.swing.LayoutStyle;
 import javax.swing.table.DefaultTableModel;
 
 import view.InterfaceUsuario;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class ListPlanosView extends JFrame {
 	private JButton jButtonAdicionarPlano;
@@ -23,11 +25,14 @@ public class ListPlanosView extends JFrame {
 	private JLabel jLabel1;
 	private JLabel jLabel2;
 	private JScrollPane jScrollPane1;
+	private JScrollPane jScrollPane1_1;
 	private JTable jTableListagemPlano;
 	private JTextField jTextFieldCodigo;
 	private JTextField jTextFieldPlano;
 	String[] colunas = new String[] { "Código", "Plano" };
 	DefaultTableModel modelo;
+	private JButton btnEditar;
+	private JButton btnExcluir;
 
 	public ListPlanosView() {
 		init();
@@ -50,7 +55,7 @@ public class ListPlanosView extends JFrame {
 
 		modelo = new DefaultTableModel(null, colunas);
 		jTableListagemPlano = new JTable(modelo);
-		jScrollPane1 = new JScrollPane(jTableListagemPlano);
+		jScrollPane1_1 = new JScrollPane(jTableListagemPlano);
 
 		jButtonFechar.setText("Fechar");
 		jButtonFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -81,102 +86,63 @@ public class ListPlanosView extends JFrame {
 
 			}
 		});
+		
+		btnEditar = new JButton("Editar");
+		
+		btnExcluir = new JButton("Excluir");
 
 		GroupLayout layout = new GroupLayout(getContentPane());
+		layout.setHorizontalGroup(
+			layout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(layout.createSequentialGroup()
+					.addGap(22)
+					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+						.addGroup(layout.createSequentialGroup()
+							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+								.addComponent(jLabel1)
+								.addComponent(jTextFieldCodigo, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jButtonAdicionarPlano))
+							.addGap(37)
+							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+								.addComponent(jLabel2)
+								.addComponent(jTextFieldPlano, GroupLayout.PREFERRED_SIZE, 333, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(jButtonBuscar, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
+						.addComponent(jScrollPane1_1, GroupLayout.PREFERRED_SIZE, 653, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addGroup(layout.createSequentialGroup()
+					.addContainerGap(441, Short.MAX_VALUE)
+					.addComponent(btnExcluir)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnEditar)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(jButtonFechar)
+					.addContainerGap())
+		);
+		layout.setVerticalGroup(
+			layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jLabel1)
+						.addComponent(jLabel2))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jTextFieldCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jTextFieldPlano, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jButtonBuscar))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(jButtonAdicionarPlano)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(jScrollPane1_1, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jButtonFechar)
+						.addComponent(btnEditar)
+						.addComponent(btnExcluir))
+					.addContainerGap(15, Short.MAX_VALUE))
+		);
 		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout
-				.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(
-						layout.createSequentialGroup()
-								.addGap(22, 22, 22)
-								.addGroup(
-										layout.createParallelGroup(
-												GroupLayout.Alignment.LEADING)
-												.addGroup(
-														layout.createSequentialGroup()
-																.addGroup(
-																		layout.createParallelGroup(
-																				GroupLayout.Alignment.LEADING)
-																				.addComponent(
-																						jLabel1)
-																				.addComponent(
-																						jTextFieldCodigo,
-																						GroupLayout.PREFERRED_SIZE,
-																						137,
-																						GroupLayout.PREFERRED_SIZE)
-																				.addComponent(
-																						jButtonAdicionarPlano))
-																.addGap(37, 37,
-																		37)
-																.addGroup(
-																		layout.createParallelGroup(
-																				GroupLayout.Alignment.LEADING)
-																				.addComponent(
-																						jLabel2)
-																				.addComponent(
-																						jTextFieldPlano,
-																						GroupLayout.PREFERRED_SIZE,
-																						333,
-																						GroupLayout.PREFERRED_SIZE))
-																.addPreferredGap(
-																		LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(
-																		jButtonBuscar,
-																		GroupLayout.PREFERRED_SIZE,
-																		141,
-																		GroupLayout.PREFERRED_SIZE))
-												.addComponent(
-														jScrollPane1,
-														GroupLayout.PREFERRED_SIZE,
-														653,
-														GroupLayout.PREFERRED_SIZE))
-								.addContainerGap(GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE))
-				.addGroup(
-						GroupLayout.Alignment.TRAILING,
-						layout.createSequentialGroup()
-								.addContainerGap(GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)
-								.addComponent(jButtonFechar).addContainerGap()));
-		layout.setVerticalGroup(layout
-				.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(
-						layout.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(
-										layout.createParallelGroup(
-												GroupLayout.Alignment.BASELINE)
-												.addComponent(jLabel1)
-												.addComponent(jLabel2))
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(
-										layout.createParallelGroup(
-												GroupLayout.Alignment.BASELINE)
-												.addComponent(
-														jTextFieldCodigo,
-														GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(
-														jTextFieldPlano,
-														GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(jButtonBuscar))
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.UNRELATED)
-								.addComponent(jButtonAdicionarPlano)
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.UNRELATED)
-								.addComponent(jScrollPane1,
-										GroupLayout.PREFERRED_SIZE, 199,
-										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(
-										LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(jButtonFechar)
-								.addContainerGap(GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)));
 
 	}
 
@@ -192,7 +158,7 @@ public class ListPlanosView extends JFrame {
 	public void addTabela(String[][] dados) {
 		modelo = new DefaultTableModel(dados, colunas);
 		jTableListagemPlano = new JTable(modelo);
-		jScrollPane1 = new JScrollPane(jTableListagemPlano);
+		jScrollPane1_1 = new JScrollPane(jTableListagemPlano);
 	}
 
 	public void mostrarMensagem(String mensagem) {

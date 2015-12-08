@@ -35,6 +35,8 @@ public class ListFuncionariosView extends JFrame {
 	DefaultTableModel modelo;
 	String[] colunas = new String[] { "Código", "Nome", "Data de Nascimento",
 			"CPF"};
+	private JButton btnEditar;
+	private JButton btnExcluir;
 
 
 	/**
@@ -118,8 +120,16 @@ public class ListFuncionariosView extends JFrame {
 		contentPane.add(rolagem);
 
 		JButton btnFechar = new JButton("Fechar");
-		btnFechar.setBounds(446, 336, 101, 30);
+		btnFechar.setBounds(446, 336, 89, 27);
 		contentPane.add(btnFechar);
+		
+		btnEditar = new JButton("Editar");
+		btnEditar.setBounds(347, 340, 89, 23);
+		contentPane.add(btnEditar);
+		
+		btnExcluir = new JButton("Excluir");
+		btnExcluir.setBounds(242, 340, 89, 23);
+		contentPane.add(btnExcluir);
 		btnFechar.addActionListener(new ActionListener() {
 
 			@Override

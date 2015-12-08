@@ -16,6 +16,10 @@ public class Estado {
 		this.uf = uf;
 	}
 
+	public Estado() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdEstado() {
 		return idEstado;
 	}
