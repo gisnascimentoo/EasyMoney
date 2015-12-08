@@ -354,4 +354,12 @@ public class InterfaceUsuario {
 	public static void excluirPlanoCarregarPorId(int codigo) {
 		controller.excluirPlano(codigo);
 	}
+	
+	public int transformaStringInt(String texto) {
+		return Integer.parseInt(texto);
+	}
+	
+	public double transformaStringDouble(String texto) {
+		return  Double.parseDouble(texto);
+	}
 }

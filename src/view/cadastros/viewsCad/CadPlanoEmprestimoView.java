@@ -210,24 +210,24 @@ public class CadPlanoEmprestimoView extends JFrame {
 		if (edicao) {
 
 			InterfaceUsuario.editarPlano(
-					Integer.parseInt(textFieldCodPlano.getText()),
+					InterfaceUsusario.transformaStringInt(textFieldCodPlano.getText()),
 					textFieldPlanoEmprestimo.getText(), dataCadastro,
-					Double.parseDouble(textFieldJurosValorTotal.getText()),
-					Double.parseDouble(textFieldJurosMensal.getText()),
-					Double.parseDouble(textFieldValorMinimo.getText()),
-					Double.parseDouble(textFieldValorMaximo.getText()),
-					Integer.parseInt(textFieldNumMinimoParcelas.getText()),
-					Integer.parseInt(textFieldNumMaxParcelas.getText()),
+					transformaStringDouble(textFieldJurosValorTotal.getText()),
+					transformaStringDouble(textFieldJurosMensal.getText()),
+					transformaStringDouble(textFieldValorMinimo.getText()),
+					transformaStringDouble(textFieldValorMaximo.getText()),
+					InterfaceUsusario.transformaStringInt(textFieldNumMinimoParcelas.getText()),
+					InterfaceUsusario.transformaStringInt(textFieldNumMaxParcelas.getText()),
 					textFieldObservacoes.getText());
 		} else {
 			InterfaceUsuario.cadastrarPlano(textFieldPlanoEmprestimo.getText(),
 					dataCadastro,
-					Double.parseDouble(textFieldJurosValorTotal.getText()),
-					Double.parseDouble(textFieldJurosMensal.getText()),
-					Double.parseDouble(textFieldValorMinimo.getText()),
-					Double.parseDouble(textFieldValorMaximo.getText()),
-					Integer.parseInt(textFieldNumMinimoParcelas.getText()),
-					Integer.parseInt(textFieldNumMaxParcelas.getText()),
+					transformaStringDouble(textFieldJurosValorTotal.getText()),
+					transformaStringDouble(textFieldJurosMensal.getText()),
+					transformaStringDouble(textFieldValorMinimo.getText()),
+					transformaStringDouble(textFieldValorMaximo.getText()),
+					InterfaceUsusario.transformaStringInt(textFieldNumMinimoParcelas.getText()),
+					InterfaceUsusario.transformaStringInt(textFieldNumMaxParcelas.getText()),
 					textFieldObservacoes.getText());
 		}
 

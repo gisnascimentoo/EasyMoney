@@ -322,32 +322,26 @@ public class CadClienteView extends JFrame {
 				e.printStackTrace();
 			}
 		if (!edicao) {
-			InterfaceUsuario.cadastrarCliente(Integer.parseInt(textFieldCPF
-					.getText()), textFieldNome.getText(), Integer
-					.parseInt(textFieldRG.getText()), dateNasc,
-					textFieldLogradouro.getText(), Integer
-							.parseInt(textFieldNumero.getText()),
+			InterfaceUsuario.cadastrarCliente(InterfaceUsusario.transformaStringInt(textFieldCPF
+					.getText()), textFieldNome.getText(),InterfaceUsusario.transformaStringInt(textFieldRG.getText()), dateNasc,
+					textFieldLogradouro.getText(), InterfaceUsusario.transformaStringInt(textFieldNumero.getText()),
 					textFieldBairro.getText(), "cep",
 					textFieldCidade.getText(), comboBoxUF.getSelectedItem()
 							.toString(), textFieldBanco.getText(),
-					textFieldAgencia.getText(), Integer
-							.parseInt(textFieldContaCorrente.getText()), Double
-							.parseDouble(textFieldRendaFamiliar.getText()),
-					Double.parseDouble(textFieldRendaPessoal.getText()),
+					textFieldAgencia.getText(),InterfaceUsusario.transformaStringInt(textFieldContaCorrente.getText()), transformaStringDouble(textFieldRendaFamiliar.getText()),
+					transformaStringDouble(textFieldRendaPessoal.getText()),
 					textFieldObsFinanceiras.getText());
 		} else {
-			InterfaceUsuario.editarCliente(Integer.parseInt(textFieldCodCliente
-					.getText()), Integer.parseInt(textFieldCPF.getText()),
-					textFieldNome.getText(), Integer.parseInt(textFieldRG
+			InterfaceUsuario.editarCliente(InterfaceUsusario.transformaStringInt(textFieldCodCliente
+					.getText()), InterfaceUsusario.transformaStringInt(textFieldCPF.getText()),
+					textFieldNome.getText(), InterfaceUsusario.transformaStringInt(textFieldRG
 							.getText()), dateNasc, textFieldLogradouro
-							.getText(), Integer.parseInt(textFieldNumero
+							.getText(), InterfaceUsusario.transformaStringInt(textFieldNumero
 							.getText()), textFieldBairro.getText(), "cep",
 					textFieldCidade.getText(), comboBoxUF.getSelectedItem()
 							.toString(), textFieldBanco.getText(),
-					textFieldAgencia.getText(), Integer
-							.parseInt(textFieldContaCorrente.getText()), Double
-							.parseDouble(textFieldRendaFamiliar.getText()),
-					Double.parseDouble(textFieldRendaPessoal.getText()),
+					textFieldAgencia.getText(), InterfaceUsusario.transformaStringInt(textFieldContaCorrente.getText()), transformaStringDouble(textFieldRendaFamiliar.getText()),
+					transformaStringDouble(textFieldRendaPessoal.getText()),
 					textFieldObsFinanceiras.getText());
 		}
 
