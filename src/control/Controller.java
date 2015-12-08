@@ -135,9 +135,11 @@ public class Controller {
 		} else {
 			boolean idadeValida = verificarIdadeCliente(dataNascimento);
 			if (!idadeValida) {
-				// TODO
+				InterfaceUsuario
+						.exibirMensagemClienteCadastro("Idade do cliente inválida");
 			} else {
-				boolean camposOK = verificaCamposObrigatoriosCliente();
+				boolean camposOK = verificaCamposObrigatoriosCliente(
+						nomeCompleto, dataNascimento, cpf, rg);
 				if (!camposOK) {
 					InterfaceUsuario
 							.exibirMensagemClienteCadastro("Existem campos obrigatórios não preenchidos");
@@ -157,12 +159,18 @@ public class Controller {
 
 	}
 
-	private boolean verificaCamposObrigatoriosCliente() {
-		// TODO Auto-generated method stub
-		return false;
+	private boolean verificaCamposObrigatoriosCliente(String nome,
+			Date dataNascimento, int CPF, int RG) {
+		if (CPF > 0 && RG > 0 && nome.trim().length() > 0
+				&& dataNascimento != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private boolean verificarIdadeCliente(Date dataNascimento) {
+		// entre 18 e 75
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -215,7 +223,8 @@ public class Controller {
 				InterfaceUsuario.cancelarCriacaoFuncionario();
 			}
 		} else {
-			boolean camposOK = verificaCamposObrigatoriosFuncionario();
+			boolean camposOK = verificaCamposObrigatoriosFuncionario(
+					nomeCidade, dataNascimento, CPF, RG);
 			if (!camposOK) {
 				InterfaceUsuario
 						.exibirMensagemFuncionarioCadastro("Campos obrigatórios não preenchidos");
@@ -231,14 +240,50 @@ public class Controller {
 		}
 	}
 
-	private boolean verificaCamposObrigatoriosFuncionario() {
-		// TODO Auto-generated method stub
-		return false;
+	private boolean verificaCamposObrigatoriosFuncionario(String nome,
+			Date dataNascimento, int CPF, int RG) {
+		if (CPF > 0 && RG > 0 && nome.trim().length() > 0
+				&& dataNascimento != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	private void buscaDadosCliente(int codigo) {
+	public void buscaDadosCliente(int codigo) {
 		Cliente cliente = db.buscarDadosCliente(codigo);
+		Endereco endereco = cliente.getEndereco();
+		DadosFinanceiros dadosFinanceiros = cliente.getDadosFinanceiros();
+		InterfaceUsuario.carregaEdicaoCliente(cliente.getIdCliente(),
+				cliente.getCPF(), cliente.getNomeCompleto(), cliente.getRG(),
+				cliente.getDataNascimento(), endereco.getLogradouro(),
+				endereco.getNumero(), endereco.getBairro(), endereco.getCEP(),
+				endereco.getCidade().getNome(), endereco.getCidade()
+						.getEstado().getUf(), dadosFinanceiros.getBanco(),
+				dadosFinanceiros.getAgencia(),
+				dadosFinanceiros.getContaCorrente(),
+				dadosFinanceiros.getRendaFamiliar(),
+				dadosFinanceiros.getRendaPessoal(),
+				dadosFinanceiros.getObservacao());
+	}
 
+	public void buscaDadosFuncionario(int codigo) {
+		Funcionario funcionario = db.buscarDadosFuncionario(codigo);
+		InterfaceUsuario.carregaEdicaoFuncionario(funcionario
+				.getIdFuncionario(), funcionario.getNome(), funcionario
+				.getDataNascimento(), funcionario.getCPF(),
+				funcionario.getRG(), funcionario.getCargo(), funcionario
+						.getEmail(), funcionario.getTelefone(), funcionario
+						.getEndereco().getLogradouro(), funcionario
+						.getEndereco().getNumero(), funcionario.getEndereco()
+						.getBairro(), funcionario.getEndereco().getCEP(),
+				funcionario.getEndereco().getCidade().getNome(), funcionario
+						.getEndereco().getCidade().getEstado().getUf());
+	}
+	
+	public void buscaDadosPlano(int codigo){
+		PlanoEmprestimo plano = db.buscarDadosPlano();
+		InterfaceUsuario.carregarEdicaoPlano(plano.getIdPlanoEmprestimo(), plano.getNome(), plano.getDataCadastro(), plano.getJurosTotal(), plano.getJurosMensal(), plano.getValorMinimo(), plano.getValorMaximo(), plano.getMinParcelas(), plano.getMaxParcelas(), plano.getObservacao());
 	}
 
 	public void buscarPlano(int codigo, String plano) {
@@ -277,7 +322,9 @@ public class Controller {
 			double jurosTotal, double jurosMensal, double valorMinimo,
 			double valorMaximo, int minParcelas, int maxParcelas,
 			String observacao) {
-		boolean camposOK = verificaCamposObrigatoriosPlano();
+		boolean camposOK = verificaCamposObrigatoriosPlano(nome, dataCadastro,
+				jurosTotal, jurosMensal, valorMinimo, valorMaximo, minParcelas,
+				maxParcelas, observacao);
 		if (!camposOK) {
 			InterfaceUsuario
 					.exibirMensagemPlanoCadastro("Campos obrigatórios não preenchidos");
@@ -291,9 +338,16 @@ public class Controller {
 		}
 	}
 
-	private boolean verificaCamposObrigatoriosPlano() {
-		// TODO Auto-generated method stub
-		return false;
+	private boolean verificaCamposObrigatoriosPlano(String nome,
+			Date dataCadastro, double jurosTotal, double jurosMensal,
+			double valorMinimo, double valorMaximo, int minParcelas,
+			int maxParcelas, String observacao) {
+		if (nome.trim().length() > 0 || dataCadastro != null && jurosTotal > 0
+				&& jurosMensal > 0 && valorMinimo > 0 && valorMaximo > 0
+				&& minParcelas > 0 && maxParcelas > 0 && maxParcelas > 0
+				&& observacao.trim().length() > 0)
+			return true;
+		else
+			return false;
 	}
-
 }

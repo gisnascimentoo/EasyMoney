@@ -278,6 +278,21 @@ public class InterfaceUsuario {
 				valorMaximo, minParcelas, maxParcelas,
 				observacao);
 	}
+
+
+	public static void carregarEdicaoPlano(int codigo, String nome, Date dataCadastro,
+			double jurosTotal, double jurosMensal, double valorMinimo,
+			double valorMaximo, int minParcelas, int maxParcelas,
+			String observacao) {
+			cadPlanoEmprestimoView = new CadPlanoEmprestimoView(codigo, nome, dataCadastro,
+					jurosTotal, jurosMensal, valorMinimo,
+					valorMaximo, minParcelas, maxParcelas,
+					observacao);
+		
+	}
+
+
+
 	
 	public static void cadastrarContrato(int idCliente, String status, int idPlanoEmprestimo, int numParcelas, 
 			double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes){
@@ -302,4 +317,5 @@ public class InterfaceUsuario {
 	public static void carregarContrato(double valorEmprestimo, int valorParcelas, int indexPlanoEmprestimo, int indexNumeroParcelas){
 		novoContratoView = new NovoContratoView(valorEmprestimo, valorParcelas, indexPlanoEmprestimo, indexNumeroParcelas);
 	}
+
 }

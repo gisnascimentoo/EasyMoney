@@ -40,7 +40,7 @@ public class ManipuladorBanco {
 	private final String SELECT_ENDERECO_BY_ID = "SELECT * FROM ENDERECO WHERE IDENDERECO = ?";
 	private final String SELECT_CONTRATO_BY_ID = "SELECT * FROM CONTRATO WHERE IDCONTRATO = ?";
 	private final String SELECT_DADOSFINANCEIROS_BY_ID = "SELECT * FROM DADOSFINANCEIROS WHERE IDDADOSFINANCEIROS = ?";
-	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM tb_user_login WHERE login = ? and password = ?";
+	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM usuario WHERE login = ? and passwd = ?";
 
 	private final String SELECT_FUNCIONARIO_BY_CPF = "SELECT * FROM FUNCIONARIO WHERE CPF = ?";
 	private final String SELECT_CLIENTE_BY_CPF = "SELECT * FROM CLIENTE WHERE CPF = ?";
@@ -578,5 +578,15 @@ public class ManipuladorBanco {
 	public void salvarPlanoBanco(PlanoEmprestimo planoEmprestimo) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Funcionario buscarDadosFuncionario(int codigo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public PlanoEmprestimo buscarDadosPlano() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
