@@ -13,6 +13,8 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JSeparator;
@@ -225,8 +227,42 @@ public class NovoContratoView extends JFrame {
 	}
 
 	protected void salvar() {
-		// TODO Auto-generated method stub
+		DateFormat formatter = new SimpleDateFormat("dd/mm/aaaa");
+		Date dataCadastro = null;
+		/*
+		if (textFieldCodContrato.getText().trim().length() == 0){
+			//InterfaceUsuario.cadastrarContrato(
+					
+					);
+		}else{
+			//InterfaceUsuario.editarContrato();
+		}
 		
+		
+		/*
+		if (edicao) {
+
+			InterfaceUsuario.editarPlano(
+					Integer.parseInt(textFieldCodPlano.getText()),
+					textFieldPlanoEmprestimo.getText(), dataCadastro,
+					Double.parseDouble(textFieldJurosValorTotal.getText()),
+					Double.parseDouble(textFieldJurosMensal.getText()),
+					Double.parseDouble(textFieldValorMinimo.getText()),
+					Double.parseDouble(textFieldValorMaximo.getText()),
+					Integer.parseInt(textFieldNumMinimoParcelas.getText()),
+					Integer.parseInt(textFieldNumMaxParcelas.getText()),
+					textFieldObservacoes.getText());
+		} else {
+			InterfaceUsuario.cadastrarPlano(textFieldPlanoEmprestimo.getText(),
+					dataCadastro,
+					Double.parseDouble(textFieldJurosValorTotal.getText()),
+					Double.parseDouble(textFieldJurosMensal.getText()),
+					Double.parseDouble(textFieldValorMinimo.getText()),
+					Double.parseDouble(textFieldValorMaximo.getText()),
+					Integer.parseInt(textFieldNumMinimoParcelas.getText()),
+					Integer.parseInt(textFieldNumMaxParcelas.getText()),
+					textFieldObservacoes.getText());
+		}		*/
 	}
 
 	protected void fechar() {
