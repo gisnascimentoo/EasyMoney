@@ -522,7 +522,7 @@ public class ManipuladorBanco {
 			return "Cliente deletado com sucesso!";
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "Cliente não pode ser deletado!";
+			return "Cliente nï¿½o pode ser deletado!";
 		}
 	}
 	
@@ -531,10 +531,10 @@ public class ManipuladorBanco {
 			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_FUNCIONARIO_BY_ID);
 			prepared.setInt(1, id);
 			prepared.executeUpdate();
-			return "Funcionário deletado com sucesso!";
+			return "Funcionï¿½rio deletado com sucesso!";
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "Funcionário não pode ser deletado!";
+			return "Funcionï¿½rio nï¿½o pode ser deletado!";
 		}
 	}
 
@@ -671,7 +671,7 @@ public class ManipuladorBanco {
 			return "Plano deletado com sucesso";
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "Plano não pode ser deletado! Tente novamente!";
+			return "Plano nÃ£o pode ser deletado! Tente novamente!";
 		}
 	}
 	
@@ -789,7 +789,7 @@ public class ManipuladorBanco {
 			return "Contrato deletado com sucesso";
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "Contrato não pode ser deletado! Tente novamente!";
+			return "Contrato nÃ£o pode ser deletado! Tente novamente!";
 		}
 	}
 	
@@ -843,7 +843,7 @@ public class ManipuladorBanco {
 			return "Plano cadastrado com sucesso!";
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "Plano não pode ser cadastrado! Tente novamente";
+			return "Plano nÃ£o pode ser cadastrado! Tente novamente";
 		}
 	}
 
