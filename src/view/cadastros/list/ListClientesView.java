@@ -277,6 +277,5 @@ public class ListClientesView extends JFrame {
 						"Já existe um cliente cadastrado com este cpf. Retornar ao cadasto ou cancelar ação?",
 						"CPF Existente", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-
 	}
 }

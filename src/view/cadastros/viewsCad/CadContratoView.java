@@ -1,4 +1,4 @@
-package view;
+package view.cadastros.viewsCad;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -24,7 +24,9 @@ import java.sql.Date;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 
-public class NovoContratoView extends JFrame {
+import view.InterfaceUsuario;
+
+public class CadContratoView extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldCodContrato;
@@ -41,13 +43,13 @@ public class NovoContratoView extends JFrame {
 	private String formatString = "##/##/####";
 	
 	//Construtor usado a partir do menu
-	public NovoContratoView()
+	public CadContratoView()
 	{
 		initComponents();
 	}
 	
 	//Construtor usado a partir da simula��o
-	public NovoContratoView(double valorEmprestimo, int valorParcelas, int indexPlanoEmprestimo, int indexNumeroParcelas){
+	public CadContratoView(double valorEmprestimo, int valorParcelas, int indexPlanoEmprestimo, int indexNumeroParcelas){
 		initComponents();
 		textFieldValorEmprestimo.setText(String.valueOf(valorEmprestimo));
 		textFieldValorParcelas.setText(String.valueOf(valorParcelas));
@@ -56,7 +58,7 @@ public class NovoContratoView extends JFrame {
 	}
 	
 	//Construtor usado a partir de um contrato existente
-	public NovoContratoView(int codContrato, String nomeCliente, String banco, String agencia, int contaCorrente, double valorEmprestimo, 
+	public CadContratoView(int codContrato, String nomeCliente, String banco, String agencia, int contaCorrente, double valorEmprestimo, 
 			double valorParcelas, Date dataTermino, String observacao, int indexPlanoEmprestimo, int indexParcelas, String status){
 			initComponents();
 			textFieldCodContrato.setText(String.valueOf(codContrato));
@@ -245,7 +247,7 @@ public class NovoContratoView extends JFrame {
 	
 	
 	}
-
+	
 	protected void fechar() {
 		this.dispose();		
 	}

@@ -1,6 +1,8 @@
 package view;
 
 import java.sql.Date;
+import java.util.Collection;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
@@ -10,8 +12,10 @@ import view.cadastros.list.ListContratoView;
 import view.cadastros.list.ListFuncionariosView;
 import view.cadastros.list.ListPlanosView;
 import view.cadastros.viewsCad.CadClienteView;
+import view.cadastros.viewsCad.CadContratoView;
 import view.cadastros.viewsCad.CadFuncionarioView;
 import view.cadastros.viewsCad.CadPlanoEmprestimoView;
+import view.combo.SituacaoCombo;
 import control.ContratoController;
 import control.Controller;
 
@@ -24,7 +28,7 @@ public class InterfaceUsuario {
 	private static CadClienteView cadClienteView;
 	private static CadFuncionarioView cadFuncionarioView;
 	private static CadPlanoEmprestimoView cadPlanoEmprestimoView;
-	private static NovoContratoView novoContratoView;
+	private static CadContratoView novoContratoView;
 	private static RelatoriosEmprestimoView relatoriosEmprestimoView;
 	private static SimulacaoView simulacaoView;
 	private static ListClientesView listClienteView;
@@ -79,7 +83,7 @@ public class InterfaceUsuario {
 	}
 
 	public static void novoContratoView() {
-		novoContratoView = new NovoContratoView();
+		novoContratoView = new CadContratoView();
 		novoContratoView.setVisible(true);
 	}
 
@@ -287,14 +291,14 @@ public class InterfaceUsuario {
 	public static void carregarContrato(int codContrato, String nomeCliente, String banco, String agencia,
 			int contaCorrente, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacao,
 			int indexPlanoEmprestimo, int indexParcelas, String status) {
-		novoContratoView = new NovoContratoView(codContrato, nomeCliente, banco, agencia, contaCorrente,
+		novoContratoView = new CadContratoView(codContrato, nomeCliente, banco, agencia, contaCorrente,
 				valorEmprestimo, valorParcelas, dataTermino, observacao, indexPlanoEmprestimo, indexParcelas, status);
 
 	}
 
 	public static void novoContratoView(double valorEmprestimo, int valorParcelas, int indexPlanoEmprestimo,
 			int indexNumeroParcelas) {
-		novoContratoView = new NovoContratoView(valorEmprestimo, valorParcelas, indexPlanoEmprestimo,
+		novoContratoView = new CadContratoView(valorEmprestimo, valorParcelas, indexPlanoEmprestimo,
 				indexNumeroParcelas);
 	}
 
@@ -399,5 +403,17 @@ public class InterfaceUsuario {
 	public static void editarContratoCarregarPorId(int codigo) {
 		contratoController.recuperaContrato(codigo);
 		
+	}
+
+	public static boolean confirmarExclusaoContrato() {
+		return listContratoView.confirmaExclusao();
+	}
+
+	public static List<SituacaoCombo> carregaSituacaoCombo() {
+		return contratoController.preparaComboSituacao();
+	}
+
+	public static void buscarContrato(int codigo, String nome, String codigoSitucao) {
+		contratoController.buscarContrato(codigo, nome, codigoSitucao);
 	}
 }

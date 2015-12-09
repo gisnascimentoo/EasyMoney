@@ -2,26 +2,24 @@ package view.cadastros.list;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 
 import view.InterfaceUsuario;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JComboBox;
+import view.combo.SituacaoCombo;
 
 public class ListContratoView extends JFrame {
 
@@ -37,7 +35,8 @@ public class ListContratoView extends JFrame {
 	private JTextField jTextFieldCodigo;
 	private JTextField jTextFieldNome;
 	DefaultTableModel modelo;
-	String[] colunas = new String[] { "Código", "Nome", "Data de Nascimento",
+	JComboBox comboBox;
+	String[] colunas = new String[] { "Código", "Cliente", "Situação",
 			"CPF"};
 
 	public ListContratoView() {
@@ -98,7 +97,8 @@ public class ListContratoView extends JFrame {
 			}
 		});
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
+		carregarSituacaoCombo();
 
 		GroupLayout layout = new GroupLayout(getContentPane());
 		layout.setHorizontalGroup(
@@ -186,6 +186,10 @@ public class ListContratoView extends JFrame {
 		});
 	}
 
+	private void carregarSituacaoCombo() {
+			comboBox.setModel(new DefaultComboBoxModel(new Vector(InterfaceUsuario.carregaSituacaoCombo())));
+	}
+
 	protected void excluir() {
 		int codigo = getIdTabela();
 		if(codigo >= 0 ){
@@ -221,8 +225,8 @@ public class ListContratoView extends JFrame {
 		int codigo = -1;
 			if (jTextFieldCodigo.getText().trim().length() > 0)
 				InterfaceUsuario.transformaStringInt(jTextFieldCodigo.getText());
-
-	//	InterfaceUsuario.buscarCliente(codigo, jTextFieldNome.getText()		jTextFieldCPF.getText(), date); 
+		SituacaoCombo situacaoCombo = (SituacaoCombo)comboBox.getSelectedItem();
+		InterfaceUsuario.buscarContrato(codigo, jTextFieldNome.getText(), situacaoCombo.getCodigo()); 
 
 	}
 

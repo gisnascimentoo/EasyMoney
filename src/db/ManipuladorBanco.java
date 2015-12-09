@@ -89,7 +89,7 @@ public class ManipuladorBanco {
 		Connection conectando = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conectando = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "root");
+			conectando = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "everton", "everton");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -679,5 +679,16 @@ public class ManipuladorBanco {
 		}
 
 		return listaContrato;
+	}
+
+	public String excluiContrato(int codigo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Contrato> buscarContrato(int codigo, String nome,
+			String codigoSitucao) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
