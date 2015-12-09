@@ -27,7 +27,7 @@ public class ManipuladorBanco {
 	/*
 	 * Insert
 	 */
-	private final String INSERT_ENDERECO = "INSERT INTO ENDERECO(logradouro, numero, bairro, CEP, idCidade) VALUES(?, ?, ?, ?, ?)";
+	private final String INSERT_ENDERECO = "INSERT INTO ENDERECO(logradouro, numero, bairro, idCidade) VALUES(?, ?, ?, ?)";
 	private final String INSERT_CIDADE = "INSERT INTO CIDADE(nome, idEstado) VALUES(?, ?)";
 	private final String INSERT_DADOSFINANCEIROS = "INSERT INTO DADOSFINANCEIROS(banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao) VALUES(?, ?, ?, ?, ?, ?)";
 	private final String INSERT_CLIENTE = "INSERT INTO CLIENTE(nomeCompleto, dataNascimento, CPF, RG, idEndereco, idDadosFinanceiros) VALUES(?, ?, ?, ?, ?, ?)";
@@ -48,7 +48,7 @@ public class ManipuladorBanco {
 	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM Usuario WHERE login = ? and passwd = ?";
 	
 	private final String SELECT_INFO_CLIENTE_BY_ID = "SELECT C.IDCLIENTE AS IDCLIENTE, C.CPF AS CPF, C.NOMECOMPLETO AS NOMECLIENTE, "
-			+ "C.RG AS RG, C.DATANASCIMENTO AS DATANASCIMENTO, E.LOGRADOURO AS LOGRADOURO, E.NUMERO AS NUMERO, E.BAIRRO AS BAIRRO, E.CEP AS CEP"
+			+ "C.RG AS RG, C.DATANASCIMENTO AS DATANASCIMENTO, E.LOGRADOURO AS LOGRADOURO, E.NUMERO AS NUMERO, E.BAIRRO AS BAIRRO,"
 			+ "E.CEP AS CEP, CD.NOME AS NOMECIDADE, EST.IDESTADO AS IDUF, EST.SIGLA AS SIGLAUF, DF.BANCO AS BANCO, DF.AGENCIA AS AGENCIA, DF.CONTACORRENTE AS CONTACORRENTE, "
 			+ "DF.RENDAFAMILIAR AS RENDAFAMILIAR, DF.RENDAPESSOAL AS RENDAPESSOAL, DF.OBSERVACAO AS OBSERVACAO "
 			+ "FROM CLIENTE C LEFT JOIN ENDERECO E ON C.IDENDERECO = E.IDENDERECO LEFT JOIN CIDADE CD ON E.IDCIDADE = CD.IDCIDADE "
@@ -56,7 +56,7 @@ public class ManipuladorBanco {
 			+ "LEFT JOIN ESTADO EST ON EST.IDESTADO = CD.IDESTADO WHERE C.IDCLIENTE = ?";
 	
 	private final String SELECT_INFO_FUNCIONARIO_BY_ID = "SELECT F.IDFUNCIONARIO AS IDFUNCIONARIO, F.CPF AS CPF, F.NOME AS NOME, "
-			+ "F.RG AS RG, F.DATANASCIMENTO AS DATANASCIMENTO, F.CARGO AS CARGO, F.EMAIL AS EMAIL, F.TELEFONE AS TELEFONE, E.LOGRADOURO AS LOGRADOURO, E.NUMERO AS NUMERO, E.BAIRRO AS BAIRRO, E.CEP AS CEP"
+			+ "F.RG AS RG, F.DATANASCIMENTO AS DATANASCIMENTO, F.CARGO AS CARGO, F.EMAIL AS EMAIL, F.TELEFONE AS TELEFONE, E.LOGRADOURO AS LOGRADOURO, E.NUMERO AS NUMERO, E.BAIRRO AS BAIRRO,"
 			+ "E.CEP AS CEP, CD.NOME AS NOMECIDADE, EST.IDESTADO AS IDUF, EST.SIGLA AS SIGLAUF"
 			+ "FROM FUNCIONARIO F LEFT JOIN ENDERECO E ON F.IDENDERECO = E.IDENDERECO LEFT JOIN CIDADE CD ON E.IDCIDADE = CD.IDCIDADE "
 			+ "LEFT JOIN ESTADO EST ON EST.IDESTADO = CD.IDESTADO WHERE F.IDFUNCIONARIO = ?";
@@ -74,7 +74,7 @@ public class ManipuladorBanco {
 	private final String UPDATE_CLIENTE_BY_ID = "UPDATE CLIENTE SET nomeCompleto = ?, dataNascimento = ?, CPF = ?, RG = ?, idEndereco = ?, idDadosFinanceiros = ? WHERE IDCLIENTE = ?";
 	private final String UPDATE_PLANOEMPRESTIMO_BY_ID = "UPDATE PLANOEMPRESTIMO SET nome = ?, dataCadastro = ?, jurosTotal = ?, jurosMensal = ?, valorMinimo = ?, valorMaximo = ?, minParcelas = ?, maxParcelas = ?, observacao = ? WHERE IDPLANOEMPRESTIMO = ?";
 	private final String UPDATE_FUNCIONARIO_BY_ID = "UPDATE FUNCIONARIO SET nome = ?, dataNascimento = ?, CPF = ?, RG = ?, cargo = ?, email = ?, telefone = ?, idEndereco = ? WHERE IDFUNCIONARIO = ?";
-	private final String UPDATE_ENDERECO_BY_ID = "UPDATE ENDERECO SET logradouro = ?, numero = ?, bairro = ?, CEP = ?, cidade = ? WHERE IDENDERECO = ?";
+	private final String UPDATE_ENDERECO_BY_ID = "UPDATE ENDERECO SET logradouro = ?, numero = ?, bairro = ?, cidade = ? WHERE IDENDERECO = ?";
 	private final String UPDATE_CONTRATO_BY_ID = "UPDATE CONTRATO SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dadaTerminoContrato = ?, idCliente = ?, idPlanoEmprestimo = ? WHERE IDCONTRATO = ?";
 	private final String UPDATE_DADOSFINANCEIROS_BY_ID = "UPDATE DADOSFINANCEIROS SET banco = ?, agencia = ?, contaCorrente = ?, rendaFamiliar = ?, rendaPessoal = ?, observacao = ? WHERE IDDADOSFINANCEIROS = ?";
 
@@ -135,8 +135,7 @@ public class ManipuladorBanco {
 			prepared.setString(1, endereco.getLogradouro());
 			prepared.setInt(2, endereco.getNumero());
 			prepared.setString(3, endereco.getBairro());
-			prepared.setString(4, endereco.getCEP());
-			prepared.setInt(5, idFKCidade);
+			prepared.setInt(4, idFKCidade);
 			prepared.executeUpdate();
 			ResultSet set = prepared.getGeneratedKeys();
 			if (set.next()) {
@@ -295,9 +294,8 @@ public class ManipuladorBanco {
 			prepared.setString(1, endereco.getLogradouro());
 			prepared.setInt(2, endereco.getNumero());
 			prepared.setString(3, endereco.getBairro());
-			prepared.setString(4, endereco.getCEP());
-			prepared.setInt(5, endereco.getCidade().getIdCidade());
-			prepared.setInt(6, endereco.getIdEndereco());
+			prepared.setInt(4, endereco.getCidade().getIdCidade());
+			prepared.setInt(5, endereco.getIdEndereco());
 			prepared.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
