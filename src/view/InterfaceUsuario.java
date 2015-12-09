@@ -355,7 +355,7 @@ public class InterfaceUsuario {
 			try {
 				retorno = Integer.parseInt(texto);
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Não pôde fazer a conversão");
+				JOptionPane.showMessageDialog(null, "Nao pode fazer a conversao");
 			}
 		}
 		return retorno;
@@ -369,7 +369,7 @@ public class InterfaceUsuario {
 			try {
 				retorno = Double.parseDouble(texto);
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Não pôde fazer a conversão");
+				JOptionPane.showMessageDialog(null, "Nao pode fazer a conversao");
 			}
 		}
 		return retorno;

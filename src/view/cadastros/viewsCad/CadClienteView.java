@@ -92,7 +92,7 @@ public class CadClienteView extends JFrame {
 
 		textFieldCodCliente = new JTextField();
 		textFieldCodCliente.setBackground(SystemColor.control);
-		textFieldCodCliente.setBounds(120, 8, 153, 20);
+		textFieldCodCliente.setBounds(88, 8, 286, 20);
 		contentPane.add(textFieldCodCliente);
 		textFieldCodCliente.setColumns(10);
 
@@ -120,7 +120,7 @@ public class CadClienteView extends JFrame {
 		contentPane.add(lblCpf);
 
 		textFieldCPF = new JTextField();
-		textFieldCPF.setBounds(14, 94, 218, 20);
+		textFieldCPF.setBounds(14, 94, 214, 20);
 		contentPane.add(textFieldCPF);
 		textFieldCPF.setColumns(10);
 
@@ -131,7 +131,7 @@ public class CadClienteView extends JFrame {
 		contentPane.add(lblRg);
 
 		textFieldRG = new JTextField();
-		textFieldRG.setBounds(261, 94, 113, 20);
+		textFieldRG.setBounds(238, 94, 136, 20);
 		contentPane.add(textFieldRG);
 		textFieldRG.setColumns(10);
 
@@ -171,16 +171,16 @@ public class CadClienteView extends JFrame {
 		contentPane.add(lblCidade);
 
 		textFieldCidade = new JTextField();
-		textFieldCidade.setBounds(238, 220, 207, 20);
+		textFieldCidade.setBounds(238, 220, 166, 20);
 		contentPane.add(textFieldCidade);
 		textFieldCidade.setColumns(10);
 
 		lblUf = new JLabel("UF");
-		lblUf.setBounds(451, 205, 46, 14);
+		lblUf.setBounds(435, 205, 46, 14);
 		contentPane.add(lblUf);
 
 		comboBoxUF = new JComboBox();
-		comboBoxUF.setBounds(455, 220, 69, 20);
+		comboBoxUF.setBounds(425, 220, 99, 20);
 		contentPane.add(comboBoxUF);
 		carregarEstadoCombo();
 
@@ -237,16 +237,16 @@ public class CadClienteView extends JFrame {
 		contentPane.add(lblRendaFamiliar);
 
 		textFieldRendaFamiliar = new JTextField();
-		textFieldRendaFamiliar.setBounds(33, 388, 145, 20);
+		textFieldRendaFamiliar.setBounds(33, 388, 176, 20);
 		contentPane.add(textFieldRendaFamiliar);
 		textFieldRendaFamiliar.setColumns(10);
 
 		lblRendaPessoal = new JLabel("Renda Pessoal");
-		lblRendaPessoal.setBounds(209, 375, 110, 14);
+		lblRendaPessoal.setBounds(238, 374, 110, 14);
 		contentPane.add(lblRendaPessoal);
 
 		textFieldRendaPessoal = new JTextField();
-		textFieldRendaPessoal.setBounds(232, 388, 120, 20);
+		textFieldRendaPessoal.setBounds(238, 388, 123, 20);
 		contentPane.add(textFieldRendaPessoal);
 		textFieldRendaPessoal.setColumns(10);
 
@@ -256,7 +256,7 @@ public class CadClienteView extends JFrame {
 		contentPane.add(lblObservacoesFinanceiras);
 
 		textFieldObsFinanceiras = new JTextField();
-		textFieldObsFinanceiras.setBounds(160, 416, 364, 41);
+		textFieldObsFinanceiras.setBounds(148, 416, 376, 41);
 		contentPane.add(textFieldObsFinanceiras);
 		textFieldObsFinanceiras.setColumns(10);
 
@@ -273,7 +273,7 @@ public class CadClienteView extends JFrame {
 		contentPane.add(lblR);
 
 		label = new JLabel("R$");
-		label.setBounds(209, 391, 23, 14);
+		label.setBounds(219, 391, 23, 14);
 		contentPane.add(label);
 
 		btnCancelar.addActionListener(new ActionListener() {

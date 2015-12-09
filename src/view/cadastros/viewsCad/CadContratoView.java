@@ -99,12 +99,12 @@ public class CadContratoView extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel lblCdigoContrato = new JLabel("Codigo Contrato");
-		lblCdigoContrato.setBounds(10, 11, 92, 14);
+		lblCdigoContrato.setBounds(10, 11, 101, 14);
 		contentPane.add(lblCdigoContrato);
 
 		textFieldCodContrato = new JTextField();
 		textFieldCodContrato.setBackground(SystemColor.control);
-		textFieldCodContrato.setBounds(117, 8, 250, 20);
+		textFieldCodContrato.setBounds(112, 8, 255, 20);
 		contentPane.add(textFieldCodContrato);
 		textFieldCodContrato.setColumns(10);
 
@@ -113,11 +113,11 @@ public class CadContratoView extends JFrame {
 		contentPane.add(lblCliente);
 
 		JLabel lblSituao = new JLabel("* Situacao");
-		lblSituao.setBounds(357, 46, 59, 14);
+		lblSituao.setBounds(386, 46, 59, 14);
 		contentPane.add(lblSituao);
 
 		comboBoxSituacao = new JComboBox();
-		comboBoxSituacao.setBounds(357, 61, 167, 20);
+		comboBoxSituacao.setBounds(386, 61, 138, 20);
 		contentPane.add(comboBoxSituacao);
 
 		JLabel lblBanco = new JLabel("* Banco");
@@ -125,30 +125,30 @@ public class CadContratoView extends JFrame {
 		contentPane.add(lblBanco);
 
 		textFieldBanco = new JTextField();
-		textFieldBanco.setBounds(10, 107, 210, 20);
+		textFieldBanco.setBounds(10, 107, 223, 20);
 		contentPane.add(textFieldBanco);
 		textFieldBanco.setColumns(10);
 
 		JLabel lblAgncia = new JLabel("* Agencia");
-		lblAgncia.setBounds(242, 92, 46, 14);
+		lblAgncia.setBounds(242, 92, 92, 14);
 		contentPane.add(lblAgncia);
 
 		textFieldAgencia = new JTextField();
-		textFieldAgencia.setBounds(242, 107, 105, 20);
+		textFieldAgencia.setBounds(242, 107, 125, 20);
 		contentPane.add(textFieldAgencia);
 		textFieldAgencia.setColumns(10);
 
 		JLabel lblContacorrente = new JLabel("* Conta-corrente");
-		lblContacorrente.setBounds(357, 92, 114, 14);
+		lblContacorrente.setBounds(386, 92, 138, 14);
 		contentPane.add(lblContacorrente);
 
 		textFieldContaCorrente = new JTextField();
-		textFieldContaCorrente.setBounds(357, 107, 167, 20);
+		textFieldContaCorrente.setBounds(386, 107, 138, 20);
 		contentPane.add(textFieldContaCorrente);
 		textFieldContaCorrente.setColumns(10);
 
 		JLabel lblPlanoDeEmprestimo = new JLabel("* Plano de Emprestimo");
-		lblPlanoDeEmprestimo.setBounds(10, 190, 130, 14);
+		lblPlanoDeEmprestimo.setBounds(10, 190, 188, 14);
 		contentPane.add(lblPlanoDeEmprestimo);
 
 		comboBoxPlanoEmprestimo = new JComboBox();
@@ -160,11 +160,11 @@ public class CadContratoView extends JFrame {
 		contentPane.add(lblParcelas);
 
 		comboBoxParcelas = new JComboBox();
-		comboBoxParcelas.setBounds(260, 207, 86, 20);
+		comboBoxParcelas.setBounds(242, 207, 125, 20);
 		contentPane.add(comboBoxParcelas);
 
 		JLabel lblValorDoEmprestimo = new JLabel("* Valor do Emprestimo");
-		lblValorDoEmprestimo.setBounds(10, 253, 130, 14);
+		lblValorDoEmprestimo.setBounds(10, 253, 188, 14);
 		contentPane.add(lblValorDoEmprestimo);
 
 		textFieldValorEmprestimo = new JTextField();
@@ -177,7 +177,7 @@ public class CadContratoView extends JFrame {
 		contentPane.add(lblValorDasParcelas);
 
 		textFieldValorParcelas = new JTextField();
-		textFieldValorParcelas.setBounds(281, 269, 86, 20);
+		textFieldValorParcelas.setBounds(260, 269, 107, 20);
 		contentPane.add(textFieldValorParcelas);
 		textFieldValorParcelas.setColumns(10);
 
@@ -233,11 +233,11 @@ public class CadContratoView extends JFrame {
 		contentPane.add(lblR);
 
 		JLabel label = new JLabel("R$");
-		label.setBounds(260, 272, 24, 14);
+		label.setBounds(242, 272, 24, 14);
 		contentPane.add(label);
 
 		comboBoxCliente = new JComboBox();
-		comboBoxCliente.setBounds(10, 61, 337, 20);
+		comboBoxCliente.setBounds(10, 61, 357, 20);
 		contentPane.add(comboBoxCliente);
 		comboBoxPlanoEmprestimo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextPane;
 import javax.swing.JSeparator;
+import javax.swing.JLabel;
 
 public class PrincipalView extends JFrame {
 
@@ -131,6 +132,12 @@ public class PrincipalView extends JFrame {
 
 		JMenuItem mntmEmprestimos = new JMenuItem("Emprestimos");
 		mnRelatorio.add(mntmEmprestimos);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(63, 127,586, 315);
+		contentPane.add(lblNewLabel);
+		lblNewLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/EasyMoney_logomarca.jpg"))); 
+		
 		mntmEmprestimos.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {

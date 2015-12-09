@@ -42,7 +42,6 @@ public class CadFuncionarioView extends JFrame {
 	private JTextField textFieldCPF;
 	private JLabel lblRg;
 	private JTextField textFieldRG;
-	private JLabel lblSexo;
 	private JTextField textFieldLogradouro;
 	private JTextField textFieldNumero;
 	private JTextField textFieldBairro;
@@ -79,7 +78,7 @@ public class CadFuncionarioView extends JFrame {
 		textFieldCodFuncionario = new JTextField();
 		textFieldCodFuncionario.setBackground(SystemColor.control);
 		textFieldCodFuncionario.setSelectedTextColor(Color.LIGHT_GRAY);
-		textFieldCodFuncionario.setBounds(144, 11, 95, 19);
+		textFieldCodFuncionario.setBounds(108, 12, 110, 19);
 		contentPane.add(textFieldCodFuncionario);
 		textFieldCodFuncionario.setColumns(10);
 		textFieldCodFuncionario.setEditable(false);
@@ -89,7 +88,7 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(lblNome);
 
 		textFieldNome = new JTextField();
-		textFieldNome.setBounds(10, 61, 365, 19);
+		textFieldNome.setBounds(10, 61, 390, 19);
 		contentPane.add(textFieldNome);
 		textFieldNome.setColumns(10);
 
@@ -99,7 +98,7 @@ public class CadFuncionarioView extends JFrame {
 
 		MaskFormatter maskData = InterfaceUsuario.createFormatter(formatString);
 		formattedFieldDataNascimento = new JFormattedTextField(maskData);
-		formattedFieldDataNascimento.setBounds(400, 61, 110, 19);
+		formattedFieldDataNascimento.setBounds(410, 61, 100, 19);
 		contentPane.add(formattedFieldDataNascimento);
 		formattedFieldDataNascimento.setColumns(10);
 
@@ -108,29 +107,25 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(lblCpf);
 
 		textFieldCPF = new JTextField();
-		textFieldCPF.setBounds(10, 108, 180, 19);
+		textFieldCPF.setBounds(10, 108, 210, 19);
 		contentPane.add(textFieldCPF);
 		textFieldCPF.setColumns(10);
 
 		lblRg = new JLabel("* RG");
-		lblRg.setBounds(220, 91, 46, 14);
+		lblRg.setBounds(245, 91, 46, 14);
 		contentPane.add(lblRg);
 
 		textFieldRG = new JTextField();
-		textFieldRG.setBounds(220, 108, 155, 19);
+		textFieldRG.setBounds(230, 108, 170, 19);
 		contentPane.add(textFieldRG);
 		textFieldRG.setColumns(10);
-
-		lblSexo = new JLabel("Sexo");
-		lblSexo.setBounds(400, 91, 46, 14);
-		contentPane.add(lblSexo);
 
 		JLabel lblCargo = new JLabel("Cargo");
 		lblCargo.setBounds(10, 141, 46, 14);
 		contentPane.add(lblCargo);
 
 		comboBoxCargo = new JComboBox(new String[] { "Gerente", "Corretor"});
-		comboBoxCargo.setBounds(10, 159, 180, 19);
+		comboBoxCargo.setBounds(10, 159, 210, 19);
 		contentPane.add(comboBoxCargo);
 
 		JLabel lblEndereo = new JLabel("ENDERE\u00C7O");
@@ -147,7 +142,7 @@ public class CadFuncionarioView extends JFrame {
 		textFieldLogradouro.setColumns(10);
 
 		JLabel lblNumero = new JLabel("N\u00FAmero");
-		lblNumero.setBounds(400, 225, 46, 14);
+		lblNumero.setBounds(415, 225, 95, 14);
 		contentPane.add(lblNumero);
 
 		textFieldNumero = new JTextField();
@@ -169,7 +164,7 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(lblCidade);
 
 		textFieldCidade = new JTextField();
-		textFieldCidade.setBounds(230, 292, 168, 19);
+		textFieldCidade.setBounds(230, 292, 170, 19);
 		contentPane.add(textFieldCidade);
 		textFieldCidade.setColumns(10);
 
@@ -178,7 +173,7 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(lblUf);
 
 		comboBoxUF = new JComboBox();
-		comboBoxUF.setBounds(408, 293, 102, 19);
+		comboBoxUF.setBounds(410, 293, 100, 19);
 		contentPane.add(comboBoxUF);
 		
 		carregarEstadoCombo();
@@ -192,7 +187,7 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(lblEmail);
 
 		textFieldEmail = new JTextField();
-		textFieldEmail.setBounds(10, 374, 416, 19);
+		textFieldEmail.setBounds(10, 374, 390, 19);
 		contentPane.add(textFieldEmail);
 		textFieldEmail.setColumns(10);
 
@@ -201,7 +196,7 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(lblTelefone);
 
 		textFieldTelefone = new JTextField();
-		textFieldTelefone.setBounds(10, 426, 180, 19);
+		textFieldTelefone.setBounds(10, 426, 210, 19);
 		contentPane.add(textFieldTelefone);
 		textFieldTelefone.setColumns(10);
 

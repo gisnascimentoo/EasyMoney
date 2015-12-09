@@ -56,7 +56,7 @@ public class ListFuncionariosView extends JFrame {
 		contentPane.add(lblCodigo);
 
 		textFieldCodigo = new JTextField();
-		textFieldCodigo.setBounds(25, 38, 93, 20);
+		textFieldCodigo.setBounds(25, 38, 101, 20);
 		contentPane.add(textFieldCodigo);
 		textFieldCodigo.setColumns(10);
 
@@ -84,7 +84,7 @@ public class ListFuncionariosView extends JFrame {
 		contentPane.add(lblCpf);
 
 		textFieldCPF = new JTextField();
-		textFieldCPF.setBounds(159, 85, 236, 20);
+		textFieldCPF.setBounds(159, 85, 277, 20);
 		contentPane.add(textFieldCPF);
 		textFieldCPF.setColumns(10);
 
@@ -93,7 +93,7 @@ public class ListFuncionariosView extends JFrame {
 		rolagem = new JScrollPane(tabela);
 
 		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(428, 85, 119, 21);
+		btnBuscar.setBounds(446, 85, 101, 21);
 		contentPane.add(btnBuscar);
 		btnBuscar.addActionListener(new ActionListener() {
 
@@ -104,7 +104,7 @@ public class ListFuncionariosView extends JFrame {
 		});
 
 		JButton btnAdicionarFuncionario = new JButton("Adicionar Funcionario");
-		btnAdicionarFuncionario.setBounds(25, 122, 164, 23);
+		btnAdicionarFuncionario.setBounds(25, 122, 134, 23);
 		contentPane.add(btnAdicionarFuncionario);
 		btnAdicionarFuncionario.addActionListener(new ActionListener() {
 

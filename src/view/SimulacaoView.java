@@ -57,22 +57,22 @@ public class SimulacaoView extends JFrame {
 		contentPane.add(lblValorFinanciado);
 		
 		textFieldValorFinanciado = new JTextField();
-		textFieldValorFinanciado.setBounds(45, 47, 147, 20);
+		textFieldValorFinanciado.setBounds(45, 47, 214, 20);
 		contentPane.add(textFieldValorFinanciado);
 		textFieldValorFinanciado.setColumns(10);
 		
 		JLabel lblValorDaPrestao = new JLabel("Valor da prestacao");
-		lblValorDaPrestao.setBounds(231, 25, 98, 14);
+		lblValorDaPrestao.setBounds(299, 25, 98, 14);
 		contentPane.add(lblValorDaPrestao);
 		
 		textFieldValorPrestacao = new JTextField();
-		textFieldValorPrestacao.setBounds(250, 47, 147, 20);
+		textFieldValorPrestacao.setBounds(299, 47, 98, 20);
 		contentPane.add(textFieldValorPrestacao);
 		textFieldValorPrestacao.setEditable(false);
 		textFieldValorPrestacao.setColumns(10);
 		
 		JLabel lblR = new JLabel("R$");
-		lblR.setBounds(231, 50, 20, 14);
+		lblR.setBounds(280, 50, 20, 14);
 		contentPane.add(lblR);
 		
 		JLabel label = new JLabel("R$");
@@ -84,16 +84,16 @@ public class SimulacaoView extends JFrame {
 		contentPane.add(lblNmeroDeMeses);
 		
 		textFieldNumMeses = new JTextField();
-		textFieldNumMeses.setBounds(24, 113, 104, 20);
+		textFieldNumMeses.setBounds(24, 113, 118, 20);
 		contentPane.add(textFieldNumMeses);
 		textFieldNumMeses.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Plano de Emprestimo");
-		lblNewLabel.setBounds(152, 92, 104, 14);
+		lblNewLabel.setBounds(155, 92, 104, 14);
 		contentPane.add(lblNewLabel);
 		
 		comboBoxPlanoEmprestimo = new JComboBox();
-		comboBoxPlanoEmprestimo.setBounds(152, 113, 104, 20);
+		comboBoxPlanoEmprestimo.setBounds(152, 113, 107, 20);
 		contentPane.add(comboBoxPlanoEmprestimo);
 		
 		JButton btnCalcular = new JButton("Calcular");
@@ -134,7 +134,7 @@ public class SimulacaoView extends JFrame {
 		});
 		
 		JButton btnGerarContrato = new JButton("Gerar Contrato");
-		btnGerarContrato.setBounds(24, 289, 117, 23);
+		btnGerarContrato.setBounds(139, 289, 117, 23);
 		contentPane.add(btnGerarContrato);
 		
 		btnGerarContrato.addActionListener(new ActionListener() {
