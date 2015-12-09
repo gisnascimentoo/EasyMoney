@@ -84,7 +84,7 @@ public class CadFuncionarioView extends JFrame {
 		textFieldCodFuncionario.setColumns(10);
 		textFieldCodFuncionario.setEditable(false);
 
-		lblNome = new JLabel("Nome");
+		lblNome = new JLabel("* Nome");
 		lblNome.setBounds(10, 41, 95, 19);
 		contentPane.add(lblNome);
 
@@ -93,7 +93,7 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(textFieldNome);
 		textFieldNome.setColumns(10);
 
-		lblDataNascimento = new JLabel("Data Nascimento");
+		lblDataNascimento = new JLabel("* Data Nascimento");
 		lblDataNascimento.setBounds(400, 43, 95, 14);
 		contentPane.add(lblDataNascimento);
 
@@ -103,7 +103,7 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(formattedFieldDataNascimento);
 		formattedFieldDataNascimento.setColumns(10);
 
-		lblCpf = new JLabel("CPF");
+		lblCpf = new JLabel("* CPF");
 		lblCpf.setBounds(10, 91, 46, 14);
 		contentPane.add(lblCpf);
 
@@ -112,7 +112,7 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(textFieldCPF);
 		textFieldCPF.setColumns(10);
 
-		lblRg = new JLabel("RG");
+		lblRg = new JLabel("* RG");
 		lblRg.setBounds(220, 91, 46, 14);
 		contentPane.add(lblRg);
 

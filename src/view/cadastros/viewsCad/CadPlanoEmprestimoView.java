@@ -63,7 +63,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 		contentPane.add(textFieldCodPlano);
 		textFieldCodPlano.setColumns(10);
 
-		JLabel lblDataDeCadastro = new JLabel("Data de Cadastro");
+		JLabel lblDataDeCadastro = new JLabel("* Data de Cadastro");
 		lblDataDeCadastro.setBounds(388, 21, 103, 14);
 		contentPane.add(lblDataDeCadastro);
 
@@ -73,7 +73,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 		contentPane.add(formattedFieldDataNascimento);
 		formattedFieldDataNascimento.setColumns(10);
 
-		JLabel lblPlanoDeEmprstimo = new JLabel("Plano de Emprestimo");
+		JLabel lblPlanoDeEmprstimo = new JLabel("* Plano de Emprestimo");
 		lblPlanoDeEmprstimo.setBounds(10, 89, 103, 14);
 		contentPane.add(lblPlanoDeEmprstimo);
 
@@ -82,7 +82,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 		contentPane.add(textFieldPlanoEmprestimo);
 		textFieldPlanoEmprestimo.setColumns(10);
 
-		JLabel lblJurosValorTotal = new JLabel("Taxa de Juros valor total");
+		JLabel lblJurosValorTotal = new JLabel("* Taxa de Juros valor total");
 		lblJurosValorTotal.setBounds(238, 273, 131, 14);
 		contentPane.add(lblJurosValorTotal);
 
@@ -115,7 +115,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 		textFieldValorMaximo.setColumns(10);
 
 		JLabel lblNmeroMnimoDe = new JLabel(
-				"Numero minimo de parcelas");
+				"* Numero minimo de parcelas");
 		lblNmeroMnimoDe.setBounds(10, 215, 131, 14);
 		contentPane.add(lblNmeroMnimoDe);
 
@@ -143,7 +143,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 		label_1.setBounds(351, 298, 46, 14);
 		contentPane.add(label_1);
 
-		JLabel lblTaxaDeJuros = new JLabel("Taxa de juros mensal");
+		JLabel lblTaxaDeJuros = new JLabel("* Taxa de juros mensal");
 		lblTaxaDeJuros.setBounds(10, 273, 103, 14);
 		contentPane.add(lblTaxaDeJuros);
 

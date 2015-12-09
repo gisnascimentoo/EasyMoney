@@ -96,7 +96,7 @@ public class CadClienteView extends JFrame {
 		contentPane.add(textFieldCodCliente);
 		textFieldCodCliente.setColumns(10);
 
-		JLabel lblNome = new JLabel("Nome");
+		JLabel lblNome = new JLabel("* Nome");
 		lblNome.setBounds(10, 32, 46, 14);
 		contentPane.add(lblNome);
 
@@ -105,7 +105,7 @@ public class CadClienteView extends JFrame {
 		contentPane.add(textFieldNome);
 		textFieldNome.setColumns(10);
 
-		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento");
+		JLabel lblDataDeNascimento = new JLabel("* Data de Nascimento");
 		lblDataDeNascimento.setBounds(387, 32, 110, 14);
 		contentPane.add(lblDataDeNascimento);
 
@@ -115,7 +115,7 @@ public class CadClienteView extends JFrame {
 		contentPane.add(formattedFieldDataNascimento);
 		formattedFieldDataNascimento.setColumns(10);
 
-		JLabel lblCpf = new JLabel("CPF");
+		JLabel lblCpf = new JLabel("* CPF");
 		lblCpf.setBounds(14, 79, 46, 14);
 		contentPane.add(lblCpf);
 
@@ -126,7 +126,7 @@ public class CadClienteView extends JFrame {
 
 		textFieldCodCliente.setEnabled(false);
 
-		JLabel lblRg = new JLabel("RG");
+		JLabel lblRg = new JLabel("* RG");
 		lblRg.setBounds(261, 79, 46, 14);
 		contentPane.add(lblRg);
 
