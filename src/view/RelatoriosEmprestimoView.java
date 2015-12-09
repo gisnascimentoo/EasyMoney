@@ -31,7 +31,7 @@ public class RelatoriosEmprestimoView extends JFrame {
 	private String formatString = "##/##/####";
 	JRadioButton rdbtnEmprestimosAprovados;
 	JRadioButton rdbtnEmprestimosReprovados;
-	String[] colunas = new String[] { "Código", "Cliente", "Valor contrato" };
+	String[] colunas = new String[] { "Codigo", "Cliente", "Valor contrato" };
 
 	/**
 	 * Create the frame.
@@ -39,14 +39,14 @@ public class RelatoriosEmprestimoView extends JFrame {
 	public RelatoriosEmprestimoView() {
 		grupo = new ButtonGroup();
 
-		setTitle("Relat\u00F3rio Empr\u00E9stimo");
+		setTitle("Relatorio Emprestimo");
 		setBounds(100, 100, 465, 454);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblBuscaCliente = new JLabel("Intervalo In\u00EDcio");
+		JLabel lblBuscaCliente = new JLabel("Intervalo Inicio");
 		lblBuscaCliente.setBounds(23, 24, 139, 14);
 		contentPane.add(lblBuscaCliente);
 
@@ -56,7 +56,7 @@ public class RelatoriosEmprestimoView extends JFrame {
 		contentPane.add(formattedFieldDataInicio);
 		formattedFieldDataInicio.setColumns(10);
 
-		JLabel lblTipoDeRelatrio = new JLabel("Tipo de Relat\u00F3rio:");
+		JLabel lblTipoDeRelatrio = new JLabel("Tipo de Relatorio:");
 		lblTipoDeRelatrio.setBounds(23, 92, 139, 14);
 		contentPane.add(lblTipoDeRelatrio);
 
@@ -124,7 +124,7 @@ public class RelatoriosEmprestimoView extends JFrame {
 			}
 		}
 		int tipoIndex;
-		if(tipo.equals("Empr\u00E9stimos Aprovados")){
+		if(tipo.equals("Emprestimos Aprovados")){
 			tipoIndex = 0;
 		}else{
 			tipoIndex = 1;

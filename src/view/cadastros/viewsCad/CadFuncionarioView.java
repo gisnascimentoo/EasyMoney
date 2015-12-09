@@ -65,14 +65,14 @@ public class CadFuncionarioView extends JFrame {
 	}
 	
 	public void init(){
-		setTitle("Cadastro Funcion\u00E1rio");
+		setTitle("Cadastro Funcionario");
 		setBounds(100, 100, 550, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel labelCodFuncionario = new JLabel("C\u00F3digo Funcion\u00E1rio");
+		JLabel labelCodFuncionario = new JLabel("Codigo Funcionario");
 		labelCodFuncionario.setBounds(10, 12, 136, 19);
 		contentPane.add(labelCodFuncionario);
 

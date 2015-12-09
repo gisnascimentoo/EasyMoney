@@ -29,7 +29,7 @@ public class ListPlanosView extends JFrame {
 	private JTable jTableListagemPlano;
 	private JTextField jTextFieldCodigo;
 	private JTextField jTextFieldPlano;
-	String[] colunas = new String[] { "Código", "Plano" };
+	String[] colunas = new String[] { "Codigo", "Plano" };
 	DefaultTableModel modelo;
 	private JButton btnEditar;
 	private JButton btnExcluir;
@@ -51,7 +51,7 @@ public class ListPlanosView extends JFrame {
 		jScrollPane1 = new JScrollPane();
 		jTableListagemPlano = new JTable();
 
-		jLabel1.setText("Código");
+		jLabel1.setText("Codigo");
 
 		modelo = new DefaultTableModel(null, colunas);
 		jTableListagemPlano = new JTable(modelo);
@@ -193,7 +193,7 @@ public class ListPlanosView extends JFrame {
 	}
 
 	public boolean confirmaExclusao() {
-		Object[] options = { "Sim", "Não" };
+		Object[] options = { "Sim", "Nao" };
 		int opcao = JOptionPane.showOptionDialog(null,
 				"Deseja excluir o plano?", "Excluir Plano",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
@@ -211,7 +211,7 @@ public class ListPlanosView extends JFrame {
 			String codigoS = (String)jTableListagemPlano.getModel().getValueAt(row, 0);
 			codigo  = InterfaceUsuario.transformaStringInt(codigoS); 
 		}else{
-			JOptionPane.showMessageDialog(null, "Selecione uma linha para ação");
+			JOptionPane.showMessageDialog(null, "Selecione uma linha para acao");
 		}
 		return codigo;
 	}

@@ -46,14 +46,14 @@ public class CadPlanoEmprestimoView extends JFrame {
 	}
 	
 	public void init(){
-		setTitle("Novo Plano de Empr\u00E9stimo");
+		setTitle("Novo Plano de Emprestimo");
 		setBounds(100, 100, 550, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblCodigoPlano = new JLabel("C\u00F3digo Plano");
+		JLabel lblCodigoPlano = new JLabel("Codigo Plano");
 		lblCodigoPlano.setBounds(10, 21, 103, 14);
 		contentPane.add(lblCodigoPlano);
 
@@ -73,7 +73,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 		contentPane.add(formattedFieldDataNascimento);
 		formattedFieldDataNascimento.setColumns(10);
 
-		JLabel lblPlanoDeEmprstimo = new JLabel("Plano de Empr\u00E9stimo");
+		JLabel lblPlanoDeEmprstimo = new JLabel("Plano de Emprestimo");
 		lblPlanoDeEmprstimo.setBounds(10, 89, 103, 14);
 		contentPane.add(lblPlanoDeEmprstimo);
 
@@ -87,7 +87,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 		contentPane.add(lblJurosValorTotal);
 
 		JLabel lblValorMnimoDe = new JLabel(
-				"Valor m\u00EDnimo de empr\u00E9stimo");
+				"Valor minimo de emprestimo");
 		lblValorMnimoDe.setBounds(10, 154, 138, 14);
 		contentPane.add(lblValorMnimoDe);
 
@@ -101,7 +101,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 		contentPane.add(lblR);
 
 		JLabel lblValorMaximoDe = new JLabel(
-				"Valor m\u00E1ximo de empr\u00E9stimo");
+				"Valor maximo de emprestimo");
 		lblValorMaximoDe.setBounds(238, 154, 170, 14);
 		contentPane.add(lblValorMaximoDe);
 
@@ -115,7 +115,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 		textFieldValorMaximo.setColumns(10);
 
 		JLabel lblNmeroMnimoDe = new JLabel(
-				"N\u00FAmero m\u00EDnimo de parcelas");
+				"Numero minimo de parcelas");
 		lblNmeroMnimoDe.setBounds(10, 215, 131, 14);
 		contentPane.add(lblNmeroMnimoDe);
 
@@ -125,7 +125,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 		textFieldNumMinimoParcelas.setColumns(10);
 
 		JLabel lblNmeroMximoDe = new JLabel(
-				"N\u00FAmero m\u00E1ximo de parcelas");
+				"Numero maximo de parcelas");
 		lblNmeroMximoDe.setBounds(238, 215, 159, 14);
 		contentPane.add(lblNmeroMximoDe);
 
@@ -156,7 +156,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 		label_2.setBounds(119, 294, 46, 14);
 		contentPane.add(label_2);
 
-		JLabel lblObservaes = new JLabel("Observa\u00E7\u00F5es");
+		JLabel lblObservaes = new JLabel("Observacoes");
 		lblObservaes.setBounds(10, 322, 87, 14);
 		contentPane.add(lblObservaes);
 

@@ -41,7 +41,7 @@ public class LoginView extends JFrame {
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(null);
 
-		JLabel lblNomeDeUsuario = new JLabel("Nome de usu\u00E1rio");
+		JLabel lblNomeDeUsuario = new JLabel("Nome de usuario");
 		lblNomeDeUsuario.setBounds(54, 111, 137, 26);
 		panel_1.add(lblNomeDeUsuario);
 		lblNomeDeUsuario.setFont(new Font("Calibri Light", Font.PLAIN, 20));
@@ -96,7 +96,7 @@ public class LoginView extends JFrame {
 	}
 
 	public void informaLoginInvalido() {
-		JOptionPane.showMessageDialog(null, "Login inválido");
+		JOptionPane.showMessageDialog(null, "Login invalido");
 
 	}
 

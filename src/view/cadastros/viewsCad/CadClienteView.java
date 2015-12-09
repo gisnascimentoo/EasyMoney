@@ -86,7 +86,7 @@ public class CadClienteView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblCdigoCliente = new JLabel("C\u00F3digo cliente");
+		JLabel lblCdigoCliente = new JLabel("Codigo cliente");
 		lblCdigoCliente.setBounds(10, 11, 100, 14);
 		contentPane.add(lblCdigoCliente);
 
@@ -135,7 +135,7 @@ public class CadClienteView extends JFrame {
 		contentPane.add(textFieldRG);
 		textFieldRG.setColumns(10);
 
-		lblEndereco = new JLabel("ENDERE\u00C7O");
+		lblEndereco = new JLabel("ENDERECO");
 		lblEndereco.setBounds(10, 132, 64, 14);
 		contentPane.add(lblEndereco);
 
@@ -148,7 +148,7 @@ public class CadClienteView extends JFrame {
 		contentPane.add(textFieldLogradouro);
 		textFieldLogradouro.setColumns(10);
 
-		lblNumero = new JLabel("N\u00FAmero");
+		lblNumero = new JLabel("Numero");
 		lblNumero.setBounds(425, 157, 72, 14);
 		contentPane.add(lblNumero);
 
@@ -214,7 +214,7 @@ public class CadClienteView extends JFrame {
 		contentPane.add(textFieldBanco);
 		textFieldBanco.setColumns(10);
 
-		lblAgencia = new JLabel("Ag\u00EAncia");
+		lblAgencia = new JLabel("Agencia");
 		lblAgencia.setBounds(238, 329, 46, 14);
 		contentPane.add(lblAgencia);
 
@@ -251,7 +251,7 @@ public class CadClienteView extends JFrame {
 		textFieldRendaPessoal.setColumns(10);
 
 		lblObservacoesFinanceiras = new JLabel(
-				"Observa\u00E7\u00F5es Financeiras");
+				"Observacoes Financeiras");
 		lblObservacoesFinanceiras.setBounds(10, 419, 153, 14);
 		contentPane.add(lblObservacoesFinanceiras);
 

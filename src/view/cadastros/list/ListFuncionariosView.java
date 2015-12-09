@@ -36,7 +36,7 @@ public class ListFuncionariosView extends JFrame {
 	JScrollPane rolagem;
 	JTable tabela;
 	DefaultTableModel modelo;
-	String[] colunas = new String[] { "Código", "Nome", "Data de Nascimento", "CPF" };
+	String[] colunas = new String[] { "Codigo", "Nome", "Data de Nascimento", "CPF" };
 	private JButton btnEditar;
 	private JButton btnExcluir;
 
@@ -44,14 +44,14 @@ public class ListFuncionariosView extends JFrame {
 	 * Create the frame.
 	 */
 	public ListFuncionariosView() {
-		setTitle("Buscar Funcion�rios");
+		setTitle("Buscar Funcionarios");
 		setBounds(100, 100, 600, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblCodigo = new JLabel("C�digo");
+		JLabel lblCodigo = new JLabel("Codigo");
 		lblCodigo.setBounds(25, 22, 76, 14);
 		contentPane.add(lblCodigo);
 
@@ -103,7 +103,7 @@ public class ListFuncionariosView extends JFrame {
 			}
 		});
 
-		JButton btnAdicionarFuncionario = new JButton("Adicionar Funcion�rio");
+		JButton btnAdicionarFuncionario = new JButton("Adicionar Funcionario");
 		btnAdicionarFuncionario.setBounds(25, 122, 164, 23);
 		contentPane.add(btnAdicionarFuncionario);
 		btnAdicionarFuncionario.addActionListener(new ActionListener() {
@@ -199,7 +199,7 @@ public class ListFuncionariosView extends JFrame {
 	}
 
 	public boolean confirmaExclusao() {
-		Object[] options = { "Sim", "Não" };
+		Object[] options = { "Sim", "Nao" };
 		int opcao = JOptionPane.showOptionDialog(null, "Deseja excluir o funcionário?", "Excluir Funcionário",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 		if (opcao == 0)
@@ -215,7 +215,7 @@ public class ListFuncionariosView extends JFrame {
 	public int MensagemCpfExistente() {
 		Object[] options = { "Retornar", "Cancelar" };
 		return JOptionPane.showOptionDialog(null,
-				"Já existe um funcionário cadastrado com este cpf. Retornar ao cadasto ou cancelar ação?",
+				"Ja existe um funcionario cadastrado com este cpf. Retornar ao cadasto ou cancelar acao?",
 				"CPF Existente", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 	}
 

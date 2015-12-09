@@ -31,7 +31,7 @@ public class SimulacaoView extends JFrame {
 	
 	//TODO
 	//Verificar quais colunas mostradas
-	String[] colunas = new String[] { "Código", "Cliente", "Situação",
+	String[] colunas = new String[] { "Codigo", "Cliente", "Situacao",
 			"CPF"};
 
 
@@ -39,7 +39,7 @@ public class SimulacaoView extends JFrame {
 	 * Create the frame.
 	 */
 	public SimulacaoView() {
-		setTitle("Simula\u00E7\u00E3o");
+		setTitle("Simulacao");
 		setBounds(100, 100, 439, 380);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -61,7 +61,7 @@ public class SimulacaoView extends JFrame {
 		contentPane.add(textFieldValorFinanciado);
 		textFieldValorFinanciado.setColumns(10);
 		
-		JLabel lblValorDaPrestao = new JLabel("Valor da presta\u00E7\u00E3o");
+		JLabel lblValorDaPrestao = new JLabel("Valor da prestacao");
 		lblValorDaPrestao.setBounds(231, 25, 98, 14);
 		contentPane.add(lblValorDaPrestao);
 		
@@ -79,7 +79,7 @@ public class SimulacaoView extends JFrame {
 		label.setBounds(24, 50, 20, 14);
 		contentPane.add(label);
 		
-		JLabel lblNmeroDeMeses = new JLabel("N\u00FAmero de meses");
+		JLabel lblNmeroDeMeses = new JLabel("Numero de meses");
 		lblNmeroDeMeses.setBounds(24, 92, 118, 14);
 		contentPane.add(lblNmeroDeMeses);
 		
@@ -88,7 +88,7 @@ public class SimulacaoView extends JFrame {
 		contentPane.add(textFieldNumMeses);
 		textFieldNumMeses.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Plano de Empr\u00E9stimo");
+		JLabel lblNewLabel = new JLabel("Plano de Emprestimo");
 		lblNewLabel.setBounds(152, 92, 104, 14);
 		contentPane.add(lblNewLabel);
 		
@@ -100,7 +100,7 @@ public class SimulacaoView extends JFrame {
 		btnCalcular.setBounds(299, 112, 98, 23);
 		contentPane.add(btnCalcular);
 		
-		JLabel lblResultadoDaSimulao = new JLabel("Resultado da Simula\u00E7\u00E3o");
+		JLabel lblResultadoDaSimulao = new JLabel("Resultado da Simulacao");
 		lblResultadoDaSimulao.setBounds(21, 157, 119, 14);
 		contentPane.add(lblResultadoDaSimulao);
 		

@@ -60,7 +60,7 @@ public class PrincipalView extends JFrame {
 			}
 		});
 
-		JMenuItem mntmFuncionario = new JMenuItem("Funcion�rios");
+		JMenuItem mntmFuncionario = new JMenuItem("Funcionarios");
 		mnCadastro.add(mntmFuncionario);
 		
 		mntmFuncionario.addActionListener(new ActionListener() {
@@ -99,7 +99,7 @@ public class PrincipalView extends JFrame {
 			}
 		});
 
-		JMenu mnEmprestimo = new JMenu("Empr�stimo");
+		JMenu mnEmprestimo = new JMenu("Emprestimo");
 		menuBar.add(mnEmprestimo);
 
 		JMenuItem mntmContratos = new JMenuItem("Contratos");
@@ -114,7 +114,7 @@ public class PrincipalView extends JFrame {
 		JSeparator separator_3 = new JSeparator();
 		mnEmprestimo.add(separator_3);
 
-		JMenuItem mntmSimulacao = new JMenuItem("Simula��o");
+		JMenuItem mntmSimulacao = new JMenuItem("Simulacao");
 		mnEmprestimo.add(mntmSimulacao);
 		
 		mntmSimulacao.addActionListener(new ActionListener() {
@@ -126,10 +126,10 @@ public class PrincipalView extends JFrame {
 		});
 
 
-		JMenu mnRelatorio = new JMenu("Relat�rio");
+		JMenu mnRelatorio = new JMenu("Relatorio");
 		menuBar.add(mnRelatorio);
 
-		JMenuItem mntmEmprestimos = new JMenuItem("Empr�stimos");
+		JMenuItem mntmEmprestimos = new JMenuItem("Emprestimos");
 		mnRelatorio.add(mntmEmprestimos);
 		mntmEmprestimos.addActionListener(new ActionListener() {
 
@@ -174,9 +174,9 @@ public class PrincipalView extends JFrame {
 	}
 
 	public boolean encerrarSessao() {
-		Object[] options = { "Sim", "N�o" };
+		Object[] options = { "Sim", "Nao" };
 		int opcao = JOptionPane.showOptionDialog(null, "Deseja fazer logout?",
-				"Encerrar sess�o", JOptionPane.YES_NO_OPTION,
+				"Encerrar sessao", JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 		if (opcao == 0)
 			return true;

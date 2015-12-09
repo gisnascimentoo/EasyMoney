@@ -303,7 +303,7 @@ public class Controller {
 		} catch (ParseException ex) {
 			Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
 		}
-
+		System.out.println("data:    " + data);
 		return data;
 	}
 

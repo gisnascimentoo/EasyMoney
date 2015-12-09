@@ -36,7 +36,7 @@ public class ListContratoView extends JFrame {
 	private JTextField jTextFieldNome;
 	DefaultTableModel modelo;
 	JComboBox comboBox;
-	String[] colunas = new String[] { "Código", "Cliente", "Situação",
+	String[] colunas = new String[] { "Codigo", "Cliente", "Situacao",
 			"CPF"};
 
 	public ListContratoView() {
@@ -57,7 +57,7 @@ public class ListContratoView extends JFrame {
 		jButtonBuscar = new JButton();
 		jButtonAdicionarCliente = new JButton();
 
-		jLabel1.setText("Código");
+		jLabel1.setText("Codigo");
 
 		jLabel3.setText("Situacao");
 
@@ -209,7 +209,7 @@ public class ListContratoView extends JFrame {
 			String codigoS = (String)jTableListagemContrato.getModel().getValueAt(row, 0);
 			codigo  = InterfaceUsuario.transformaStringInt(codigoS); 
 		}else{
-			JOptionPane.showMessageDialog(null, "Selecione uma linha para ação");
+			JOptionPane.showMessageDialog(null, "Selecione uma linha para acao");
 		}
 		return codigo;
 	}
@@ -240,7 +240,7 @@ public class ListContratoView extends JFrame {
 	}
 
 	public boolean confirmaExclusao() {
-		Object[] options = { "Sim", "Não" };
+		Object[] options = { "Sim", "Nao" };
 		int opcao = JOptionPane.showOptionDialog(null,
 				"Deseja excluir o contrato?", "Excluir Contrato",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,

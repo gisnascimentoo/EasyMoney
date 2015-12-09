@@ -42,7 +42,7 @@ public class ListClientesView extends JFrame {
 	private JTextField jTextFieldNome;
 	private String formatString = "##/##/####";
 	DefaultTableModel modelo;
-	String[] colunas = new String[] { "Código", "Nome", "Data de Nascimento",
+	String[] colunas = new String[] { "Codigo", "Nome", "Data de Nascimento",
 			"CPF"};
 
 	public ListClientesView() {
@@ -67,7 +67,7 @@ public class ListClientesView extends JFrame {
 		jButtonAdicionarCliente = new JButton();
 		jTextFieldCPF = new JTextField();
 
-		jLabel1.setText("Código");
+		jLabel1.setText("Codigo");
 
 		jLabel3.setText("Data de Nascimento");
 
@@ -217,7 +217,7 @@ public class ListClientesView extends JFrame {
 			String codigoS = (String)jTableListagemCliente.getModel().getValueAt(row, 0);
 			codigo  = InterfaceUsuario.transformaStringInt(codigoS); 
 		}else{
-			JOptionPane.showMessageDialog(null, "Selecione uma linha para ação");
+			JOptionPane.showMessageDialog(null, "Selecione uma linha para acao");
 		}
 		return codigo;
 	}
@@ -249,7 +249,7 @@ public class ListClientesView extends JFrame {
 	}
 
 	public boolean confirmaExclusao() {
-		Object[] options = { "Sim", "Não" };
+		Object[] options = { "Sim", "Nao" };
 		int opcao = JOptionPane.showOptionDialog(null,
 				"Deseja excluir o cliente?", "Excluir Cliente",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
@@ -269,7 +269,7 @@ public class ListClientesView extends JFrame {
 		return JOptionPane
 				.showOptionDialog(
 						null,
-						"Já existe um cliente cadastrado com este cpf. Retornar ao cadasto ou cancelar ação?",
+						"Ja existe um cliente cadastrado com este cpf. Retornar ao cadasto ou cancelar acao?",
 						"CPF Existente", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 	}
