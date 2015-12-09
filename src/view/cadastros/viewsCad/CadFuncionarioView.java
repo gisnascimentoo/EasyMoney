@@ -50,7 +50,6 @@ public class CadFuncionarioView extends JFrame {
 	private boolean edicao;
 	private JComboBox comboBoxCargo;
 	private JComboBox comboBoxUF;
-	private JComboBox comboBoxSexo;
 	private String formatString = "##/##/####";
 
 	/**
@@ -116,10 +115,6 @@ public class CadFuncionarioView extends JFrame {
 		lblSexo = new JLabel("Sexo");
 		lblSexo.setBounds(400, 91, 46, 14);
 		contentPane.add(lblSexo);
-
-		comboBoxSexo = new JComboBox();
-		comboBoxSexo.setBounds(400, 108, 110, 19);
-		contentPane.add(comboBoxSexo);
 
 		JLabel lblCargo = new JLabel("Cargo");
 		lblCargo.setBounds(10, 141, 46, 14);
@@ -266,14 +261,14 @@ public class CadFuncionarioView extends JFrame {
 					comboBoxCargo.getSelectedItem().toString(), textFieldEmail.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
 					textFieldLogradouro.getText(),InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
-					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), comboBoxSexo.getSelectedItem().toString());
+					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), comboBoxUF.getSelectedItem().toString());
 		} else {
 			InterfaceUsuario.cadastrarFuncionario(textFieldNome.getText(),
 					formattedFieldDataNascimento.getText(), InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
-					comboBoxCargo.getSelectedItem().toString(), textFieldEmail.getText(),
+					"Gerente", textFieldEmail.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
 					textFieldLogradouro.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
-					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), comboBoxSexo.getSelectedItem().toString());
+					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), "SC");
 		}
 	}
 	

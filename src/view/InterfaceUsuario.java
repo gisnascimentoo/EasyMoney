@@ -2,6 +2,7 @@ package view;
 
 import java.sql.Date;
 
+import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 import view.cadastros.list.ListClientesView;
@@ -342,11 +343,31 @@ public class InterfaceUsuario {
 	}
 
 	public static int transformaStringInt(String texto) {
-		return Integer.parseInt(texto);
+		int retorno = 0;
+		if (texto.trim().length() > 0) {
+			retorno = -1;
+		} else {
+			try {
+				retorno = Integer.parseInt(texto);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Não pôde fazer a conversão");
+			}
+		}
+		return retorno;
 	}
 
 	public static double transformaStringDouble(String texto) {
-		return Double.parseDouble(texto);
+		double retorno = 0;
+		if (texto.trim().length() > 0) {
+			retorno = -1;
+		} else {
+			try {
+				retorno = Double.parseDouble(texto);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Não pôde fazer a conversão");
+			}
+		}
+		return retorno;
 	}
 
 	public static MaskFormatter createFormatter(String format) {
@@ -362,8 +383,8 @@ public class InterfaceUsuario {
 		return formatter;
 	}
 
-	public static void gerarRelatorio(String mesInicio, String mesFim, int tipoIndex) {
-		controller.geraRelatorio(mesInicio, mesFim, tipoIndex);
+	public static void gerarRelatorio(String intervaloInicio, String intervaloFim, int tipoIndex) {
+		controller.geraRelatorio(intervaloInicio, intervaloFim, tipoIndex);
 	}
 
 	public static void carregaRelatorio(String[][] dados) {

@@ -315,7 +315,7 @@ public class CadClienteView extends JFrame {
 					.getText()), textFieldNome.getText(),InterfaceUsuario.transformaStringInt(textFieldRG.getText()), formattedFieldDataNascimento.getText(),
 					textFieldLogradouro.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
 					textFieldBairro.getText(), "cep",
-					textFieldCidade.getText(), comboBoxUF.getSelectedItem()
+					textFieldCidade.getText(), "SC"
 							.toString(), textFieldBanco.getText(),
 					textFieldAgencia.getText(),InterfaceUsuario.transformaStringInt(textFieldContaCorrente.getText()), InterfaceUsuario.transformaStringDouble(textFieldRendaFamiliar.getText()),
 					InterfaceUsuario.transformaStringDouble(textFieldRendaPessoal.getText()),

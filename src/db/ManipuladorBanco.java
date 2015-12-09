@@ -41,7 +41,7 @@ public class ManipuladorBanco {
 	private final String SELECT_CONTRATO_BY_ID = "SELECT * FROM CONTRATO WHERE IDCONTRATO = ?";
 	private final String SELECT_DADOSFINANCEIROS_BY_ID = "SELECT * FROM DADOSFINANCEIROS WHERE IDDADOSFINANCEIROS = ?";
 
-	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM usuario WHERE login = ? and passwd = ?";
+	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM Usuario WHERE login = ? and passwd = ?";
 	
 	private final String SELECT_INFO_CLIENTE_BY_ID = "SELECT C.IDCLIENTE AS IDCLIENTE, C.CPF AS CPF, C.NOMECOMPLETO AS NOMECLIENTE, "
 			+ "C.RG AS RG, C.DATANASCIMENTO AS DATANASCIMENTO, E.LOGRADOURO AS LOGRADOURO, E.NUMERO AS NUMERO, E.BAIRRO AS BAIRRO, "
@@ -53,6 +53,11 @@ public class ManipuladorBanco {
 
 	private final String SELECT_FUNCIONARIO_BY_CPF = "SELECT * FROM FUNCIONARIO WHERE CPF = ?";
 	private final String SELECT_CLIENTE_BY_CPF = "SELECT * FROM CLIENTE WHERE CPF = ?";
+	
+	private final String SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX = "SELECT CON.idContrato as idContrato , CON.valorEmprestimo as valorEmprestimo, "
+			+ "C.nomeCompleto as nomeCompleto FROM CONTRATO CON JOIN CLIENTE C ON CON.IDCLIENTE = C.IDCLIENTE WHERE STATUSCONTRATO = ? "
+			+ "AND DATACRIACAOCONTRATO >= ? AND DATATERMINOCONTRATO <= ?";
+	
 	/*
 	 * Update
 	 */
@@ -91,7 +96,7 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 		}
 		return conectando;
-	}
+	}	
 
 	public void closeConnnection(Connection con) {
 		try {
@@ -642,9 +647,37 @@ public class ManipuladorBanco {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public List<Contrato> buscarRelatorio(Date intervaloInicio, Date intervaloFinal, int tipoIndex) {
+		List<Contrato> listaContrato = new ArrayList<Contrato>();
+		
+		String statusContrato;
+		
+		if (tipoIndex == 0) {
+			statusContrato = "Aprovado";
+		} else {
+			statusContrato = "Rejeitado";
+		}
+		
+		try {
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX);
+			preparedStatement.setString(1, statusContrato);
+			preparedStatement.setDate(2, intervaloInicio);
+			preparedStatement.setDate(3, intervaloFinal);
+			ResultSet set = preparedStatement.executeQuery();
+			while (set.next()) {
+				Cliente cliente = new Cliente();
+				cliente.setNomeCompleto(set.getString("nomeCompleto"));
+				Contrato contrato = new Contrato();
+				contrato.setIdContrato(set.getInt("idContrato"));
+				contrato.setValorEmprestimo(set.getFloat("valorEmprestimo"));
+				contrato.setCliente(cliente);
+				listaContrato.add(contrato);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-	public List<Contrato> buscarRelatorio() {
-		// TODO Auto-generated method stub
-		return null;
+		return listaContrato;
 	}
 }

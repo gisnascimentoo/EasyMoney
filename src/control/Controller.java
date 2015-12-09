@@ -122,7 +122,7 @@ public class Controller {
 	private boolean verificarIdadeCliente(Date dataNascimento) {
 		// entre 18 e 75
 		// TODO VERIFICAR COMO FAZER ISSO COM JAVA.SQL.DATE
-		return false;
+		return true;
 	}
 
 	public void buscarFuncionario(int codigo, String nome, String cpf, String date) {
@@ -273,8 +273,8 @@ public class Controller {
 			return false;
 	}
 
-	public void geraRelatorio(String mesInicio, String mesFim, int tipoIndex) {
-		List<Contrato> listContrato = db.buscarRelatorio();
+	public void geraRelatorio(String intervaloInicio, String intervaloFinal, int tipoIndex) {
+		List<Contrato> listContrato = db.buscarRelatorio(this.formatDate(intervaloInicio), this.formatDate(intervaloFinal), tipoIndex);
 		String[][] dados = new String[listContrato.size()][3];
 		int indice = 0;
 		for (Contrato contrato : listContrato) {

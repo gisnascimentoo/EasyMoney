@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,16 +17,18 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 public class RelatoriosEmprestimoView extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textFieldMesInicio;
+	private JFormattedTextField formattedFieldDataInicio;
 	private JTable table;
-	private JTextField textFieldMesFim;
+	private JFormattedTextField formattedFieldDataTermino;
 	private ButtonGroup grupo;
 	private JScrollPane jScrollPane1_1;
 	DefaultTableModel modelo;
+	private String formatString = "##/##/####";
 	JRadioButton rdbtnEmprestimosAprovados;
 	JRadioButton rdbtnEmprestimosReprovados;
 	String[] colunas = new String[] { "Código", "Cliente", "Valor contrato" };
@@ -43,14 +46,15 @@ public class RelatoriosEmprestimoView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblBuscaCliente = new JLabel("M\u00EAs In\u00EDcio");
+		JLabel lblBuscaCliente = new JLabel("Intervalo In\u00EDcio");
 		lblBuscaCliente.setBounds(23, 24, 139, 14);
 		contentPane.add(lblBuscaCliente);
 
-		textFieldMesInicio = new JTextField();
-		textFieldMesInicio.setBounds(23, 47, 86, 20);
-		contentPane.add(textFieldMesInicio);
-		textFieldMesInicio.setColumns(10);
+		MaskFormatter maskData = InterfaceUsuario.createFormatter(formatString);
+		formattedFieldDataInicio = new JFormattedTextField(maskData);
+		formattedFieldDataInicio.setBounds(23, 47, 86, 20);
+		contentPane.add(formattedFieldDataInicio);
+		formattedFieldDataInicio.setColumns(10);
 
 		JLabel lblTipoDeRelatrio = new JLabel("Tipo de Relat\u00F3rio:");
 		lblTipoDeRelatrio.setBounds(23, 92, 139, 14);
@@ -101,14 +105,14 @@ public class RelatoriosEmprestimoView extends JFrame {
 			}
 		});
 
-		JLabel lblNewLabel = new JLabel("M\u00EAs Fim");
+		JLabel lblNewLabel = new JLabel("Intervalo Fim");
 		lblNewLabel.setBounds(145, 24, 98, 14);
 		contentPane.add(lblNewLabel);
 
-		textFieldMesFim = new JTextField();
-		textFieldMesFim.setBounds(145, 47, 86, 20);
-		contentPane.add(textFieldMesFim);
-		textFieldMesFim.setColumns(10);
+		formattedFieldDataTermino = new JFormattedTextField(maskData);
+		formattedFieldDataTermino.setBounds(145, 47, 86, 20);
+		contentPane.add(formattedFieldDataTermino);
+		formattedFieldDataTermino.setColumns(10);
 	}
 
 	protected void gerar() {
@@ -127,8 +131,8 @@ public class RelatoriosEmprestimoView extends JFrame {
 		}else{
 			tipoIndex = 1;
 		}
-		 InterfaceUsuario.gerarRelatorio(textFieldMesInicio.getText(),
-		 textFieldMesFim.getText(), tipoIndex);
+		 InterfaceUsuario.gerarRelatorio(formattedFieldDataInicio.getText(),
+		formattedFieldDataTermino.getText(), tipoIndex);
 	}
 
 	protected void fechar() {
