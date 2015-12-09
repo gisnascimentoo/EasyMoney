@@ -37,7 +37,7 @@ public class ContratoController {
 					.carregarDadosCliente(agencia, banco, contaCorrente);
 		} else {
 			InterfaceUsuario
-					.exibirMensagemContratoCadastro("Cliente nï¿½o encontrado.");
+					.exibirMensagemContratoCadastro("Cliente não encontrado.");
 		}
 	}
 
@@ -141,7 +141,7 @@ public class ContratoController {
 					.exibirMensagemContratoCadastro("Contrato cadastrado com sucesso.");
 		} else {
 			InterfaceUsuario
-					.exibirMensagemContratoCadastro("Nï¿½o foi possï¿½vel cadastrar o contrato.");
+					.exibirMensagemContratoCadastro("Não foi possível cadastrar o contrato.");
 		}
 	}
 
@@ -185,7 +185,7 @@ public class ContratoController {
 					.exibirMensagemContratoCadastro("Contrato alterado com sucesso.");
 		} else {
 			InterfaceUsuario
-					.exibirMensagemContratoCadastro("Nï¿½o foi possï¿½vel alterar o contrato.");
+					.exibirMensagemContratoCadastro("Não foi possível alterar o contrato.");
 		}
 	}
 
@@ -240,11 +240,11 @@ public class ContratoController {
 
 	public List<SituacaoCombo> preparaComboSituacao() {
 		List<SituacaoCombo> listCombo = new ArrayList<SituacaoCombo>();
-		listCombo.add(new SituacaoCombo("Aprovado", "Aprovado"));
-		listCombo.add(new SituacaoCombo("Rejeitado", "Rejeitado"));
-		listCombo.add(new SituacaoCombo("PrÃ©-rejeitado", "PrÃ©-rejeitado"));
-		listCombo.add(new SituacaoCombo("PrÃ©-aprovado", "PrÃ©-aprovado"));
-		listCombo.add(new SituacaoCombo("Encerrado", "Encerrado"));
+		listCombo.add(new SituacaoCombo(StatusContrato.APROVADO.getName(), StatusContrato.PRE_APROVADO.getName()));
+		listCombo.add(new SituacaoCombo(StatusContrato.REJEITADO.getName(), StatusContrato.REJEITADO.getName()));
+		listCombo.add(new SituacaoCombo(StatusContrato.PRE_REJEITADO.getName(), StatusContrato.PRE_REJEITADO.getName()));
+		listCombo.add(new SituacaoCombo(StatusContrato.PRE_APROVADO.getName(), StatusContrato.PRE_APROVADO.getName()));
+		listCombo.add(new SituacaoCombo(StatusContrato.ENCERRADO.getName(), StatusContrato.ENCERRADO.getName()));
 		return listCombo;
 	}
 
