@@ -104,24 +104,6 @@ public class ListFuncionariosView extends JFrame {
 			}
 		});
 
-		btnEditar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				editar();
-
-			}
-		});
-
-		btnExcluir.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				excluir();
-
-			}
-		});
-
 		JButton btnAdicionarFuncionario = new JButton("Adicionar Funcion�rio");
 		btnAdicionarFuncionario.setBounds(25, 122, 164, 23);
 		contentPane.add(btnAdicionarFuncionario);
@@ -156,6 +138,25 @@ public class ListFuncionariosView extends JFrame {
 
 			}
 		});
+		
+		btnEditar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editar();
+
+			}
+		});
+
+		btnExcluir.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				excluir();
+
+			}
+		});
+
 	}
 
 	protected void excluir() {

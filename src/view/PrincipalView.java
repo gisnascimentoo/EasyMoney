@@ -61,7 +61,7 @@ public class PrincipalView extends JFrame {
 			}
 		});
 
-		JMenuItem mntmFuncionario = new JMenuItem("Funcionários");
+		JMenuItem mntmFuncionario = new JMenuItem("Funcionï¿½rios");
 		mnCadastro.add(mntmFuncionario);
 		
 		mntmFuncionario.addActionListener(new ActionListener() {
@@ -103,7 +103,7 @@ public class PrincipalView extends JFrame {
 			}
 		});
 
-		JMenu mnEmprestimo = new JMenu("Empréstimo");
+		JMenu mnEmprestimo = new JMenu("Emprï¿½stimo");
 		menuBar.add(mnEmprestimo);
 
 		JMenuItem mntmContratos = new JMenuItem("Contratos");
@@ -119,14 +119,14 @@ public class PrincipalView extends JFrame {
 		JSeparator separator_3 = new JSeparator();
 		mnEmprestimo.add(separator_3);
 
-		JMenuItem mntmSimulacao = new JMenuItem("Simulação");
+		JMenuItem mntmSimulacao = new JMenuItem("Simulaï¿½ï¿½o");
 		mnEmprestimo.add(mntmSimulacao);
 
 
-		JMenu mnRelatorio = new JMenu("Relatório");
+		JMenu mnRelatorio = new JMenu("Relatï¿½rio");
 		menuBar.add(mnRelatorio);
 
-		JMenuItem mntmEmprestimos = new JMenuItem("Empréstimos");
+		JMenuItem mntmEmprestimos = new JMenuItem("Emprï¿½stimos");
 		mnRelatorio.add(mntmEmprestimos);
 		mntmEmprestimos.addActionListener(new ActionListener() {
 
@@ -153,7 +153,7 @@ public class PrincipalView extends JFrame {
 	}
 
 	protected void contrato(){
-		InterfaceUsuario.novoContratoView();
+		InterfaceUsuario.listContratoView();
 	}
 	
 	protected void relatorioEmprestimo() {
@@ -167,9 +167,9 @@ public class PrincipalView extends JFrame {
 	}
 
 	public boolean encerrarSessao() {
-		Object[] options = { "Sim", "Não" };
+		Object[] options = { "Sim", "Nï¿½o" };
 		int opcao = JOptionPane.showOptionDialog(null, "Deseja fazer logout?",
-				"Encerrar sessão", JOptionPane.YES_NO_OPTION,
+				"Encerrar sessï¿½o", JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 		if (opcao == 0)
 			return true;

@@ -33,7 +33,7 @@ public class ListContratoView extends JFrame {
 	private JLabel jLabel3;
 	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane1_1;
-	private JTable jTableListagemCliente;
+	private JTable jTableListagemContrato;
 	private JTextField jTextFieldCodigo;
 	private JTextField jTextFieldNome;
 	DefaultTableModel modelo;
@@ -54,7 +54,7 @@ public class ListContratoView extends JFrame {
 		jLabel2 = new JLabel();
 		jButtonFechar = new JButton();
 		jScrollPane1 = new JScrollPane();
-		jTableListagemCliente = new JTable();
+		jTableListagemContrato = new JTable();
 		jButtonBuscar = new JButton();
 		jButtonAdicionarCliente = new JButton();
 
@@ -66,15 +66,15 @@ public class ListContratoView extends JFrame {
 
 		jButtonFechar.setText("Fechar");
        
-		jScrollPane1.setViewportView(jTableListagemCliente);
+		jScrollPane1.setViewportView(jTableListagemContrato);
 
 		jButtonBuscar.setText("Buscar");
 
 		jButtonAdicionarCliente.setText("Adicionar Contrato");
 		
 		modelo = new DefaultTableModel(null, colunas);
-		jTableListagemCliente = new JTable(modelo);
-		jScrollPane1_1 = new JScrollPane(jTableListagemCliente);
+		jTableListagemContrato = new JTable(modelo);
+		jScrollPane1_1 = new JScrollPane(jTableListagemContrato);
 		
 		JButton btnEditar = new JButton("Editar");
 		
@@ -184,28 +184,27 @@ public class ListContratoView extends JFrame {
 
 			}
 		});
-
 	}
 
 	protected void excluir() {
 		int codigo = getIdTabela();
 		if(codigo >= 0 ){
-			InterfaceUsuario.excluirCliente(codigo);
+			InterfaceUsuario.excluirContrato(codigo);
 		}
 	}
 
 	protected void editar() {
 		int codigo = getIdTabela();
 		if(codigo >= 0 ){
-			InterfaceUsuario.editarClienteCarregarPorId(codigo);
+			InterfaceUsuario.editarContratoCarregarPorId(codigo);
 		}
 	}
 	
 	private int getIdTabela(){
-		int row = jTableListagemCliente.getSelectedRow();
+		int row = jTableListagemContrato.getSelectedRow();
 		int codigo = -1;
 		if(row >= 0){
-			String codigoS = (String)jTableListagemCliente.getModel().getValueAt(row, 0);
+			String codigoS = (String)jTableListagemContrato.getModel().getValueAt(row, 0);
 			codigo  = InterfaceUsuario.transformaStringInt(codigoS); 
 		}else{
 			JOptionPane.showMessageDialog(null, "Selecione uma linha para ação");
@@ -219,38 +218,29 @@ public class ListContratoView extends JFrame {
 	}
 
 	protected void buscar() {
-	/*	DateFormat formatter = new SimpleDateFormat("dd/mm/aaaa");
-		Date date = null;
-		int codigo = 0;
-		try {
-			if (jTextFieldDataNascimento.getText().trim().length() > 0)
-				date = (Date) formatter.parse(jTextFieldDataNascimento
-						.getText());
+		int codigo = -1;
 			if (jTextFieldCodigo.getText().trim().length() > 0)
 				InterfaceUsuario.transformaStringInt(jTextFieldCodigo.getText());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		InterfaceUsuario.buscarCliente(codigo, jTextFieldNome.getText(),
-				jTextFieldCPF.getText(), date); */
+
+	//	InterfaceUsuario.buscarCliente(codigo, jTextFieldNome.getText()		jTextFieldCPF.getText(), date); 
 
 	}
 
 	protected void adicionarCliente() {
-		InterfaceUsuario.cadClienteView();
+		InterfaceUsuario.novoContratoView();
 
 	}
 
 	public void addTabela(String[][] dados) {
 		modelo = new DefaultTableModel(dados, colunas);
-		jTableListagemCliente = new JTable(modelo);
-		jScrollPane1_1 = new JScrollPane(jTableListagemCliente);
+		jTableListagemContrato = new JTable(modelo);
+		jScrollPane1_1 = new JScrollPane(jTableListagemContrato);
 	}
 
 	public boolean confirmaExclusao() {
 		Object[] options = { "Sim", "Não" };
 		int opcao = JOptionPane.showOptionDialog(null,
-				"Deseja excluir o cliente?", "Excluir Cliente",
+				"Deseja excluir o contrato?", "Excluir Contrato",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 				options, options[0]);
 		if (opcao == 0)
@@ -263,14 +253,4 @@ public class ListContratoView extends JFrame {
 		JOptionPane.showMessageDialog(null, mensagem);
 	}
 
-	public int MensagemCpfExistente() {
-		Object[] options = { "Retornar", "Cancelar" };
-		return JOptionPane
-				.showOptionDialog(
-						null,
-						"Já existe um cliente cadastrado com este cpf. Retornar ao cadasto ou cancelar ação?",
-						"CPF Existente", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-
-	}
 }

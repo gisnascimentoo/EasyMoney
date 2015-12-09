@@ -203,5 +203,10 @@ public class ContratoController {
 
 		return data;
 	}
+
+	public void excluirContrato(int codigo) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

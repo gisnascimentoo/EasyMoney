@@ -5,6 +5,7 @@ import java.sql.Date;
 import javax.swing.text.MaskFormatter;
 
 import view.cadastros.list.ListClientesView;
+import view.cadastros.list.ListContratoView;
 import view.cadastros.list.ListFuncionariosView;
 import view.cadastros.list.ListPlanosView;
 import view.cadastros.viewsCad.CadClienteView;
@@ -28,6 +29,7 @@ public class InterfaceUsuario {
 	private static ListClientesView listClienteView;
 	private static ListFuncionariosView listFuncionariosView;
 	private static ListPlanosView listPlanosView;
+	private static ListContratoView listContratoView;
 
 	public InterfaceUsuario() {
 		loginView = new LoginView();
@@ -44,6 +46,12 @@ public class InterfaceUsuario {
 		listClienteView.setVisible(true);
 	}
 
+	
+	public static void listContratoView() {
+		listContratoView = new ListContratoView();
+		listContratoView.setVisible(true);
+	}
+	
 	public static void loginValido() {
 		loginView.dispose();
 		principalView = new PrincipalView();
@@ -360,5 +368,15 @@ public class InterfaceUsuario {
 
 	public static void carregaRelatorio(String[][] dados) {
 		relatoriosEmprestimoView.addTabela(dados);
+	}
+
+	public static void excluirContrato(int codigo) {
+		contratoController.excluirContrato(codigo);
+		
+	}
+
+	public static void editarContratoCarregarPorId(int codigo) {
+		contratoController.recuperaContrato(codigo);
+		
 	}
 }
