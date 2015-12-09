@@ -73,7 +73,7 @@ public class RelatoriosEmprestimoView extends JFrame {
 		contentPane.add(table);
 		
 		JButton btnGerar = new JButton("Gerar");
-		btnGerar.setBounds(218, 364, 89, 23);
+		btnGerar.setBounds(322, 139, 89, 23);
 		contentPane.add(btnGerar);
 		
 		JLabel lblNewLabel = new JLabel("M\u00EAs Fim");
