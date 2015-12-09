@@ -242,7 +242,7 @@ public class CadFuncionarioView extends JFrame {
 	public CadFuncionarioView(int codigo, String nome,
 			java.util.Date dataNascimento, int CPF, int RG, String cargo,
 			String email, int telefone, String logradouro, int numero,
-			String bairro, String CEP, String nomeCidade, String uf, int idUf) {
+			String bairro, String nomeCidade, String uf, int idUf) {
 		init();
 		textFieldCodFuncionario.setText(""+codigo);
 		textFieldNome.setText(nome);
@@ -277,14 +277,14 @@ public class CadFuncionarioView extends JFrame {
 					comboBoxCargo.getSelectedItem().toString(), textFieldEmail.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
 					textFieldLogradouro.getText(),InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
-					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), idEstado);
+					textFieldBairro.getText(), textFieldCidade.getText(), idEstado);
 		} else {
 			InterfaceUsuario.cadastrarFuncionario(textFieldNome.getText(),
 					formattedFieldDataNascimento.getText(), InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
 					"Gerente", textFieldEmail.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
 					textFieldLogradouro.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
-					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), idEstado);
+					textFieldBairro.getText(), textFieldCidade.getText(), idEstado);
 		}
 	}
 	

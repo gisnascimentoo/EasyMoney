@@ -171,48 +171,48 @@ public class InterfaceUsuario {
 	}
 
 	public static void cadastrarCliente(int cpf, String nomeCompleto, int rg, String dataNascimento,
-			String logradouro, int numero, String bairro, String cep, String nomeCidade, int uf, String banco,
+			String logradouro, int numero, String bairro, String nomeCidade, int uf, String banco,
 			String agencia, int contaCorrente, double rendaFamiliar, double rendaPessoal, String observacao) {
-		controller.criarCadastroCliente(cpf, nomeCompleto, rg, dataNascimento, logradouro, numero, bairro, cep,
+		controller.criarCadastroCliente(cpf, nomeCompleto, rg, dataNascimento, logradouro, numero, bairro,
 				nomeCidade, uf, banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao);
 
 	}
 
 	public static void editarCliente(int codigo, int cpf, String nomeCompleto, int rg, String dataNascimento,
-			String logradouro, int numero, String bairro, String cep, String nomeCidade, int uf, String banco,
+			String logradouro, int numero, String bairro, String nomeCidade, int uf, String banco,
 			String agencia, int contaCorrente, double rendaFamiliar, double rendaPessoal, String observacao) {
 		controller.editarCadastroCliente(codigo, cpf, nomeCompleto, rg, dataNascimento, logradouro, numero,
-				bairro, cep, nomeCidade, uf, banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao);
+				bairro, nomeCidade, uf, banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao);
 
 	}
 
 	public static void cadastrarFuncionario(String nome, String dataNascimento, int CPF, int RG, String cargo,
-			String email, int telefone, String logradouro, int numero, String bairro, String CEP, String nomeCidade,
+			String email, int telefone, String logradouro, int numero, String bairro, String nomeCidade,
 			int uf) {
 		controller.criarCadastrofuncionario(nome, dataNascimento, CPF, RG, cargo, email, telefone, logradouro,
-				numero, bairro, CEP, nomeCidade, uf);
+				numero, bairro, nomeCidade, uf);
 	}
 
 	public static void editarFuncionario(int codigo, String nome, String dataNascimento, int CPF, int RG,
-			String cargo, String email, int telefone, String logradouro, int numero, String bairro, String CEP,
+			String cargo, String email, int telefone, String logradouro, int numero, String bairro,
 			String nomeCidade, int uf) {
 		controller.editarCadastrofuncionario(codigo, nome, dataNascimento, CPF, RG, cargo, email, telefone,
-				logradouro, numero, bairro, CEP, nomeCidade, uf);
+				logradouro, numero, bairro, nomeCidade, uf);
 	}
 
 	public static void carregaEdicaoFuncionario(int codigo, String nome, Date dataNascimento, int CPF, int RG,
-			String cargo, String email, int telefone, String logradouro, int numero, String bairro, String CEP,
+			String cargo, String email, int telefone, String logradouro, int numero, String bairro,
 			String nomeCidade, String uf, int idUf) {
 		cadFuncionarioView = new CadFuncionarioView(codigo, nome, dataNascimento, CPF, RG, cargo, email, telefone,
-				logradouro, numero, bairro, CEP, nomeCidade, uf, idUf);
+				logradouro, numero, bairro, nomeCidade, uf, idUf);
 	}
 
 	public static void carregaEdicaoCliente(int codigo, int cpf, String nomeCompleto, int rg,
-			Date dataNascimento, String logradouro, int numero, String bairro, String cep, String nomeCidade,
+			Date dataNascimento, String logradouro, int numero, String bairro, String nomeCidade,
 			int iduf, String uf, String banco, String agencia, int contaCorrente, double rendaFamiliar, double rendaPessoal,
 			String observacao) {
 		cadClienteView = new CadClienteView(codigo, cpf, nomeCompleto, rg, dataNascimento, logradouro, numero, bairro,
-				cep, nomeCidade, iduf, uf, banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao);
+				nomeCidade, iduf, uf, banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao);
 	}
 
 	public static void buscarFuncionario(int codigo, String nome, String cpf, String date) {

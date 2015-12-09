@@ -73,11 +73,11 @@ public class Controller {
 	}
 
 	public void editarCadastroCliente(int codigo, int cpf, String nomeCompleto, int rg, String dataNascimento,
-			String logradouro, int numero, String bairro, String cep, String nomeCidade, int uf, String banco,
+			String logradouro, int numero, String bairro, String nomeCidade, int uf, String banco,
 			String agencia, int contaCorrente, double rendaFamiliar, double rendaPessoal, String observacao) {
 		Estado novoUf = new Estado(uf, null);
 		Cidade novaCidade = new Cidade(nomeCidade, novoUf);
-		Endereco novoEndereco = new Endereco(logradouro, numero, bairro, cep, novaCidade);
+		Endereco novoEndereco = new Endereco(logradouro, numero, bairro, novaCidade);
 		DadosFinanceiros novoDadosFinanceiro = new DadosFinanceiros(banco, agencia, contaCorrente, rendaFamiliar,
 				rendaPessoal, observacao);
 		Cliente cliente = new Cliente(cpf, nomeCompleto, rg, this.formatDate(dataNascimento), novoEndereco, novoDadosFinanceiro);
@@ -86,7 +86,7 @@ public class Controller {
 	}
 
 	public void criarCadastroCliente(int cpf, String nomeCompleto, int rg, String dataNascimento, String logradouro,
-			int numero, String bairro, String cep, String nomeCidade, int uf, String banco, String agencia,
+			int numero, String bairro, String nomeCidade, int uf, String banco, String agencia,
 			int contaCorrente, double rendaFamiliar, double rendaPessoal, String observacao) {
 		boolean cpfExiste = db.verificarCpfCliente(cpf);
 		if (cpfExiste) {
@@ -97,15 +97,15 @@ public class Controller {
 		} else {
 			boolean idadeValida = verificarIdadeCliente(this.formatDate(dataNascimento));
 			if (!idadeValida) {
-				InterfaceUsuario.exibirMensagemClienteCadastro("Idade do cliente inválida");
+				InterfaceUsuario.exibirMensagemClienteCadastro("Idade do cliente invï¿½lida");
 			} else {
 				boolean camposOK = verificaCamposObrigatoriosCliente(nomeCompleto, this.formatDate(dataNascimento), cpf, rg);
 				if (!camposOK) {
-					InterfaceUsuario.exibirMensagemClienteCadastro("Existem campos obrigatórios não preenchidos");
+					InterfaceUsuario.exibirMensagemClienteCadastro("Existem campos obrigatï¿½rios nï¿½o preenchidos");
 				} else {
 					Estado novoUf = new Estado(uf, null);
 					Cidade novaCidade = new Cidade(nomeCidade, novoUf);
-					Endereco novoEndereco = new Endereco(logradouro, numero, bairro, cep, novaCidade);
+					Endereco novoEndereco = new Endereco(logradouro, numero, bairro, novaCidade);
 					DadosFinanceiros novoDadosFinanceiro = new DadosFinanceiros(banco, agencia, contaCorrente,
 							rendaFamiliar, rendaPessoal, observacao);
 					Cliente cliente = new Cliente(cpf, nomeCompleto, rg, this.formatDate(dataNascimento), novoEndereco,
@@ -155,18 +155,18 @@ public class Controller {
 	}
 
 	public void editarCadastrofuncionario(int codigo, String nome, String dataNascimento, int CPF, int RG, String cargo,
-			String email, int telefone, String logradouro, int numero, String bairro, String CEP, String nomeCidade,
+			String email, int telefone, String logradouro, int numero, String bairro, String nomeCidade,
 			int uf) {
 		Estado estado = new Estado(uf, null);
 		Cidade cidade = new Cidade(nomeCidade, estado);
-		Endereco endereco = new Endereco(logradouro, numero, bairro, CEP, cidade);
+		Endereco endereco = new Endereco(logradouro, numero, bairro, cidade);
 		Funcionario funcionario = new Funcionario(nome, this.formatDate(dataNascimento), CPF, RG, cargo, email, telefone, endereco);
 		String msg = db.editarFuncionarioBanco(funcionario);
 		InterfaceUsuario.exibirMensagemFuncionario(msg);
 	}
 
 	public void criarCadastrofuncionario(String nome, String dataNascimento, int CPF, int RG, String cargo, String email,
-			int telefone, String logradouro, int numero, String bairro, String CEP, String nomeCidade, int uf) {
+			int telefone, String logradouro, int numero, String bairro, String nomeCidade, int uf) {
 		boolean cpfExiste = db.verificarCpfFuncionario(CPF);
 		if (cpfExiste) {
 			int opcao = InterfaceUsuario.exibirMensagemCpfExistenteFuncionario();
@@ -176,11 +176,11 @@ public class Controller {
 		} else {
 			boolean camposOK = verificaCamposObrigatoriosFuncionario(nomeCidade, this.formatDate(dataNascimento), CPF, RG);
 			if (!camposOK) {
-				InterfaceUsuario.exibirMensagemFuncionarioCadastro("Campos obrigatórios não preenchidos");
+				InterfaceUsuario.exibirMensagemFuncionarioCadastro("Campos obrigatï¿½rios nï¿½o preenchidos");
 			} else {
 				Estado estado = new Estado(uf, null);
 				Cidade cidade = new Cidade(nomeCidade, estado);
-				Endereco endereco = new Endereco(logradouro, numero, bairro, CEP, cidade);
+				Endereco endereco = new Endereco(logradouro, numero, bairro, cidade);
 				Funcionario funcionario = new Funcionario(nome, this.formatDate(dataNascimento), CPF, RG, cargo, email, telefone,
 						endereco);
 				db.salvarFuncionarioBanco(funcionario);
@@ -203,7 +203,7 @@ public class Controller {
 		DadosFinanceiros dadosFinanceiros = cliente.getDadosFinanceiros();
 		InterfaceUsuario.carregaEdicaoCliente(cliente.getIdCliente(), cliente.getCPF(), cliente.getNomeCompleto(),
 				cliente.getRG(), cliente.getDataNascimento(), endereco.getLogradouro(), endereco.getNumero(),
-				endereco.getBairro(), endereco.getCEP(), endereco.getCidade().getNome(),endereco.getCidade().getEstado().getIdEstado(),
+				endereco.getBairro(), endereco.getCidade().getNome(),endereco.getCidade().getEstado().getIdEstado(),
 				endereco.getCidade().getEstado().getUf(), dadosFinanceiros.getBanco(), dadosFinanceiros.getAgencia(),
 				dadosFinanceiros.getContaCorrente(), dadosFinanceiros.getRendaFamiliar(),
 				dadosFinanceiros.getRendaPessoal(), dadosFinanceiros.getObservacao());
@@ -215,7 +215,7 @@ public class Controller {
 				funcionario.getDataNascimento(), funcionario.getCPF(), funcionario.getRG(), funcionario.getCargo(),
 				funcionario.getEmail(), funcionario.getTelefone(), funcionario.getEndereco().getLogradouro(),
 				funcionario.getEndereco().getNumero(), funcionario.getEndereco().getBairro(),
-				funcionario.getEndereco().getCEP(), funcionario.getEndereco().getCidade().getNome(),
+				funcionario.getEndereco().getCidade().getNome(),
 				funcionario.getEndereco().getCidade().getEstado().getUf(), funcionario.getEndereco().getCidade().getEstado().getIdEstado());
 	}
 
@@ -260,7 +260,7 @@ public class Controller {
 		boolean camposOK = verificaCamposObrigatoriosPlano(nome, this.formatDate(dataCadastro), jurosTotal, jurosMensal, valorMinimo,
 				valorMaximo, minParcelas, maxParcelas, observacao);
 		if (!camposOK) {
-			InterfaceUsuario.exibirMensagemPlanoCadastro("Campos obrigatórios não preenchidos");
+			InterfaceUsuario.exibirMensagemPlanoCadastro("Campos obrigatï¿½rios nï¿½o preenchidos");
 		} else {
 			PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo(nome, this.formatDate(dataCadastro), jurosTotal, jurosMensal,
 					valorMinimo, valorMaximo, minParcelas, maxParcelas, observacao);

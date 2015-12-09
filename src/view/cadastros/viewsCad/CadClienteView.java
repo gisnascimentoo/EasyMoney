@@ -296,7 +296,7 @@ public class CadClienteView extends JFrame {
 
 	public CadClienteView(int codigo, int cpf, String nomeCompleto, int rg,
 			Date dataNascimento, String logradouro, int numero, String bairro,
-			String cep, String nomeCidade, int idUf, String uf, String banco,
+			String nomeCidade, int idUf, String uf, String banco,
 			String agencia, int contaCorrente, double rendaFamiliar,
 			double rendaPessoal, String observacao) {
 		init();
@@ -334,7 +334,7 @@ public class CadClienteView extends JFrame {
 					formattedFieldDataNascimento.getText(), textFieldLogradouro
 							.getText(), InterfaceUsuario
 							.transformaStringInt(textFieldNumero.getText()),
-					textFieldBairro.getText(), "cep",
+					textFieldBairro.getText(),
 					textFieldCidade.getText(), idEstado, textFieldBanco
 							.getText(), textFieldAgencia.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldContaCorrente
@@ -361,7 +361,6 @@ public class CadClienteView extends JFrame {
 									.transformaStringInt(textFieldNumero
 											.getText()),
 							textFieldBairro.getText(),
-							"cep",
 							textFieldCidade.getText(),
 							idEstado,
 							textFieldBanco.getText(),
