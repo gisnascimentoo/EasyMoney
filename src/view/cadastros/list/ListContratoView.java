@@ -74,6 +74,7 @@ public class ListContratoView extends JFrame {
 		modelo = new DefaultTableModel(null, colunas);
 		jTableListagemContrato = new JTable(modelo);
 		jScrollPane1_1 = new JScrollPane(jTableListagemContrato);
+		//Adicionar ScrollPanel no lugar da listagem atual
 		
 		JButton btnEditar = new JButton("Editar");
 		
@@ -184,6 +185,8 @@ public class ListContratoView extends JFrame {
 
 			}
 		});
+		
+		
 	}
 
 	private void carregarSituacaoCombo() {

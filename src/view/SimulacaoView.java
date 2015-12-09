@@ -2,11 +2,16 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -18,7 +23,16 @@ public class SimulacaoView extends JFrame {
 	private JTextField textFieldValorFinanciado;
 	private JTextField textFieldValorPrestacao;
 	private JTextField textFieldNumMeses;
-	private JTextField textField;
+	private JTextField textFieldValorFinal;
+	DefaultTableModel modelo;
+	private JScrollPane jScrollPane1_1;
+	private JTable jTable;
+	JComboBox comboBox;
+	
+	//TODO
+	//Verificar quais colunas mostradas
+	String[] colunas = new String[] { "Código", "Cliente", "Situação",
+			"CPF"};
 
 
 	/**
@@ -31,6 +45,12 @@ public class SimulacaoView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+
+		modelo = new DefaultTableModel(null, colunas);
+		jTable = new JTable(modelo);
+		jScrollPane1_1 = new JScrollPane(jTable);
+		
 		
 		JLabel lblValorFinanciado = new JLabel("Valor Financiado");
 		lblValorFinanciado.setBounds(24, 25, 89, 14);
@@ -83,10 +103,10 @@ public class SimulacaoView extends JFrame {
 		lblResultadoDaSimulao.setBounds(21, 157, 119, 14);
 		contentPane.add(lblResultadoDaSimulao);
 		
-		textField = new JTextField();
-		textField.setBounds(21, 182, 360, 86);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textFieldValorFinal = new JTextField();
+		textFieldValorFinal.setBounds(21, 182, 360, 86);
+		contentPane.add(textFieldValorFinal);
+		textFieldValorFinal.setColumns(10);
 		
 		JScrollBar scrollBar = new JScrollBar();
 		scrollBar.setBounds(380, 181, 17, 87);
@@ -96,8 +116,59 @@ public class SimulacaoView extends JFrame {
 		btnFechar.setBounds(269, 289, 119, 23);
 		contentPane.add(btnFechar);
 		
+		btnFechar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				fechar();
+				
+			}
+		});
+		
+		btnCalcular.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				calcular();
+				
+			}
+		});
+		
 		JButton btnGerarContrato = new JButton("Gerar Contrato");
 		btnGerarContrato.setBounds(24, 289, 117, 23);
 		contentPane.add(btnGerarContrato);
+		
+		btnGerarContrato.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gerarContrato();
+				
+			}
+		});
+	}
+
+
+	protected void gerarContrato() {
+		// TODO Auto-generated method stub
+		//Pegar os dados da tabela e gerar um contrato conforme as regras. Exemplo de pegar dados da tabela na edicao de cadastros
+	}
+
+
+	protected void calcular() {
+		InterfaceUsuario.calcularSimulacao(textFieldValorFinal.getText(), textFieldNumMeses.getText(), textFieldValorFinanciado.getText(), textFieldValorPrestacao.getText());
+	}
+
+
+	protected void fechar() {
+		this.dispose();
+		
+	}
+
+
+	public void addTabela(String[][] dados) {
+		modelo = new DefaultTableModel(dados, colunas);
+		jTable = new JTable(modelo);
+		jScrollPane1_1 = new JScrollPane(jTable);
 	}
 }
