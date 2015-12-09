@@ -27,7 +27,7 @@ public class ManipuladorBanco {
 	/*
 	 * Insert
 	 */
-	private final String INSERT_ENDERECO = "INSERT INTO ENDERECO(logradouro, numero, bairro, CEP, idCidade) VALUES(?, ?, ?, ?)";
+	private final String INSERT_ENDERECO = "INSERT INTO ENDERECO(logradouro, numero, bairro, CEP, idCidade) VALUES(?, ?, ?, ?, ?)";
 	private final String INSERT_CIDADE = "INSERT INTO CIDADE(nome, idEstado) VALUES(?, ?)";
 	private final String INSERT_DADOSFINANCEIROS = "INSERT INTO DADOSFINANCEIROS(banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao) VALUES(?, ?, ?, ?, ?, ?)";
 	private final String INSERT_CLIENTE = "INSERT INTO CLIENTE(nomeCompleto, dataNascimento, CPF, RG, idEndereco, idDadosFinanceiros) VALUES(?, ?, ?, ?, ?, ?)";
@@ -514,7 +514,7 @@ public class ManipuladorBanco {
 			return "Cliente deletado com sucesso!";
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "Cliente n√£o p√¥de ser deletado!";
+			return "Cliente n„o pode ser deletado!";
 		}
 	}
 	
@@ -523,10 +523,10 @@ public class ManipuladorBanco {
 			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_FUNCIONARIO_BY_ID);
 			prepared.setInt(1, id);
 			prepared.executeUpdate();
-			return "Funcion√°rio deletado com sucesso!";
+			return "Funcion·rio deletado com sucesso!";
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "Funcion√°rio n√£o p√¥de ser deletado!";
+			return "Funcion·rio n„o pode ser deletado!";
 		}
 	}
 
@@ -835,7 +835,7 @@ public class ManipuladorBanco {
 			return "Plano cadastrado com sucesso!";
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "Plano n√£o p√¥de ser cadastrado! Tente novamente";
+			return "Plano n„o pode ser cadastrado! Tente novamente";
 		}
 	}
 
@@ -850,7 +850,6 @@ public class ManipuladorBanco {
 		List<Estado> listaEstados = new ArrayList<Estado>();
 		Estado estado;
 		try {
-			this.conectasgbd();
 			PreparedStatement prepared = this.conexao.prepareStatement(SELECT_ALL_ESTADO);
 			ResultSet resultSet = prepared.executeQuery();
 			while (resultSet.next()) {
@@ -861,10 +860,7 @@ public class ManipuladorBanco {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closeConnnection(conexao);
-		}
-
+		} 
 		return listaEstados;
 	}
 
@@ -872,7 +868,6 @@ public class ManipuladorBanco {
 		List<Cliente> listaClientes = new ArrayList<Cliente>();
 		Cliente cliente;
 		try {
-			this.conectasgbd();
 			PreparedStatement prepared = this.conexao.prepareStatement(SELECT_ALL_CLIENTE);
 			ResultSet resultSet = prepared.executeQuery();
 			while (resultSet.next()) {
@@ -883,10 +878,7 @@ public class ManipuladorBanco {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closeConnnection(conexao);
-		}
-
+		} 
 		return listaClientes;
 	}
 
@@ -894,7 +886,6 @@ public class ManipuladorBanco {
 		List<PlanoEmprestimo> listaPlanos = new ArrayList<PlanoEmprestimo>();
 		PlanoEmprestimo planoEmprestimo;
 		try {
-			this.conectasgbd();
 			PreparedStatement prepared = this.conexao.prepareStatement(SELECT_ALL_CLIENTE);
 			ResultSet resultSet = prepared.executeQuery();
 			while (resultSet.next()) {
@@ -905,10 +896,7 @@ public class ManipuladorBanco {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closeConnnection(conexao);
-		}
-
+		} 
 		return listaPlanos;
 	}
 
