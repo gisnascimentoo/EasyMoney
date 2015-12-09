@@ -68,6 +68,7 @@ public class SimulacaoView extends JFrame {
 		textFieldValorPrestacao = new JTextField();
 		textFieldValorPrestacao.setBounds(250, 47, 147, 20);
 		contentPane.add(textFieldValorPrestacao);
+		textFieldValorPrestacao.setEditable(false);
 		textFieldValorPrestacao.setColumns(10);
 		
 		JLabel lblR = new JLabel("R$");
@@ -163,7 +164,7 @@ public class SimulacaoView extends JFrame {
 		dados[0][1] = "Valor Final Parcelamento";
 		dados[1][0] = "R$ "+String.valueOf(valorParcela);
 		dados[1][1] = "R$ "+String.valueOf(valorFinal);
-		InterfaceUsuario.carregaDadosTabelaSimulacao(dados);
+		InterfaceUsuario.carregaDadosTabelaSimulacao(dados, valorParcela);
 	}
 
 
@@ -177,5 +178,10 @@ public class SimulacaoView extends JFrame {
 		modelo = new DefaultTableModel(dados, colunas);
 		jTable = new JTable(modelo);
 		jScrollPane1_1 = new JScrollPane(jTable);
+	}
+
+	public void setValorParcela(double valor){
+		textFieldValorPrestacao.setText(String.valueOf(valor));
+		
 	}
 }

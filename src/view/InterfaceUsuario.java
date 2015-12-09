@@ -442,7 +442,8 @@ public class InterfaceUsuario {
 		return contratoController.calculaValorParcelas(Integer.parseInt(numMeses), Double.parseDouble(valorFinanciado), planoEmprestimo);
 	}
 	
-	public static void carregaDadosTabelaSimulacao(String[][] dados) {
+	public static void carregaDadosTabelaSimulacao(String[][] dados, double valorParcela) {
+		simulacaoView.setValorParcela(valorParcela);
 		simulacaoView.addTabela(dados);
 	}
 	
