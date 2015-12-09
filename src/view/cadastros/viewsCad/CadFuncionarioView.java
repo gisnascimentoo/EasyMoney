@@ -6,10 +6,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
@@ -23,7 +25,6 @@ import java.awt.event.TextEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class CadFuncionarioView extends JFrame {
 
@@ -32,7 +33,7 @@ public class CadFuncionarioView extends JFrame {
 	private JLabel lblNome;
 	private JTextField textFieldNome;
 	private JLabel lblDataNascimento;
-	private JTextField textFieldDataNascimento;
+	private JFormattedTextField formattedFieldDataNascimento;
 	private JLabel lblCpf;
 	private JTextField textFieldCPF;
 	private JLabel lblRg;
@@ -50,6 +51,7 @@ public class CadFuncionarioView extends JFrame {
 	private JComboBox comboBoxCargo;
 	private JComboBox comboBoxUF;
 	private JComboBox comboBoxSexo;
+	private String formatString = "##/##/####";
 
 	/**
 	 * Create the frame.
@@ -87,11 +89,11 @@ public class CadFuncionarioView extends JFrame {
 		lblDataNascimento.setBounds(400, 43, 95, 14);
 		contentPane.add(lblDataNascimento);
 
-		textFieldDataNascimento = new JTextField();
-		textFieldDataNascimento.setText("dd / mm / aaaa");
-		textFieldDataNascimento.setBounds(400, 61, 110, 19);
-		contentPane.add(textFieldDataNascimento);
-		textFieldDataNascimento.setColumns(10);
+		MaskFormatter maskData = InterfaceUsuario.createFormatter(formatString);
+		formattedFieldDataNascimento = new JFormattedTextField(maskData);
+		formattedFieldDataNascimento.setBounds(400, 61, 110, 19);
+		contentPane.add(formattedFieldDataNascimento);
+		formattedFieldDataNascimento.setColumns(10);
 
 		lblCpf = new JLabel("CPF");
 		lblCpf.setBounds(10, 91, 46, 14);
@@ -237,7 +239,7 @@ public class CadFuncionarioView extends JFrame {
 			String bairro, String CEP, String nomeCidade, String uf) {
 		textFieldCodFuncionario.setText(""+codigo);
 		textFieldNome.setText(nome);
-		textFieldDataNascimento.setText(""+dataNascimento);
+		formattedFieldDataNascimento.setText(""+dataNascimento);
 		textFieldCPF.setText(""+CPF);
 		textFieldRG.setText(""+RG);
 		comboBoxCargo.setSelectedItem(cargo);
@@ -258,25 +260,16 @@ public class CadFuncionarioView extends JFrame {
 	}
 
 	protected void salvar() {
-		DateFormat formatter = new SimpleDateFormat("dd/mm/aaaa");
-		Date dateNasc = null;
-		if (textFieldDataNascimento.getText().trim().length() > 0)
-			try {
-				dateNasc = (Date) formatter.parse(textFieldDataNascimento
-						.getText());
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
 		if (edicao) {
 			InterfaceUsuario.editarFuncionario(InterfaceUsuario.transformaStringInt(textFieldCodFuncionario.getText()), textFieldNome.getText(),
-					dateNasc, InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
+					formattedFieldDataNascimento.getText(), InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
 					comboBoxCargo.getSelectedItem().toString(), textFieldEmail.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
 					textFieldLogradouro.getText(),InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
 					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), comboBoxSexo.getSelectedItem().toString());
 		} else {
 			InterfaceUsuario.cadastrarFuncionario(textFieldNome.getText(),
-					dateNasc, InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
+					formattedFieldDataNascimento.getText(), InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
 					comboBoxCargo.getSelectedItem().toString(), textFieldEmail.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
 					textFieldLogradouro.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),

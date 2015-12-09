@@ -1,8 +1,12 @@
 package control;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import model.Cliente;
 import model.Contrato;
@@ -30,11 +34,11 @@ public class ContratoController {
 			int contaCorrente = cl.getDadosFinanceiros().getContaCorrente();
 			InterfaceUsuario.carregarDadosCliente(agencia, banco, contaCorrente);
 		}else{
-			InterfaceUsuario.exibirMensagemContratoCadastro("Cliente não encontrado.");
+			InterfaceUsuario.exibirMensagemContratoCadastro("Cliente nï¿½o encontrado.");
 		}
 	}
 	
-	//Usado para pre_aprovação - pre_reprovacao
+	//Usado para pre_aprovaï¿½ï¿½o - pre_reprovacao
 	private String recuperaPerfilCliente(double renda)
 	{
 		//Verifica se a renda esta no perfil A
@@ -69,7 +73,7 @@ public class ContratoController {
 		return db.buscarPlanoEmprestimoId(idPlanoEmprestimo);
 	}
 	
-	//Retorna se o perfil do cliente é aprovado ou reprovado
+	//Retorna se o perfil do cliente ï¿½ aprovado ou reprovado
 	public boolean analisaPerfilComPlano(PlanoEmprestimo planoSelecionado){
 		String pfc = recuperaPerfilCliente(cl.getDadosFinanceiros().getRendaPessoal());
 		List<PlanoEmprestimo> lPlanosPossiveis = recuperaPlanosPerfil(pfc);
@@ -89,13 +93,13 @@ public class ContratoController {
 	}
 	
 	//Calcula a data de termino do emprestimo
-	public Date calculaDataTermino(int numeroParcelas){
+	public java.util.Date calculaDataTermino(int numeroParcelas){
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MONTH, numeroParcelas);
 		return cal.getTime();
 	}
 	
-	public void salvarContrato(int idCliente, String status, int idPlanoEmprestimo, int numParcelas, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes)
+	public void salvarContrato(int idCliente, String status, int idPlanoEmprestimo, int numParcelas, double valorEmprestimo, double valorParcelas, String dataTermino, String observacoes)
 	{
 		PlanoEmprestimo plEmprestimo = recuperaPlanoEmprestimo(idPlanoEmprestimo);
 		
@@ -110,7 +114,7 @@ public class ContratoController {
 			status = StatusContrato.PRE_REJEITADO.getName();
 		}	
 			
-		Contrato contrato = new Contrato(numParcelas, valorEmprestimo, valorParcelas, (java.sql.Date) new Date(), (java.sql.Date) dataTermino, clt, status, null, plEmprestimo, observacoes);
+		Contrato contrato = new Contrato(numParcelas, valorEmprestimo, valorParcelas, new java.sql.Date(Calendar.getInstance().getTime().getTime()), this.formatDate(dataTermino), clt, status, null, plEmprestimo, observacoes);
 		
 		try
 		{
@@ -123,11 +127,11 @@ public class ContratoController {
 		if (persistidoSucesso){
 			InterfaceUsuario.exibirMensagemContratoCadastro("Contrato cadastrado com sucesso.");
 		}else{
-			InterfaceUsuario.exibirMensagemContratoCadastro("Não foi possível cadastrar o contrato.");
+			InterfaceUsuario.exibirMensagemContratoCadastro("Nï¿½o foi possï¿½vel cadastrar o contrato.");
 		}
 	}
 
-	public void editarContrato(int codContrato, int idCliente, String status, int idPlanoEmprestimo, int numParcelas, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacoes)
+	public void editarContrato(int codContrato, int idCliente, String status, int idPlanoEmprestimo, int numParcelas, double valorEmprestimo, double valorParcelas, String dataTermino, String observacoes)
 	{
 		PlanoEmprestimo plEmprestimo = recuperaPlanoEmprestimo(idPlanoEmprestimo);
 		
@@ -146,7 +150,7 @@ public class ContratoController {
 			
 		Contrato contrato = db.buscarContratoId(codContrato);
 		contrato.setCliente(clt);
-		contrato.setDataTerminoContrato((java.sql.Date) dataTermino);
+		contrato.setDataTerminoContrato(this.formatDate(dataTermino));
 		contrato.setQntdParcelas(numParcelas);
 		contrato.setValorEmprestimo(valorEmprestimo);
 		contrato.setValorParcelas(valorParcelas);
@@ -164,7 +168,7 @@ public class ContratoController {
 		if (persistidoSucesso){
 			InterfaceUsuario.exibirMensagemContratoCadastro("Contrato alterado com sucesso.");
 		}else{
-			InterfaceUsuario.exibirMensagemContratoCadastro("Não foi possível alterar o contrato.");
+			InterfaceUsuario.exibirMensagemContratoCadastro("Nï¿½o foi possï¿½vel alterar o contrato.");
 		}
 	}
 	
@@ -181,12 +185,23 @@ public class ContratoController {
 		int idPlanoEmprestimo = contrato.getPlanoEmprestimo().getIdPlanoEmprestimo();
 		String status = contrato.getStatusContrato();
 		String observacoes = contrato.getObservacoes();
-		InterfaceUsuario.carregarContrato(idContrato, cliente, banco, agencia, contaCorrente, valorEmprestimo, valorParcelas, (java.sql.Date) dataTermino, observacoes, idPlanoEmprestimo, numParcelas, status);
+		InterfaceUsuario.carregarContrato(idContrato, cliente, banco, agencia, contaCorrente, valorEmprestimo, valorParcelas, dataTermino, observacoes, idPlanoEmprestimo, numParcelas, status);
 	}
 	public boolean verificaCamposObrigatoriosContrato(){
 		//TODO
 		return true;
 	}
 	
+	public java.sql.Date formatDate(String date) {
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		java.sql.Date data = null;
+		try {
+			data = new java.sql.Date(format.parse(date).getTime());
+		} catch (ParseException ex) {
+			Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return data;
+	}
 	
 }

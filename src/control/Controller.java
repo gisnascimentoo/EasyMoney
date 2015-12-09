@@ -1,7 +1,11 @@
 package control;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import model.Cidade;
 import model.Cliente;
@@ -22,51 +26,6 @@ public class Controller {
 		this.db = new ManipuladorBanco();
 	}
 
-	// TODO validações
-	public void enviarClienteBanco() {
-
-	}
-
-	// TODO
-	public void enviarEnderecoBanco() {
-
-	}
-
-	// TODO
-	public void enviarCidadeBanco() {
-
-	}
-
-	// TODO validações
-	public void enviarContratoBanco() {
-
-	}
-
-	// TODO validações
-	public void enviarDadosFinanceirosBanco() {
-
-	}
-
-	// TODO
-	public void enviarEstadoBanco() {
-
-	}
-
-	// TODO validações
-	public void enviarFuncionarioBanco() {
-
-	}
-
-	// TODO validações
-	public void enviarPlanoEmprestimoBanco() {
-
-	}
-
-	// TODO
-	public void removerPlanoEmprestimoBanco() {
-
-	}
-
 	public void realizarLogin(String nome, String senha) {
 		boolean logado = db.realizarLogin(nome, senha);
 		if (logado) {
@@ -83,9 +42,9 @@ public class Controller {
 			InterfaceUsuario.deslogar();
 	}
 
-	public void buscarCliente(int codigo, String nome, String cpf, java.util.Date date) {
+	public void buscarCliente(int codigo, String nome, String cpf, String date) {
 
-		List<Cliente> clientesBusca = db.buscarCliente(codigo, nome, cpf, (Date) date);
+		List<Cliente> clientesBusca = db.buscarCliente(codigo, nome, cpf, this.formatDate(date));
 		String[][] dados = new String[clientesBusca.size()][4];
 		int indice = 0;
 		for (Cliente cliente : clientesBusca) {
@@ -106,7 +65,7 @@ public class Controller {
 		}
 	}
 
-	public void editarCadastroCliente(int codigo, int cpf, String nomeCompleto, int rg, Date dataNascimento,
+	public void editarCadastroCliente(int codigo, int cpf, String nomeCompleto, int rg, String dataNascimento,
 			String logradouro, int numero, String bairro, String cep, String nomeCidade, String uf, String banco,
 			String agencia, int contaCorrente, double rendaFamiliar, double rendaPessoal, String observacao) {
 		Estado novoUf = new Estado(uf);
@@ -114,12 +73,12 @@ public class Controller {
 		Endereco novoEndereco = new Endereco(logradouro, numero, bairro, cep, novaCidade);
 		DadosFinanceiros novoDadosFinanceiro = new DadosFinanceiros(banco, agencia, contaCorrente, rendaFamiliar,
 				rendaPessoal, observacao);
-		Cliente cliente = new Cliente(cpf, nomeCompleto, rg, dataNascimento, novoEndereco, novoDadosFinanceiro);
+		Cliente cliente = new Cliente(cpf, nomeCompleto, rg, this.formatDate(dataNascimento), novoEndereco, novoDadosFinanceiro);
 		String msg = db.editarClienteBanco(cliente);
 		InterfaceUsuario.exibirMensagemClienteCadastro(msg);
 	}
 
-	public void criarCadastroCliente(int cpf, String nomeCompleto, int rg, Date dataNascimento, String logradouro,
+	public void criarCadastroCliente(int cpf, String nomeCompleto, int rg, String dataNascimento, String logradouro,
 			int numero, String bairro, String cep, String nomeCidade, String uf, String banco, String agencia,
 			int contaCorrente, double rendaFamiliar, double rendaPessoal, String observacao) {
 		boolean cpfExiste = db.verificarCpfCliente(cpf);
@@ -129,11 +88,11 @@ public class Controller {
 				InterfaceUsuario.cancelarCriacaoCliente();
 			}
 		} else {
-			boolean idadeValida = verificarIdadeCliente(dataNascimento);
+			boolean idadeValida = verificarIdadeCliente(this.formatDate(dataNascimento));
 			if (!idadeValida) {
 				InterfaceUsuario.exibirMensagemClienteCadastro("Idade do cliente inválida");
 			} else {
-				boolean camposOK = verificaCamposObrigatoriosCliente(nomeCompleto, dataNascimento, cpf, rg);
+				boolean camposOK = verificaCamposObrigatoriosCliente(nomeCompleto, this.formatDate(dataNascimento), cpf, rg);
 				if (!camposOK) {
 					InterfaceUsuario.exibirMensagemClienteCadastro("Existem campos obrigatórios não preenchidos");
 				} else {
@@ -142,7 +101,7 @@ public class Controller {
 					Endereco novoEndereco = new Endereco(logradouro, numero, bairro, cep, novaCidade);
 					DadosFinanceiros novoDadosFinanceiro = new DadosFinanceiros(banco, agencia, contaCorrente,
 							rendaFamiliar, rendaPessoal, observacao);
-					Cliente cliente = new Cliente(cpf, nomeCompleto, rg, dataNascimento, novoEndereco,
+					Cliente cliente = new Cliente(cpf, nomeCompleto, rg, this.formatDate(dataNascimento), novoEndereco,
 							novoDadosFinanceiro);
 					db.salvarClienteBanco(cliente);
 					InterfaceUsuario.exibirMensagemCliente("Cadastro realizado com sucesso");
@@ -162,12 +121,12 @@ public class Controller {
 
 	private boolean verificarIdadeCliente(Date dataNascimento) {
 		// entre 18 e 75
-		// TODO Auto-generated method stub
+		// TODO VERIFICAR COMO FAZER ISSO COM JAVA.SQL.DATE
 		return false;
 	}
 
-	public void buscarFuncionario(int codigo, String nome, String cpf, java.util.Date date) {
-		List<Funcionario> funcionariosBusca = db.buscarFuncionario(codigo, nome, cpf, (Date) date);
+	public void buscarFuncionario(int codigo, String nome, String cpf, String date) {
+		List<Funcionario> funcionariosBusca = db.buscarFuncionario(codigo, nome, cpf, this.formatDate(date));
 		String[][] dados = new String[funcionariosBusca.size()][4];
 		int indice = 0;
 		for (Funcionario funcionario : funcionariosBusca) {
@@ -188,18 +147,18 @@ public class Controller {
 		}
 	}
 
-	public void editarCadastrofuncionario(int codigo, String nome, Date dataNascimento, int CPF, int RG, String cargo,
+	public void editarCadastrofuncionario(int codigo, String nome, String dataNascimento, int CPF, int RG, String cargo,
 			String email, int telefone, String logradouro, int numero, String bairro, String CEP, String nomeCidade,
 			String uf) {
 		Estado estado = new Estado(uf);
 		Cidade cidade = new Cidade(nomeCidade, estado);
 		Endereco endereco = new Endereco(logradouro, numero, bairro, CEP, cidade);
-		Funcionario funcionario = new Funcionario(nome, dataNascimento, CPF, RG, cargo, email, telefone, endereco);
+		Funcionario funcionario = new Funcionario(nome, this.formatDate(dataNascimento), CPF, RG, cargo, email, telefone, endereco);
 		String msg = db.editarFuncionarioBanco(funcionario);
 		InterfaceUsuario.exibirMensagemFuncionario(msg);
 	}
 
-	public void criarCadastrofuncionario(String nome, Date dataNascimento, int CPF, int RG, String cargo, String email,
+	public void criarCadastrofuncionario(String nome, String dataNascimento, int CPF, int RG, String cargo, String email,
 			int telefone, String logradouro, int numero, String bairro, String CEP, String nomeCidade, String uf) {
 		boolean cpfExiste = db.verificarCpfFuncionario(CPF);
 		if (cpfExiste) {
@@ -208,14 +167,14 @@ public class Controller {
 				InterfaceUsuario.cancelarCriacaoFuncionario();
 			}
 		} else {
-			boolean camposOK = verificaCamposObrigatoriosFuncionario(nomeCidade, dataNascimento, CPF, RG);
+			boolean camposOK = verificaCamposObrigatoriosFuncionario(nomeCidade, this.formatDate(dataNascimento), CPF, RG);
 			if (!camposOK) {
 				InterfaceUsuario.exibirMensagemFuncionarioCadastro("Campos obrigatórios não preenchidos");
 			} else {
 				Estado estado = new Estado(uf);
 				Cidade cidade = new Cidade(nomeCidade, estado);
 				Endereco endereco = new Endereco(logradouro, numero, bairro, CEP, cidade);
-				Funcionario funcionario = new Funcionario(nome, dataNascimento, CPF, RG, cargo, email, telefone,
+				Funcionario funcionario = new Funcionario(nome, this.formatDate(dataNascimento), CPF, RG, cargo, email, telefone,
 						endereco);
 				db.salvarFuncionarioBanco(funcionario);
 				InterfaceUsuario.exibirMensagemFuncionarioCadastro("Cadastro realizado com sucesso");
@@ -254,7 +213,7 @@ public class Controller {
 	}
 
 	public void buscaDadosPlano(int codigo) {
-		PlanoEmprestimo plano = db.buscarDadosPlano();
+		PlanoEmprestimo plano = db.buscarDadosPlano(codigo);
 		InterfaceUsuario.carregarEdicaoPlano(plano.getIdPlanoEmprestimo(), plano.getNome(), plano.getDataCadastro(),
 				plano.getJurosTotal(), plano.getJurosMensal(), plano.getValorMinimo(), plano.getValorMaximo(),
 				plano.getMinParcelas(), plano.getMaxParcelas(), plano.getObservacao());
@@ -280,23 +239,23 @@ public class Controller {
 		}
 	}
 
-	public void editarCadastroPlano(int idPlanoEmprestimo, String nome, Date dataCadastro, double jurosTotal,
+	public void editarCadastroPlano(int idPlanoEmprestimo, String nome, String dataCadastro, double jurosTotal,
 			double jurosMensal, double valorMinimo, double valorMaximo, int minParcelas, int maxParcelas,
 			String observacao) {
-		PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo(idPlanoEmprestimo, nome, dataCadastro, jurosTotal,
+		PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo(idPlanoEmprestimo, nome, this.formatDate(dataCadastro), jurosTotal,
 				jurosMensal, valorMinimo, valorMaximo, minParcelas, maxParcelas, observacao, null);
 		String msg = db.editarPlanoBanco(planoEmprestimo);
 		InterfaceUsuario.exibirMensagemPlanoCadastro(msg);
 	}
 
-	public void criarCadastroPlano(String nome, Date dataCadastro, double jurosTotal, double jurosMensal,
+	public void criarCadastroPlano(String nome, String dataCadastro, double jurosTotal, double jurosMensal,
 			double valorMinimo, double valorMaximo, int minParcelas, int maxParcelas, String observacao) {
-		boolean camposOK = verificaCamposObrigatoriosPlano(nome, dataCadastro, jurosTotal, jurosMensal, valorMinimo,
+		boolean camposOK = verificaCamposObrigatoriosPlano(nome, this.formatDate(dataCadastro), jurosTotal, jurosMensal, valorMinimo,
 				valorMaximo, minParcelas, maxParcelas, observacao);
 		if (!camposOK) {
 			InterfaceUsuario.exibirMensagemPlanoCadastro("Campos obrigatórios não preenchidos");
 		} else {
-			PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo(nome, dataCadastro, jurosTotal, jurosMensal,
+			PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo(nome, this.formatDate(dataCadastro), jurosTotal, jurosMensal,
 					valorMinimo, valorMaximo, minParcelas, maxParcelas, observacao, null);
 			db.salvarPlanoEmprestimoBanco(planoEmprestimo);
 			InterfaceUsuario.exibirMensagemPlanoCadastro("Cadastro realizado com sucesso");
@@ -327,5 +286,17 @@ public class Controller {
 		InterfaceUsuario.carregaRelatorio(dados);
 		
 		
+	}
+
+	public java.sql.Date formatDate(String date) {
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		java.sql.Date data = null;
+		try {
+			data = new java.sql.Date(format.parse(date).getTime());
+		} catch (ParseException ex) {
+			Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return data;
 	}
 }

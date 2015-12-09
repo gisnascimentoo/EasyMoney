@@ -8,12 +8,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import view.InterfaceUsuario;
 
@@ -23,7 +25,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldCodPlano;
-	private JTextField textFieldCadaCadastro;
+	private JFormattedTextField formattedFieldDataNascimento;
 	private JTextField textFieldPlanoEmprestimo;
 	private JTextField textFieldValorMinimo;
 	private JTextField textFieldValorMaximo;
@@ -33,6 +35,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 	private JTextField textFieldJurosMensal;
 	private JTextField textFieldObservacoes;
 	private boolean edicao;
+	private String formatString = "##/##/####";
 
 	/**
 	 * Create the frame.
@@ -60,10 +63,11 @@ public class CadPlanoEmprestimoView extends JFrame {
 		lblDataDeCadastro.setBounds(388, 21, 103, 14);
 		contentPane.add(lblDataDeCadastro);
 
-		textFieldCadaCadastro = new JTextField();
-		textFieldCadaCadastro.setBounds(388, 39, 103, 20);
-		contentPane.add(textFieldCadaCadastro);
-		textFieldCadaCadastro.setColumns(10);
+		MaskFormatter maskData = InterfaceUsuario.createFormatter(formatString);
+		formattedFieldDataNascimento = new JFormattedTextField(maskData);
+		formattedFieldDataNascimento.setBounds(388, 39, 103, 20);
+		contentPane.add(formattedFieldDataNascimento);
+		formattedFieldDataNascimento.setColumns(10);
 
 		JLabel lblPlanoDeEmprstimo = new JLabel("Plano de Empr\u00E9stimo");
 		lblPlanoDeEmprstimo.setBounds(10, 89, 103, 14);
@@ -187,7 +191,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 		edicao = true;
 		textFieldCodPlano.setText("" + idPlanoEmprestimo);
 		textFieldPlanoEmprestimo.setText(nome);
-		textFieldCadaCadastro.setText("" + dataCadastro);
+		formattedFieldDataNascimento.setText("" + dataCadastro);
 		textFieldJurosValorTotal.setText("" + jurosTotal);
 		textFieldJurosMensal.setText("" + jurosMensal);
 		textFieldValorMinimo.setText("" + valorMinimo);
@@ -198,20 +202,11 @@ public class CadPlanoEmprestimoView extends JFrame {
 	}
 
 	protected void salvar() {
-		DateFormat formatter = new SimpleDateFormat("dd/mm/aaaa");
-		Date dataCadastro = null;
-		if (textFieldCadaCadastro.getText().trim().length() > 0)
-			try {
-				dataCadastro = (Date) formatter.parse(textFieldCadaCadastro
-						.getText());
-			} catch (java.text.ParseException e) {
-				e.printStackTrace();
-			}
 		if (edicao) {
 
 			InterfaceUsuario.editarPlano(
 					InterfaceUsuario.transformaStringInt(textFieldCodPlano.getText()),
-					textFieldPlanoEmprestimo.getText(), dataCadastro,
+					textFieldPlanoEmprestimo.getText(), formattedFieldDataNascimento.getText(),
 					InterfaceUsuario.transformaStringDouble(textFieldJurosValorTotal.getText()),
 					InterfaceUsuario.transformaStringDouble(textFieldJurosMensal.getText()),
 					InterfaceUsuario.transformaStringDouble(textFieldValorMinimo.getText()),
@@ -221,7 +216,7 @@ public class CadPlanoEmprestimoView extends JFrame {
 					textFieldObservacoes.getText());
 		} else {
 			InterfaceUsuario.cadastrarPlano(textFieldPlanoEmprestimo.getText(),
-					dataCadastro,
+					formattedFieldDataNascimento.getText(),
 					InterfaceUsuario.transformaStringDouble(textFieldJurosValorTotal.getText()),
 					InterfaceUsuario.transformaStringDouble(textFieldJurosMensal.getText()),
 					InterfaceUsuario.transformaStringDouble(textFieldValorMinimo.getText()),

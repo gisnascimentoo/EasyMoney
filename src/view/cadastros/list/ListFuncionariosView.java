@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import view.InterfaceUsuario;
 
@@ -27,17 +29,16 @@ public class ListFuncionariosView extends JFrame {
 	private JLabel lblNome;
 	private JTextField textFieldNome;
 	private JLabel lblDataDeNascimento;
-	private JTextField textFieldDataNasc;
+	private JFormattedTextField formattedFieldDataNascimento;
+	private String formatString = "##/##/####";
 	private JLabel lblCpf;
 	private JTextField textFieldCPF;
 	JScrollPane rolagem;
 	JTable tabela;
 	DefaultTableModel modelo;
-	String[] colunas = new String[] { "Código", "Nome", "Data de Nascimento",
-			"CPF"};
+	String[] colunas = new String[] { "Código", "Nome", "Data de Nascimento", "CPF" };
 	private JButton btnEditar;
 	private JButton btnExcluir;
-
 
 	/**
 	 * Create the frame.
@@ -72,10 +73,11 @@ public class ListFuncionariosView extends JFrame {
 		lblDataDeNascimento.setBounds(25, 69, 119, 14);
 		contentPane.add(lblDataDeNascimento);
 
-		textFieldDataNasc = new JTextField();
-		textFieldDataNasc.setBounds(25, 85, 101, 20);
-		contentPane.add(textFieldDataNasc);
-		textFieldDataNasc.setColumns(10);
+		MaskFormatter maskData = InterfaceUsuario.createFormatter(formatString);
+		formattedFieldDataNascimento = new JFormattedTextField(maskData);
+		formattedFieldDataNascimento.setBounds(25, 85, 101, 20);
+		contentPane.add(formattedFieldDataNascimento);
+		formattedFieldDataNascimento.setColumns(10);
 
 		lblCpf = new JLabel("CPF");
 		lblCpf.setBounds(159, 69, 76, 14);
@@ -85,7 +87,7 @@ public class ListFuncionariosView extends JFrame {
 		textFieldCPF.setBounds(159, 85, 236, 20);
 		contentPane.add(textFieldCPF);
 		textFieldCPF.setColumns(10);
-		
+
 		modelo = new DefaultTableModel(null, colunas);
 		tabela = new JTable(modelo);
 		rolagem = new JScrollPane(tabela);
@@ -101,26 +103,24 @@ public class ListFuncionariosView extends JFrame {
 
 			}
 		});
-		
+
 		btnEditar.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				editar();
-				
+
 			}
 		});
-		
+
 		btnExcluir.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			    excluir();
-				
+				excluir();
+
 			}
 		});
-		
-
 
 		JButton btnAdicionarFuncionario = new JButton("Adicionar Funcion�rio");
 		btnAdicionarFuncionario.setBounds(25, 122, 164, 23);
@@ -140,11 +140,11 @@ public class ListFuncionariosView extends JFrame {
 		JButton btnFechar = new JButton("Fechar");
 		btnFechar.setBounds(446, 343, 89, 20);
 		contentPane.add(btnFechar);
-		
+
 		btnEditar = new JButton("Editar");
 		btnEditar.setBounds(347, 340, 89, 23);
 		contentPane.add(btnEditar);
-		
+
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.setBounds(242, 340, 89, 23);
 		contentPane.add(btnExcluir);
@@ -163,23 +163,23 @@ public class ListFuncionariosView extends JFrame {
 		if(codigo >= 0 ){
 			InterfaceUsuario.excluirFuncionario(codigo);
 		}
-		
+
 	}
 
 	protected void editar() {
 		int codigo = getIdTabela();
-		if(codigo >= 0 ){
+		if (codigo >= 0) {
 			InterfaceUsuario.editarFuncionarioCarregarPorId(codigo);
 		}
 	}
-	
-	private int getIdTabela(){
+
+	private int getIdTabela() {
 		int row = tabela.getSelectedRow();
 		int codigo = -1;
-		if(row >= 0){
-			String codigoS = (String)tabela.getModel().getValueAt(row, 0);
-			codigo  = InterfaceUsuario.transformaStringInt(codigoS); 
-		}else{
+		if (row >= 0) {
+			String codigoS = (String) tabela.getModel().getValueAt(row, 0);
+			codigo = InterfaceUsuario.transformaStringInt(codigoS);
+		} else {
 			JOptionPane.showMessageDialog(null, "Selecione uma linha para ação");
 		}
 		return codigo;
@@ -190,19 +190,11 @@ public class ListFuncionariosView extends JFrame {
 	}
 
 	protected void buscar() {
-		DateFormat formatter = new SimpleDateFormat("dd/mm/aaaa");
-		Date date = null;
 		int codigo = 0;
-		try {
-			if (textFieldDataNasc.getText().trim().length() > 0)
-				date = (Date) formatter.parse(textFieldDataNasc.getText());
-			if (textFieldCodigo.getText().trim().length() > 0)
-				InterfaceUsuario.transformaStringInt(textFieldCodigo.getText());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		InterfaceUsuario.buscarFuncionario(codigo, textFieldNome.getText(),
-				textFieldCPF.getText(), date);
+		if (textFieldCodigo.getText().trim().length() > 0)
+			InterfaceUsuario.transformaStringInt(textFieldCodigo.getText());
+		InterfaceUsuario.buscarFuncionario(codigo, textFieldNome.getText(), textFieldCPF.getText(),
+				formattedFieldDataNascimento.getText());
 
 	}
 
@@ -212,10 +204,8 @@ public class ListFuncionariosView extends JFrame {
 
 	public boolean confirmaExclusao() {
 		Object[] options = { "Sim", "Não" };
-		int opcao = JOptionPane.showOptionDialog(null,
-				"Deseja excluir o funcionário?", "Excluir Funcionário",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-				options, options[0]);
+		int opcao = JOptionPane.showOptionDialog(null, "Deseja excluir o funcionário?", "Excluir Funcionário",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 		if (opcao == 0)
 			return true;
 		else
@@ -228,12 +218,9 @@ public class ListFuncionariosView extends JFrame {
 
 	public int MensagemCpfExistente() {
 		Object[] options = { "Retornar", "Cancelar" };
-		return JOptionPane
-				.showOptionDialog(
-						null,
-						"Já existe um funcionário cadastrado com este cpf. Retornar ao cadasto ou cancelar ação?",
-						"CPF Existente", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		return JOptionPane.showOptionDialog(null,
+				"Já existe um funcionário cadastrado com este cpf. Retornar ao cadasto ou cancelar ação?",
+				"CPF Existente", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 	}
 
 	public void addTabela(String[][] dados) {

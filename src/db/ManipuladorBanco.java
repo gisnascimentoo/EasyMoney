@@ -638,7 +638,7 @@ public class ManipuladorBanco {
 		return null;
 	}
 
-	public PlanoEmprestimo buscarDadosPlano() {
+	public PlanoEmprestimo buscarDadosPlano(int codigo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

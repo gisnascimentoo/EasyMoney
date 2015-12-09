@@ -9,6 +9,7 @@ import java.util.Date;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import view.InterfaceUsuario;
 import javax.swing.GroupLayout.Alignment;
@@ -36,8 +38,9 @@ public class ListClientesView extends JFrame {
 	private JTable jTableListagemCliente;
 	private JTextField jTextFieldCPF;
 	private JTextField jTextFieldCodigo;
-	private JTextField jTextFieldDataNascimento;
+	private JFormattedTextField formattedFieldDataNascimento;
 	private JTextField jTextFieldNome;
+	private String formatString = "##/##/####";
 	DefaultTableModel modelo;
 	String[] colunas = new String[] { "Código", "Nome", "Data de Nascimento",
 			"CPF"};
@@ -51,7 +54,8 @@ public class ListClientesView extends JFrame {
 		setBounds(100, 100, 600, 500);
 		jTextFieldCodigo = new JTextField();
 		jLabel1 = new JLabel();
-		jTextFieldDataNascimento = new JTextField();
+		MaskFormatter maskData = InterfaceUsuario.createFormatter(formatString);
+		formattedFieldDataNascimento = new JFormattedTextField(maskData);
 		jLabel3 = new JLabel();
 		jTextFieldNome = new JTextField();
 		jLabel2 = new JLabel();
@@ -124,7 +128,7 @@ public class ListClientesView extends JFrame {
 									.addComponent(jLabel1)
 									.addComponent(jTextFieldCodigo, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
 									.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(jTextFieldDataNascimento, Alignment.LEADING)
+										.addComponent(formattedFieldDataNascimento, Alignment.LEADING)
 										.addComponent(jLabel3, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 								.addGap(34)
 								.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
@@ -155,7 +159,7 @@ public class ListClientesView extends JFrame {
 						.addComponent(jLabel4))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jTextFieldDataNascimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(formattedFieldDataNascimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jTextFieldCPF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jButtonBuscar))
 					.addGap(18)
@@ -229,20 +233,12 @@ public class ListClientesView extends JFrame {
 	}
 
 	protected void buscar() {
-		DateFormat formatter = new SimpleDateFormat("dd/mm/aaaa");
-		Date date = null;
 		int codigo = 0;
-		try {
-			if (jTextFieldDataNascimento.getText().trim().length() > 0)
-				date = (Date) formatter.parse(jTextFieldDataNascimento
-						.getText());
-			if (jTextFieldCodigo.getText().trim().length() > 0)
-				InterfaceUsuario.transformaStringInt(jTextFieldCodigo.getText());
-		} catch (ParseException e) {
-			e.printStackTrace();
+		if (jTextFieldCodigo.getText().trim().length() > 0) {
+				codigo = InterfaceUsuario.transformaStringInt(jTextFieldCodigo.getText());
 		}
 		InterfaceUsuario.buscarCliente(codigo, jTextFieldNome.getText(),
-				jTextFieldCPF.getText(), date);
+				jTextFieldCPF.getText(), formattedFieldDataNascimento.getText());
 
 	}
 

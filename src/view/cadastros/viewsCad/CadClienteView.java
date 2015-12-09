@@ -6,10 +6,11 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import view.InterfaceUsuario;
 
@@ -25,7 +27,7 @@ public class CadClienteView extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldCodCliente;
 	private JTextField textFieldNome;
-	private JTextField textFieldDataNascimento;
+	private JFormattedTextField formattedFieldDataNascimento;
 	private JTextField textFieldCPF;
 	private JTextField textFieldRG;
 	private JLabel lblEndereco;
@@ -61,6 +63,7 @@ public class CadClienteView extends JFrame {
 	private JLabel lblR;
 	private JLabel label;
 	private boolean edicao;
+	private String formatString = "##/##/####";
 
 	/**
 	 * Create the frame.
@@ -97,11 +100,11 @@ public class CadClienteView extends JFrame {
 		lblDataDeNascimento.setBounds(387, 32, 110, 14);
 		contentPane.add(lblDataDeNascimento);
 
-		textFieldDataNascimento = new JTextField();
-		textFieldDataNascimento.setText("dd / mm / aaaa");
-		textFieldDataNascimento.setBounds(384, 48, 113, 20);
-		contentPane.add(textFieldDataNascimento);
-		textFieldDataNascimento.setColumns(10);
+		MaskFormatter maskData = InterfaceUsuario.createFormatter(formatString);
+		formattedFieldDataNascimento = new JFormattedTextField(maskData);
+		formattedFieldDataNascimento.setBounds(384, 48, 113, 20);
+		contentPane.add(formattedFieldDataNascimento);
+		formattedFieldDataNascimento.setColumns(10);
 
 		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setBounds(14, 79, 46, 14);
@@ -282,7 +285,7 @@ public class CadClienteView extends JFrame {
 	}
 
 	public CadClienteView(int codigo, int cpf, String nomeCompleto, int rg,
-			java.util.Date dataNascimento, String logradouro, int numero,
+			Date dataNascimento, String logradouro, int numero,
 			String bairro, String cep, String nomeCidade, String uf,
 			String banco, String agencia, int contaCorrente,
 			double rendaFamiliar, double rendaPessoal, String observacao) {
@@ -290,7 +293,7 @@ public class CadClienteView extends JFrame {
 		textFieldCPF.setText(""+cpf); 
 		textFieldNome.setText(nomeCompleto); 
 		textFieldRG.setText(""+rg);
-		textFieldDataNascimento.setText(""+dataNascimento); 
+		formattedFieldDataNascimento.setText(""+dataNascimento); 
 		textFieldLogradouro.setText(logradouro); 
 		textFieldNumero.setText(""+numero);
 		textFieldBairro.setText(bairro); 
@@ -307,18 +310,9 @@ public class CadClienteView extends JFrame {
 	}
 
 	protected void salvar() {
-		DateFormat formatter = new SimpleDateFormat("dd/mm/aaaa");
-		Date dateNasc = null;
-		if (textFieldDataNascimento.getText().trim().length() > 0)
-			try {
-				dateNasc = (Date) formatter.parse(textFieldDataNascimento
-						.getText());
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
 		if (!edicao) {
 			InterfaceUsuario.cadastrarCliente(InterfaceUsuario.transformaStringInt(textFieldCPF
-					.getText()), textFieldNome.getText(),InterfaceUsuario.transformaStringInt(textFieldRG.getText()), dateNasc,
+					.getText()), textFieldNome.getText(),InterfaceUsuario.transformaStringInt(textFieldRG.getText()), formattedFieldDataNascimento.getText(),
 					textFieldLogradouro.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
 					textFieldBairro.getText(), "cep",
 					textFieldCidade.getText(), comboBoxUF.getSelectedItem()
@@ -330,7 +324,7 @@ public class CadClienteView extends JFrame {
 			InterfaceUsuario.editarCliente(InterfaceUsuario.transformaStringInt(textFieldCodCliente
 					.getText()), InterfaceUsuario.transformaStringInt(textFieldCPF.getText()),
 					textFieldNome.getText(), InterfaceUsuario.transformaStringInt(textFieldRG
-							.getText()), dateNasc, textFieldLogradouro
+							.getText()), formattedFieldDataNascimento.getText(), textFieldLogradouro
 							.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero
 							.getText()), textFieldBairro.getText(), "cep",
 					textFieldCidade.getText(), comboBoxUF.getSelectedItem()

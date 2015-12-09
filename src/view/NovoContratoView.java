@@ -6,17 +6,20 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.swing.JSeparator;
 import javax.swing.JButton;
@@ -30,11 +33,12 @@ public class NovoContratoView extends JFrame {
 	private JTextField textFieldContaCorrente;
 	private JTextField textFieldValorEmprestimo;
 	private JTextField textFieldValorParcelas;
-	private JTextField textFieldDataTerminoContrato;
+	private JFormattedTextField formattedFieldDataNascimento;
 	private JTextField textFieldObservacoes;
 	private JComboBox comboBoxPlanoEmprestimo;
 	private JComboBox comboBoxParcelas;
 	private JComboBox comboBoxSituacao;
+	private String formatString = "##/##/####";
 	
 	//Construtor usado a partir do menu
 	public NovoContratoView()
@@ -42,7 +46,7 @@ public class NovoContratoView extends JFrame {
 		initComponents();
 	}
 	
-	//Construtor usado a partir da simulação
+	//Construtor usado a partir da simulaï¿½ï¿½o
 	public NovoContratoView(double valorEmprestimo, int valorParcelas, int indexPlanoEmprestimo, int indexNumeroParcelas){
 		initComponents();
 		textFieldValorEmprestimo.setText(String.valueOf(valorEmprestimo));
@@ -62,11 +66,11 @@ public class NovoContratoView extends JFrame {
 			textFieldContaCorrente.setText(String.valueOf(contaCorrente));
 			textFieldValorEmprestimo.setText(String.valueOf(valorEmprestimo));
 			textFieldValorParcelas.setText(String.valueOf(valorParcelas));
-			textFieldDataTerminoContrato.setText(String.valueOf(dataTermino));
+			formattedFieldDataNascimento.setText(dataTermino.toString());
 			textFieldObservacoes.setText(observacao);
 			comboBoxPlanoEmprestimo.setSelectedIndex(indexPlanoEmprestimo);
 			comboBoxParcelas.setSelectedIndex(indexParcelas);
-			//PRECISA PEGAR O INDEX DA SITUAÇÃO
+			//PRECISA PEGAR O INDEX DA SITUAï¿½ï¿½O
 			//comboBoxSituacao.setSelectedIndex(indexSituacao);	
 			
 	}
@@ -82,7 +86,7 @@ public class NovoContratoView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblCdigoContrato = new JLabel("Código Contrato");
+		JLabel lblCdigoContrato = new JLabel("Cï¿½digo Contrato");
 		lblCdigoContrato.setBounds(10, 11, 92, 14);
 		contentPane.add(lblCdigoContrato);
 		
@@ -96,7 +100,7 @@ public class NovoContratoView extends JFrame {
 		lblCliente.setBounds(10, 46, 46, 14);
 		contentPane.add(lblCliente);
 		
-		JLabel lblSituao = new JLabel("Situação");
+		JLabel lblSituao = new JLabel("Situaï¿½ï¿½o");
 		lblSituao.setBounds(357, 46, 59, 14);
 		contentPane.add(lblSituao);
 		
@@ -113,7 +117,7 @@ public class NovoContratoView extends JFrame {
 		contentPane.add(textFieldBanco);
 		textFieldBanco.setColumns(10);
 		
-		JLabel lblAgncia = new JLabel("Agência");
+		JLabel lblAgncia = new JLabel("Agï¿½ncia");
 		lblAgncia.setBounds(242, 92, 46, 14);
 		contentPane.add(lblAgncia);
 		
@@ -131,7 +135,7 @@ public class NovoContratoView extends JFrame {
 		contentPane.add(textFieldContaCorrente);
 		textFieldContaCorrente.setColumns(10);
 		
-		JLabel lblPlanoDeEmprestimo = new JLabel("Plano de Empréstimo");
+		JLabel lblPlanoDeEmprestimo = new JLabel("Plano de Emprï¿½stimo");
 		lblPlanoDeEmprestimo.setBounds(10, 190, 130, 14);
 		contentPane.add(lblPlanoDeEmprestimo);
 		
@@ -147,7 +151,7 @@ public class NovoContratoView extends JFrame {
 		comboBoxParcelas.setBounds(260, 207, 86, 20);
 		contentPane.add(comboBoxParcelas);
 		
-		JLabel lblValorDoEmprestimo = new JLabel("Valor do Empréstimo");
+		JLabel lblValorDoEmprestimo = new JLabel("Valor do Emprï¿½stimo");
 		lblValorDoEmprestimo.setBounds(10, 253, 130, 14);
 		contentPane.add(lblValorDoEmprestimo);
 		
@@ -165,16 +169,17 @@ public class NovoContratoView extends JFrame {
 		contentPane.add(textFieldValorParcelas);
 		textFieldValorParcelas.setColumns(10);
 		
-		JLabel lblDataDeTermino = new JLabel("Data de término do contrato");
+		JLabel lblDataDeTermino = new JLabel("Data de tï¿½rmino do contrato");
 		lblDataDeTermino.setBounds(386, 253, 167, 14);
 		contentPane.add(lblDataDeTermino);
 		
-		textFieldDataTerminoContrato = new JTextField();
-		textFieldDataTerminoContrato.setBounds(386, 269, 138, 20);
-		contentPane.add(textFieldDataTerminoContrato);
-		textFieldDataTerminoContrato.setColumns(10);
+		MaskFormatter maskData = InterfaceUsuario.createFormatter(formatString);
+		formattedFieldDataNascimento = new JFormattedTextField(maskData);
+		formattedFieldDataNascimento.setBounds(386, 269, 138, 20);
+		contentPane.add(formattedFieldDataNascimento);
+		formattedFieldDataNascimento.setColumns(10);
 		
-		JLabel lblObservaes = new JLabel("Observações");
+		JLabel lblObservaes = new JLabel("Observaï¿½ï¿½es");
 		lblObservaes.setBounds(10, 332, 101, 14);
 		contentPane.add(lblObservaes);
 		
