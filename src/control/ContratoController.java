@@ -115,6 +115,10 @@ public class ContratoController {
 		return cal.getTime();
 	}
 
+	public double calculaValorFinalEmprestimo(int numeroParcelas, double valorParcelas){
+		return numeroParcelas * valorParcelas;
+	}
+	
 	public void salvarContrato(int idCliente, String status,
 			int idPlanoEmprestimo, int numParcelas, double valorEmprestimo,
 			double valorParcelas, String dataTermino, String observacoes) {
