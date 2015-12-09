@@ -27,7 +27,7 @@ public class SimulacaoView extends JFrame {
 	DefaultTableModel modelo;
 	private JScrollPane jScrollPane1_1;
 	private JTable jTable;
-	JComboBox comboBox;
+	private JComboBox comboBoxPlanoEmprestimo;
 	
 	//TODO
 	//Verificar quais colunas mostradas
@@ -91,7 +91,7 @@ public class SimulacaoView extends JFrame {
 		lblNewLabel.setBounds(152, 92, 104, 14);
 		contentPane.add(lblNewLabel);
 		
-		JComboBox comboBoxPlanoEmprestimo = new JComboBox();
+		comboBoxPlanoEmprestimo = new JComboBox();
 		comboBoxPlanoEmprestimo.setBounds(152, 113, 104, 20);
 		contentPane.add(comboBoxPlanoEmprestimo);
 		
@@ -156,7 +156,14 @@ public class SimulacaoView extends JFrame {
 
 
 	protected void calcular() {
-		InterfaceUsuario.calcularSimulacao(textFieldValorFinal.getText(), textFieldNumMeses.getText(), textFieldValorFinanciado.getText(), textFieldValorPrestacao.getText());
+		double valorParcela = InterfaceUsuario.calcularValorParcelas(comboBoxPlanoEmprestimo.getSelectedItem().toString(), textFieldNumMeses.getText(), textFieldValorFinanciado.getText());
+		double valorFinal = InterfaceUsuario.calcularSimulacao(textFieldNumMeses.getText(), valorParcela);
+		String[][] dados = new String[3][2];
+		dados[0][0] = "Valor Parcela";
+		dados[0][1] = "Valor Final Parcelamento";
+		dados[1][0] = "R$ "+String.valueOf(valorParcela);
+		dados[1][1] = "R$ "+String.valueOf(valorFinal);
+		InterfaceUsuario.carregaDadosTabelaSimulacao(dados);
 	}
 
 

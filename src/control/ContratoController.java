@@ -107,6 +107,12 @@ public class ContratoController {
 					.getJurosMensal());
 
 	}
+	
+	public double calculaValorParcelas(int numeroParcelas,double valorEmprestimo, String plano){
+		List<PlanoEmprestimo> plnEmp = db.buscarPlano(0, plano);
+		PlanoEmprestimo plnEmpSel = db.buscarPlanoEmprestimoId(plnEmp.get(0).getIdPlanoEmprestimo());
+		return calculaValorParcelas(numeroParcelas, valorEmprestimo, plnEmpSel);
+	}
 
 	// Calcula a data de termino do emprestimo
 	public java.util.Date calculaDataTermino(int numeroParcelas) {

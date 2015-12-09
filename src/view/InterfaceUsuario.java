@@ -434,10 +434,12 @@ public class InterfaceUsuario {
 		return contratoController.getQntdParcelasParaPlano(codigo);
 	}
 
-	public static void calcularSimulacao(String valorFinal, String numMeses,
-			String valorFinanciado, String valorPrestacao) {
-		// TODO Auto-generated method stub
-		//Chamar contratoControler, calcular na formula para geração de dados e lancar para a tabela de visualizacao no metodo a baixo
+	public static double calcularSimulacao(String numMeses, double valorParcelas) {
+		return contratoController.calculaValorFinalEmprestimo(Integer.parseInt(numMeses), valorParcelas);
+	}
+	
+	public static double calcularValorParcelas(String planoEmprestimo, String numMeses, String valorFinanciado){
+		return contratoController.calculaValorParcelas(Integer.parseInt(numMeses), Double.parseDouble(valorFinanciado), planoEmprestimo);
 	}
 	
 	public static void carregaDadosTabelaSimulacao(String[][] dados) {
