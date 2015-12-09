@@ -8,6 +8,7 @@ public class Contrato {
 	private int qntdParcelas;
 	private double valorEmprestimo;
 	private double valorParcelas;
+	private double valorTotalContrato;
 	private Date dataCriacaoContrato;
 	private Date dataTerminoContrato;
 	private Cliente cliente;
@@ -70,6 +71,14 @@ public class Contrato {
 		return valorEmprestimo;
 	}
 
+	public double getValorTotalContrato() {
+		return valorTotalContrato;
+	}
+	
+	public void setValorTotalContrato() {
+		this.valorTotalContrato = qntdParcelas * valorParcelas;
+	}
+	
 	public void setValorEmprestimo(double valorEmprestimo) {
 		this.valorEmprestimo = valorEmprestimo;
 	}
