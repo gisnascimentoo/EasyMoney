@@ -3,6 +3,7 @@ package control;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,9 @@ import model.Estado;
 import model.Funcionario;
 import model.PlanoEmprestimo;
 import view.InterfaceUsuario;
+import view.combo.ClienteCombo;
+import view.combo.EstadoCombo;
+import view.combo.PlanoCombo;
 import db.ManipuladorBanco;
 
 public class Controller {
@@ -66,9 +70,9 @@ public class Controller {
 	}
 
 	public void editarCadastroCliente(int codigo, int cpf, String nomeCompleto, int rg, String dataNascimento,
-			String logradouro, int numero, String bairro, String cep, String nomeCidade, String uf, String banco,
+			String logradouro, int numero, String bairro, String cep, String nomeCidade, int uf, String banco,
 			String agencia, int contaCorrente, double rendaFamiliar, double rendaPessoal, String observacao) {
-		Estado novoUf = new Estado(uf);
+		Estado novoUf = new Estado(uf, null);
 		Cidade novaCidade = new Cidade(nomeCidade, novoUf);
 		Endereco novoEndereco = new Endereco(logradouro, numero, bairro, cep, novaCidade);
 		DadosFinanceiros novoDadosFinanceiro = new DadosFinanceiros(banco, agencia, contaCorrente, rendaFamiliar,
@@ -79,7 +83,7 @@ public class Controller {
 	}
 
 	public void criarCadastroCliente(int cpf, String nomeCompleto, int rg, String dataNascimento, String logradouro,
-			int numero, String bairro, String cep, String nomeCidade, String uf, String banco, String agencia,
+			int numero, String bairro, String cep, String nomeCidade, int uf, String banco, String agencia,
 			int contaCorrente, double rendaFamiliar, double rendaPessoal, String observacao) {
 		boolean cpfExiste = db.verificarCpfCliente(cpf);
 		if (cpfExiste) {
@@ -96,7 +100,7 @@ public class Controller {
 				if (!camposOK) {
 					InterfaceUsuario.exibirMensagemClienteCadastro("Existem campos obrigatórios não preenchidos");
 				} else {
-					Estado novoUf = new Estado(uf);
+					Estado novoUf = new Estado(uf, null);
 					Cidade novaCidade = new Cidade(nomeCidade, novoUf);
 					Endereco novoEndereco = new Endereco(logradouro, numero, bairro, cep, novaCidade);
 					DadosFinanceiros novoDadosFinanceiro = new DadosFinanceiros(banco, agencia, contaCorrente,
@@ -149,8 +153,8 @@ public class Controller {
 
 	public void editarCadastrofuncionario(int codigo, String nome, String dataNascimento, int CPF, int RG, String cargo,
 			String email, int telefone, String logradouro, int numero, String bairro, String CEP, String nomeCidade,
-			String uf) {
-		Estado estado = new Estado(uf);
+			int uf) {
+		Estado estado = new Estado(uf, null);
 		Cidade cidade = new Cidade(nomeCidade, estado);
 		Endereco endereco = new Endereco(logradouro, numero, bairro, CEP, cidade);
 		Funcionario funcionario = new Funcionario(nome, this.formatDate(dataNascimento), CPF, RG, cargo, email, telefone, endereco);
@@ -159,7 +163,7 @@ public class Controller {
 	}
 
 	public void criarCadastrofuncionario(String nome, String dataNascimento, int CPF, int RG, String cargo, String email,
-			int telefone, String logradouro, int numero, String bairro, String CEP, String nomeCidade, String uf) {
+			int telefone, String logradouro, int numero, String bairro, String CEP, String nomeCidade, int uf) {
 		boolean cpfExiste = db.verificarCpfFuncionario(CPF);
 		if (cpfExiste) {
 			int opcao = InterfaceUsuario.exibirMensagemCpfExistenteFuncionario();
@@ -171,7 +175,7 @@ public class Controller {
 			if (!camposOK) {
 				InterfaceUsuario.exibirMensagemFuncionarioCadastro("Campos obrigatórios não preenchidos");
 			} else {
-				Estado estado = new Estado(uf);
+				Estado estado = new Estado(uf, null);
 				Cidade cidade = new Cidade(nomeCidade, estado);
 				Endereco endereco = new Endereco(logradouro, numero, bairro, CEP, cidade);
 				Funcionario funcionario = new Funcionario(nome, this.formatDate(dataNascimento), CPF, RG, cargo, email, telefone,
@@ -196,7 +200,7 @@ public class Controller {
 		DadosFinanceiros dadosFinanceiros = cliente.getDadosFinanceiros();
 		InterfaceUsuario.carregaEdicaoCliente(cliente.getIdCliente(), cliente.getCPF(), cliente.getNomeCompleto(),
 				cliente.getRG(), cliente.getDataNascimento(), endereco.getLogradouro(), endereco.getNumero(),
-				endereco.getBairro(), endereco.getCEP(), endereco.getCidade().getNome(),
+				endereco.getBairro(), endereco.getCEP(), endereco.getCidade().getNome(),endereco.getCidade().getEstado().getIdEstado(),
 				endereco.getCidade().getEstado().getUf(), dadosFinanceiros.getBanco(), dadosFinanceiros.getAgencia(),
 				dadosFinanceiros.getContaCorrente(), dadosFinanceiros.getRendaFamiliar(),
 				dadosFinanceiros.getRendaPessoal(), dadosFinanceiros.getObservacao());
@@ -209,7 +213,7 @@ public class Controller {
 				funcionario.getEmail(), funcionario.getTelefone(), funcionario.getEndereco().getLogradouro(),
 				funcionario.getEndereco().getNumero(), funcionario.getEndereco().getBairro(),
 				funcionario.getEndereco().getCEP(), funcionario.getEndereco().getCidade().getNome(),
-				funcionario.getEndereco().getCidade().getEstado().getUf());
+				funcionario.getEndereco().getCidade().getEstado().getUf(), funcionario.getEndereco().getCidade().getEstado().getIdEstado());
 	}
 
 	public void buscaDadosPlano(int codigo) {
@@ -298,5 +302,33 @@ public class Controller {
 		}
 
 		return data;
+	}
+
+	public List<EstadoCombo> preparaComboEstado() {
+		List<EstadoCombo> listCombo = new ArrayList<EstadoCombo>();
+		List<Estado> list = db.recuperarEstadosParaComboBoxBanco();
+		for (Estado estado : list) {
+			listCombo.add(new EstadoCombo(estado.getIdEstado(), estado.getUf()));
+		}
+
+		return listCombo;
+	}
+
+	public List<ClienteCombo> preparaComboCliente() {
+		List<ClienteCombo> listCombo = new ArrayList<ClienteCombo>();
+		List<Cliente> list = db.recuperarClienteParaComboBoxBanco();
+		for (Cliente cliente : list) {
+			listCombo.add(new ClienteCombo(cliente.getIdCliente(), cliente.getNomeCompleto()));
+		}
+		return listCombo;
+	}
+
+	public List<PlanoCombo> preparaComboPlano() {
+		List<PlanoCombo> listCombo = new ArrayList<PlanoCombo>();
+		List<PlanoEmprestimo> list = db.recuperarPlanoParaComboBoxBanco();
+		for (PlanoEmprestimo plano : list) {
+			listCombo.add(new PlanoCombo(plano.getIdPlanoEmprestimo(), plano.getNome()));
+		}
+		return listCombo;
 	}
 }

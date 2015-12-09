@@ -10,6 +10,8 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Color;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -17,6 +19,7 @@ import javax.swing.JSeparator;
 import javax.swing.JButton;
 
 import view.InterfaceUsuario;
+import view.combo.EstadoCombo;
 
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -25,6 +28,7 @@ import java.awt.event.TextEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Vector;
 
 public class CadFuncionarioView extends JFrame {
 
@@ -56,6 +60,11 @@ public class CadFuncionarioView extends JFrame {
 	 * Create the frame.
 	 */
 	public CadFuncionarioView() {
+		init();
+		edicao = false;
+	}
+	
+	public void init(){
 		setTitle("Cadastro Funcion\u00E1rio");
 		setBounds(100, 100, 550, 550);
 		contentPane = new JPanel();
@@ -120,7 +129,7 @@ public class CadFuncionarioView extends JFrame {
 		lblCargo.setBounds(10, 141, 46, 14);
 		contentPane.add(lblCargo);
 
-		comboBoxCargo = new JComboBox();
+		comboBoxCargo = new JComboBox(new String[] { "Gerente", "Corretor"});
 		comboBoxCargo.setBounds(10, 159, 180, 19);
 		contentPane.add(comboBoxCargo);
 
@@ -171,6 +180,8 @@ public class CadFuncionarioView extends JFrame {
 		comboBoxUF = new JComboBox();
 		comboBoxUF.setBounds(408, 293, 102, 19);
 		contentPane.add(comboBoxUF);
+		
+		carregarEstadoCombo();
 
 		JLabel lblContato = new JLabel("CONTATO");
 		lblContato.setBounds(10, 333, 110, 14);
@@ -205,6 +216,7 @@ public class CadFuncionarioView extends JFrame {
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(421, 477, 89, 23);
 		contentPane.add(btnSalvar);
+		
 		btnSalvar.addActionListener(new ActionListener() {
 
 			@Override
@@ -225,13 +237,13 @@ public class CadFuncionarioView extends JFrame {
 
 			}
 		});
-		edicao = false;
 	}
 
 	public CadFuncionarioView(int codigo, String nome,
 			java.util.Date dataNascimento, int CPF, int RG, String cargo,
 			String email, int telefone, String logradouro, int numero,
-			String bairro, String CEP, String nomeCidade, String uf) {
+			String bairro, String CEP, String nomeCidade, String uf, int idUf) {
+		init();
 		textFieldCodFuncionario.setText(""+codigo);
 		textFieldNome.setText(nome);
 		formattedFieldDataNascimento.setText(""+dataNascimento);
@@ -245,7 +257,7 @@ public class CadFuncionarioView extends JFrame {
 		textFieldBairro.setText(bairro);
 		//CEP
 		textFieldCidade.setText(nomeCidade);
-		comboBoxUF.setSelectedItem(uf);
+		comboBoxUF.setSelectedItem(new EstadoCombo(idUf, uf));
 		edicao = true;
 	}
 
@@ -255,25 +267,31 @@ public class CadFuncionarioView extends JFrame {
 	}
 
 	protected void salvar() {
+		EstadoCombo estadoCombo = (EstadoCombo)comboBoxUF.getSelectedItem();
 		if (edicao) {
 			InterfaceUsuario.editarFuncionario(InterfaceUsuario.transformaStringInt(textFieldCodFuncionario.getText()), textFieldNome.getText(),
 					formattedFieldDataNascimento.getText(), InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
 					comboBoxCargo.getSelectedItem().toString(), textFieldEmail.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
 					textFieldLogradouro.getText(),InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
-					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), comboBoxUF.getSelectedItem().toString());
+					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), estadoCombo.getCodigo());
 		} else {
 			InterfaceUsuario.cadastrarFuncionario(textFieldNome.getText(),
 					formattedFieldDataNascimento.getText(), InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
 					"Gerente", textFieldEmail.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
 					textFieldLogradouro.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
-					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), "SC");
+					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), estadoCombo.getCodigo());
 		}
 	}
 	
 	public void mostrarMensagem(String mensagem) {
 		JOptionPane.showMessageDialog(null, mensagem);
+	}
+	
+	private void carregarEstadoCombo() {
+		comboBoxUF.setModel(new DefaultComboBoxModel(new Vector(
+				InterfaceUsuario.carregaEstadoCombo())));
 	}
 
 }

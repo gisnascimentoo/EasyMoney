@@ -6,8 +6,10 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Vector;
 import java.sql.Date;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -20,7 +22,10 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import model.Estado;
+
 import view.InterfaceUsuario;
+import view.combo.EstadoCombo;
 
 public class CadClienteView extends JFrame {
 
@@ -70,6 +75,10 @@ public class CadClienteView extends JFrame {
 	 */
 	public CadClienteView() {
 		this.edicao = false;
+		init();
+	}
+	
+	public void init(){
 		setTitle("Cadastro Cliente");
 		setBounds(100, 100, 550, 550);
 		contentPane = new JPanel();
@@ -173,6 +182,7 @@ public class CadClienteView extends JFrame {
 		comboBoxUF = new JComboBox();
 		comboBoxUF.setBounds(455, 220, 69, 20);
 		contentPane.add(comboBoxUF);
+		carregarEstadoCombo();
 
 		lblNewLabel = new JLabel("Complemento");
 		lblNewLabel.setBounds(10, 251, 131, 14);
@@ -285,64 +295,99 @@ public class CadClienteView extends JFrame {
 	}
 
 	public CadClienteView(int codigo, int cpf, String nomeCompleto, int rg,
-			Date dataNascimento, String logradouro, int numero,
-			String bairro, String cep, String nomeCidade, String uf,
-			String banco, String agencia, int contaCorrente,
-			double rendaFamiliar, double rendaPessoal, String observacao) {
-		textFieldCodCliente.setText(""+codigo); 
-		textFieldCPF.setText(""+cpf); 
-		textFieldNome.setText(nomeCompleto); 
-		textFieldRG.setText(""+rg);
-		formattedFieldDataNascimento.setText(""+dataNascimento); 
-		textFieldLogradouro.setText(logradouro); 
-		textFieldNumero.setText(""+numero);
-		textFieldBairro.setText(bairro); 
-		//cep, 
-		textFieldCidade.setText(nomeCidade); 
-		comboBoxUF.setSelectedItem(uf);
-		textFieldBanco.setText(banco); 
-		textFieldAgencia.setText(agencia); 
-		textFieldContaCorrente.setText(""+contaCorrente);
-		textFieldRendaFamiliar.setText(""+rendaFamiliar); 
-		textFieldRendaPessoal.setText(""+rendaPessoal);
+			Date dataNascimento, String logradouro, int numero, String bairro,
+			String cep, String nomeCidade, int idUf, String uf, String banco,
+			String agencia, int contaCorrente, double rendaFamiliar,
+			double rendaPessoal, String observacao) {
+		init();
+		textFieldCodCliente.setText("" + codigo);
+		textFieldCPF.setText("" + cpf);
+		textFieldNome.setText(nomeCompleto);
+		textFieldRG.setText("" + rg);
+		formattedFieldDataNascimento.setText("" + dataNascimento);
+		textFieldLogradouro.setText(logradouro);
+		textFieldNumero.setText("" + numero);
+		textFieldBairro.setText(bairro);
+		// cep,
+		
+		textFieldCidade.setText(nomeCidade);
+		comboBoxUF.setSelectedItem(new Estado(idUf, uf));
+		textFieldBanco.setText(banco);
+		textFieldAgencia.setText(agencia);
+		textFieldContaCorrente.setText("" + contaCorrente);
+		textFieldRendaFamiliar.setText("" + rendaFamiliar);
+		textFieldRendaPessoal.setText("" + rendaPessoal);
 		textFieldObsFinanceiras.setText(observacao);
 		edicao = true;
 	}
 
 	protected void salvar() {
+		EstadoCombo estadoCombo = (EstadoCombo)comboBoxUF.getSelectedItem();
 		if (!edicao) {
-			InterfaceUsuario.cadastrarCliente(InterfaceUsuario.transformaStringInt(textFieldCPF
-					.getText()), textFieldNome.getText(),InterfaceUsuario.transformaStringInt(textFieldRG.getText()), formattedFieldDataNascimento.getText(),
-					textFieldLogradouro.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
+			InterfaceUsuario.cadastrarCliente(InterfaceUsuario
+					.transformaStringInt(textFieldCPF.getText()), textFieldNome
+					.getText(), InterfaceUsuario
+					.transformaStringInt(textFieldRG.getText()),
+					formattedFieldDataNascimento.getText(), textFieldLogradouro
+							.getText(), InterfaceUsuario
+							.transformaStringInt(textFieldNumero.getText()),
 					textFieldBairro.getText(), "cep",
-					textFieldCidade.getText(), "SC"
-							.toString(), textFieldBanco.getText(),
-					textFieldAgencia.getText(),InterfaceUsuario.transformaStringInt(textFieldContaCorrente.getText()), InterfaceUsuario.transformaStringDouble(textFieldRendaFamiliar.getText()),
-					InterfaceUsuario.transformaStringDouble(textFieldRendaPessoal.getText()),
-					textFieldObsFinanceiras.getText());
+					textFieldCidade.getText(), estadoCombo.getCodigo(), textFieldBanco
+							.getText(), textFieldAgencia.getText(),
+					InterfaceUsuario.transformaStringInt(textFieldContaCorrente
+							.getText()), InterfaceUsuario
+							.transformaStringDouble(textFieldRendaFamiliar
+									.getText()), InterfaceUsuario
+							.transformaStringDouble(textFieldRendaPessoal
+									.getText()), textFieldObsFinanceiras
+							.getText());
 		} else {
-			InterfaceUsuario.editarCliente(InterfaceUsuario.transformaStringInt(textFieldCodCliente
-					.getText()), InterfaceUsuario.transformaStringInt(textFieldCPF.getText()),
-					textFieldNome.getText(), InterfaceUsuario.transformaStringInt(textFieldRG
-							.getText()), formattedFieldDataNascimento.getText(), textFieldLogradouro
-							.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero
-							.getText()), textFieldBairro.getText(), "cep",
-					textFieldCidade.getText(), comboBoxUF.getSelectedItem()
-							.toString(), textFieldBanco.getText(),
-					textFieldAgencia.getText(), InterfaceUsuario.transformaStringInt(textFieldContaCorrente.getText()), InterfaceUsuario.transformaStringDouble(textFieldRendaFamiliar.getText()),
-					InterfaceUsuario.transformaStringDouble(textFieldRendaPessoal.getText()),
-					textFieldObsFinanceiras.getText());
+			InterfaceUsuario
+					.editarCliente(
+							InterfaceUsuario
+									.transformaStringInt(textFieldCodCliente
+											.getText()),
+							InterfaceUsuario.transformaStringInt(textFieldCPF
+									.getText()),
+							textFieldNome.getText(),
+							InterfaceUsuario.transformaStringInt(textFieldRG
+									.getText()),
+							formattedFieldDataNascimento.getText(),
+							textFieldLogradouro.getText(),
+							InterfaceUsuario
+									.transformaStringInt(textFieldNumero
+											.getText()),
+							textFieldBairro.getText(),
+							"cep",
+							textFieldCidade.getText(),
+							estadoCombo.getCodigo(),
+							textFieldBanco.getText(),
+							textFieldAgencia.getText(),
+							InterfaceUsuario
+									.transformaStringInt(textFieldContaCorrente
+											.getText()),
+							InterfaceUsuario
+									.transformaStringDouble(textFieldRendaFamiliar
+											.getText()),
+							InterfaceUsuario
+									.transformaStringDouble(textFieldRendaPessoal
+											.getText()),
+							textFieldObsFinanceiras.getText());
 		}
 
+	}
+
+	private void carregarEstadoCombo() {
+		comboBoxUF.setModel(new DefaultComboBoxModel(new Vector(
+				InterfaceUsuario.carregaEstadoCombo())));
 	}
 
 	protected void cancelar() {
 		this.dispose();
 	}
-	
+
 	public void mostrarMensagem(String mensagem) {
 		JOptionPane.showMessageDialog(null, mensagem);
 	}
-
 
 }

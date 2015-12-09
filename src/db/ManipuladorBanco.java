@@ -691,4 +691,19 @@ public class ManipuladorBanco {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public List<Estado> recuperarEstadosParaComboBoxBanco() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Cliente> recuperarClienteParaComboBoxBanco() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<PlanoEmprestimo> recuperarPlanoParaComboBoxBanco() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

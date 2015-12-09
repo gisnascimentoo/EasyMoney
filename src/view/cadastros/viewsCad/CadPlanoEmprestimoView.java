@@ -42,6 +42,10 @@ public class CadPlanoEmprestimoView extends JFrame {
 	 */
 	public CadPlanoEmprestimoView() {
 		edicao = false;
+		init();
+	}
+	
+	public void init(){
 		setTitle("Novo Plano de Empr\u00E9stimo");
 		setBounds(100, 100, 550, 550);
 		contentPane = new JPanel();
@@ -182,12 +186,14 @@ public class CadPlanoEmprestimoView extends JFrame {
 				fechar();
 			}
 		});
+
 	}
 
 	public CadPlanoEmprestimoView(int idPlanoEmprestimo, String nome,
 			Date dataCadastro, double jurosTotal, double jurosMensal,
 			double valorMinimo, double valorMaximo, int minParcelas,
 			int maxParcelas, String observacao) {
+		init();
 		edicao = true;
 		textFieldCodPlano.setText("" + idPlanoEmprestimo);
 		textFieldPlanoEmprestimo.setText(nome);
@@ -204,26 +210,56 @@ public class CadPlanoEmprestimoView extends JFrame {
 	protected void salvar() {
 		if (edicao) {
 
-			InterfaceUsuario.editarPlano(
-					InterfaceUsuario.transformaStringInt(textFieldCodPlano.getText()),
-					textFieldPlanoEmprestimo.getText(), formattedFieldDataNascimento.getText(),
-					InterfaceUsuario.transformaStringDouble(textFieldJurosValorTotal.getText()),
-					InterfaceUsuario.transformaStringDouble(textFieldJurosMensal.getText()),
-					InterfaceUsuario.transformaStringDouble(textFieldValorMinimo.getText()),
-					InterfaceUsuario.transformaStringDouble(textFieldValorMaximo.getText()),
-					InterfaceUsuario.transformaStringInt(textFieldNumMinimoParcelas.getText()),
-					InterfaceUsuario.transformaStringInt(textFieldNumMaxParcelas.getText()),
-					textFieldObservacoes.getText());
+			InterfaceUsuario
+					.editarPlano(
+							InterfaceUsuario
+									.transformaStringInt(textFieldCodPlano
+											.getText()),
+							textFieldPlanoEmprestimo.getText(),
+							formattedFieldDataNascimento.getText(),
+							InterfaceUsuario
+									.transformaStringDouble(textFieldJurosValorTotal
+											.getText()),
+							InterfaceUsuario
+									.transformaStringDouble(textFieldJurosMensal
+											.getText()),
+							InterfaceUsuario
+									.transformaStringDouble(textFieldValorMinimo
+											.getText()),
+							InterfaceUsuario
+									.transformaStringDouble(textFieldValorMaximo
+											.getText()),
+							InterfaceUsuario
+									.transformaStringInt(textFieldNumMinimoParcelas
+											.getText()),
+							InterfaceUsuario
+									.transformaStringInt(textFieldNumMaxParcelas
+											.getText()), textFieldObservacoes
+									.getText());
 		} else {
-			InterfaceUsuario.cadastrarPlano(textFieldPlanoEmprestimo.getText(),
-					formattedFieldDataNascimento.getText(),
-					InterfaceUsuario.transformaStringDouble(textFieldJurosValorTotal.getText()),
-					InterfaceUsuario.transformaStringDouble(textFieldJurosMensal.getText()),
-					InterfaceUsuario.transformaStringDouble(textFieldValorMinimo.getText()),
-					InterfaceUsuario.transformaStringDouble(textFieldValorMaximo.getText()),
-					InterfaceUsuario.transformaStringInt(textFieldNumMinimoParcelas.getText()),
-					InterfaceUsuario.transformaStringInt(textFieldNumMaxParcelas.getText()),
-					textFieldObservacoes.getText());
+			InterfaceUsuario
+					.cadastrarPlano(
+							textFieldPlanoEmprestimo.getText(),
+							formattedFieldDataNascimento.getText(),
+							InterfaceUsuario
+									.transformaStringDouble(textFieldJurosValorTotal
+											.getText()),
+							InterfaceUsuario
+									.transformaStringDouble(textFieldJurosMensal
+											.getText()),
+							InterfaceUsuario
+									.transformaStringDouble(textFieldValorMinimo
+											.getText()),
+							InterfaceUsuario
+									.transformaStringDouble(textFieldValorMaximo
+											.getText()),
+							InterfaceUsuario
+									.transformaStringInt(textFieldNumMinimoParcelas
+											.getText()),
+							InterfaceUsuario
+									.transformaStringInt(textFieldNumMaxParcelas
+											.getText()), textFieldObservacoes
+									.getText());
 		}
 
 	}

@@ -1,7 +1,6 @@
 package view;
 
 import java.sql.Date;
-import java.util.Collection;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -15,6 +14,9 @@ import view.cadastros.viewsCad.CadClienteView;
 import view.cadastros.viewsCad.CadContratoView;
 import view.cadastros.viewsCad.CadFuncionarioView;
 import view.cadastros.viewsCad.CadPlanoEmprestimoView;
+import view.combo.ClienteCombo;
+import view.combo.EstadoCombo;
+import view.combo.PlanoCombo;
 import view.combo.SituacaoCombo;
 import control.ContratoController;
 import control.Controller;
@@ -169,7 +171,7 @@ public class InterfaceUsuario {
 	}
 
 	public static void cadastrarCliente(int cpf, String nomeCompleto, int rg, String dataNascimento,
-			String logradouro, int numero, String bairro, String cep, String nomeCidade, String uf, String banco,
+			String logradouro, int numero, String bairro, String cep, String nomeCidade, int uf, String banco,
 			String agencia, int contaCorrente, double rendaFamiliar, double rendaPessoal, String observacao) {
 		controller.criarCadastroCliente(cpf, nomeCompleto, rg, dataNascimento, logradouro, numero, bairro, cep,
 				nomeCidade, uf, banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao);
@@ -177,7 +179,7 @@ public class InterfaceUsuario {
 	}
 
 	public static void editarCliente(int codigo, int cpf, String nomeCompleto, int rg, String dataNascimento,
-			String logradouro, int numero, String bairro, String cep, String nomeCidade, String uf, String banco,
+			String logradouro, int numero, String bairro, String cep, String nomeCidade, int uf, String banco,
 			String agencia, int contaCorrente, double rendaFamiliar, double rendaPessoal, String observacao) {
 		controller.editarCadastroCliente(codigo, cpf, nomeCompleto, rg, dataNascimento, logradouro, numero,
 				bairro, cep, nomeCidade, uf, banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao);
@@ -186,31 +188,31 @@ public class InterfaceUsuario {
 
 	public static void cadastrarFuncionario(String nome, String dataNascimento, int CPF, int RG, String cargo,
 			String email, int telefone, String logradouro, int numero, String bairro, String CEP, String nomeCidade,
-			String uf) {
+			int uf) {
 		controller.criarCadastrofuncionario(nome, dataNascimento, CPF, RG, cargo, email, telefone, logradouro,
 				numero, bairro, CEP, nomeCidade, uf);
 	}
 
 	public static void editarFuncionario(int codigo, String nome, String dataNascimento, int CPF, int RG,
 			String cargo, String email, int telefone, String logradouro, int numero, String bairro, String CEP,
-			String nomeCidade, String uf) {
+			String nomeCidade, int uf) {
 		controller.editarCadastrofuncionario(codigo, nome, dataNascimento, CPF, RG, cargo, email, telefone,
 				logradouro, numero, bairro, CEP, nomeCidade, uf);
 	}
 
 	public static void carregaEdicaoFuncionario(int codigo, String nome, Date dataNascimento, int CPF, int RG,
 			String cargo, String email, int telefone, String logradouro, int numero, String bairro, String CEP,
-			String nomeCidade, String uf) {
+			String nomeCidade, String uf, int idUf) {
 		cadFuncionarioView = new CadFuncionarioView(codigo, nome, dataNascimento, CPF, RG, cargo, email, telefone,
-				logradouro, numero, bairro, CEP, nomeCidade, uf);
+				logradouro, numero, bairro, CEP, nomeCidade, uf, idUf);
 	}
 
 	public static void carregaEdicaoCliente(int codigo, int cpf, String nomeCompleto, int rg,
 			Date dataNascimento, String logradouro, int numero, String bairro, String cep, String nomeCidade,
-			String uf, String banco, String agencia, int contaCorrente, double rendaFamiliar, double rendaPessoal,
+			int iduf, String uf, String banco, String agencia, int contaCorrente, double rendaFamiliar, double rendaPessoal,
 			String observacao) {
 		cadClienteView = new CadClienteView(codigo, cpf, nomeCompleto, rg, dataNascimento, logradouro, numero, bairro,
-				cep, nomeCidade, uf, banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao);
+				cep, nomeCidade, iduf, uf, banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao);
 	}
 
 	public static void buscarFuncionario(int codigo, String nome, String cpf, String date) {
@@ -290,10 +292,9 @@ public class InterfaceUsuario {
 
 	public static void carregarContrato(int codContrato, String nomeCliente, String banco, String agencia,
 			int contaCorrente, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacao,
-			int indexPlanoEmprestimo, int indexParcelas, String status) {
+			String nomePlano, String nomeParcela, String status, int codCliente, int codPlano, int codParcela) {
 		novoContratoView = new CadContratoView(codContrato, nomeCliente, banco, agencia, contaCorrente,
-				valorEmprestimo, valorParcelas, dataTermino, observacao, indexPlanoEmprestimo, indexParcelas, status);
-
+				valorEmprestimo, valorParcelas, dataTermino, observacao, nomePlano, nomeParcela, status, codCliente, codPlano, codParcela);
 	}
 
 	public static void novoContratoView(double valorEmprestimo, int valorParcelas, int indexPlanoEmprestimo,
@@ -415,5 +416,17 @@ public class InterfaceUsuario {
 
 	public static void buscarContrato(int codigo, String nome, String codigoSitucao) {
 		contratoController.buscarContrato(codigo, nome, codigoSitucao);
+	}
+
+	public static List<EstadoCombo> carregaEstadoCombo() {
+		 return controller.preparaComboEstado();
+	}
+
+	public static List<ClienteCombo> carregaClienteCombo() {
+		return controller.preparaComboCliente();
+	}
+
+	public static List<PlanoCombo> carregaPlanoCombo() {
+		return controller.preparaComboPlano();
 	}
 }

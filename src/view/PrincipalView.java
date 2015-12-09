@@ -121,6 +121,15 @@ public class PrincipalView extends JFrame {
 
 		JMenuItem mntmSimulacao = new JMenuItem("Simula��o");
 		mnEmprestimo.add(mntmSimulacao);
+		
+		mntmSimulacao.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				simulacao();
+				
+			}
+		});
 
 
 		JMenu mnRelatorio = new JMenu("Relat�rio");
@@ -136,6 +145,11 @@ public class PrincipalView extends JFrame {
 
 			}
 		});
+	}
+
+	protected void simulacao() {
+		InterfaceUsuario.simulacaoView();
+		
 	}
 
 	protected void cadastroPlanos() {
