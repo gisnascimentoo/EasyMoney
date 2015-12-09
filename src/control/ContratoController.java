@@ -37,32 +37,39 @@ public class ContratoController {
 					.carregarDadosCliente(agencia, banco, contaCorrente);
 		} else {
 			InterfaceUsuario
-					.exibirMensagemContratoCadastro("Cliente não encontrado.");
+					.exibirMensagemContratoCadastro("Cliente nÃ£o encontrado.");
 		}
 	}
 
 	// Usado para pre_aprovaï¿½ï¿½o - pre_reprovacao
-	private String recuperaPerfilCliente(double renda) {
-		// Verifica se a renda esta no perfil A
-		if (renda <= PerfilCliente.PERFIL_A.getValorMaximo()) {
-			return PerfilCliente.PERFIL_A.getName();
-		} else
-		// Verifica se a renda esta no perfil B
-		{
-			if (renda <= PerfilCliente.PERFIL_B.getValorMaximo()) {
-				return PerfilCliente.PERFIL_B.getName();
-			} else {
-				// Verifica se a renda esta no perfil C
-				if (renda <= PerfilCliente.PERFIL_C.getValorMaximo()) {
-					return PerfilCliente.PERFIL_C.getName();
+		private String recuperaPerfilCliente(double renda) {
+			// Verifica se a renda esta no perfil A
+			double valorMaxPerfilA = PerfilCliente.PERFIL_A.getValorMaximo();
+			if (renda <= valorMaxPerfilA) {
+				String nomePerfilA = PerfilCliente.PERFIL_A.getName();
+				return nomePerfilA;
+			} else
+			// Verifica se a renda esta no perfil B
+			{
+				double valorMaxPerfilB = PerfilCliente.PERFIL_B.getValorMaximo();
+				if (renda <= valorMaxPerfilB) {
+					String nomePerfilB = PerfilCliente.PERFIL_B.getName();
+					return nomePerfilB;
 				} else {
-					// Se a rendar nï¿½o estiver em nenhum dos outros, ela ï¿½ do
-					// tipo D
-					return PerfilCliente.PERFIL_D.getName();
+					// Verifica se a renda esta no perfil C
+					double valorMaxPerfilC = PerfilCliente.PERFIL_C.getValorMaximo();
+					if (renda <= valorMaxPerfilC) {
+						String nomePerfilC = PerfilCliente.PERFIL_C.getName();
+						return nomePerfilC;
+					} else {
+						// Se a rendar nï¿½o estiver em nenhum dos outros, ela ï¿½ do
+						// tipo D
+						String nomePerfilD = PerfilCliente.PERFIL_D.getName();
+						return nomePerfilD;
+					}
 				}
 			}
 		}
-	}
 
 	//
 	private List<PlanoEmprestimo> recuperaPlanosPerfil(String perfilCliente) {
@@ -77,7 +84,7 @@ public class ContratoController {
 		return db.buscarPlanoEmprestimoId(idPlanoEmprestimo);
 	}
 
-	// Retorna se o perfil do cliente ï¿½ aprovado ou reprovado
+	// Retorna se o perfil do cliente Ã¯Â¿Â½ aprovado ou reprovado
 	public boolean analisaPerfilComPlano(PlanoEmprestimo planoSelecionado) {
 		String pfc = recuperaPerfilCliente(cl.getDadosFinanceiros()
 				.getRendaPessoal());
@@ -141,7 +148,7 @@ public class ContratoController {
 					.exibirMensagemContratoCadastro("Contrato cadastrado com sucesso.");
 		} else {
 			InterfaceUsuario
-					.exibirMensagemContratoCadastro("Não foi possível cadastrar o contrato.");
+					.exibirMensagemContratoCadastro("NÃ£o foi possÃ­vel cadastrar o contrato.");
 		}
 	}
 
@@ -185,7 +192,7 @@ public class ContratoController {
 					.exibirMensagemContratoCadastro("Contrato alterado com sucesso.");
 		} else {
 			InterfaceUsuario
-					.exibirMensagemContratoCadastro("Não foi possível alterar o contrato.");
+					.exibirMensagemContratoCadastro("NÃ£o foi possÃ­vel alterar o contrato.");
 		}
 	}
 
