@@ -20,6 +20,7 @@ import model.Estado;
 import model.Funcionario;
 import model.PerfilCliente;
 import model.PlanoEmprestimo;
+import view.InterfaceUsuario;
 
 public class ManipuladorBanco {
 
@@ -28,13 +29,16 @@ public class ManipuladorBanco {
 	 */
 	private final String INSERT_ENDERECO = "INSERT INTO ENDERECO(logradouro, numero, bairro, CEP, idCidade) VALUES(?, ?, ?, ?)";
 	private final String INSERT_CIDADE = "INSERT INTO CIDADE(nome, idEstado) VALUES(?, ?)";
-	private final String INSERT_ESTADO = "INSERT INTO ESTADO(sigla) VALUES(?)";
 	private final String INSERT_DADOSFINANCEIROS = "INSERT INTO DADOSFINANCEIROS(banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao) VALUES(?, ?, ?, ?, ?, ?)";
 	private final String INSERT_CLIENTE = "INSERT INTO CLIENTE(nomeCompleto, dataNascimento, CPF, RG, idEndereco, idDadosFinanceiros) VALUES(?, ?, ?, ?, ?, ?)";
 	private final String INSERT_FUNCIONARIO = "INSERT INTO FUNCIONARIO(nome, dataNascimento, CPF, RG, cargo, email, telefone, idEndereco) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-	private final String INSERT_PLANOEMPRESTIMO = "INSERT INTO PLANOEMPRESTIMO(nome, dataCadastro, jurosTotal, jurosMensal, valorMinimo, valorMaximo, maxParcelas, minParcelas, observacao, idFuncionarioResponsavel) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private final String INSERT_CONTRATO = "INSERT INTO CONTRATO(qtdParcelas, valorEmprestimo, valorParcelas, dataCriacaoContrato, dataTerminoContrato, statusContrato, idCliente, idFuncionarioResponsavel, idplanoEmprestimo, observacoes) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+	private final String INSERT_PLANOEMPRESTIMO = "INSERT INTO PLANOEMPRESTIMO(nome, dataCadastro, jurosTotal, jurosMensal, valorMinimo, valorMaximo, maxParcelas, minParcelas, observacao) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private final String INSERT_CONTRATO = "INSERT INTO CONTRATO(qtdParcelas, valorEmprestimo, valorParcelas, dataCriacaoContrato, dataTerminoContrato, statusContrato, idCliente, idplanoEmprestimo, observacoes) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	
+	private final String SELECT_ALL_CLIENTE = "SELECT * FROM CLIENTE";
+	private final String SELECT_ALL_ESTADO = "SELECT * FROM ESTADO"; 
+	private final String SELECT_ALL_PLANOEMPRESTIMO = "SELECT * FROM PLANOEMPRESTIMO";
+	
 	private final String SELECT_PLANOEMPRESTIMO_BY_ID = "SELECT * FROM PLANOEMPRESTIMO WHERE IDPLANOEMPRESTIMO = ?";
 	private final String SELECT_FUNCIONARIO_BY_ID = "SELECT * FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
 	private final String SELECT_ENDERECO_BY_ID = "SELECT * FROM ENDERECO WHERE IDENDERECO = ?";
@@ -44,12 +48,18 @@ public class ManipuladorBanco {
 	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM Usuario WHERE login = ? and passwd = ?";
 	
 	private final String SELECT_INFO_CLIENTE_BY_ID = "SELECT C.IDCLIENTE AS IDCLIENTE, C.CPF AS CPF, C.NOMECOMPLETO AS NOMECLIENTE, "
-			+ "C.RG AS RG, C.DATANASCIMENTO AS DATANASCIMENTO, E.LOGRADOURO AS LOGRADOURO, E.NUMERO AS NUMERO, E.BAIRRO AS BAIRRO, "
-			+ "E.CEP AS CEP, CD.NOME AS NOMECIDADE, CD.UF AS UF, DF.BANCO AS BANCO, DF.AGENCIA AS AGENCIA, DF.CONTACORRENTE AS CONTACORRENTE, "
+			+ "C.RG AS RG, C.DATANASCIMENTO AS DATANASCIMENTO, E.LOGRADOURO AS LOGRADOURO, E.NUMERO AS NUMERO, E.BAIRRO AS BAIRRO, E.CEP AS CEP"
+			+ "E.CEP AS CEP, CD.NOME AS NOMECIDADE, EST.IDESTADO AS IDUF, EST.SIGLA AS SIGLAUF, DF.BANCO AS BANCO, DF.AGENCIA AS AGENCIA, DF.CONTACORRENTE AS CONTACORRENTE, "
 			+ "DF.RENDAFAMILIAR AS RENDAFAMILIAR, DF.RENDAPESSOAL AS RENDAPESSOAL, DF.OBSERVACAO AS OBSERVACAO "
 			+ "FROM CLIENTE C LEFT JOIN ENDERECO E ON C.IDENDERECO = E.IDENDERECO LEFT JOIN CIDADE CD ON E.IDCIDADE = CD.IDCIDADE "
 			+ "LEFT JOIN DADOSFINANCEIROS DF ON DF.IDDADOSFINANCEIROS = C.IDDADOSFINANCEIROS "
-			+ "LEFT JOIN ESTADO ESTADO ON ESTADO.IDESTADO = CD.IDESTADO WHERE C.IDCLIENTE = ?";
+			+ "LEFT JOIN ESTADO EST ON EST.IDESTADO = CD.IDESTADO WHERE C.IDCLIENTE = ?";
+	
+	private final String SELECT_INFO_FUNCIONARIO_BY_ID = "SELECT F.IDFUNCIONARIO AS IDFUNCIONARIO, F.CPF AS CPF, F.NOME AS NOME, "
+			+ "F.RG AS RG, F.DATANASCIMENTO AS DATANASCIMENTO, F.CARGO AS CARGO, F.EMAIL AS EMAIL, F.TELEFONE AS TELEFONE, E.LOGRADOURO AS LOGRADOURO, E.NUMERO AS NUMERO, E.BAIRRO AS BAIRRO, E.CEP AS CEP"
+			+ "E.CEP AS CEP, CD.NOME AS NOMECIDADE, EST.IDESTADO AS IDUF, EST.SIGLA AS SIGLAUF"
+			+ "FROM FUNCIONARIO F LEFT JOIN ENDERECO E ON F.IDENDERECO = E.IDENDERECO LEFT JOIN CIDADE CD ON E.IDCIDADE = CD.IDCIDADE "
+			+ "LEFT JOIN ESTADO EST ON EST.IDESTADO = CD.IDESTADO WHERE F.IDFUNCIONARIO = ?";
 
 	private final String SELECT_FUNCIONARIO_BY_CPF = "SELECT * FROM FUNCIONARIO WHERE CPF = ?";
 	private final String SELECT_CLIENTE_BY_CPF = "SELECT * FROM CLIENTE WHERE CPF = ?";
@@ -62,15 +72,16 @@ public class ManipuladorBanco {
 	 * Update
 	 */
 	private final String UPDATE_CLIENTE_BY_ID = "UPDATE CLIENTE SET nomeCompleto = ?, dataNascimento = ?, CPF = ?, RG = ?, idEndereco = ?, idDadosFinanceiros = ? WHERE IDCLIENTE = ?";
-	private final String UPDATE_PLANOEMPRESTIMO_BY_ID = "UPDATE PLANOEMPRESTIMO SET nome = ?, dataCadastro = ?, jurosTotal = ?, jurosMensal = ?, valorMinimo = ?, valorMaximo = ?, minParcelas = ?, maxParcelas = ?, observacao = ?, idFuncionario = ? WHERE IDPLANOEMPRESTIMO = ?";
+	private final String UPDATE_PLANOEMPRESTIMO_BY_ID = "UPDATE PLANOEMPRESTIMO SET nome = ?, dataCadastro = ?, jurosTotal = ?, jurosMensal = ?, valorMinimo = ?, valorMaximo = ?, minParcelas = ?, maxParcelas = ?, observacao = ? WHERE IDPLANOEMPRESTIMO = ?";
 	private final String UPDATE_FUNCIONARIO_BY_ID = "UPDATE FUNCIONARIO SET nome = ?, dataNascimento = ?, CPF = ?, RG = ?, cargo = ?, email = ?, telefone = ?, idEndereco = ? WHERE IDFUNCIONARIO = ?";
 	private final String UPDATE_ENDERECO_BY_ID = "UPDATE ENDERECO SET logradouro = ?, numero = ?, bairro = ?, CEP = ?, cidade = ? WHERE IDENDERECO = ?";
-	private final String UPDATE_CONTRATO_BY_ID = "UPDATE CONTRATO SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dadaTerminoContrato = ?, idCliente = ?, idFuncionarioResponsavel = ?, idPlanoEmprestimo = ? WHERE IDCONTRATO = ?";
+	private final String UPDATE_CONTRATO_BY_ID = "UPDATE CONTRATO SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dadaTerminoContrato = ?, idCliente = ?, idPlanoEmprestimo = ? WHERE IDCONTRATO = ?";
 	private final String UPDATE_DADOSFINANCEIROS_BY_ID = "UPDATE DADOSFINANCEIROS SET banco = ?, agencia = ?, contaCorrente = ?, rendaFamiliar = ?, rendaPessoal = ?, observacao = ? WHERE IDDADOSFINANCEIROS = ?";
 
 	/*
 	 * Delete
 	 */
+	private final String DELETE_CONTRATO_BY_ID = "DELETE FROM CLIENTE WHERE IDCLIENTE = ?";
 	private final String DELETE_PLANOEMPRESTIMO_BY_ID = "DELETE FROM PLANOEMPRESTIMO WHERE IDPLANOEMPRESTIMO = ?";
 	private final String DELETE_CLIENTE_BY_ID = "DELETE FROM CLIENTE WHERE IDCLIENTE = ?";
 	private final String DELETE_FUNCIONARIO_BY_ID = "DELETE FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
@@ -89,7 +100,7 @@ public class ManipuladorBanco {
 		Connection conectando = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conectando = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "everton", "everton");
+			conectando = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "root");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -131,12 +142,10 @@ public class ManipuladorBanco {
 
 	public int salvarCidadeBanco(Cidade cidade) {
 		int idCidade = 0;
-		int idFKEstado = 0;
 		try {
-			idFKEstado = this.salvarEstadoBanco(cidade.getEstado());
 			PreparedStatement prepared = this.conexao.prepareStatement(INSERT_CIDADE, Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, cidade.getNome());
-			prepared.setInt(2, idFKEstado);
+			prepared.setInt(2, cidade.getEstado().getIdEstado());
 			prepared.executeUpdate();
 			ResultSet set = prepared.getGeneratedKeys();
 			if (set.next()) {
@@ -146,22 +155,6 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 		}
 		return idCidade;
-	}
-
-	public int salvarEstadoBanco(Estado estado) {
-		int idEstado = 0;
-		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(INSERT_ESTADO, Statement.RETURN_GENERATED_KEYS);
-			prepared.setString(1, estado.getUf());
-			prepared.executeUpdate();
-			ResultSet set = prepared.getGeneratedKeys();
-			if (set.next()) {
-				idEstado = set.getInt(1);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return idEstado;
 	}
 
 	public int salvarDadosFinanceirosBanco(DadosFinanceiros dadosFinanceiros) {
@@ -251,7 +244,6 @@ public class ManipuladorBanco {
 			prepared.setInt(7, planoEmprestimo.getMaxParcelas());
 			prepared.setInt(8, planoEmprestimo.getMinParcelas());
 			prepared.setString(9, planoEmprestimo.getObservacao());
-			prepared.setInt(10, planoEmprestimo.getFuncionario().getIdFuncionario());
 			prepared.executeUpdate();
 			ResultSet set = prepared.getGeneratedKeys();
 			if (set.next()) {
@@ -275,9 +267,8 @@ public class ManipuladorBanco {
 			prepared.setDate(5, contrato.getDataTerminoContrato());
 			prepared.setString(6, contrato.getStatusContrato());
 			prepared.setInt(7, contrato.getCliente().getIdCliente());
-			prepared.setInt(8, contrato.getFuncionarioResponsavel().getIdFuncionario());
-			prepared.setInt(9, contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());
-			prepared.setString(10, contrato.getObservacoes());
+			prepared.setInt(8, contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());
+			prepared.setString(9, contrato.getObservacoes());
 			prepared.executeUpdate();
 			ResultSet set = prepared.getGeneratedKeys();
 			if (set.next()) {
@@ -322,9 +313,11 @@ public class ManipuladorBanco {
 		}
 	}
 
-	
-	
 	public String editarClienteBanco(Cliente cliente) {
+		
+		String sqlParaRecuperarIds = "SELECT IDENDERECO, IDDADOSFINANCEIROS FROM CLIENTE WHERE IDCLIENTE = ?";
+		int idEndereco;
+		int idDadosFinanceiros;
 		try {
 			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_CLIENTE_BY_ID,
 					Statement.RETURN_GENERATED_KEYS);
@@ -332,10 +325,18 @@ public class ManipuladorBanco {
 			prepared.setDate(2, cliente.getDataNascimento());
 			prepared.setInt(3, cliente.getCPF());
 			prepared.setInt(4, cliente.getRG());
-			prepared.setInt(5, cliente.getEndereco().getIdEndereco());
-			prepared.setInt(6, cliente.getDadosFinanceiros().getIdDadosFinanceiros());
-			prepared.setInt(7, cliente.getIdCliente());
+			prepared.setInt(5, cliente.getIdCliente());
 			prepared.executeUpdate();
+			PreparedStatement preparedEndereco = this.conexao.prepareStatement(sqlParaRecuperarIds);
+			ResultSet set = preparedEndereco.executeQuery();
+			while (set.next()) {
+				idEndereco = set.getInt("idEndereco");
+				cliente.getEndereco().setIdEndereco(idEndereco);
+				idDadosFinanceiros = set.getInt("idDadosFinanceiros");
+				cliente.getDadosFinanceiros().setIdDadosFinanceiros(idDadosFinanceiros);
+				this.editarEnderecoBanco(cliente.getEndereco());
+				this.editarDadosFinanceirosBanco(cliente.getDadosFinanceiros());
+			}
 			return "Cadastro alterado com sucesso";
 		} catch (Exception e) {
 			return ""+ e.getMessage();
@@ -343,6 +344,10 @@ public class ManipuladorBanco {
 	}
 	
 	public String editarFuncionarioBanco(Funcionario funcionario) {
+		
+		String sqlParaRecuperarIds = "SELECT IDENDERECO FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
+		int idEndereco;
+		
 		try {
 			this.editarEnderecoBanco(funcionario.getEndereco());
 			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_FUNCIONARIO_BY_ID,
@@ -357,6 +362,13 @@ public class ManipuladorBanco {
 			prepared.setInt(8, funcionario.getEndereco().getIdEndereco());
 			prepared.setInt(9, funcionario.getIdFuncionario());
 			prepared.executeUpdate();
+			PreparedStatement preparedEndereco = this.conexao.prepareStatement(sqlParaRecuperarIds);
+			ResultSet set = preparedEndereco.executeQuery();
+			while (set.next()) {
+				idEndereco = set.getInt("idEndereco");
+				funcionario.getEndereco().setIdEndereco(idEndereco);
+				this.editarEnderecoBanco(funcionario.getEndereco());
+			}
 			return "Cadastro alterado com sucesso";
 		} catch (Exception e) {
 			return ""+ e.getMessage();
@@ -376,8 +388,7 @@ public class ManipuladorBanco {
 			prepared.setInt(7, planoEmprestimo.getMaxParcelas());
 			prepared.setInt(8, planoEmprestimo.getMinParcelas());
 			prepared.setString(9, planoEmprestimo.getObservacao());
-			prepared.setInt(10, planoEmprestimo.getFuncionario().getIdFuncionario());
-			prepared.setInt(11, planoEmprestimo.getIdPlanoEmprestimo());
+			prepared.setInt(10, planoEmprestimo.getIdPlanoEmprestimo());
 			prepared.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -394,9 +405,8 @@ public class ManipuladorBanco {
 			prepared.setDate(4, contrato.getDataTerminoContrato());
 			prepared.setString(5, contrato.getStatusContrato());
 			prepared.setInt(6, contrato.getCliente().getIdCliente());
-			prepared.setInt(7, contrato.getFuncionarioResponsavel().getIdFuncionario());
-			prepared.setInt(8, contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());
-			prepared.setInt(9, contrato.getIdContrato());
+			prepared.setInt(7, contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());
+			prepared.setInt(8, contrato.getIdContrato());
 			prepared.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -556,13 +566,10 @@ public class ManipuladorBanco {
 			while (set.next()) {
 				cliente = new Cliente();
 				cliente.setIdCliente(set.getInt("idCliente"));
-				funcionario = new Funcionario();
-				funcionario.setIdFuncionario(set.getInt("idFuncionarioResponsavel"));
 				planoEmprestimo = new PlanoEmprestimo();
 				planoEmprestimo.setIdPlanoEmprestimo(set.getInt("idPlanoEmprestimo"));
 				contrato = new Contrato(set.getInt("qntdParcelas"), set.getFloat("valorEmprestimo"), set.getFloat("valorParcelas"),
-						set.getDate("dataCriacaoContrato"), set.getDate("dataTerminoContrato"), cliente, set.getString("statusContrato"),
-						funcionario, planoEmprestimo, set.getString("observacoes"));
+						set.getDate("dataCriacaoContrato"), set.getDate("dataTerminoContrato"), cliente, set.getString("statusContrato"), planoEmprestimo, set.getString("observacoes"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -571,26 +578,81 @@ public class ManipuladorBanco {
 	}
 
 	public PlanoEmprestimo buscarPlanoEmprestimoId(int idPlanoEmprestimo) {
-		// TODO Auto-generated method stub
-		//Retorna o Plano de Empr�stimo de acordo com o ID
-		return null;
+		PlanoEmprestimo planoEmprestimo = null;
+		try {
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_PLANOEMPRESTIMO_BY_ID);
+			preparedStatement.setInt(1, idPlanoEmprestimo);
+			ResultSet set = preparedStatement.executeQuery();
+			while (set.next()) {
+				planoEmprestimo = new PlanoEmprestimo();
+				planoEmprestimo.setIdPlanoEmprestimo(set.getInt("idPlanoEmprestimo"));
+				planoEmprestimo.setNome(set.getString("nome"));
+				planoEmprestimo.setDataCadastro(set.getDate("dataCadastro"));
+				planoEmprestimo.setJurosTotal(set.getDouble("jurosTotal"));
+				planoEmprestimo.setJurosMensal(set.getDouble("jurosMensal"));
+				planoEmprestimo.setValorMinimo(set.getDouble("valorMinimo"));
+				planoEmprestimo.setValorMaximo(set.getDouble("valorMaximo"));
+				planoEmprestimo.setMaxParcelas(set.getInt("maxParcelas"));
+				planoEmprestimo.setMinParcelas(set.getInt("minParcelas"));
+				planoEmprestimo.setObservacao(set.getString("observacao"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return planoEmprestimo;
 	}
 
 	public List<PlanoEmprestimo> buscarPlanoEmprestimo() {
-		// TODO Auto-generated method stub
-		//Retorna todos os planos de empr�stimo
-		return null;
+		List<PlanoEmprestimo> listaPlanoEmprestimo = new ArrayList<PlanoEmprestimo>();
+		try {
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_ALL_PLANOEMPRESTIMO);
+			ResultSet set = preparedStatement.executeQuery();
+			while (set.next()) {
+				PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo();
+				planoEmprestimo = new PlanoEmprestimo();
+				planoEmprestimo.setIdPlanoEmprestimo(set.getInt("idPlanoEmprestimo"));
+				planoEmprestimo.setNome(set.getString("nome"));
+				planoEmprestimo.setDataCadastro(set.getDate("dataCadastro"));
+				planoEmprestimo.setJurosTotal(set.getDouble("jurosTotal"));
+				planoEmprestimo.setJurosMensal(set.getDouble("jurosMensal"));
+				planoEmprestimo.setValorMinimo(set.getDouble("valorMinimo"));
+				planoEmprestimo.setValorMaximo(set.getDouble("valorMaximo"));
+				planoEmprestimo.setMaxParcelas(set.getInt("maxParcelas"));
+				planoEmprestimo.setMinParcelas(set.getInt("minParcelas"));
+				planoEmprestimo.setObservacao(set.getString("observacao"));
+				listaPlanoEmprestimo.add(planoEmprestimo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return listaPlanoEmprestimo;
 	}
-
-	public List<PlanoEmprestimo> buscarPlanoEmprestimoPorPerfil(String perfilCliente) {
-		// TODO Auto-generated method stub
-		//Retorna todos os planos de determinado perfil
-		return null;
-	}
-
+	
 	public List<PlanoEmprestimo> buscarPlano(int codigo, String plano) {
-		// TODO Auto-generated method stub
-		return null;
+		List<PlanoEmprestimo> listaPlanos = new ArrayList<PlanoEmprestimo>();
+		String SELECT_PLANO_EMPRESTIMO_BY= "SELECT IDPLANOEMPRESTIMO, NOME FROM PLANOEMPRESTIMO WHERE 1 = 1";
+		
+		if (codigo > 0) {
+			SELECT_PLANO_EMPRESTIMO_BY += "AND IDPLANOEMPRESTIMO = " + codigo;
+		} 
+		if (plano != null) {
+			SELECT_PLANO_EMPRESTIMO_BY += "AND nome = " + plano;
+		}
+		
+		try {
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_PLANO_EMPRESTIMO_BY);
+			ResultSet set = preparedStatement.executeQuery();
+			while (set.next()) {
+				PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo();
+				planoEmprestimo.setIdPlanoEmprestimo(set.getInt("idPlanoEmprestimo"));
+				planoEmprestimo.setNome(set.getString("nome"));
+				listaPlanos.add(planoEmprestimo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaPlanos;
 	}
 
 	public String excluiPlano(int id) {
@@ -604,14 +666,7 @@ public class ManipuladorBanco {
 			return "Plano não pôde ser deletado! Tente novamente!";
 		}
 	}
-
-	public String editarPlanoBanco(PlanoEmprestimo planoEmprestimo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
-	//TODO
-	//INCOMPLETA
 	public Cliente buscarDadosCliente(int codigo) {
 		Cliente cliente = null;
 		
@@ -620,32 +675,69 @@ public class ManipuladorBanco {
 			preparedStatement.setInt(1, codigo);
 			ResultSet set = preparedStatement.executeQuery();
 			while (set.next()) {
-				Estado estado = new Estado();
-				estado.setUf(set.getString("uf"));
+				Estado estado = new Estado(set.getInt("iduf"), set.getString("siglauf"));
 				Cidade cidade = new Cidade();
-				cidade.setNome(set.getString("nomecidade"));
 				cidade.setEstado(estado);
+				cidade.setNome(set.getString("nomecidade"));
 				Endereco endereco = new Endereco();
-				endereco.setIdEndereco(set.getInt("idEndereco"));
+				endereco.setBairro(set.getString("bairro"));
+				endereco.setNumero(set.getInt("numero"));
+				endereco.setLogradouro(set.getString("logradouro"));
+				endereco.setCidade(cidade);
 				DadosFinanceiros dadosFinanceiros = new DadosFinanceiros();
-				dadosFinanceiros.setIdDadosFinanceiros(set.getInt("idDadosFinanceiros"));
-				cliente = new Cliente(set.getInt("idCliente"), set.getInt("CPF"), set.getString("nomeCompleto"), set.getInt("RG"),
-						set.getDate("dataNascimento"), endereco, dadosFinanceiros);
+				dadosFinanceiros.setAgencia(set.getString("agencia"));
+				dadosFinanceiros.setRendaFamiliar(set.getDouble("rendafamiliar"));
+				dadosFinanceiros.setRendaPessoal(set.getDouble("rendapessoal"));
+				dadosFinanceiros.setObservacao(set.getString("observacao"));
+				dadosFinanceiros.setContaCorrente(set.getInt("contacorrente"));
+				dadosFinanceiros.setBanco(set.getString("banco"));
+				cliente = new Cliente();
+				cliente.setDadosFinanceiros(dadosFinanceiros);
+				cliente.setEndereco(endereco);
+				cliente.setIdCliente(set.getInt("idcliente"));
+				cliente.setCPF(set.getInt("cpf"));
+				cliente.setNomeCompleto(set.getString("nomecliente"));
+				cliente.setRG(set.getInt("rg"));
+				cliente.setDataNascimento(set.getDate("datanascimento"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return cliente;
 	}
-
+	
 	public Funcionario buscarDadosFuncionario(int codigo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public PlanoEmprestimo buscarDadosPlano(int codigo) {
-		// TODO Auto-generated method stub
-		return null;
+		Funcionario funcionario = null;
+		
+		try {
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_INFO_CLIENTE_BY_ID);
+			preparedStatement.setInt(1, codigo);
+			ResultSet set = preparedStatement.executeQuery();
+			while (set.next()) {
+				Estado estado = new Estado(set.getInt("iduf"), set.getString("siglauf"));
+				Cidade cidade = new Cidade();
+				cidade.setEstado(estado);
+				cidade.setNome(set.getString("nomecidade"));
+				Endereco endereco = new Endereco();
+				endereco.setBairro(set.getString("bairro"));
+				endereco.setNumero(set.getInt("numero"));
+				endereco.setLogradouro(set.getString("logradouro"));
+				endereco.setCidade(cidade);
+				funcionario = new Funcionario();
+				funcionario.setEndereco(endereco);
+				funcionario.setIdFuncionario(set.getInt("idfuncionario"));
+				funcionario.setCPF(set.getInt("cpf"));
+				funcionario.setNome(set.getString("nome"));
+				funcionario.setRG(set.getInt("rg"));
+				funcionario.setDataNascimento(set.getDate("datanascimento"));
+				funcionario.setCargo(set.getString("cargo"));
+				funcionario.setEmail(set.getString("email"));
+				funcionario.setTelefone(set.getInt("telefone"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return funcionario;
 	}
 	
 	public List<Contrato> buscarRelatorio(Date intervaloInicio, Date intervaloFinal, int tipoIndex) {
@@ -682,33 +774,158 @@ public class ManipuladorBanco {
 	}
 
 	public String excluiContrato(int codigo) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_CONTRATO_BY_ID);
+			prepared.setInt(1, codigo);
+			prepared.executeUpdate();
+			return "Contrato deletado com sucesso";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "Contrato não pôde ser deletado! Tente novamente!";
+		}
+	}
+	
+	public List<Contrato> buscarContrato(int codigo, String nome, String codigoSitucao) {
+		List<Contrato> listaContratos = new ArrayList<Contrato>();
+		String SELECT_CONTRATO_BY= "SELECT CON.IDCONTRATO AS ID, C.NOMECOMPLETO AS NOMECLIENTE, CON.STATUSCONTRATO AS STATUS FROM CONTRATO CON JOIN CLIENTE C ON CON.IDCLIENTE = C.IDCLIENTE WHERE 1 = 1";
+		
+		if (codigo > 0) {
+			SELECT_CONTRATO_BY += "AND CON.IDCONTRATO = " + codigo;
+		} 
+		if (nome != null) {
+			SELECT_CONTRATO_BY += "AND C.nomeCompleto = " + nome;
+		}
+		if (codigoSitucao != null) {
+			SELECT_CONTRATO_BY += "AND CON.statusContrato = " + codigoSitucao;
+		}
+		
+		try {
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CONTRATO_BY);
+			ResultSet set = preparedStatement.executeQuery();
+			while (set.next()) {
+				Cliente cliente = new Cliente();
+				cliente.setNomeCompleto(set.getString("nome"));
+				Contrato contrato = new Contrato();
+				contrato.setIdContrato(set.getInt("id"));
+				contrato.setCliente(cliente);
+				contrato.setStatusContrato(set.getString("status"));
+				listaContratos.add(contrato);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaContratos;
+	}
+	
+	public String editarPlanoBanco(PlanoEmprestimo planoEmprestimo) {
+		try {
+			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_PLANOEMPRESTIMO_BY_ID,
+					Statement.RETURN_GENERATED_KEYS);
+			prepared.setString(1, planoEmprestimo.getNome());
+			prepared.setDate(2, planoEmprestimo.getDataCadastro());
+			prepared.setDouble(3, planoEmprestimo.getJurosTotal());
+			prepared.setDouble(4, planoEmprestimo.getJurosMensal());
+			prepared.setDouble(5, planoEmprestimo.getValorMinimo());
+			prepared.setDouble(6, planoEmprestimo.getValorMaximo());
+			prepared.setInt(7, planoEmprestimo.getMaxParcelas());
+			prepared.setInt(8, planoEmprestimo.getMinParcelas());
+			prepared.setString(9, planoEmprestimo.getObservacao());
+			prepared.setInt(10, planoEmprestimo.getIdPlanoEmprestimo());
+			prepared.executeUpdate();
+			return "Plano cadastrado com sucesso!";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Plano não pôde ser cadastrado! Tente novamente";
+		}
 	}
 
-	public List<Contrato> buscarContrato(int codigo, String nome,
-			String codigoSitucao) {
-		// TODO Auto-generated method stub
-		return null;
+	//nao entendi p ara que serve essa funcao
+	public List<PlanoEmprestimo> buscarPlanoEmprestimoPorPerfil(String perfilCliente) {
+		List<PlanoEmprestimo> listaPlanos = new ArrayList<PlanoEmprestimo>();
+		//SELECT * FROM PLANOEMPRESTIMO WHERE ? >= valorMinimo AND ? <= valorMaximo
+		return listaPlanos;
 	}
 
 	public List<Estado> recuperarEstadosParaComboBoxBanco() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Estado> listaEstados = new ArrayList<Estado>();
+		Estado estado;
+		try {
+			this.conectasgbd();
+			PreparedStatement prepared = this.conexao.prepareStatement(SELECT_ALL_ESTADO);
+			ResultSet resultSet = prepared.executeQuery();
+			while (resultSet.next()) {
+				estado = new Estado();
+				estado.setIdEstado(resultSet.getInt("idEstado"));
+				estado.setUf(resultSet.getString("sigla"));
+				listaEstados.add(estado);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConnnection(conexao);
+		}
+
+		return listaEstados;
 	}
 
 	public List<Cliente> recuperarClienteParaComboBoxBanco() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Cliente> listaClientes = new ArrayList<Cliente>();
+		Cliente cliente;
+		try {
+			this.conectasgbd();
+			PreparedStatement prepared = this.conexao.prepareStatement(SELECT_ALL_CLIENTE);
+			ResultSet resultSet = prepared.executeQuery();
+			while (resultSet.next()) {
+				cliente = new Cliente();
+				cliente.setIdCliente(resultSet.getInt("idCliente"));
+				cliente.setNomeCompleto(resultSet.getString("nomeCompleto"));
+				listaClientes.add(cliente);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConnnection(conexao);
+		}
+
+		return listaClientes;
 	}
 
 	public List<PlanoEmprestimo> recuperarPlanoParaComboBoxBanco() {
-		// TODO Auto-generated method stub
-		return null;
+		List<PlanoEmprestimo> listaPlanos = new ArrayList<PlanoEmprestimo>();
+		PlanoEmprestimo planoEmprestimo;
+		try {
+			this.conectasgbd();
+			PreparedStatement prepared = this.conexao.prepareStatement(SELECT_ALL_CLIENTE);
+			ResultSet resultSet = prepared.executeQuery();
+			while (resultSet.next()) {
+				planoEmprestimo = new PlanoEmprestimo();
+				planoEmprestimo.setIdPlanoEmprestimo(resultSet.getInt("idPlanoEmprestimo"));
+				planoEmprestimo.setNome(resultSet.getString("nome"));
+				listaPlanos.add(planoEmprestimo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConnnection(conexao);
+		}
+
+		return listaPlanos;
 	}
 
 	public int getQntdParcelasParaPlano(int codigo) {
-		// TODO Auto-generated method stub
-		return 0;
+		PlanoEmprestimo planoEmprestimo = null;
+		try {
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_PLANOEMPRESTIMO_BY_ID);
+			preparedStatement.setInt(1, codigo);
+			ResultSet set = preparedStatement.executeQuery();
+			while (set.next()) {
+				planoEmprestimo = new PlanoEmprestimo();
+				planoEmprestimo.setIdPlanoEmprestimo(set.getInt("idPlanoEmprestimo"));
+				planoEmprestimo.setMaxParcelas(set.getInt("maxParcelas"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return planoEmprestimo.getMaxParcelas();
 	}
 }

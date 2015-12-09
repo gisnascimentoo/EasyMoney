@@ -349,7 +349,7 @@ public class InterfaceUsuario {
 
 	public static int transformaStringInt(String texto) {
 		int retorno = 0;
-		if (texto.trim().length() > 0) {
+		if (texto.trim().length() == 0) {
 			retorno = -1;
 		} else {
 			try {
@@ -363,7 +363,7 @@ public class InterfaceUsuario {
 
 	public static double transformaStringDouble(String texto) {
 		double retorno = 0;
-		if (texto.trim().length() > 0) {
+		if (texto.trim().length() == 0) {
 			retorno = -1;
 		} else {
 			try {

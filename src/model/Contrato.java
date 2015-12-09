@@ -12,13 +12,12 @@ public class Contrato {
 	private Date dataTerminoContrato;
 	private Cliente cliente;
 	private String statusContrato;
-	private Funcionario funcionarioResponsavel;
 	private PlanoEmprestimo planoEmprestimo;
 	private String observacoes;
 
 	public Contrato(int idContrato, int qntdParcelas, double valorEmprestimo, double valorParcelas,
 			Date dataCriacaoContrato, Date dataTerminoContrato, Cliente cliente, String statusContrato,
-			Funcionario funcionarioResponsavel, PlanoEmprestimo planoEmprestimo, String observacoes) {
+			PlanoEmprestimo planoEmprestimo, String observacoes) {
 		super();
 		this.idContrato = idContrato;
 		this.qntdParcelas = qntdParcelas;
@@ -28,14 +27,13 @@ public class Contrato {
 		this.dataTerminoContrato = dataTerminoContrato;
 		this.cliente = cliente;
 		this.statusContrato = statusContrato;
-		this.funcionarioResponsavel = funcionarioResponsavel;
 		this.planoEmprestimo = planoEmprestimo;
 		this.observacoes = observacoes;
 	}
 
 	public Contrato(int qntdParcelas, double valorEmprestimo, double valorParcelas, Date dataCriacaoContrato,
 			Date dataTerminoContrato, Cliente cliente, String statusContrato,
-			Funcionario funcionarioResponsavel, PlanoEmprestimo planoEmprestimo, String observacoes) {
+			PlanoEmprestimo planoEmprestimo, String observacoes) {
 		super();
 		this.qntdParcelas = qntdParcelas;
 		this.valorEmprestimo = valorEmprestimo;
@@ -44,7 +42,6 @@ public class Contrato {
 		this.dataTerminoContrato = dataTerminoContrato;
 		this.cliente = cliente;
 		this.statusContrato = statusContrato;
-		this.funcionarioResponsavel = funcionarioResponsavel;
 		this.planoEmprestimo = planoEmprestimo;
 		this.observacoes = observacoes;
 	}
@@ -115,14 +112,6 @@ public class Contrato {
 
 	public void setStatusContrato(String statusContrato) {
 		this.statusContrato = statusContrato;
-	}
-
-	public Funcionario getFuncionarioResponsavel() {
-		return funcionarioResponsavel;
-	}
-
-	public void setFuncionarioResponsavel(Funcionario funcionarioResponsavel) {
-		this.funcionarioResponsavel = funcionarioResponsavel;
 	}
 
 	public PlanoEmprestimo getPlanoEmprestimo() {

@@ -14,11 +14,9 @@ public class PlanoEmprestimo {
 	private int minParcelas;
 	private int maxParcelas;
 	private String observacao;
-	private Funcionario funcionario;
 
 	public PlanoEmprestimo(int idPlanoEmprestimo, String nome, Date dataCadastro, double jurosTotal, double jurosMensal,
-			double valorMinimo, double valorMaximo, int minParcelas, int maxParcelas, String observacao,
-			Funcionario funcionario) {
+			double valorMinimo, double valorMaximo, int minParcelas, int maxParcelas, String observacao) {
 		super();
 		this.idPlanoEmprestimo = idPlanoEmprestimo;
 		this.nome = nome;
@@ -30,11 +28,10 @@ public class PlanoEmprestimo {
 		this.minParcelas = minParcelas;
 		this.maxParcelas = maxParcelas;
 		this.observacao = observacao;
-		this.funcionario = funcionario;
 	}
 
 	public PlanoEmprestimo(String nome, Date dataCadastro, double jurosTotal, double jurosMensal, double valorMinimo,
-			double valorMaximo, int minParcelas, int maxParcelas, String observacao, Funcionario funcionario) {
+			double valorMaximo, int minParcelas, int maxParcelas, String observacao) {
 		super();
 		this.nome = nome;
 		this.dataCadastro = dataCadastro;
@@ -45,7 +42,6 @@ public class PlanoEmprestimo {
 		this.minParcelas = minParcelas;
 		this.maxParcelas = maxParcelas;
 		this.observacao = observacao;
-		this.funcionario = funcionario;
 	}
 
 	public PlanoEmprestimo() {
@@ -131,13 +127,4 @@ public class PlanoEmprestimo {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-
 }

@@ -127,7 +127,7 @@ public class ContratoController {
 		Contrato contrato = new Contrato(numParcelas, valorEmprestimo,
 				valorParcelas, new java.sql.Date(Calendar.getInstance()
 						.getTime().getTime()), this.formatDate(dataTermino),
-				clt, status, null, plEmprestimo, observacoes);
+				clt, status, plEmprestimo, observacoes);
 
 		try {
 			db.salvarContratoBanco(contrato);
@@ -172,7 +172,6 @@ public class ContratoController {
 		contrato.setValorParcelas(valorParcelas);
 		contrato.setPlanoEmprestimo(plEmprestimo);
 		contrato.setStatusContrato(status);
-		contrato.setFuncionarioResponsavel(null);
 		contrato.setObservacoes(observacoes);
 		try {
 			db.editarContratoBanco(contrato);

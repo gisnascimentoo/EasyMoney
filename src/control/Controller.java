@@ -217,7 +217,7 @@ public class Controller {
 	}
 
 	public void buscaDadosPlano(int codigo) {
-		PlanoEmprestimo plano = db.buscarDadosPlano(codigo);
+		PlanoEmprestimo plano = db.buscarPlanoEmprestimoId(codigo);
 		InterfaceUsuario.carregarEdicaoPlano(plano.getIdPlanoEmprestimo(), plano.getNome(), plano.getDataCadastro(),
 				plano.getJurosTotal(), plano.getJurosMensal(), plano.getValorMinimo(), plano.getValorMaximo(),
 				plano.getMinParcelas(), plano.getMaxParcelas(), plano.getObservacao());
@@ -247,7 +247,7 @@ public class Controller {
 			double jurosMensal, double valorMinimo, double valorMaximo, int minParcelas, int maxParcelas,
 			String observacao) {
 		PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo(idPlanoEmprestimo, nome, this.formatDate(dataCadastro), jurosTotal,
-				jurosMensal, valorMinimo, valorMaximo, minParcelas, maxParcelas, observacao, null);
+				jurosMensal, valorMinimo, valorMaximo, minParcelas, maxParcelas, observacao);
 		String msg = db.editarPlanoBanco(planoEmprestimo);
 		InterfaceUsuario.exibirMensagemPlanoCadastro(msg);
 	}
@@ -260,7 +260,7 @@ public class Controller {
 			InterfaceUsuario.exibirMensagemPlanoCadastro("Campos obrigatórios não preenchidos");
 		} else {
 			PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo(nome, this.formatDate(dataCadastro), jurosTotal, jurosMensal,
-					valorMinimo, valorMaximo, minParcelas, maxParcelas, observacao, null);
+					valorMinimo, valorMaximo, minParcelas, maxParcelas, observacao);
 			db.salvarPlanoEmprestimoBanco(planoEmprestimo);
 			InterfaceUsuario.exibirMensagemPlanoCadastro("Cadastro realizado com sucesso");
 		}
