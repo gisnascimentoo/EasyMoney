@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Cidade;
 import model.Cliente;
+import model.Contrato;
 import model.DadosFinanceiros;
 import model.Endereco;
 import model.Estado;
@@ -311,5 +312,20 @@ public class Controller {
 			return true;
 		else
 			return false;
+	}
+
+	public void geraRelatorio(String mesInicio, String mesFim, int tipoIndex) {
+		List<Contrato> listContrato = db.buscarRelatorio();
+		String[][] dados = new String[listContrato.size()][3];
+		int indice = 0;
+		for (Contrato contrato : listContrato) {
+			dados[indice][0] = "" + contrato.getIdContrato();
+			dados[indice][1] = contrato.getCliente().getNomeCompleto();
+			dados[indice][2] = ""+contrato.getValorEmprestimo();
+			indice++;
+		}
+		InterfaceUsuario.carregaRelatorio(dados);
+		
+		
 	}
 }
