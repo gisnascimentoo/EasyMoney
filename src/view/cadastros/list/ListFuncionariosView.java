@@ -161,7 +161,7 @@ public class ListFuncionariosView extends JFrame {
 	protected void excluir() {
 		int codigo = getIdTabela();
 		if(codigo >= 0 ){
-			InterfaceUsuario.excluirFuncionarioCarregarPorId(codigo);
+			InterfaceUsuario.excluirFuncionario(codigo);
 		}
 		
 	}

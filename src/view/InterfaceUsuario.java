@@ -341,7 +341,7 @@ public class InterfaceUsuario {
 		
 	}
 
-	public static void excluirFuncionarioCarregarPorId(int codigo) {
+	public static void excluirFuncionario(int codigo) {
 		controller.excluirfuncionario(codigo);
 		
 	}
@@ -361,5 +361,13 @@ public class InterfaceUsuario {
 	
 	public static double transformaStringDouble(String texto) {
 		return  Double.parseDouble(texto);
+	}
+
+	public static void gerarRelatorio(String mesInicio, String mesFim, int tipoIndex) {
+		controller.geraRelatorio(mesInicio, mesFim, tipoIndex);
+	}
+
+	public static void carregaRelatorio(String[][] dados) {
+		relatoriosEmprestimoView.addTabela(dados);
 	}
 }

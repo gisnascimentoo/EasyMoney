@@ -642,4 +642,9 @@ public class ManipuladorBanco {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public List<Contrato> buscarRelatorio() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
