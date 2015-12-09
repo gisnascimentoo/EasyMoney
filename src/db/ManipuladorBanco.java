@@ -671,7 +671,7 @@ public class ManipuladorBanco {
 			return "Plano deletado com sucesso";
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "Plano não pôde ser deletado! Tente novamente!";
+			return "Plano n�o pode ser deletado! Tente novamente!";
 		}
 	}
 	
@@ -789,7 +789,7 @@ public class ManipuladorBanco {
 			return "Contrato deletado com sucesso";
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "Contrato não pôde ser deletado! Tente novamente!";
+			return "Contrato n�o pode ser deletado! Tente novamente!";
 		}
 	}
 	

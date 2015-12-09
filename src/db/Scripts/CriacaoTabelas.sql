@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Endereco` (
   `logradouro` VARCHAR(150) NULL,
   `numero` INT NULL,
   `bairro` VARCHAR(150) NULL,
-  `CEP` INT(8) NULL,
+  `CEP` VARCHAR(15) NULL,
   `idCidade` INT NULL,
   PRIMARY KEY (`idEndereco`),
   INDEX `fk_Endereco_Cidade1_idx` (`idCidade` ASC),
