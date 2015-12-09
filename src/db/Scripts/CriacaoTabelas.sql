@@ -190,15 +190,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`planoEmprestimo` (
   `maxParcelas` INT NULL,
   `minParcelas` INT NULL,
   `observacao` VARCHAR(1500) NULL,
-  `idFuncionarioResponsavel` INT NOT NULL,
-  PRIMARY KEY (`idplanoEmprestimo`),
-  INDEX `fk_planoEmprestimo_Funcionario1_idx` (`idFuncionarioResponsavel` ASC),
-  CONSTRAINT `fk_planoEmprestimo_Funcionario1`
-    FOREIGN KEY (`idFuncionarioResponsavel`)
-    REFERENCES `mydb`.`Funcionario` (`idfuncionario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`idplanoEmprestimo`))
 ENGINE = InnoDB;
+
 
 
 -- -----------------------------------------------------
@@ -215,21 +209,14 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Contrato` (
   `dataTerminoContrato` DATE NULL,
   `statusContrato` VARCHAR(150) NULL,
   `idCliente` INT NOT NULL,
-  `idFuncionarioResponsavel` INT NULL,
   `idplanoEmprestimo` INT NOT NULL,
   `observacoes` VARCHAR(4000) NULL,
   PRIMARY KEY (`idContrato`),
   INDEX `fk_Contrato_Cliente1_idx` (`idCliente` ASC),
-  INDEX `fk_Contrato_funcionario1_idx` (`idFuncionarioResponsavel` ASC),
   INDEX `fk_Contrato_planoEmprestimo1_idx` (`idplanoEmprestimo` ASC),
   CONSTRAINT `fk_Contrato_Cliente1`
     FOREIGN KEY (`idCliente`)
     REFERENCES `mydb`.`Cliente` (`idCliente`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Contrato_funcionario1`
-    FOREIGN KEY (`idFuncionarioResponsavel`)
-    REFERENCES `mydb`.`Funcionario` (`idfuncionario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Contrato_planoEmprestimo1`
@@ -239,6 +226,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Contrato` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+select * from `mydb`.`Contrato`
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
