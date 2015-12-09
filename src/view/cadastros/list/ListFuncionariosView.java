@@ -186,11 +186,9 @@ public class ListFuncionariosView extends JFrame {
 	}
 
 	protected void buscar() {
-
 		int codigo = InterfaceUsuario.transformaStringInt(textFieldCodigo.getText());
 		InterfaceUsuario.buscarFuncionario(codigo, textFieldNome.getText(), textFieldCPF.getText(),
 				formattedFieldDataNascimento.getText());
-
 	}
 
 	protected void adicionar() {
@@ -220,7 +218,6 @@ public class ListFuncionariosView extends JFrame {
 
 	public void addTabela(String[][] dados) {
 		modelo = new DefaultTableModel(dados, colunas);
-		tabela = new JTable(modelo);
-		rolagem = new JScrollPane(tabela);
+		tabela.setModel(modelo);
 	}
 }

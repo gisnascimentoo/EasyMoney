@@ -239,8 +239,7 @@ public class ListContratoView extends JFrame {
 
 	public void addTabela(String[][] dados) {
 		modelo = new DefaultTableModel(dados, colunas);
-		jTableListagemContrato = new JTable(modelo);
-		jScrollPane1_1 = new JScrollPane(jTableListagemContrato);
+		jTableListagemContrato.setModel(modelo);;
 	}
 
 	public boolean confirmaExclusao() {

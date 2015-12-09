@@ -473,22 +473,22 @@ public class ManipuladorBanco {
 
 	public List<Funcionario> buscarFuncionario(int codigo, String nome, String cpf, Date date) {
 		List<Funcionario> buscarFuncionario = new ArrayList<Funcionario>();
-		String SELECT_FUNCIONARIO_BY_ = "SELECT * FROM Funcionario WHERE ";
-		System.out.println(codigo);
+		String SELECT_FUNCIONARIO_BY_ = "SELECT * FROM Funcionario WHERE 1 = 1";
+		
 		if (codigo > 0) {
-			SELECT_FUNCIONARIO_BY_ += " idFuncionario = " + codigo;
+			SELECT_FUNCIONARIO_BY_ += " AND idFuncionario = " + codigo;
 		} else if ( cpf != null  ) {
-			SELECT_FUNCIONARIO_BY_ += " CPF = " + cpf;
+			SELECT_FUNCIONARIO_BY_ += " AND CPF = " + cpf;
 		} else if (nome != null) {
 			if (date != null) {
-				SELECT_FUNCIONARIO_BY_ += " nome = " + nome + " AND dataNascimento = " + date;
+				SELECT_FUNCIONARIO_BY_ += " AND nome = " + nome + " AND dataNascimento = " + date;
 			} else {
-				SELECT_FUNCIONARIO_BY_ += " nome = " + nome;
+				SELECT_FUNCIONARIO_BY_ += " AND nome = " + nome;
 			}
 		} else if (date != null) {
-			SELECT_FUNCIONARIO_BY_ += " dataNascimento = " + date;
+			SELECT_FUNCIONARIO_BY_ += " AND dataNascimento = " + date;
 		}
-System.out.println(SELECT_FUNCIONARIO_BY_);
+		System.out.println(SELECT_FUNCIONARIO_BY_);
 		try {
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_FUNCIONARIO_BY_);
 			ResultSet set = preparedStatement.executeQuery();
@@ -643,12 +643,12 @@ System.out.println(SELECT_FUNCIONARIO_BY_);
 
 	public List<PlanoEmprestimo> buscarPlano(int codigo, String plano) {
 		List<PlanoEmprestimo> listaPlanos = new ArrayList<PlanoEmprestimo>();
-		String SELECT_PLANO_EMPRESTIMO_BY = "SELECT idPlanoEmprestimo, nome FROM PlanoEmprestimo WHERE  ";
+		String SELECT_PLANO_EMPRESTIMO_BY = "SELECT idPlanoEmprestimo, nome FROM PlanoEmprestimo WHERE 1=1 ";
 		if (codigo > 0) {
-			SELECT_PLANO_EMPRESTIMO_BY += " idPlanoEmprestimo = " + codigo;
+			SELECT_PLANO_EMPRESTIMO_BY += " AND idPlanoEmprestimo = " + codigo;
 		}
 		if (plano.trim().length() > 0) {
-			SELECT_PLANO_EMPRESTIMO_BY += " AND nome = " + plano;
+			SELECT_PLANO_EMPRESTIMO_BY += " AND nome = '" + plano + "'";
 		}
 		System.out.println(SELECT_PLANO_EMPRESTIMO_BY);
 		try {
@@ -931,5 +931,22 @@ System.out.println(SELECT_FUNCIONARIO_BY_);
 			e.printStackTrace();
 		}
 		return planoEmprestimo.getMaxParcelas();
+	}
+	
+	public int getQntdMinParcelasParaPlano(int codigo) {
+		PlanoEmprestimo planoEmprestimo = null;
+		try {
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_PLANOEMPRESTIMO_BY_ID);
+			preparedStatement.setInt(1, codigo);
+			ResultSet set = preparedStatement.executeQuery();
+			while (set.next()) {
+				planoEmprestimo = new PlanoEmprestimo();
+				planoEmprestimo.setIdPlanoEmprestimo(set.getInt("idPlanoEmprestimo"));
+				planoEmprestimo.setMinParcelas(set.getInt("minParcelas"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return planoEmprestimo.getMinParcelas();
 	}
 }

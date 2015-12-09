@@ -26,5 +26,8 @@ public class ParcelasCombo {
 		this.codigo = codigo;
 		this.parcela = parcela;
 	}
-
+	
+	public String toString () {
+		return "" + this.getParcela();
+	}
 }

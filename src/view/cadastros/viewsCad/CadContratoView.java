@@ -81,7 +81,7 @@ public class CadContratoView extends JFrame {
 		textFieldObservacoes.setText(observacao);
 		comboBoxPlanoEmprestimo.setSelectedItem(new PlanoCombo(codPlano,
 				nomePlano));
-		carregarParcelasCombo(qntdParcelas);
+		planoAlterado();
 		comboBoxParcelas.setSelectedItem(new ParcelasCombo(qntdParcelas,
 				qntdParcelas));
 		comboBoxSituacao.setSelectedItem(new SituacaoCombo(status, status));
@@ -252,7 +252,7 @@ public class CadContratoView extends JFrame {
 
 	protected void planoAlterado() {
 		PlanoCombo planoCombo = (PlanoCombo)comboBoxPlanoEmprestimo.getSelectedItem();
-		carregarParcelasCombo(InterfaceUsuario.getQntdParcelasParaPlano(planoCombo.getCodigo()));
+		carregarParcelasCombo(InterfaceUsuario.getQntdParcelasParaPlano(planoCombo.getCodigo()), InterfaceUsuario.getMinParcelasParaPlano(planoCombo.getCodigo()));
 		
 	}
 
@@ -305,10 +305,10 @@ public class CadContratoView extends JFrame {
 				InterfaceUsuario.carregaSituacaoCombo())));
 	}
 
-	private void carregarParcelasCombo(int plano) {
+	private void carregarParcelasCombo(int qndMax, int qndMin) {
 		List<ParcelasCombo> listParcela = new ArrayList<ParcelasCombo>();
-		for (int i = 0; i <= plano; i++) {
-			listParcela.add(new ParcelasCombo(plano, plano));
+		for (int i = qndMin; i <= qndMax; i++) {
+			listParcela.add(new ParcelasCombo(i, i));
 		}
 		comboBoxParcelas.setModel(new DefaultComboBoxModel(new Vector(
 				listParcela)));

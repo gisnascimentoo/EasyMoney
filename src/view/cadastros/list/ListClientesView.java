@@ -243,8 +243,7 @@ public class ListClientesView extends JFrame {
 
 	public void addTabela(String[][] dados) {
 		modelo = new DefaultTableModel(dados, colunas);
-		jTableListagemCliente = new JTable(modelo);
-		jScrollPane1_1 = new JScrollPane(jTableListagemCliente);
+		jTableListagemCliente.setModel(modelo);;
 	}
 
 	public boolean confirmaExclusao() {

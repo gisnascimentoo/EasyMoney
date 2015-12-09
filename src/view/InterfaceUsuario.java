@@ -20,6 +20,7 @@ import view.combo.PlanoCombo;
 import view.combo.SituacaoCombo;
 import control.ContratoController;
 import control.Controller;
+import model.PlanoEmprestimo;
 
 public class InterfaceUsuario {
 
@@ -448,6 +449,10 @@ public class InterfaceUsuario {
 	public static void carregaDadosTabelaSimulacao(String[][] dados, double valorParcela) {
 		simulacaoView.setValorParcela(valorParcela);
 		simulacaoView.addTabela(dados);
+	}
+
+	public static int getMinParcelasParaPlano(int codigo) {
+		return contratoController.getMinQntdParcelasParaPlano(codigo);
 	}
 	
 	

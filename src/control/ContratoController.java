@@ -268,4 +268,8 @@ public class ContratoController {
 		return db.getQntdParcelasParaPlano(codigo);
 	}
 
+	public int getMinQntdParcelasParaPlano(int codigo) {
+		return db.getQntdMinParcelasParaPlano(codigo);
+	}
+
 }

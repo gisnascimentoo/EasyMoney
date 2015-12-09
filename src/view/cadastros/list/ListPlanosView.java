@@ -185,8 +185,7 @@ public class ListPlanosView extends JFrame {
 
 	public void addTabela(String[][] dados) {
 		modelo = new DefaultTableModel(dados, colunas);
-		jTableListagemPlano = new JTable(modelo);
-		jScrollPane1_1 = new JScrollPane(jTableListagemPlano);
+		jTableListagemPlano.setModel(modelo);
 	}
 
 	public void mostrarMensagem(String mensagem) {
