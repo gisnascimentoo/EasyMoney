@@ -44,7 +44,7 @@ public class Controller {
 		boolean confirmacao = InterfaceUsuario.encerrarSessao();
 		if (confirmacao)
 		{
-			db.closeConnnection();
+			//db.closeConnnection();
 			InterfaceUsuario.deslogar();
 		}
 	}

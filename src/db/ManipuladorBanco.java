@@ -39,52 +39,52 @@ public class ManipuladorBanco {
 	private final String SELECT_ALL_ESTADO = "SELECT * FROM ESTADO"; 
 	private final String SELECT_ALL_PLANOEMPRESTIMO = "SELECT * FROM PLANOEMPRESTIMO";
 	
-	private final String SELECT_PLANOEMPRESTIMO_BY_ID = "SELECT * FROM PLANOEMPRESTIMO WHERE IDPLANOEMPRESTIMO = ?";
-	private final String SELECT_FUNCIONARIO_BY_ID = "SELECT * FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
-	private final String SELECT_ENDERECO_BY_ID = "SELECT * FROM ENDERECO WHERE IDENDERECO = ?";
-	private final String SELECT_CONTRATO_BY_ID = "SELECT * FROM CONTRATO WHERE IDCONTRATO = ?";
-	private final String SELECT_DADOSFINANCEIROS_BY_ID = "SELECT * FROM DADOSFINANCEIROS WHERE IDDADOSFINANCEIROS = ?";
+	private final String SELECT_PLANOEMPRESTIMO_BY_ID = "SELECT * FROM PLANOEMPRESTIMO WHERE idPlanoEmprestimo = ?";
+	private final String SELECT_FUNCIONARIO_BY_ID = "SELECT * FROM FUNCIONARIO WHERE idFuncionario = ?";
+	private final String SELECT_ENDERECO_BY_ID = "SELECT * FROM ENDERECO WHERE idEndereco = ?";
+	private final String SELECT_CONTRATO_BY_ID = "SELECT * FROM CONTRATO WHERE idContrato = ?";
+	private final String SELECT_DADOSFINANCEIROS_BY_ID = "SELECT * FROM DADOSFINANCEIROS WHERE idDadosFinanceiros = ?";
 
 	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM Usuario WHERE login = ? and passwd = ?";
 	
-	private final String SELECT_INFO_CLIENTE_BY_ID = "SELECT C.IDCLIENTE AS IDCLIENTE, C.CPF AS CPF, C.NOMECOMPLETO AS NOMECLIENTE, "
-			+ "C.RG AS RG, C.DATANASCIMENTO AS DATANASCIMENTO, E.LOGRADOURO AS LOGRADOURO, E.NUMERO AS NUMERO, E.BAIRRO AS BAIRRO,"
-			+ "E.CEP AS CEP, CD.NOME AS NOMECIDADE, EST.IDESTADO AS IDUF, EST.SIGLA AS SIGLAUF, DF.BANCO AS BANCO, DF.AGENCIA AS AGENCIA, DF.CONTACORRENTE AS CONTACORRENTE, "
-			+ "DF.RENDAFAMILIAR AS RENDAFAMILIAR, DF.RENDAPESSOAL AS RENDAPESSOAL, DF.OBSERVACAO AS OBSERVACAO "
-			+ "FROM CLIENTE C LEFT JOIN ENDERECO E ON C.IDENDERECO = E.IDENDERECO LEFT JOIN CIDADE CD ON E.IDCIDADE = CD.IDCIDADE "
-			+ "LEFT JOIN DADOSFINANCEIROS DF ON DF.IDDADOSFINANCEIROS = C.IDDADOSFINANCEIROS "
-			+ "LEFT JOIN ESTADO EST ON EST.IDESTADO = CD.IDESTADO WHERE C.IDCLIENTE = ?";
+	private final String SELECT_INFO_CLIENTE_BY_ID = "SELECT C.idCliente AS idcliente, C.CPF AS cpf, C.nomeCompleto AS nomecliente, "
+			+ "C.RG AS rg, C.dataNascimento AS datanascimento, E.logradouro AS logradouro, E.numero AS numero, E.bairro AS bairro,"
+			+ "E.CEP AS cep, CD.nome AS nomecidade, EST.idEstado AS iduf, EST.sigla AS siglauf, DF.banco AS banco, DF.agencia AS agencia, DF.contaCorrente AS contacorrente, "
+			+ "DF.rendaFamiliar AS rendafamiliar, DF.rendaPessoal AS rendapessoal, DF.observacao AS observacao "
+			+ "FROM CLIENTE C LEFT JOIN ENDERECO E ON C.idEndereco = E.idEndereco LEFT JOIN CIDADE CD ON E.idCidade = CD.idCidade "
+			+ "LEFT JOIN DADOSFINANCEIROS DF ON DF.idDadosFinanceiros = C.idDadosFinanceiros "
+			+ "LEFT JOIN ESTADO EST ON EST.idEstado = CD.idEstado WHERE C.idCliente = ?";
 	
-	private final String SELECT_INFO_FUNCIONARIO_BY_ID = "SELECT F.IDFUNCIONARIO AS IDFUNCIONARIO, F.CPF AS CPF, F.NOME AS NOME, "
-			+ "F.RG AS RG, F.DATANASCIMENTO AS DATANASCIMENTO, F.CARGO AS CARGO, F.EMAIL AS EMAIL, F.TELEFONE AS TELEFONE, E.LOGRADOURO AS LOGRADOURO, E.NUMERO AS NUMERO, E.BAIRRO AS BAIRRO,"
-			+ "E.CEP AS CEP, CD.NOME AS NOMECIDADE, EST.IDESTADO AS IDUF, EST.SIGLA AS SIGLAUF"
-			+ "FROM FUNCIONARIO F LEFT JOIN ENDERECO E ON F.IDENDERECO = E.IDENDERECO LEFT JOIN CIDADE CD ON E.IDCIDADE = CD.IDCIDADE "
-			+ "LEFT JOIN ESTADO EST ON EST.IDESTADO = CD.IDESTADO WHERE F.IDFUNCIONARIO = ?";
+	private final String SELECT_INFO_FUNCIONARIO_BY_ID = "SELECT F.idFuncionario AS idfuncionario, F.CPF AS cpf, F.nome AS nome, "
+			+ "F.RG AS rg, F.dataNascimento AS datanascimento, F.cargo AS cargo, F.email AS email, F.telefone AS telefone, E.logradouro AS logradouro, E.numero AS numero, E.bairro AS bairro,"
+			+ "E.CEP AS CEP, CD.nome AS nomecidade, EST.idEstado AS iduf, EST.sigla AS siglauf"
+			+ "FROM FUNCIONARIO F LEFT JOIN ENDERECO E ON F.idEndereco = E.idEndereco LEFT JOIN CIDADE CD ON E.idCidade = CD.idCidade "
+			+ "LEFT JOIN ESTADO EST ON EST.idEstado = CD.idEstado WHERE F.idFuncionario = ?";
 
 	private final String SELECT_FUNCIONARIO_BY_CPF = "SELECT * FROM FUNCIONARIO WHERE CPF = ?";
 	private final String SELECT_CLIENTE_BY_CPF = "SELECT * FROM CLIENTE WHERE CPF = ?";
 	
 	private final String SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX = "SELECT CON.idContrato as idContrato , CON.valorEmprestimo as valorEmprestimo, "
-			+ "C.nomeCompleto as nomeCompleto FROM CONTRATO CON JOIN CLIENTE C ON CON.IDCLIENTE = C.IDCLIENTE WHERE STATUSCONTRATO = ? "
-			+ "AND DATACRIACAOCONTRATO >= ? AND DATATERMINOCONTRATO <= ?";
+			+ "C.nomeCompleto as nomeCompleto FROM CONTRATO CON JOIN CLIENTE C ON CON.idCliente = C.idCliente WHERE statusContrato = ? "
+			+ "AND dataCriacaoContrato >= ? AND dataTerminoContrato <= ?";
 	
 	/*
 	 * Update
 	 */
-	private final String UPDATE_CLIENTE_BY_ID = "UPDATE CLIENTE SET nomeCompleto = ?, dataNascimento = ?, CPF = ?, RG = ?, idEndereco = ?, idDadosFinanceiros = ? WHERE IDCLIENTE = ?";
-	private final String UPDATE_PLANOEMPRESTIMO_BY_ID = "UPDATE PLANOEMPRESTIMO SET nome = ?, dataCadastro = ?, jurosTotal = ?, jurosMensal = ?, valorMinimo = ?, valorMaximo = ?, minParcelas = ?, maxParcelas = ?, observacao = ? WHERE IDPLANOEMPRESTIMO = ?";
-	private final String UPDATE_FUNCIONARIO_BY_ID = "UPDATE FUNCIONARIO SET nome = ?, dataNascimento = ?, CPF = ?, RG = ?, cargo = ?, email = ?, telefone = ?, idEndereco = ? WHERE IDFUNCIONARIO = ?";
-	private final String UPDATE_ENDERECO_BY_ID = "UPDATE ENDERECO SET logradouro = ?, numero = ?, bairro = ?, cidade = ? WHERE IDENDERECO = ?";
-	private final String UPDATE_CONTRATO_BY_ID = "UPDATE CONTRATO SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dadaTerminoContrato = ?, idCliente = ?, idPlanoEmprestimo = ? WHERE IDCONTRATO = ?";
-	private final String UPDATE_DADOSFINANCEIROS_BY_ID = "UPDATE DADOSFINANCEIROS SET banco = ?, agencia = ?, contaCorrente = ?, rendaFamiliar = ?, rendaPessoal = ?, observacao = ? WHERE IDDADOSFINANCEIROS = ?";
+	private final String UPDATE_CLIENTE_BY_ID = "UPDATE CLIENTE SET nomeCompleto = ?, dataNascimento = ?, CPF = ?, RG = ?, idEndereco = ?, idDadosFinanceiros = ? WHERE idCliente = ?";
+	private final String UPDATE_PLANOEMPRESTIMO_BY_ID = "UPDATE PLANOEMPRESTIMO SET nome = ?, dataCadastro = ?, jurosTotal = ?, jurosMensal = ?, valorMinimo = ?, valorMaximo = ?, minParcelas = ?, maxParcelas = ?, observacao = ? WHERE idPlanoEmprestimo = ?";
+	private final String UPDATE_FUNCIONARIO_BY_ID = "UPDATE FUNCIONARIO SET nome = ?, dataNascimento = ?, CPF = ?, RG = ?, cargo = ?, email = ?, telefone = ?, idEndereco = ? WHERE idFuncionario = ?";
+	private final String UPDATE_ENDERECO_BY_ID = "UPDATE ENDERECO SET logradouro = ?, numero = ?, bairro = ?, cidade = ? WHERE idEndereco = ?";
+	private final String UPDATE_CONTRATO_BY_ID = "UPDATE CONTRATO SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dadaTerminoContrato = ?, idCliente = ?, idPlanoEmprestimo = ? WHERE idContrato = ?";
+	private final String UPDATE_DADOSFINANCEIROS_BY_ID = "UPDATE DADOSFINANCEIROS SET banco = ?, agencia = ?, contaCorrente = ?, rendaFamiliar = ?, rendaPessoal = ?, observacao = ? WHERE idDadosFinanceiros = ?";
 
 	/*
 	 * Delete
 	 */
-	private final String DELETE_CONTRATO_BY_ID = "DELETE FROM CLIENTE WHERE IDCLIENTE = ?";
-	private final String DELETE_PLANOEMPRESTIMO_BY_ID = "DELETE FROM PLANOEMPRESTIMO WHERE IDPLANOEMPRESTIMO = ?";
+	private final String DELETE_CONTRATO_BY_ID = "DELETE FROM CLIENTE WHERE idCliente = ?";
+	private final String DELETE_PLANOEMPRESTIMO_BY_ID = "DELETE FROM PLANOEMPRESTIMO WHERE idPlanoEmprestimo = ?";
 	private final String DELETE_CLIENTE_BY_ID = "DELETE FROM CLIENTE WHERE IDCLIENTE = ?";
-	private final String DELETE_FUNCIONARIO_BY_ID = "DELETE FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
+	private final String DELETE_FUNCIONARIO_BY_ID = "DELETE FROM FUNCIONARIO WHERE idFuncionario = ?";
 
 	Connection conexao;
 
@@ -321,7 +321,7 @@ public class ManipuladorBanco {
 
 	public String editarClienteBanco(Cliente cliente) {
 		
-		String sqlParaRecuperarIds = "SELECT IDENDERECO, IDDADOSFINANCEIROS FROM CLIENTE WHERE IDCLIENTE = ?";
+		String sqlParaRecuperarIds = "SELECT idEndereco, idDadosFinanceiros FROM CLIENTE WHERE idCliente = ?";
 		int idEndereco;
 		int idDadosFinanceiros;
 		try {
@@ -351,7 +351,7 @@ public class ManipuladorBanco {
 	
 	public String editarFuncionarioBanco(Funcionario funcionario) {
 		
-		String sqlParaRecuperarIds = "SELECT IDENDERECO FROM FUNCIONARIO WHERE IDFUNCIONARIO = ?";
+		String sqlParaRecuperarIds = "SELECT idEndereco FROM FUNCIONARIO WHERE idFuncionario = ?";
 		int idEndereco;
 		
 		try {
@@ -435,19 +435,19 @@ public class ManipuladorBanco {
 
 	public List<Cliente> buscarCliente(int codigo, String nome, String cpf, Date dataNasc) {
 		List<Cliente> buscarCliente = new ArrayList<Cliente>();
-		String SELECT_CLIENTE_BY_= "SELECT * FROM CLIENTE WHERE 1 = 1";
+		String SELECT_CLIENTE_BY_= "SELECT * FROM CLIENTE WHERE 1 = 1 ";
 		
 		if (codigo > 0) {
-			SELECT_CLIENTE_BY_ += "AND idCliente = " + codigo;
+			SELECT_CLIENTE_BY_ += " AND idCliente = " + codigo;
 		} 
 		if (nome != null) {
-			SELECT_CLIENTE_BY_ += "AND nomeCompleto = " + nome;
+			SELECT_CLIENTE_BY_ += " AND nomeCompleto = " + nome;
 		}
 		if (cpf != null) {
-			SELECT_CLIENTE_BY_ += "AND cpf" + cpf;
+			SELECT_CLIENTE_BY_ += " AND CPF = " + cpf;
 		}
 		if (dataNasc != null) {
-			SELECT_CLIENTE_BY_ += "AND dataNascimento = " + dataNasc;
+			SELECT_CLIENTE_BY_ += " AND dataNascimento = " + dataNasc;
 		}
 		
 		try {
@@ -471,19 +471,19 @@ public class ManipuladorBanco {
 	
 	public List<Funcionario> buscarFuncionario(int codigo, String nome, String cpf, Date date) {
 		List<Funcionario> buscarFuncionario = new ArrayList<Funcionario>();
-		String SELECT_FUNCIONARIO_BY_= "SELECT * FROM FUNCIONARIO WHERE 1 = 1";
+		String SELECT_FUNCIONARIO_BY_= "SELECT * FROM FUNCIONARIO WHERE 1 = 1 ";
 		
 		if (codigo > 0) {
-			SELECT_FUNCIONARIO_BY_ += "AND idFuncionario = " + codigo;
-		} 
-		if (nome != null) {
-			SELECT_FUNCIONARIO_BY_ += "AND nome = " + nome;
+			SELECT_FUNCIONARIO_BY_ += " AND idFuncionario = " + codigo;
 		}
-		if (cpf != null) {
-			SELECT_FUNCIONARIO_BY_ += "AND cpf" + cpf;
+		if (nome.trim().length() > 0) {
+			SELECT_FUNCIONARIO_BY_ += " AND nome = " + nome;
+		}
+		if (cpf != null) { 
+			SELECT_FUNCIONARIO_BY_ += " AND CPF = " + cpf;
 		}
 		if (date != null) {
-			SELECT_FUNCIONARIO_BY_ += "AND dataNascimento = " + date;
+			SELECT_FUNCIONARIO_BY_ += " AND dataNascimento = " + date;
 		}
 		
 		try {
@@ -637,13 +637,13 @@ public class ManipuladorBanco {
 	
 	public List<PlanoEmprestimo> buscarPlano(int codigo, String plano) {
 		List<PlanoEmprestimo> listaPlanos = new ArrayList<PlanoEmprestimo>();
-		String SELECT_PLANO_EMPRESTIMO_BY= "SELECT IDPLANOEMPRESTIMO, NOME FROM PLANOEMPRESTIMO WHERE 1 = 1";
+		String SELECT_PLANO_EMPRESTIMO_BY= "SELECT idPlanoEmprestimo, nome FROM PLANOEMPRESTIMO WHERE 1 = 1 ";
 		
 		if (codigo > 0) {
-			SELECT_PLANO_EMPRESTIMO_BY += "AND IDPLANOEMPRESTIMO = " + codigo;
+			SELECT_PLANO_EMPRESTIMO_BY += " AND idPlanoEmprestimo = " + codigo;
 		} 
-		if (plano != null) {
-			SELECT_PLANO_EMPRESTIMO_BY += "AND nome = " + plano;
+		if (plano.trim().length() > 0) {
+			SELECT_PLANO_EMPRESTIMO_BY += " AND nome = " + plano;
 		}
 		
 		try {
@@ -793,16 +793,16 @@ public class ManipuladorBanco {
 	
 	public List<Contrato> buscarContrato(int codigo, String nome, String codigoSitucao) {
 		List<Contrato> listaContratos = new ArrayList<Contrato>();
-		String SELECT_CONTRATO_BY= "SELECT CON.IDCONTRATO AS ID, C.NOMECOMPLETO AS NOMECLIENTE, CON.STATUSCONTRATO AS STATUS FROM CONTRATO CON JOIN CLIENTE C ON CON.IDCLIENTE = C.IDCLIENTE WHERE 1 = 1";
+		String SELECT_CONTRATO_BY= "SELECT CON.idContrato AS id, C.nomeCompleto AS nomecliente, CON.statusContrato AS status FROM CONTRATO CON JOIN CLIENTE C ON CON.idCliente = C.idCliente WHERE 1 = 1 ";
 		
 		if (codigo > 0) {
-			SELECT_CONTRATO_BY += "AND CON.IDCONTRATO = " + codigo;
+			SELECT_CONTRATO_BY += " AND CON.idContrato = " + codigo;
 		} 
-		if (nome != null) {
-			SELECT_CONTRATO_BY += "AND C.nomeCompleto = " + nome;
+		if (nome.trim().length() > 0) {
+			SELECT_CONTRATO_BY += " AND C.nomeCompleto = " + nome;
 		}
-		if (codigoSitucao != null) {
-			SELECT_CONTRATO_BY += "AND CON.statusContrato = " + codigoSitucao;
+		if (codigoSitucao.trim().length() > 0) {
+			SELECT_CONTRATO_BY += " AND CON.statusContrato = " + codigoSitucao;
 		}
 		
 		try {
