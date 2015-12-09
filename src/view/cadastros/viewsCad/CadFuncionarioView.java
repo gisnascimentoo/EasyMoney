@@ -268,20 +268,23 @@ public class CadFuncionarioView extends JFrame {
 
 	protected void salvar() {
 		EstadoCombo estadoCombo = (EstadoCombo)comboBoxUF.getSelectedItem();
+		int idEstado = -1;
+		if(estadoCombo != null)
+			idEstado = estadoCombo.getCodigo();
 		if (edicao) {
 			InterfaceUsuario.editarFuncionario(InterfaceUsuario.transformaStringInt(textFieldCodFuncionario.getText()), textFieldNome.getText(),
 					formattedFieldDataNascimento.getText(), InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
 					comboBoxCargo.getSelectedItem().toString(), textFieldEmail.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
 					textFieldLogradouro.getText(),InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
-					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), estadoCombo.getCodigo());
+					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), idEstado);
 		} else {
 			InterfaceUsuario.cadastrarFuncionario(textFieldNome.getText(),
 					formattedFieldDataNascimento.getText(), InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
 					"Gerente", textFieldEmail.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
 					textFieldLogradouro.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
-					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), estadoCombo.getCodigo());
+					textFieldBairro.getText(), "CEP", textFieldCidade.getText(), idEstado);
 		}
 	}
 	

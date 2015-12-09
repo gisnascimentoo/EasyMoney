@@ -199,20 +199,18 @@ public class ContratoController {
 		int contaCorrente = contrato.getCliente().getDadosFinanceiros()
 				.getContaCorrente();
 		Date dataTermino = contrato.getDataTerminoContrato();
-		int numParcelas = contrato.getQntdParcelas();
+		int qntdParcelas = contrato.getQntdParcelas();
 		double valorEmprestimo = contrato.getValorEmprestimo();
 		double valorParcelas = contrato.getValorParcelas();
 		String nomePlano = contrato.getPlanoEmprestimo()
 				.getNome();
-		String nomeParcela = contrato.get;
-		int codCliente;
-		int codPlano;
-		int codParcela;
+		int codCliente = contrato.getCliente().getIdCliente();
+		int codPlano = contrato.getPlanoEmprestimo().getIdPlanoEmprestimo();
 		String status = contrato.getStatusContrato();
 		String observacoes = contrato.getObservacoes();
 		InterfaceUsuario.carregarContrato(idContrato, cliente, banco, agencia,
 				contaCorrente, valorEmprestimo, valorParcelas, dataTermino,
-				observacoes, nomePlano, nomeParcela, status, codCliente, codPlano, codParcela);
+				observacoes, nomePlano, qntdParcelas, status, codCliente, codPlano);
 	}
 
 	public boolean verificaCamposObrigatoriosContrato() {
@@ -262,6 +260,10 @@ public class ContratoController {
 			indice++;
 		}
 		InterfaceUsuario.carregaListaCliente(dados);
+	}
+
+	public int getQntdParcelasParaPlano(int codigo) {
+		return db.getQntdParcelasParaPlano(codigo);
 	}
 
 }

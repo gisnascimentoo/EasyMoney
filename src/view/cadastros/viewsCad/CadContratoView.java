@@ -4,6 +4,8 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
@@ -34,7 +36,7 @@ public class CadContratoView extends JFrame {
 	private JTextField textFieldContaCorrente;
 	private JTextField textFieldValorEmprestimo;
 	private JTextField textFieldValorParcelas;
-	private JFormattedTextField formattedFieldDataNascimento;
+	private JFormattedTextField formattedFieldDataTermino;
 	private JTextField textFieldObservacoes;
 	private JComboBox comboBoxPlanoEmprestimo;
 	private JComboBox comboBoxParcelas;
@@ -64,8 +66,8 @@ public class CadContratoView extends JFrame {
 	public CadContratoView(int codContrato, String nomeCliente, String banco,
 			String agencia, int contaCorrente, double valorEmprestimo,
 			double valorParcelas, Date dataTermino, String observacao,
-			String nomePlano, String nomeParcela, String status,
-			int codCliente, int codPlano, int codParcela) {
+			String nomePlano, int qntdParcelas, String status, int codCliente,
+			int codPlano) {
 		initComponents();
 		textFieldCodContrato.setText(String.valueOf(codContrato));
 		comboBoxCliente.setSelectedItem(new ClienteCombo(codCliente,
@@ -75,12 +77,13 @@ public class CadContratoView extends JFrame {
 		textFieldContaCorrente.setText(String.valueOf(contaCorrente));
 		textFieldValorEmprestimo.setText(String.valueOf(valorEmprestimo));
 		textFieldValorParcelas.setText(String.valueOf(valorParcelas));
-		formattedFieldDataNascimento.setText(dataTermino.toString());
+		formattedFieldDataTermino.setText(dataTermino.toString());
 		textFieldObservacoes.setText(observacao);
 		comboBoxPlanoEmprestimo.setSelectedItem(new PlanoCombo(codPlano,
 				nomePlano));
-		comboBoxParcelas.setSelectedItem(new ParcelasCombo(codParcela,
-				nomeParcela));
+		carregarParcelasCombo(qntdParcelas);
+		comboBoxParcelas.setSelectedItem(new ParcelasCombo(qntdParcelas,
+				qntdParcelas));
 		comboBoxSituacao.setSelectedItem(new SituacaoCombo(status, status));
 	}
 
@@ -183,10 +186,10 @@ public class CadContratoView extends JFrame {
 		contentPane.add(lblDataDeTermino);
 
 		MaskFormatter maskData = InterfaceUsuario.createFormatter(formatString);
-		formattedFieldDataNascimento = new JFormattedTextField(maskData);
-		formattedFieldDataNascimento.setBounds(386, 269, 138, 20);
-		contentPane.add(formattedFieldDataNascimento);
-		formattedFieldDataNascimento.setColumns(10);
+		formattedFieldDataTermino = new JFormattedTextField(maskData);
+		formattedFieldDataTermino.setBounds(386, 269, 138, 20);
+		contentPane.add(formattedFieldDataTermino);
+		formattedFieldDataTermino.setColumns(10);
 
 		JLabel lblObservaes = new JLabel("Observa��es");
 		lblObservaes.setBounds(10, 332, 101, 14);
@@ -238,16 +241,48 @@ public class CadContratoView extends JFrame {
 		comboBoxCliente = new JComboBox();
 		comboBoxCliente.setBounds(10, 61, 337, 20);
 		contentPane.add(comboBoxCliente);
+		comboBoxPlanoEmprestimo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				planoAlterado();
+			}
+		});
+
+		carregarClienteCombo();
+		carregarPlanoCombo();
+		carregarSituacaoCombo();
+	}
+
+	protected void planoAlterado() {
+		PlanoCombo planoCombo = (PlanoCombo)comboBoxPlanoEmprestimo.getSelectedItem();
+		carregarParcelasCombo(InterfaceUsuario.getQntdParcelasParaPlano(planoCombo.getCodigo()));
+		
 	}
 
 	protected void salvar() {
-		/*
-		 * if (textFieldCodContrato.getText().trim().length() == 0){
-		 * //InterfaceUsuario.cadastrarContrato(
-		 * 
-		 * ); }else{ //InterfaceUsuario.editarContrato(); }
-		 */
-
+		ClienteCombo cliente = (ClienteCombo)comboBoxCliente.getSelectedItem();
+		PlanoCombo planoCombo = (PlanoCombo)comboBoxPlanoEmprestimo.getSelectedItem();
+		SituacaoCombo situacaoCombo = (SituacaoCombo)comboBoxSituacao.getSelectedItem();
+		ParcelasCombo parcelaCombo = (ParcelasCombo)comboBoxParcelas.getSelectedItem();
+		int idCliente = -1, idPlano = -1, qntdParcela = -1;
+		String situacao = null;
+		if(cliente != null)
+			idCliente = cliente.getCodigo();
+		if(planoCombo != null)
+			idPlano = planoCombo.getCodigo();
+		if(situacaoCombo != null)
+			situacao = situacaoCombo.getNome();
+		if(parcelaCombo != null)
+			qntdParcela = parcelaCombo.getParcela();
+			
+		double valorEmprestimo = InterfaceUsuario.transformaStringDouble(textFieldValorEmprestimo.getText());
+		double valorParcelas = InterfaceUsuario.transformaStringDouble(textFieldValorParcelas.getText());
+		
+		if(edicao){
+			int codContrato = InterfaceUsuario.transformaStringInt(textFieldCodContrato.getText());
+			InterfaceUsuario.editarContrato(codContrato, idCliente, situacao, idPlano, qntdParcela, valorEmprestimo, valorParcelas, formattedFieldDataTermino.getText(), textFieldObservacoes.getText());
+		}else{
+			InterfaceUsuario.cadastrarContrato(idCliente, situacao, idPlano, qntdParcela, valorEmprestimo, valorParcelas, formattedFieldDataTermino.getText(), textFieldObservacoes.getText());
+		}
 	}
 
 	protected void fechar() {
@@ -272,9 +307,13 @@ public class CadContratoView extends JFrame {
 				InterfaceUsuario.carregaSituacaoCombo())));
 	}
 
-	private void carregarParcelasCombo() {
+	private void carregarParcelasCombo(int plano) {
+		List<ParcelasCombo> listParcela = new ArrayList<ParcelasCombo>();
+		for (int i = 0; i <= plano; i++) {
+			listParcela.add(new ParcelasCombo(plano, plano));
+		}
 		comboBoxParcelas.setModel(new DefaultComboBoxModel(new Vector(
-				InterfaceUsuario.carregaParcelasCombo())));
+				listParcela)));
 	}
 
 	private void carregarClienteCombo() {

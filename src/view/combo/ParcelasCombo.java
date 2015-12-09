@@ -1,9 +1,9 @@
 package view.combo;
 
 public class ParcelasCombo {
-	
+
 	int codigo;
-	String nome;
+	int parcela;
 
 	public int getCodigo() {
 		return codigo;
@@ -13,23 +13,18 @@ public class ParcelasCombo {
 		this.codigo = codigo;
 	}
 
-	public String getNome() {
-		return nome;
+	public int getParcela() {
+		return parcela;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setParcela(int parcela) {
+		this.parcela = parcela;
 	}
 
-	public ParcelasCombo(int codigo, String nome) {
+	public ParcelasCombo(int codigo, int parcela) {
 		super();
 		this.codigo = codigo;
-		this.nome = nome;
-	}
-	
-	public String toString(){
-		return nome;
+		this.parcela = parcela;
 	}
 
-	
 }

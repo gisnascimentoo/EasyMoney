@@ -292,9 +292,9 @@ public class InterfaceUsuario {
 
 	public static void carregarContrato(int codContrato, String nomeCliente, String banco, String agencia,
 			int contaCorrente, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacao,
-			String nomePlano, String nomeParcela, String status, int codCliente, int codPlano, int codParcela) {
+			String nomePlano, int qntdParelas, String status, int codCliente, int codPlano) {
 		novoContratoView = new CadContratoView(codContrato, nomeCliente, banco, agencia, contaCorrente,
-				valorEmprestimo, valorParcelas, dataTermino, observacao, nomePlano, nomeParcela, status, codCliente, codPlano, codParcela);
+				valorEmprestimo, valorParcelas, dataTermino, observacao, nomePlano, qntdParelas, status, codCliente, codPlano);
 	}
 
 	public static void novoContratoView(double valorEmprestimo, int valorParcelas, int indexPlanoEmprestimo,
@@ -428,5 +428,9 @@ public class InterfaceUsuario {
 
 	public static List<PlanoCombo> carregaPlanoCombo() {
 		return controller.preparaComboPlano();
+	}
+
+	public static int getQntdParcelasParaPlano(int codigo) {
+		return contratoController.getQntdParcelasParaPlano(codigo);
 	}
 }

@@ -323,6 +323,9 @@ public class CadClienteView extends JFrame {
 
 	protected void salvar() {
 		EstadoCombo estadoCombo = (EstadoCombo)comboBoxUF.getSelectedItem();
+		int idEstado = -1;
+		if(estadoCombo != null)
+			 idEstado = estadoCombo.getCodigo();
 		if (!edicao) {
 			InterfaceUsuario.cadastrarCliente(InterfaceUsuario
 					.transformaStringInt(textFieldCPF.getText()), textFieldNome
@@ -332,7 +335,7 @@ public class CadClienteView extends JFrame {
 							.getText(), InterfaceUsuario
 							.transformaStringInt(textFieldNumero.getText()),
 					textFieldBairro.getText(), "cep",
-					textFieldCidade.getText(), estadoCombo.getCodigo(), textFieldBanco
+					textFieldCidade.getText(), idEstado, textFieldBanco
 							.getText(), textFieldAgencia.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldContaCorrente
 							.getText()), InterfaceUsuario
@@ -360,7 +363,7 @@ public class CadClienteView extends JFrame {
 							textFieldBairro.getText(),
 							"cep",
 							textFieldCidade.getText(),
-							estadoCombo.getCodigo(),
+							idEstado,
 							textFieldBanco.getText(),
 							textFieldAgencia.getText(),
 							InterfaceUsuario
