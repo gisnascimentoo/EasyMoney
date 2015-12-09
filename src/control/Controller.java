@@ -43,7 +43,10 @@ public class Controller {
 	public void logout() {
 		boolean confirmacao = InterfaceUsuario.encerrarSessao();
 		if (confirmacao)
+		{
+			db.closeConnnection();
 			InterfaceUsuario.deslogar();
+		}
 	}
 
 	public void buscarCliente(int codigo, String nome, String cpf, String date) {
@@ -94,11 +97,11 @@ public class Controller {
 		} else {
 			boolean idadeValida = verificarIdadeCliente(this.formatDate(dataNascimento));
 			if (!idadeValida) {
-				InterfaceUsuario.exibirMensagemClienteCadastro("Idade do cliente invÃ¡lida");
+				InterfaceUsuario.exibirMensagemClienteCadastro("Idade do cliente inválida");
 			} else {
 				boolean camposOK = verificaCamposObrigatoriosCliente(nomeCompleto, this.formatDate(dataNascimento), cpf, rg);
 				if (!camposOK) {
-					InterfaceUsuario.exibirMensagemClienteCadastro("Existem campos obrigatÃ³rios nÃ£o preenchidos");
+					InterfaceUsuario.exibirMensagemClienteCadastro("Existem campos obrigatórios não preenchidos");
 				} else {
 					Estado novoUf = new Estado(uf, null);
 					Cidade novaCidade = new Cidade(nomeCidade, novoUf);
@@ -173,7 +176,7 @@ public class Controller {
 		} else {
 			boolean camposOK = verificaCamposObrigatoriosFuncionario(nomeCidade, this.formatDate(dataNascimento), CPF, RG);
 			if (!camposOK) {
-				InterfaceUsuario.exibirMensagemFuncionarioCadastro("Campos obrigatÃ³rios nÃ£o preenchidos");
+				InterfaceUsuario.exibirMensagemFuncionarioCadastro("Campos obrigatórios não preenchidos");
 			} else {
 				Estado estado = new Estado(uf, null);
 				Cidade cidade = new Cidade(nomeCidade, estado);
@@ -257,7 +260,7 @@ public class Controller {
 		boolean camposOK = verificaCamposObrigatoriosPlano(nome, this.formatDate(dataCadastro), jurosTotal, jurosMensal, valorMinimo,
 				valorMaximo, minParcelas, maxParcelas, observacao);
 		if (!camposOK) {
-			InterfaceUsuario.exibirMensagemPlanoCadastro("Campos obrigatÃ³rios nÃ£o preenchidos");
+			InterfaceUsuario.exibirMensagemPlanoCadastro("Campos obrigatórios não preenchidos");
 		} else {
 			PlanoEmprestimo planoEmprestimo = new PlanoEmprestimo(nome, this.formatDate(dataCadastro), jurosTotal, jurosMensal,
 					valorMinimo, valorMaximo, minParcelas, maxParcelas, observacao);

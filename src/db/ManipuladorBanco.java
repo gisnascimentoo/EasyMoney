@@ -116,6 +116,14 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 		}
 	}
+	
+	public void closeConnnection() {
+		try {
+			conexao.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public int salvarEnderecoBanco(Endereco endereco) {
 		int idEndereco = 0;
