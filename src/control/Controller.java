@@ -50,8 +50,13 @@ public class Controller {
 	}
 
 	public void buscarCliente(int codigo, String nome, String cpf, String date) {
-
-		List<Cliente> clientesBusca = db.buscarCliente(codigo, nome, cpf, this.formatDate(date));
+		List<Cliente> clientesBusca;
+		if(date == null) {
+			Date dateNulo = null;
+			 clientesBusca = db.buscarCliente(codigo, nome, cpf, dateNulo);
+		} else {
+			clientesBusca = db.buscarCliente(codigo, nome, cpf, this.formatDate(date));
+		}
 		String[][] dados = new String[clientesBusca.size()][4];
 		int indice = 0;
 		for (Cliente cliente : clientesBusca) {
@@ -132,8 +137,15 @@ public class Controller {
 		return true;
 	}
 
+	
 	public void buscarFuncionario(int codigo, String nome, String cpf, String date) {
-		List<Funcionario> funcionariosBusca = db.buscarFuncionario(codigo, nome, cpf, this.formatDate(date));
+		List<Funcionario> funcionariosBusca;
+		if(date == null ){
+			Date dateNula = null;
+			funcionariosBusca = db.buscarFuncionario(codigo, nome, cpf, dateNula);
+		} else {
+			funcionariosBusca = db.buscarFuncionario(codigo, nome, cpf, this.formatDate(date));
+		}
 		String[][] dados = new String[funcionariosBusca.size()][4];
 		int indice = 0;
 		for (Funcionario funcionario : funcionariosBusca) {

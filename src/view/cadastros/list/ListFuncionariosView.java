@@ -135,7 +135,7 @@ public class ListFuncionariosView extends JFrame {
 
 			}
 		});
-		
+
 		btnEditar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -156,7 +156,7 @@ public class ListFuncionariosView extends JFrame {
 
 	protected void excluir() {
 		int codigo = getIdTabela();
-		if(codigo >= 0 ){
+		if (codigo >= 0) {
 			InterfaceUsuario.excluirFuncionario(codigo);
 		}
 
@@ -186,9 +186,8 @@ public class ListFuncionariosView extends JFrame {
 	}
 
 	protected void buscar() {
-		int codigo = 0;
-		if (textFieldCodigo.getText().trim().length() > 0)
-			InterfaceUsuario.transformaStringInt(textFieldCodigo.getText());
+
+		int codigo = InterfaceUsuario.transformaStringInt(textFieldCodigo.getText());
 		InterfaceUsuario.buscarFuncionario(codigo, textFieldNome.getText(), textFieldCPF.getText(),
 				formattedFieldDataNascimento.getText());
 

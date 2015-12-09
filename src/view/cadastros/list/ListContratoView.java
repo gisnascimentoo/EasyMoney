@@ -223,10 +223,11 @@ public class ListContratoView extends JFrame {
 	}
 
 	protected void buscar() {
-		int codigo = -1;
+		int codigo = 0;
 			if (jTextFieldCodigo.getText().trim().length() > 0)
-				InterfaceUsuario.transformaStringInt(jTextFieldCodigo.getText());
-		SituacaoCombo situacaoCombo = (SituacaoCombo)comboBox.getSelectedItem();
+				codigo = InterfaceUsuario.transformaStringInt(jTextFieldCodigo.getText());
+			SituacaoCombo situacaoCombo = (SituacaoCombo)comboBox.getSelectedItem();
+			System.out.println(situacaoCombo);
 		InterfaceUsuario.buscarContrato(codigo, jTextFieldNome.getText(), situacaoCombo.getCodigo()); 
 
 	}

@@ -220,7 +220,7 @@ public class ListPlanosView extends JFrame {
 	protected void buscar() {
 		int codigo = 0;
 		if (jTextFieldCodigo.getText().trim().length() > 0)
-			InterfaceUsuario.transformaStringInt(jTextFieldCodigo.getText());
+			codigo = InterfaceUsuario.transformaStringInt(jTextFieldCodigo.getText());
 		InterfaceUsuario.buscarPlano(codigo, jTextFieldPlano.getText());
 
 	}

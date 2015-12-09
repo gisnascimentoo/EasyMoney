@@ -120,10 +120,12 @@ public class InterfaceUsuario {
 
 	public static void carregaListaCliente(String[][] dados) {
 		listClienteView.addTabela(dados);
-
 	}
 
 	public static void buscarCliente(int codigo, String nome, String cpf, String date) {
+		if(date.equals("  /  /    ")) {
+			date = null;
+		}
 		controller.buscarCliente(codigo, nome, cpf, date);
 	}
 
@@ -216,14 +218,15 @@ public class InterfaceUsuario {
 	}
 
 	public static void buscarFuncionario(int codigo, String nome, String cpf, String date) {
+		if(date.equals("  /  /    ")) {
+			date = null;
+		}
 		controller.buscarFuncionario(codigo, nome, cpf, date);
 
 	}
 
 	public static void buscarPlano(int codigo, String plano) {
 		controller.buscarPlano(codigo, plano);
-		System.out.println("Passei aqyu");
-
 	}
 
 	public static void carregaListaPlano(String[][] dados) {

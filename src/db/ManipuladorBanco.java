@@ -34,11 +34,11 @@ public class ManipuladorBanco {
 	private final String INSERT_FUNCIONARIO = "INSERT INTO Funcionario(nome, dataNascimento, CPF, RG, cargo, email, telefone, idEndereco) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String INSERT_PLANOEMPRESTIMO = "INSERT INTO PlanoEmprestimo(nome, dataCadastro, jurosTotal, jurosMensal, valorMinimo, valorMaximo, maxParcelas, minParcelas, observacao) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String INSERT_CONTRATO = "INSERT INTO Contrato(qtdParcelas, valorEmprestimo, valorParcelas, dataCriacaoContrato, dataTerminoContrato, statusContrato, idCliente, idplanoEmprestimo, observacoes) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	
+
 	private final String SELECT_ALL_CLIENTE = "SELECT * FROM Cliente";
-	private final String SELECT_ALL_ESTADO = "SELECT * FROM Estado"; 
+	private final String SELECT_ALL_ESTADO = "SELECT * FROM Estado";
 	private final String SELECT_ALL_PLANOEMPRESTIMO = "SELECT * FROM PlanoEmprestimo";
-	
+
 	private final String SELECT_PLANOEMPRESTIMO_BY_ID = "SELECT * FROM PlanoEmprestimo WHERE idPlanoEmprestimo = ?";
 	private final String SELECT_FUNCIONARIO_BY_ID = "SELECT * FROM Funcionario WHERE idFuncionario = ?";
 	private final String SELECT_ENDERECO_BY_ID = "SELECT * FROM Endereco WHERE idEndereco = ?";
@@ -46,7 +46,7 @@ public class ManipuladorBanco {
 	private final String SELECT_DADOSFINANCEIROS_BY_ID = "SELECT * FROM DadosFinanceiros WHERE idDadosFinanceiros = ?";
 
 	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM Usuario WHERE login = ? and passwd = ?";
-	
+
 	private final String SELECT_INFO_CLIENTE_BY_ID = "SELECT C.idCliente AS idcliente, C.CPF AS cpf, C.nomeCompleto AS nomecliente, "
 			+ "C.RG AS rg, C.dataNascimento AS datanascimento, E.logradouro AS logradouro, E.numero AS numero, E.bairro AS bairro,"
 			+ "E.CEP AS cep, CD.nome AS nomecidade, EST.idEstado AS iduf, EST.sigla AS siglauf, DF.banco AS banco, DF.agencia AS agencia, DF.contaCorrente AS contacorrente, "
@@ -54,7 +54,7 @@ public class ManipuladorBanco {
 			+ "FROM Cliente C LEFT JOIN Endereco E ON C.idEndereco = E.idEndereco LEFT JOIN CIDADE CD ON E.idCidade = CD.idCidade "
 			+ "LEFT JOIN DadosFinanceiros DF ON DF.idDadosFinanceiros = C.idDadosFinanceiros "
 			+ "LEFT JOIN ESTADO EST ON EST.idEstado = CD.idEstado WHERE C.idCliente = ?";
-	
+
 	private final String SELECT_INFO_FUNCIONARIO_BY_ID = "SELECT F.idFuncionario AS idfuncionario, F.CPF AS cpf, F.nome AS nome, "
 			+ "F.RG AS rg, F.dataNascimento AS datanascimento, F.cargo AS cargo, F.email AS email, F.telefone AS telefone, E.logradouro AS logradouro, E.numero AS numero, E.bairro AS bairro,"
 			+ "E.CEP AS CEP, CD.nome AS nomecidade, EST.idEstado AS iduf, EST.sigla AS siglauf"
@@ -63,11 +63,11 @@ public class ManipuladorBanco {
 
 	private final String SELECT_FUNCIONARIO_BY_CPF = "SELECT * FROM Funcionario WHERE CPF = ?";
 	private final String SELECT_CLIENTE_BY_CPF = "SELECT * FROM Cliente WHERE CPF = ?";
-	
+
 	private final String SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX = "SELECT CON.idContrato as idContrato , CON.valorEmprestimo as valorEmprestimo, "
 			+ "C.nomeCompleto as nomeCompleto FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE statusContrato = ? "
 			+ "AND dataCriacaoContrato >= ? AND dataTerminoContrato <= ?";
-	
+
 	/*
 	 * Update
 	 */
@@ -107,7 +107,7 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 		}
 		return conectando;
-	}	
+	}
 
 	public void closeConnnection(Connection con) {
 		try {
@@ -116,7 +116,7 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void closeConnnection() {
 		try {
 			conexao.close();
@@ -320,7 +320,7 @@ public class ManipuladorBanco {
 	}
 
 	public String editarClienteBanco(Cliente cliente) {
-		
+
 		String sqlParaRecuperarIds = "SELECT idEndereco, idDadosFinanceiros FROM Cliente WHERE idCliente = ?";
 		int idEndereco;
 		int idDadosFinanceiros;
@@ -345,15 +345,15 @@ public class ManipuladorBanco {
 			}
 			return "Cadastro alterado com sucesso";
 		} catch (Exception e) {
-			return ""+ e.getMessage();
+			return "" + e.getMessage();
 		}
 	}
-	
+
 	public String editarFuncionarioBanco(Funcionario funcionario) {
-		
+
 		String sqlParaRecuperarIds = "SELECT idEndereco FROM Funcionario WHERE idFuncionario = ?";
 		int idEndereco;
-		
+
 		try {
 			this.editarEnderecoBanco(funcionario.getEndereco());
 			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_FUNCIONARIO_BY_ID,
@@ -377,7 +377,7 @@ public class ManipuladorBanco {
 			}
 			return "Cadastro alterado com sucesso";
 		} catch (Exception e) {
-			return ""+ e.getMessage();
+			return "" + e.getMessage();
 		}
 	}
 
@@ -435,22 +435,24 @@ public class ManipuladorBanco {
 
 	public List<Cliente> buscarCliente(int codigo, String nome, String cpf, Date dataNasc) {
 		List<Cliente> buscarCliente = new ArrayList<Cliente>();
-		String SELECT_CLIENTE_BY_= "SELECT * FROM Cliente WHERE 1 = 1 ";
-		
+		String SELECT_CLIENTE_BY_ = "SELECT * FROM Cliente WHERE ";
+
 		if (codigo > 0) {
-			SELECT_CLIENTE_BY_ += " AND idCliente = " + codigo;
-		} 
-		if (nome != null) {
-			SELECT_CLIENTE_BY_ += " AND nomeCompleto = " + nome;
-		}
-		if (cpf != null) {
-			SELECT_CLIENTE_BY_ += " AND CPF = " + cpf;
-		}
-		if (dataNasc != null) {
+			SELECT_CLIENTE_BY_ += " idCliente = " + codigo;
+		} else if (cpf != null) {
+			SELECT_CLIENTE_BY_ += " CPF = " + cpf;
+		} else if (nome != null) {
+			if (dataNasc != null) {
+				SELECT_CLIENTE_BY_ += " nomeCompleto = " + nome + " AND dataNascimento = " + dataNasc;
+			} else {
+				SELECT_CLIENTE_BY_ += " nomeCompleto = " + nome;
+			}
+		} else if (dataNasc != null) {
 			SELECT_CLIENTE_BY_ += " AND dataNascimento = " + dataNasc;
 		}
-		
+
 		try {
+			System.out.println(SELECT_CLIENTE_BY_);
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CLIENTE_BY_);
 			ResultSet set = preparedStatement.executeQuery();
 			while (set.next()) {
@@ -458,42 +460,44 @@ public class ManipuladorBanco {
 				endereco.setIdEndereco(set.getInt("idEndereco"));
 				DadosFinanceiros dadosFinanceiros = new DadosFinanceiros();
 				dadosFinanceiros.setIdDadosFinanceiros(set.getInt("idDadosFinanceiros"));
-				Cliente cliente = new Cliente(set.getInt("idCliente"), set.getInt("CPF"), set.getString("nomeCompleto"), set.getInt("RG"),
-						set.getDate("dataNascimento"), endereco, dadosFinanceiros);
+				Cliente cliente = new Cliente(set.getInt("idCliente"), set.getInt("CPF"), set.getString("nomeCompleto"),
+						set.getInt("RG"), set.getDate("dataNascimento"), endereco, dadosFinanceiros);
 				buscarCliente.add(cliente);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return buscarCliente;
-		
+
 	}
-	
+
 	public List<Funcionario> buscarFuncionario(int codigo, String nome, String cpf, Date date) {
 		List<Funcionario> buscarFuncionario = new ArrayList<Funcionario>();
-		String SELECT_FUNCIONARIO_BY_= "SELECT * FROM Funcionario WHERE 1 = 1 ";
-		
+		String SELECT_FUNCIONARIO_BY_ = "SELECT * FROM Funcionario WHERE ";
+		System.out.println(codigo);
 		if (codigo > 0) {
-			SELECT_FUNCIONARIO_BY_ += " AND idFuncionario = " + codigo;
+			SELECT_FUNCIONARIO_BY_ += " idFuncionario = " + codigo;
+		} else if ( cpf != null  ) {
+			SELECT_FUNCIONARIO_BY_ += " CPF = " + cpf;
+		} else if (nome != null) {
+			if (date != null) {
+				SELECT_FUNCIONARIO_BY_ += " nome = " + nome + " AND dataNascimento = " + date;
+			} else {
+				SELECT_FUNCIONARIO_BY_ += " nome = " + nome;
+			}
+		} else if (date != null) {
+			SELECT_FUNCIONARIO_BY_ += " dataNascimento = " + date;
 		}
-		if (nome.trim().length() > 0) {
-			SELECT_FUNCIONARIO_BY_ += " AND nome = " + nome;
-		}
-		if (cpf != null) { 
-			SELECT_FUNCIONARIO_BY_ += " AND CPF = " + cpf;
-		}
-		if (date != null) {
-			SELECT_FUNCIONARIO_BY_ += " AND dataNascimento = " + date;
-		}
-		
+System.out.println(SELECT_FUNCIONARIO_BY_);
 		try {
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_FUNCIONARIO_BY_);
 			ResultSet set = preparedStatement.executeQuery();
 			while (set.next()) {
 				Endereco endereco = new Endereco();
 				endereco.setIdEndereco(set.getInt("idEndereco"));
-				Funcionario funcionario = new Funcionario(set.getInt("idFuncionario"), set.getString("nome"), set.getDate("dataNascimento"), set.getInt("CPF"), set.getInt("RG"),
-						set.getString("cargo"), set.getString("email"), set.getInt("telefone"), endereco);
+				Funcionario funcionario = new Funcionario(set.getInt("idFuncionario"), set.getString("nome"),
+						set.getDate("dataNascimento"), set.getInt("CPF"), set.getInt("RG"), set.getString("cargo"),
+						set.getString("email"), set.getInt("telefone"), endereco);
 				buscarFuncionario.add(funcionario);
 			}
 		} catch (SQLException e) {
@@ -501,7 +505,7 @@ public class ManipuladorBanco {
 		}
 		return buscarFuncionario;
 	}
-	
+
 	public void removerPlanoEmprestimoBanco(PlanoEmprestimo planoEmprestimo) {
 		try {
 			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_PLANOEMPRESTIMO_BY_ID);
@@ -511,7 +515,7 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String excluiCliente(int id) {
 		try {
 			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_CLIENTE_BY_ID);
@@ -523,7 +527,7 @@ public class ManipuladorBanco {
 			return "Cliente n�o pode ser deletado!";
 		}
 	}
-	
+
 	public String excluiFuncionario(int id) {
 		try {
 			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_FUNCIONARIO_BY_ID);
@@ -559,7 +563,7 @@ public class ManipuladorBanco {
 		}
 		return false;
 	}
-	
+
 	public Contrato buscarContratoId(int codContrato) {
 		Contrato contrato = null;
 		Cliente cliente = null;
@@ -574,8 +578,10 @@ public class ManipuladorBanco {
 				cliente.setIdCliente(set.getInt("idCliente"));
 				planoEmprestimo = new PlanoEmprestimo();
 				planoEmprestimo.setIdPlanoEmprestimo(set.getInt("idPlanoEmprestimo"));
-				contrato = new Contrato(set.getInt("qntdParcelas"), set.getFloat("valorEmprestimo"), set.getFloat("valorParcelas"),
-						set.getDate("dataCriacaoContrato"), set.getDate("dataTerminoContrato"), cliente, set.getString("statusContrato"), planoEmprestimo, set.getString("observacoes"));
+				contrato = new Contrato(set.getInt("qntdParcelas"), set.getFloat("valorEmprestimo"),
+						set.getFloat("valorParcelas"), set.getDate("dataCriacaoContrato"),
+						set.getDate("dataTerminoContrato"), cliente, set.getString("statusContrato"), planoEmprestimo,
+						set.getString("observacoes"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -631,21 +637,20 @@ public class ManipuladorBanco {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return listaPlanoEmprestimo;
 	}
-	
+
 	public List<PlanoEmprestimo> buscarPlano(int codigo, String plano) {
 		List<PlanoEmprestimo> listaPlanos = new ArrayList<PlanoEmprestimo>();
-		String SELECT_PLANO_EMPRESTIMO_BY= "SELECT idPlanoEmprestimo, nome FROM PlanoEmprestimo WHERE 1 = 1 ";
-		
+		String SELECT_PLANO_EMPRESTIMO_BY = "SELECT idPlanoEmprestimo, nome FROM PlanoEmprestimo WHERE  ";
 		if (codigo > 0) {
-			SELECT_PLANO_EMPRESTIMO_BY += " AND idPlanoEmprestimo = " + codigo;
-		} 
+			SELECT_PLANO_EMPRESTIMO_BY += " idPlanoEmprestimo = " + codigo;
+		}
 		if (plano.trim().length() > 0) {
 			SELECT_PLANO_EMPRESTIMO_BY += " AND nome = " + plano;
 		}
-		
+		System.out.println(SELECT_PLANO_EMPRESTIMO_BY);
 		try {
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_PLANO_EMPRESTIMO_BY);
 			ResultSet set = preparedStatement.executeQuery();
@@ -672,10 +677,10 @@ public class ManipuladorBanco {
 			return "Plano não pode ser deletado! Tente novamente!";
 		}
 	}
-	
+
 	public Cliente buscarDadosCliente(int codigo) {
 		Cliente cliente = null;
-		
+
 		try {
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_INFO_CLIENTE_BY_ID);
 			preparedStatement.setInt(1, codigo);
@@ -711,10 +716,10 @@ public class ManipuladorBanco {
 		}
 		return cliente;
 	}
-	
+
 	public Funcionario buscarDadosFuncionario(int codigo) {
 		Funcionario funcionario = null;
-		
+
 		try {
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_INFO_CLIENTE_BY_ID);
 			preparedStatement.setInt(1, codigo);
@@ -745,20 +750,21 @@ public class ManipuladorBanco {
 		}
 		return funcionario;
 	}
-	
+
 	public List<Contrato> buscarRelatorio(Date intervaloInicio, Date intervaloFinal, int tipoIndex) {
 		List<Contrato> listaContrato = new ArrayList<Contrato>();
-		
+
 		String statusContrato;
-		
+
 		if (tipoIndex == 0) {
 			statusContrato = "Aprovado";
 		} else {
 			statusContrato = "Rejeitado";
 		}
-		
+
 		try {
-			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX);
+			PreparedStatement preparedStatement = this.conexao
+					.prepareStatement(SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX);
 			preparedStatement.setString(1, statusContrato);
 			preparedStatement.setDate(2, intervaloInicio);
 			preparedStatement.setDate(3, intervaloFinal);
@@ -790,21 +796,24 @@ public class ManipuladorBanco {
 			return "Contrato não pode ser deletado! Tente novamente!";
 		}
 	}
-	
+
 	public List<Contrato> buscarContrato(int codigo, String nome, String codigoSitucao) {
 		List<Contrato> listaContratos = new ArrayList<Contrato>();
-		String SELECT_CONTRATO_BY= "SELECT CON.idContrato AS id, C.nomeCompleto AS nomecliente, CON.statusContrato AS status FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE 1 = 1 ";
-		
+		String SELECT_CONTRATO_BY = "SELECT CON.idContrato AS id, C.nomeCompleto AS nomecliente, CON.statusContrato AS status FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE  ";
 		if (codigo > 0) {
-			SELECT_CONTRATO_BY += " AND CON.idContrato = " + codigo;
-		} 
-		if (nome.trim().length() > 0) {
-			SELECT_CONTRATO_BY += " AND C.nomeCompleto = " + nome;
+			SELECT_CONTRATO_BY += " CON.idContrato = " + codigo;
 		}
-		if (codigoSitucao.trim().length() > 0) {
-			SELECT_CONTRATO_BY += " AND CON.statusContrato = " + codigoSitucao;
+		else if (codigoSitucao != null) {
+			if (nome != null && !nome.isEmpty()) {
+				SELECT_CONTRATO_BY += " C.nomeCompleto = " + nome + " AND CON.statusContrato = " + codigoSitucao;
+			} else {
+				SELECT_CONTRATO_BY += " CON.statusContrato = '" + codigoSitucao + "'";
+			}
 		}
-		
+		else if (nome != null) {
+			SELECT_CONTRATO_BY += " C.nomeCompleto = " + nome;
+		}
+
 		try {
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CONTRATO_BY);
 			ResultSet set = preparedStatement.executeQuery();
@@ -822,7 +831,7 @@ public class ManipuladorBanco {
 		}
 		return listaContratos;
 	}
-	
+
 	public String editarPlanoBanco(PlanoEmprestimo planoEmprestimo) {
 		try {
 			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_PLANOEMPRESTIMO_BY_ID,
@@ -845,10 +854,11 @@ public class ManipuladorBanco {
 		}
 	}
 
-	//nao entendi p ara que serve essa funcao
+	// nao entendi p ara que serve essa funcao
 	public List<PlanoEmprestimo> buscarPlanoEmprestimoPorPerfil(String perfilCliente) {
 		List<PlanoEmprestimo> listaPlanos = new ArrayList<PlanoEmprestimo>();
-		//SELECT * FROM PlanoEmprestimo WHERE ? >= valorMinimo AND ? <= valorMaximo
+		// SELECT * FROM PlanoEmprestimo WHERE ? >= valorMinimo AND ? <=
+		// valorMaximo
 		return listaPlanos;
 	}
 
@@ -866,7 +876,7 @@ public class ManipuladorBanco {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		}
 		return listaEstados;
 	}
 
@@ -884,7 +894,7 @@ public class ManipuladorBanco {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		}
 		return listaClientes;
 	}
 
@@ -892,7 +902,7 @@ public class ManipuladorBanco {
 		List<PlanoEmprestimo> listaPlanos = new ArrayList<PlanoEmprestimo>();
 		PlanoEmprestimo planoEmprestimo;
 		try {
-			PreparedStatement prepared = this.conexao.prepareStatement(SELECT_ALL_CLIENTE);
+			PreparedStatement prepared = this.conexao.prepareStatement(SELECT_ALL_PLANOEMPRESTIMO);
 			ResultSet resultSet = prepared.executeQuery();
 			while (resultSet.next()) {
 				planoEmprestimo = new PlanoEmprestimo();
@@ -902,7 +912,7 @@ public class ManipuladorBanco {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		}
 		return listaPlanos;
 	}
 
