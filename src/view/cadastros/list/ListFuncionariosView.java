@@ -97,7 +97,6 @@ public class ListFuncionariosView extends JFrame {
 		contentPane.add(btnBuscar);
 		btnBuscar.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				buscar();
 
@@ -109,7 +108,6 @@ public class ListFuncionariosView extends JFrame {
 		contentPane.add(btnAdicionarFuncionario);
 		btnAdicionarFuncionario.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				adicionar();
 
@@ -132,7 +130,6 @@ public class ListFuncionariosView extends JFrame {
 		contentPane.add(btnExcluir);
 		btnFechar.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				fechar();
 
@@ -141,7 +138,6 @@ public class ListFuncionariosView extends JFrame {
 		
 		btnEditar.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				editar();
 
@@ -150,7 +146,6 @@ public class ListFuncionariosView extends JFrame {
 
 		btnExcluir.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				excluir();
 

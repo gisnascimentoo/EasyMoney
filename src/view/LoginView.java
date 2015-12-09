@@ -76,7 +76,6 @@ public class LoginView extends JFrame {
 
 		btnEntrar.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				login();
 
@@ -84,8 +83,6 @@ public class LoginView extends JFrame {
 		});
 
 		btnCancelar.addActionListener(new ActionListener() {
-
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				cancelar();
 

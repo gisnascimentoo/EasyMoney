@@ -79,7 +79,6 @@ public class RelatoriosEmprestimoView extends JFrame {
 
 		btnFechar.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				fechar();
 
@@ -98,7 +97,6 @@ public class RelatoriosEmprestimoView extends JFrame {
 
 		btnGerar.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				gerar();
 

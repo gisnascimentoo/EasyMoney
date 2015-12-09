@@ -278,7 +278,6 @@ public class CadClienteView extends JFrame {
 
 		btnCancelar.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				cancelar();
 
@@ -286,7 +285,6 @@ public class CadClienteView extends JFrame {
 		});
 		btnSalvar.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				salvar();
 

@@ -54,7 +54,6 @@ public class PrincipalView extends JFrame {
 		
 		mntmCliente.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				cadastrarCliente();
 
@@ -66,7 +65,6 @@ public class PrincipalView extends JFrame {
 		
 		mntmFuncionario.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				cadastrarFuncionario();
 				
@@ -81,7 +79,6 @@ public class PrincipalView extends JFrame {
 		
 		mntmPlanos.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				cadastroPlanos();
 				
@@ -96,7 +93,6 @@ public class PrincipalView extends JFrame {
 
 		mntmSair.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				sair();
 
@@ -109,7 +105,6 @@ public class PrincipalView extends JFrame {
 		JMenuItem mntmContratos = new JMenuItem("Contratos");
 		mnEmprestimo.add(mntmContratos);
 		mntmContratos.addActionListener(new ActionListener(){
-			@Override
 			public void actionPerformed(ActionEvent e){
 				contrato();
 			}
@@ -124,7 +119,6 @@ public class PrincipalView extends JFrame {
 		
 		mntmSimulacao.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				simulacao();
 				
@@ -139,7 +133,6 @@ public class PrincipalView extends JFrame {
 		mnRelatorio.add(mntmEmprestimos);
 		mntmEmprestimos.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				relatorioEmprestimo();
 

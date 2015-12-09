@@ -213,7 +213,6 @@ public class CadContratoView extends JFrame {
 		contentPane.add(btnSalvar);
 
 		btnSalvar.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				salvar();
 			}
@@ -224,7 +223,6 @@ public class CadContratoView extends JFrame {
 		contentPane.add(btnCancelar);
 
 		btnCancelar.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				fechar();
 			}

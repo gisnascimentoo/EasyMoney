@@ -80,7 +80,6 @@ public class ListContratoView extends JFrame {
 		
 		btnEditar.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 			    editar();
 				
@@ -91,7 +90,6 @@ public class ListContratoView extends JFrame {
 		
 		btnExcluir.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 			     excluir();
 				
@@ -163,7 +161,6 @@ public class ListContratoView extends JFrame {
 		getContentPane().setLayout(layout);
 		jButtonAdicionarCliente.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				adicionarCliente();
 
@@ -171,7 +168,6 @@ public class ListContratoView extends JFrame {
 		});
 		jButtonBuscar.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				buscar();
 
@@ -179,7 +175,6 @@ public class ListContratoView extends JFrame {
 		});
 		jButtonFechar.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				fechar();
 

@@ -219,7 +219,6 @@ public class CadFuncionarioView extends JFrame {
 		
 		btnSalvar.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				salvar();
 
@@ -231,7 +230,6 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				fechar();
 

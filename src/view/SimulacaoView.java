@@ -119,7 +119,6 @@ public class SimulacaoView extends JFrame {
 		
 		btnFechar.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				fechar();
 				
@@ -128,7 +127,6 @@ public class SimulacaoView extends JFrame {
 		
 		btnCalcular.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				calcular();
 				
@@ -141,7 +139,6 @@ public class SimulacaoView extends JFrame {
 		
 		btnGerarContrato.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				gerarContrato();
 				

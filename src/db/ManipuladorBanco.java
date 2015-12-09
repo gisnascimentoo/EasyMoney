@@ -27,23 +27,23 @@ public class ManipuladorBanco {
 	/*
 	 * Insert
 	 */
-	private final String INSERT_ENDERECO = "INSERT INTO ENDERECO(logradouro, numero, bairro, idCidade) VALUES(?, ?, ?, ?)";
-	private final String INSERT_CIDADE = "INSERT INTO CIDADE(nome, idEstado) VALUES(?, ?)";
-	private final String INSERT_DADOSFINANCEIROS = "INSERT INTO DADOSFINANCEIROS(banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao) VALUES(?, ?, ?, ?, ?, ?)";
-	private final String INSERT_CLIENTE = "INSERT INTO CLIENTE(nomeCompleto, dataNascimento, CPF, RG, idEndereco, idDadosFinanceiros) VALUES(?, ?, ?, ?, ?, ?)";
-	private final String INSERT_FUNCIONARIO = "INSERT INTO FUNCIONARIO(nome, dataNascimento, CPF, RG, cargo, email, telefone, idEndereco) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-	private final String INSERT_PLANOEMPRESTIMO = "INSERT INTO PLANOEMPRESTIMO(nome, dataCadastro, jurosTotal, jurosMensal, valorMinimo, valorMaximo, maxParcelas, minParcelas, observacao) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private final String INSERT_CONTRATO = "INSERT INTO CONTRATO(qtdParcelas, valorEmprestimo, valorParcelas, dataCriacaoContrato, dataTerminoContrato, statusContrato, idCliente, idplanoEmprestimo, observacoes) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private final String INSERT_ENDERECO = "INSERT INTO Endereco(logradouro, numero, bairro, idCidade) VALUES(?, ?, ?, ?)";
+	private final String INSERT_CIDADE = "INSERT INTO Cidade(nome, idEstado) VALUES(?, ?)";
+	private final String INSERT_DADOSFINANCEIROS = "INSERT INTO DadosFinanceiros(banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao) VALUES(?, ?, ?, ?, ?, ?)";
+	private final String INSERT_CLIENTE = "INSERT INTO Cliente(nomeCompleto, dataNascimento, CPF, RG, idEndereco, idDadosFinanceiros) VALUES(?, ?, ?, ?, ?, ?)";
+	private final String INSERT_FUNCIONARIO = "INSERT INTO Funcionario(nome, dataNascimento, CPF, RG, cargo, email, telefone, idEndereco) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+	private final String INSERT_PLANOEMPRESTIMO = "INSERT INTO PlanoEmprestimo(nome, dataCadastro, jurosTotal, jurosMensal, valorMinimo, valorMaximo, maxParcelas, minParcelas, observacao) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private final String INSERT_CONTRATO = "INSERT INTO Contrato(qtdParcelas, valorEmprestimo, valorParcelas, dataCriacaoContrato, dataTerminoContrato, statusContrato, idCliente, idplanoEmprestimo, observacoes) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
-	private final String SELECT_ALL_CLIENTE = "SELECT * FROM CLIENTE";
-	private final String SELECT_ALL_ESTADO = "SELECT * FROM ESTADO"; 
-	private final String SELECT_ALL_PLANOEMPRESTIMO = "SELECT * FROM PLANOEMPRESTIMO";
+	private final String SELECT_ALL_CLIENTE = "SELECT * FROM Cliente";
+	private final String SELECT_ALL_ESTADO = "SELECT * FROM Estado"; 
+	private final String SELECT_ALL_PLANOEMPRESTIMO = "SELECT * FROM PlanoEmprestimo";
 	
-	private final String SELECT_PLANOEMPRESTIMO_BY_ID = "SELECT * FROM PLANOEMPRESTIMO WHERE idPlanoEmprestimo = ?";
-	private final String SELECT_FUNCIONARIO_BY_ID = "SELECT * FROM FUNCIONARIO WHERE idFuncionario = ?";
-	private final String SELECT_ENDERECO_BY_ID = "SELECT * FROM ENDERECO WHERE idEndereco = ?";
-	private final String SELECT_CONTRATO_BY_ID = "SELECT * FROM CONTRATO WHERE idContrato = ?";
-	private final String SELECT_DADOSFINANCEIROS_BY_ID = "SELECT * FROM DADOSFINANCEIROS WHERE idDadosFinanceiros = ?";
+	private final String SELECT_PLANOEMPRESTIMO_BY_ID = "SELECT * FROM PlanoEmprestimo WHERE idPlanoEmprestimo = ?";
+	private final String SELECT_FUNCIONARIO_BY_ID = "SELECT * FROM Funcionario WHERE idFuncionario = ?";
+	private final String SELECT_ENDERECO_BY_ID = "SELECT * FROM Endereco WHERE idEndereco = ?";
+	private final String SELECT_CONTRATO_BY_ID = "SELECT * FROM Contrato WHERE idContrato = ?";
+	private final String SELECT_DADOSFINANCEIROS_BY_ID = "SELECT * FROM DadosFinanceiros WHERE idDadosFinanceiros = ?";
 
 	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM Usuario WHERE login = ? and passwd = ?";
 	
@@ -51,40 +51,40 @@ public class ManipuladorBanco {
 			+ "C.RG AS rg, C.dataNascimento AS datanascimento, E.logradouro AS logradouro, E.numero AS numero, E.bairro AS bairro,"
 			+ "E.CEP AS cep, CD.nome AS nomecidade, EST.idEstado AS iduf, EST.sigla AS siglauf, DF.banco AS banco, DF.agencia AS agencia, DF.contaCorrente AS contacorrente, "
 			+ "DF.rendaFamiliar AS rendafamiliar, DF.rendaPessoal AS rendapessoal, DF.observacao AS observacao "
-			+ "FROM CLIENTE C LEFT JOIN ENDERECO E ON C.idEndereco = E.idEndereco LEFT JOIN CIDADE CD ON E.idCidade = CD.idCidade "
-			+ "LEFT JOIN DADOSFINANCEIROS DF ON DF.idDadosFinanceiros = C.idDadosFinanceiros "
+			+ "FROM Cliente C LEFT JOIN Endereco E ON C.idEndereco = E.idEndereco LEFT JOIN CIDADE CD ON E.idCidade = CD.idCidade "
+			+ "LEFT JOIN DadosFinanceiros DF ON DF.idDadosFinanceiros = C.idDadosFinanceiros "
 			+ "LEFT JOIN ESTADO EST ON EST.idEstado = CD.idEstado WHERE C.idCliente = ?";
 	
 	private final String SELECT_INFO_FUNCIONARIO_BY_ID = "SELECT F.idFuncionario AS idfuncionario, F.CPF AS cpf, F.nome AS nome, "
 			+ "F.RG AS rg, F.dataNascimento AS datanascimento, F.cargo AS cargo, F.email AS email, F.telefone AS telefone, E.logradouro AS logradouro, E.numero AS numero, E.bairro AS bairro,"
 			+ "E.CEP AS CEP, CD.nome AS nomecidade, EST.idEstado AS iduf, EST.sigla AS siglauf"
-			+ "FROM FUNCIONARIO F LEFT JOIN ENDERECO E ON F.idEndereco = E.idEndereco LEFT JOIN CIDADE CD ON E.idCidade = CD.idCidade "
+			+ "FROM Funcionario F LEFT JOIN Endereco E ON F.idEndereco = E.idEndereco LEFT JOIN Cidade CD ON E.idCidade = CD.idCidade "
 			+ "LEFT JOIN ESTADO EST ON EST.idEstado = CD.idEstado WHERE F.idFuncionario = ?";
 
-	private final String SELECT_FUNCIONARIO_BY_CPF = "SELECT * FROM FUNCIONARIO WHERE CPF = ?";
-	private final String SELECT_CLIENTE_BY_CPF = "SELECT * FROM CLIENTE WHERE CPF = ?";
+	private final String SELECT_FUNCIONARIO_BY_CPF = "SELECT * FROM Funcionario WHERE CPF = ?";
+	private final String SELECT_CLIENTE_BY_CPF = "SELECT * FROM Cliente WHERE CPF = ?";
 	
 	private final String SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX = "SELECT CON.idContrato as idContrato , CON.valorEmprestimo as valorEmprestimo, "
-			+ "C.nomeCompleto as nomeCompleto FROM CONTRATO CON JOIN CLIENTE C ON CON.idCliente = C.idCliente WHERE statusContrato = ? "
+			+ "C.nomeCompleto as nomeCompleto FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE statusContrato = ? "
 			+ "AND dataCriacaoContrato >= ? AND dataTerminoContrato <= ?";
 	
 	/*
 	 * Update
 	 */
-	private final String UPDATE_CLIENTE_BY_ID = "UPDATE CLIENTE SET nomeCompleto = ?, dataNascimento = ?, CPF = ?, RG = ?, idEndereco = ?, idDadosFinanceiros = ? WHERE idCliente = ?";
-	private final String UPDATE_PLANOEMPRESTIMO_BY_ID = "UPDATE PLANOEMPRESTIMO SET nome = ?, dataCadastro = ?, jurosTotal = ?, jurosMensal = ?, valorMinimo = ?, valorMaximo = ?, minParcelas = ?, maxParcelas = ?, observacao = ? WHERE idPlanoEmprestimo = ?";
-	private final String UPDATE_FUNCIONARIO_BY_ID = "UPDATE FUNCIONARIO SET nome = ?, dataNascimento = ?, CPF = ?, RG = ?, cargo = ?, email = ?, telefone = ?, idEndereco = ? WHERE idFuncionario = ?";
-	private final String UPDATE_ENDERECO_BY_ID = "UPDATE ENDERECO SET logradouro = ?, numero = ?, bairro = ?, cidade = ? WHERE idEndereco = ?";
-	private final String UPDATE_CONTRATO_BY_ID = "UPDATE CONTRATO SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dadaTerminoContrato = ?, idCliente = ?, idPlanoEmprestimo = ? WHERE idContrato = ?";
-	private final String UPDATE_DADOSFINANCEIROS_BY_ID = "UPDATE DADOSFINANCEIROS SET banco = ?, agencia = ?, contaCorrente = ?, rendaFamiliar = ?, rendaPessoal = ?, observacao = ? WHERE idDadosFinanceiros = ?";
+	private final String UPDATE_CLIENTE_BY_ID = "UPDATE Cliente SET nomeCompleto = ?, dataNascimento = ?, CPF = ?, RG = ?, idEndereco = ?, idDadosFinanceiros = ? WHERE idCliente = ?";
+	private final String UPDATE_PLANOEMPRESTIMO_BY_ID = "UPDATE PlanoEmprestimo SET nome = ?, dataCadastro = ?, jurosTotal = ?, jurosMensal = ?, valorMinimo = ?, valorMaximo = ?, minParcelas = ?, maxParcelas = ?, observacao = ? WHERE idPlanoEmprestimo = ?";
+	private final String UPDATE_FUNCIONARIO_BY_ID = "UPDATE Funcionario SET nome = ?, dataNascimento = ?, CPF = ?, RG = ?, cargo = ?, email = ?, telefone = ?, idEndereco = ? WHERE idFuncionario = ?";
+	private final String UPDATE_ENDERECO_BY_ID = "UPDATE Endereco SET logradouro = ?, numero = ?, bairro = ?, cidade = ? WHERE idEndereco = ?";
+	private final String UPDATE_CONTRATO_BY_ID = "UPDATE Contrato SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dadaTerminoContrato = ?, idCliente = ?, idPlanoEmprestimo = ? WHERE idContrato = ?";
+	private final String UPDATE_DADOSFINANCEIROS_BY_ID = "UPDATE DadosFinanceiros SET banco = ?, agencia = ?, contaCorrente = ?, rendaFamiliar = ?, rendaPessoal = ?, observacao = ? WHERE idDadosFinanceiros = ?";
 
 	/*
 	 * Delete
 	 */
-	private final String DELETE_CONTRATO_BY_ID = "DELETE FROM CLIENTE WHERE idCliente = ?";
-	private final String DELETE_PLANOEMPRESTIMO_BY_ID = "DELETE FROM PLANOEMPRESTIMO WHERE idPlanoEmprestimo = ?";
-	private final String DELETE_CLIENTE_BY_ID = "DELETE FROM CLIENTE WHERE IDCLIENTE = ?";
-	private final String DELETE_FUNCIONARIO_BY_ID = "DELETE FROM FUNCIONARIO WHERE idFuncionario = ?";
+	private final String DELETE_CONTRATO_BY_ID = "DELETE FROM Cliente WHERE idCliente = ?";
+	private final String DELETE_PLANOEMPRESTIMO_BY_ID = "DELETE FROM PlanoEmprestimo WHERE idPlanoEmprestimo = ?";
+	private final String DELETE_CLIENTE_BY_ID = "DELETE FROM Cliente WHERE IDCLIENTE = ?";
+	private final String DELETE_FUNCIONARIO_BY_ID = "DELETE FROM Funcionario WHERE idFuncionario = ?";
 
 	Connection conexao;
 
@@ -321,7 +321,7 @@ public class ManipuladorBanco {
 
 	public String editarClienteBanco(Cliente cliente) {
 		
-		String sqlParaRecuperarIds = "SELECT idEndereco, idDadosFinanceiros FROM CLIENTE WHERE idCliente = ?";
+		String sqlParaRecuperarIds = "SELECT idEndereco, idDadosFinanceiros FROM Cliente WHERE idCliente = ?";
 		int idEndereco;
 		int idDadosFinanceiros;
 		try {
@@ -351,7 +351,7 @@ public class ManipuladorBanco {
 	
 	public String editarFuncionarioBanco(Funcionario funcionario) {
 		
-		String sqlParaRecuperarIds = "SELECT idEndereco FROM FUNCIONARIO WHERE idFuncionario = ?";
+		String sqlParaRecuperarIds = "SELECT idEndereco FROM Funcionario WHERE idFuncionario = ?";
 		int idEndereco;
 		
 		try {
@@ -435,7 +435,7 @@ public class ManipuladorBanco {
 
 	public List<Cliente> buscarCliente(int codigo, String nome, String cpf, Date dataNasc) {
 		List<Cliente> buscarCliente = new ArrayList<Cliente>();
-		String SELECT_CLIENTE_BY_= "SELECT * FROM CLIENTE WHERE 1 = 1 ";
+		String SELECT_CLIENTE_BY_= "SELECT * FROM Cliente WHERE 1 = 1 ";
 		
 		if (codigo > 0) {
 			SELECT_CLIENTE_BY_ += " AND idCliente = " + codigo;
@@ -471,7 +471,7 @@ public class ManipuladorBanco {
 	
 	public List<Funcionario> buscarFuncionario(int codigo, String nome, String cpf, Date date) {
 		List<Funcionario> buscarFuncionario = new ArrayList<Funcionario>();
-		String SELECT_FUNCIONARIO_BY_= "SELECT * FROM FUNCIONARIO WHERE 1 = 1 ";
+		String SELECT_FUNCIONARIO_BY_= "SELECT * FROM Funcionario WHERE 1 = 1 ";
 		
 		if (codigo > 0) {
 			SELECT_FUNCIONARIO_BY_ += " AND idFuncionario = " + codigo;
@@ -637,7 +637,7 @@ public class ManipuladorBanco {
 	
 	public List<PlanoEmprestimo> buscarPlano(int codigo, String plano) {
 		List<PlanoEmprestimo> listaPlanos = new ArrayList<PlanoEmprestimo>();
-		String SELECT_PLANO_EMPRESTIMO_BY= "SELECT idPlanoEmprestimo, nome FROM PLANOEMPRESTIMO WHERE 1 = 1 ";
+		String SELECT_PLANO_EMPRESTIMO_BY= "SELECT idPlanoEmprestimo, nome FROM PlanoEmprestimo WHERE 1 = 1 ";
 		
 		if (codigo > 0) {
 			SELECT_PLANO_EMPRESTIMO_BY += " AND idPlanoEmprestimo = " + codigo;
@@ -793,7 +793,7 @@ public class ManipuladorBanco {
 	
 	public List<Contrato> buscarContrato(int codigo, String nome, String codigoSitucao) {
 		List<Contrato> listaContratos = new ArrayList<Contrato>();
-		String SELECT_CONTRATO_BY= "SELECT CON.idContrato AS id, C.nomeCompleto AS nomecliente, CON.statusContrato AS status FROM CONTRATO CON JOIN CLIENTE C ON CON.idCliente = C.idCliente WHERE 1 = 1 ";
+		String SELECT_CONTRATO_BY= "SELECT CON.idContrato AS id, C.nomeCompleto AS nomecliente, CON.statusContrato AS status FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE 1 = 1 ";
 		
 		if (codigo > 0) {
 			SELECT_CONTRATO_BY += " AND CON.idContrato = " + codigo;
@@ -848,7 +848,7 @@ public class ManipuladorBanco {
 	//nao entendi p ara que serve essa funcao
 	public List<PlanoEmprestimo> buscarPlanoEmprestimoPorPerfil(String perfilCliente) {
 		List<PlanoEmprestimo> listaPlanos = new ArrayList<PlanoEmprestimo>();
-		//SELECT * FROM PLANOEMPRESTIMO WHERE ? >= valorMinimo AND ? <= valorMaximo
+		//SELECT * FROM PlanoEmprestimo WHERE ? >= valorMinimo AND ? <= valorMaximo
 		return listaPlanos;
 	}
 
