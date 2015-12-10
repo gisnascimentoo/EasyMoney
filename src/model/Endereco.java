@@ -7,22 +7,33 @@ public class Endereco {
 	private int numero;
 	private String bairro;
 	private Cidade cidade;
+	private String complemento;
 	
-	public Endereco(int idEndereco, String logradouro, int numero, String bairro, Cidade cidade) {
+	public Endereco(int idEndereco, String logradouro, int numero, String bairro, Cidade cidade, String complemento) {
 		super();
 		this.idEndereco = idEndereco;
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.bairro = bairro;
 		this.cidade = cidade;
+		this.complemento = complemento;
 	}
 
-	public Endereco(String logradouro, int numero, String bairro, Cidade cidade) {
+	public Endereco(String logradouro, int numero, String bairro, Cidade cidade, String complemento) {
 		super();
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.bairro = bairro;
 		this.cidade = cidade;
+		this.complemento = complemento;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 
 	public Endereco() {

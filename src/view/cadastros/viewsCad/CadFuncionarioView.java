@@ -54,6 +54,8 @@ public class CadFuncionarioView extends JFrame {
 	private JComboBox comboBoxCargo;
 	private JComboBox comboBoxUF;
 	private String formatString = "##/##/####";
+	private JLabel lblComplemento;
+	private JTextField textFieldComplemento;
 
 	/**
 	 * Create the frame.
@@ -132,7 +134,7 @@ public class CadFuncionarioView extends JFrame {
 		lblEndereo.setBounds(10, 200, 168, 14);
 		contentPane.add(lblEndereo);
 
-		JLabel lblLogradouro = new JLabel("Logradouro");
+		JLabel lblLogradouro = new JLabel("* Logradouro");
 		lblLogradouro.setBounds(10, 225, 136, 14);
 		contentPane.add(lblLogradouro);
 
@@ -177,31 +179,40 @@ public class CadFuncionarioView extends JFrame {
 		contentPane.add(comboBoxUF);
 		
 		carregarEstadoCombo();
+		
+		lblComplemento = new JLabel("Complemento");
+		lblComplemento.setBounds(10, 322, 208, 14);
+		contentPane.add(lblComplemento);
+		
+		textFieldComplemento = new JTextField();
+		textFieldComplemento.setBounds(10, 347, 208, 20);
+		contentPane.add(textFieldComplemento);
+		textFieldComplemento.setColumns(10);
 
 		JLabel lblContato = new JLabel("CONTATO");
-		lblContato.setBounds(10, 333, 110, 14);
+		lblContato.setBounds(10, 397, 110, 14);
 		contentPane.add(lblContato);
 
 		JLabel lblEmail = new JLabel("E-mail");
-		lblEmail.setBounds(10, 356, 46, 14);
+		lblEmail.setBounds(144, 422, 46, 14);
 		contentPane.add(lblEmail);
 
 		textFieldEmail = new JTextField();
-		textFieldEmail.setBounds(10, 374, 390, 19);
+		textFieldEmail.setBounds(144, 447, 366, 19);
 		contentPane.add(textFieldEmail);
 		textFieldEmail.setColumns(10);
 
 		JLabel lblTelefone = new JLabel("Telefone");
-		lblTelefone.setBounds(10, 404, 95, 14);
+		lblTelefone.setBounds(10, 422, 95, 14);
 		contentPane.add(lblTelefone);
 
 		textFieldTelefone = new JTextField();
-		textFieldTelefone.setBounds(10, 426, 210, 19);
+		textFieldTelefone.setBounds(10, 447, 124, 19);
 		contentPane.add(textFieldTelefone);
 		textFieldTelefone.setColumns(10);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 322, 500, 2);
+		separator.setBounds(10, 384, 500, 2);
 		contentPane.add(separator);
 
 		JSeparator separator_1 = new JSeparator();
@@ -234,7 +245,7 @@ public class CadFuncionarioView extends JFrame {
 
 	public CadFuncionarioView(int codigo, String nome,
 			java.util.Date dataNascimento, int CPF, int RG, String cargo,
-			String email, int telefone, String logradouro, int numero,
+			String email, int telefone, String logradouro, String complemento,int numero,
 			String bairro, String nomeCidade, String uf, int idUf) {
 		init();
 		textFieldCodFuncionario.setText(""+codigo);
@@ -246,6 +257,7 @@ public class CadFuncionarioView extends JFrame {
 		textFieldEmail.setText(email);
 		textFieldTelefone.setText(""+telefone);
 		textFieldLogradouro.setText(logradouro);
+		textFieldComplemento.setText(complemento);
 		textFieldNome.setText(""+numero);
 		textFieldBairro.setText(bairro);
 		//CEP
@@ -269,14 +281,14 @@ public class CadFuncionarioView extends JFrame {
 					formattedFieldDataNascimento.getText(), InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
 					comboBoxCargo.getSelectedItem().toString(), textFieldEmail.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
-					textFieldLogradouro.getText(),InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
+					textFieldLogradouro.getText(), textFieldComplemento.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
 					textFieldBairro.getText(), textFieldCidade.getText(), idEstado);
 		} else {
 			InterfaceUsuario.cadastrarFuncionario(textFieldNome.getText(),
 					formattedFieldDataNascimento.getText(), InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
 					comboBoxCargo.getSelectedItem().toString(), textFieldEmail.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
-					textFieldLogradouro.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
+					textFieldLogradouro.getText(), textFieldComplemento.getText(),InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
 					textFieldBairro.getText(), textFieldCidade.getText(), idEstado);
 		}
 	}
