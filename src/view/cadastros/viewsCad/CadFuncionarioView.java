@@ -274,7 +274,7 @@ public class CadFuncionarioView extends JFrame {
 		} else {
 			InterfaceUsuario.cadastrarFuncionario(textFieldNome.getText(),
 					formattedFieldDataNascimento.getText(), InterfaceUsuario.transformaStringInt(textFieldCPF.getText()), InterfaceUsuario.transformaStringInt(textFieldRG.getText()),
-					"Gerente", textFieldEmail.getText(),
+					comboBoxCargo.getSelectedItem().toString(), textFieldEmail.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldTelefone.getText()), 
 					textFieldLogradouro.getText(), InterfaceUsuario.transformaStringInt(textFieldNumero.getText()),
 					textFieldBairro.getText(), textFieldCidade.getText(), idEstado);

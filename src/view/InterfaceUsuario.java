@@ -216,6 +216,7 @@ public class InterfaceUsuario {
 			String observacao) {
 		cadClienteView = new CadClienteView(codigo, cpf, nomeCompleto, rg, dataNascimento, logradouro, numero, bairro,
 				nomeCidade, iduf, uf, banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao);
+		cadClienteView.setVisible(true);
 	}
 
 	public static void buscarFuncionario(int codigo, String nome, String cpf, String date) {
@@ -387,7 +388,7 @@ public class InterfaceUsuario {
 			formatter.setAllowsInvalid(false);
 			formatter.setOverwriteMode(true);
 		} catch (java.text.ParseException exc) {
-			System.err.println("formatter is bad: " + exc.getMessage());
+			exc.getMessage();
 		}
 		return formatter;
 	}

@@ -17,7 +17,6 @@ import model.StatusContrato;
 import view.InterfaceUsuario;
 import view.combo.SituacaoCombo;
 import db.ManipuladorBanco;
-import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
 
 public class ContratoController {
 
@@ -240,10 +239,9 @@ public class ContratoController {
 
 	public List<SituacaoCombo> preparaComboSituacao() {
 		List<SituacaoCombo> listCombo = new ArrayList<SituacaoCombo>();
-		listCombo.add(new SituacaoCombo(StatusContrato.APROVADO.getName(), StatusContrato.PRE_APROVADO.getName()));
+		listCombo.add(new SituacaoCombo(StatusContrato.APROVADO.getName(), StatusContrato.APROVADO.getName()));
 		listCombo.add(new SituacaoCombo(StatusContrato.REJEITADO.getName(), StatusContrato.REJEITADO.getName()));
-		listCombo
-				.add(new SituacaoCombo(StatusContrato.PRE_REJEITADO.getName(), StatusContrato.PRE_REJEITADO.getName()));
+		listCombo.add(new SituacaoCombo(StatusContrato.PRE_REJEITADO.getName(), StatusContrato.PRE_REJEITADO.getName()));
 		listCombo.add(new SituacaoCombo(StatusContrato.PRE_APROVADO.getName(), StatusContrato.PRE_APROVADO.getName()));
 		listCombo.add(new SituacaoCombo(StatusContrato.ENCERRADO.getName(), StatusContrato.ENCERRADO.getName()));
 		return listCombo;

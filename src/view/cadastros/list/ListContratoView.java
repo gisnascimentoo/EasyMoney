@@ -227,7 +227,6 @@ public class ListContratoView extends JFrame {
 			if (jTextFieldCodigo.getText().trim().length() > 0)
 				codigo = InterfaceUsuario.transformaStringInt(jTextFieldCodigo.getText());
 			SituacaoCombo situacaoCombo = (SituacaoCombo)comboBox.getSelectedItem();
-			System.out.println(situacaoCombo);
 		InterfaceUsuario.buscarContrato(codigo, jTextFieldNome.getText(), situacaoCombo.getCodigo()); 
 
 	}

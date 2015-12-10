@@ -51,9 +51,9 @@ public class ManipuladorBanco {
 			+ "C.RG AS rg, C.dataNascimento AS datanascimento, E.logradouro AS logradouro, E.numero AS numero, E.bairro AS bairro,"
 			+ "E.CEP AS cep, CD.nome AS nomecidade, EST.idEstado AS iduf, EST.sigla AS siglauf, DF.banco AS banco, DF.agencia AS agencia, DF.contaCorrente AS contacorrente, "
 			+ "DF.rendaFamiliar AS rendafamiliar, DF.rendaPessoal AS rendapessoal, DF.observacao AS observacao "
-			+ "FROM Cliente C LEFT JOIN Endereco E ON C.idEndereco = E.idEndereco LEFT JOIN CIDADE CD ON E.idCidade = CD.idCidade "
+			+ "FROM Cliente C LEFT JOIN Endereco E ON C.idEndereco = E.idEndereco LEFT JOIN Cidade CD ON E.idCidade = CD.idCidade "
 			+ "LEFT JOIN DadosFinanceiros DF ON DF.idDadosFinanceiros = C.idDadosFinanceiros "
-			+ "LEFT JOIN ESTADO EST ON EST.idEstado = CD.idEstado WHERE C.idCliente = ?";
+			+ "LEFT JOIN Estado EST ON EST.idEstado = CD.idEstado WHERE C.idCliente = ?";
 
 	private final String SELECT_INFO_FUNCIONARIO_BY_ID = "SELECT F.idFuncionario AS idfuncionario, F.CPF AS cpf, F.nome AS nome, "
 			+ "F.RG AS rg, F.dataNascimento AS datanascimento, F.cargo AS cargo, F.email AS email, F.telefone AS telefone, E.logradouro AS logradouro, E.numero AS numero, E.bairro AS bairro,"
@@ -435,24 +435,23 @@ public class ManipuladorBanco {
 
 	public List<Cliente> buscarCliente(int codigo, String nome, String cpf, Date dataNasc) {
 		List<Cliente> buscarCliente = new ArrayList<Cliente>();
-		String SELECT_CLIENTE_BY_ = "SELECT * FROM Cliente WHERE ";
-
+		String SELECT_CLIENTE_BY_ = "SELECT * FROM Cliente WHERE 1 = 1";
+		
 		if (codigo > 0) {
-			SELECT_CLIENTE_BY_ += " idCliente = " + codigo;
-		} else if (cpf != null) {
-			SELECT_CLIENTE_BY_ += " CPF = " + cpf;
-		} else if (nome != null) {
+			SELECT_CLIENTE_BY_ += " AND idCliente = " + codigo;
+		} else if (cpf != null && cpf.trim().length() > 0) {
+			SELECT_CLIENTE_BY_ += " AND CPF = '" + cpf + "'";
+		} else if (nome != null && nome.trim().length() > 0) {
 			if (dataNasc != null) {
-				SELECT_CLIENTE_BY_ += " nomeCompleto = " + nome + " AND dataNascimento = " + dataNasc;
+				SELECT_CLIENTE_BY_ += " AND nomeCompleto LIKE '%" + nome + "%'" + " AND dataNascimento = '" + dataNasc + "'";
 			} else {
-				SELECT_CLIENTE_BY_ += " nomeCompleto = " + nome;
+				SELECT_CLIENTE_BY_ += " AND nomeCompleto LIKE '%" + nome + "%'";
 			}
 		} else if (dataNasc != null) {
-			SELECT_CLIENTE_BY_ += " AND dataNascimento = " + dataNasc;
+			SELECT_CLIENTE_BY_ += " AND dataNascimento = '" + dataNasc + "'";
 		}
-
+		
 		try {
-			System.out.println(SELECT_CLIENTE_BY_);
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CLIENTE_BY_);
 			ResultSet set = preparedStatement.executeQuery();
 			while (set.next()) {
@@ -477,7 +476,7 @@ public class ManipuladorBanco {
 		
 		if (codigo > 0) {
 			SELECT_FUNCIONARIO_BY_ += " AND idFuncionario = " + codigo;
-		} else if ( cpf != null  ) {
+		} else if ( cpf != null && cpf.trim().length() > 0) {
 			SELECT_FUNCIONARIO_BY_ += " AND CPF = " + cpf;
 		} else if (nome != null) {
 			if (date != null) {
@@ -488,7 +487,7 @@ public class ManipuladorBanco {
 		} else if (date != null) {
 			SELECT_FUNCIONARIO_BY_ += " AND dataNascimento = " + date;
 		}
-		System.out.println(SELECT_FUNCIONARIO_BY_);
+		
 		try {
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_FUNCIONARIO_BY_);
 			ResultSet set = preparedStatement.executeQuery();
@@ -650,7 +649,6 @@ public class ManipuladorBanco {
 		if (plano.trim().length() > 0) {
 			SELECT_PLANO_EMPRESTIMO_BY += " AND nome = '" + plano + "'";
 		}
-		System.out.println(SELECT_PLANO_EMPRESTIMO_BY);
 		try {
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_PLANO_EMPRESTIMO_BY);
 			ResultSet set = preparedStatement.executeQuery();
