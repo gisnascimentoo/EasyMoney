@@ -84,7 +84,7 @@ public class ContratoController {
 		return db.buscarPlanoEmprestimoId(idPlanoEmprestimo);
 	}
 
-	// Retorna se o perfil do cliente Ã¯Â¿Â½ aprovado ou reprovado
+	// Retorna se o perfil do cliente está aprovado ou reprovado
 	public boolean analisaPerfilComPlano(PlanoEmprestimo planoSelecionado) {
 		String pfc = recuperaPerfilCliente(cl.getDadosFinanceiros().getRendaPessoal());
 		List<PlanoEmprestimo> lPlanosPossiveis = recuperaPlanosPerfil(pfc);
@@ -121,15 +121,14 @@ public class ContratoController {
 		return numeroParcelas * valorParcelas;
 	}
 
-	public void salvarContrato(int idCliente, String status, int idPlanoEmprestimo, int numParcelas,
-			double valorEmprestimo, double valorParcelas, String dataTermino, String observacoes) {
+	public void salvarContrato(int idCliente, String status, int idPlanoEmprestimo, int numParcelas, double valorEmprestimo, double valorParcelas, String dataTermino, String observacoes) {
 		PlanoEmprestimo plEmprestimo = recuperaPlanoEmprestimo(idPlanoEmprestimo);
-
 		boolean persistidoSucesso = false;
 
-		Cliente clt = (Cliente) db.buscarCliente(idCliente, null, null, null);
+		Cliente clt = (Cliente) db.buscarDadosCliente(idCliente);
 		// Refaz a analise caso o status esteja como pre_aprovado ou
 		// pre_rejeitado
+		
 		if (analisaPerfilComPlano(plEmprestimo)) {
 			status = StatusContrato.PRE_APROVADO.getName();
 		} else {
@@ -150,7 +149,7 @@ public class ContratoController {
 		if (persistidoSucesso) {
 			InterfaceUsuario.exibirMensagemContratoCadastro("Contrato cadastrado com sucesso.");
 		} else {
-			InterfaceUsuario.exibirMensagemContratoCadastro("NÃ£o foi possÃ­vel cadastrar o contrato.");
+			InterfaceUsuario.exibirMensagemContratoCadastro("Não foi possível cadastrar o contrato.");
 		}
 	}
 
@@ -273,6 +272,7 @@ public class ContratoController {
 
 	public void getDadosBancariosPorCodigoCliente(int codigo) {
 		Cliente cliente = db.buscarDadosCliente(codigo);
+		cl = cliente;
 		DadosFinanceiros dadosFinanceiros = cliente.getDadosFinanceiros();
 		String banco = dadosFinanceiros.getBanco();
 		String agencia = dadosFinanceiros.getAgencia();
