@@ -460,4 +460,8 @@ public class InterfaceUsuario {
 		contratoController.getDadosBancariosPorCodigoCliente(codigo);
 	}
 
+	public static void carregaListaContrato(String[][] dados) {
+		listContratoView.addTabela(dados);
+	}
+
 }

@@ -250,15 +250,16 @@ public class ContratoController {
 	public void buscarContrato(int codigo, String nome, String codigoSitucao) {
 		List<Contrato> contratosBusca = db.buscarContrato(codigo, nome, codigoSitucao);
 		if (contratosBusca != null && !contratosBusca.isEmpty()) {
-			String[][] dados = new String[contratosBusca.size()][3];
+			String[][] dados = new String[contratosBusca.size()][4];
 			int indice = 0;
 			for (Contrato contrato : contratosBusca) {
 				dados[indice][0] = "" + contrato.getIdContrato();
 				dados[indice][1] = contrato.getCliente().getNomeCompleto();
 				dados[indice][2] = contrato.getStatusContrato();
+				dados[indice][3] = "" +  contrato.getCliente().getCPF();
 				indice++;
 			}
-			InterfaceUsuario.carregaListaCliente(dados);
+			InterfaceUsuario.carregaListaContrato(dados);
 		}
 	}
 

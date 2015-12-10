@@ -818,19 +818,19 @@ public class ManipuladorBanco {
 
 	public List<Contrato> buscarContrato(int codigo, String nome, String codigoSitucao) {
 		List<Contrato> listaContratos = new ArrayList<Contrato>();
-		String SELECT_CONTRATO_BY = "SELECT CON.idContrato AS id, C.nomeCompleto AS nomecliente, CON.statusContrato AS status FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE  ";
+		String SELECT_CONTRATO_BY = "SELECT CON.idContrato AS id, C.nomeCompleto AS nomecliente, CON.statusContrato AS status, C.cpf as cpf FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE  ";
 		if (codigo > 0) {
 			SELECT_CONTRATO_BY += " CON.idContrato = " + codigo;
 		}
 		else if (codigoSitucao != null) {
 			if (nome != null && !nome.isEmpty()) {
-				SELECT_CONTRATO_BY += " C.nomeCompleto = " + nome + " AND CON.statusContrato = " + codigoSitucao;
+				SELECT_CONTRATO_BY += " C.nomeCompleto LIKE '%" + nome + "%' AND CON.statusContrato = '" + codigoSitucao + "'";
 			} else {
 				SELECT_CONTRATO_BY += " CON.statusContrato = '" + codigoSitucao + "'";
 			}
 		}
 		else if (nome != null) {
-			SELECT_CONTRATO_BY += " C.nomeCompleto = " + nome;
+			SELECT_CONTRATO_BY += " C.nomeCompleto LIKE '%" + nome + "%'";
 		}
 
 		try {
@@ -838,7 +838,8 @@ public class ManipuladorBanco {
 			ResultSet set = preparedStatement.executeQuery();
 			while (set.next()) {
 				Cliente cliente = new Cliente();
-				cliente.setNomeCompleto(set.getString("nome"));
+				cliente.setNomeCompleto(set.getString("nomecliente"));
+				cliente.setCPF(set.getInt("cpf"));
 				Contrato contrato = new Contrato();
 				contrato.setIdContrato(set.getInt("id"));
 				contrato.setCliente(cliente);
