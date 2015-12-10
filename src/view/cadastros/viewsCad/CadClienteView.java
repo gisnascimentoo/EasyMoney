@@ -139,7 +139,7 @@ public class CadClienteView extends JFrame {
 		lblEndereco.setBounds(10, 132, 64, 14);
 		contentPane.add(lblEndereco);
 
-		lblLogradouro = new JLabel("Logradouro");
+		lblLogradouro = new JLabel("* Logradouro");
 		lblLogradouro.setBounds(10, 157, 55, 14);
 		contentPane.add(lblLogradouro);
 
@@ -294,7 +294,7 @@ public class CadClienteView extends JFrame {
 
 	public CadClienteView(int codigo, int cpf, String nomeCompleto, int rg,
 			Date dataNascimento, String logradouro, int numero, String bairro,
-			String nomeCidade, int idUf, String uf, String banco,
+			String nomeCidade, String complemento, int idUf, String uf, String banco,
 			String agencia, int contaCorrente, double rendaFamiliar,
 			double rendaPessoal, String observacao) {
 		init();
@@ -302,14 +302,18 @@ public class CadClienteView extends JFrame {
 		textFieldCPF.setText("" + cpf);
 		textFieldNome.setText(nomeCompleto);
 		textFieldRG.setText("" + rg);
+		System.out.println(dataNascimento);
 		formattedFieldDataNascimento.setText("" + dataNascimento);
+		System.out.println(logradouro);
 		textFieldLogradouro.setText(logradouro);
 		textFieldNumero.setText("" + numero);
 		textFieldBairro.setText(bairro);
-		// cep,
-		
 		textFieldCidade.setText(nomeCidade);
+		textFieldComplemento.setText(complemento);
+		System.out.println(idUf);
+		System.out.println(uf);		
 		comboBoxUF.setSelectedItem(new Estado(idUf, uf));
+		System.out.println(comboBoxUF.getSelectedItem().toString());
 		textFieldBanco.setText(banco);
 		textFieldAgencia.setText(agencia);
 		textFieldContaCorrente.setText("" + contaCorrente);
@@ -333,7 +337,7 @@ public class CadClienteView extends JFrame {
 							.getText(), InterfaceUsuario
 							.transformaStringInt(textFieldNumero.getText()),
 					textFieldBairro.getText(),
-					textFieldCidade.getText(), idEstado, textFieldBanco
+					textFieldCidade.getText(), textFieldComplemento.getText(), idEstado, textFieldBanco
 							.getText(), textFieldAgencia.getText(),
 					InterfaceUsuario.transformaStringInt(textFieldContaCorrente
 							.getText()), InterfaceUsuario
@@ -359,7 +363,7 @@ public class CadClienteView extends JFrame {
 									.transformaStringInt(textFieldNumero
 											.getText()),
 							textFieldBairro.getText(),
-							textFieldCidade.getText(),
+							textFieldCidade.getText(), textFieldComplemento.getText(), 
 							idEstado,
 							textFieldBanco.getText(),
 							textFieldAgencia.getText(),

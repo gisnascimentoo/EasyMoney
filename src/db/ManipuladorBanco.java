@@ -27,7 +27,7 @@ public class ManipuladorBanco {
 	/*
 	 * Insert
 	 */
-	private final String INSERT_ENDERECO = "INSERT INTO Endereco(logradouro, numero, bairro, idCidade) VALUES(?, ?, ?, ?)";
+	private final String INSERT_ENDERECO = "INSERT INTO Endereco(logradouro, complemento, numero, bairro, idCidade) VALUES(?, ?, ?, ?, ?)";
 	private final String INSERT_CIDADE = "INSERT INTO Cidade(nome, idEstado) VALUES(?, ?)";
 	private final String INSERT_DADOSFINANCEIROS = "INSERT INTO DadosFinanceiros(banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao) VALUES(?, ?, ?, ?, ?, ?)";
 	private final String INSERT_CLIENTE = "INSERT INTO Cliente(nomeCompleto, dataNascimento, CPF, RG, idEndereco, idDadosFinanceiros) VALUES(?, ?, ?, ?, ?, ?)";
@@ -48,15 +48,15 @@ public class ManipuladorBanco {
 	private final String SELECT_USUARIO_LOGIN = "SELECT * FROM Usuario WHERE login = ? and passwd = ?";
 
 	private final String SELECT_INFO_CLIENTE_BY_ID = "SELECT C.idCliente AS idcliente, C.CPF AS cpf, C.nomeCompleto AS nomecliente, "
-			+ "C.RG AS rg, C.dataNascimento AS datanascimento, E.logradouro AS logradouro, E.numero AS numero, E.bairro AS bairro,"
+			+ "C.RG AS rg, C.dataNascimento AS datanascimento, E.logradouro AS logradouro, E.complemento as complemento,E.numero AS numero, E.bairro AS bairro,"
 			+ "E.CEP AS cep, CD.nome AS nomecidade, EST.idEstado AS iduf, EST.sigla AS siglauf, DF.banco AS banco, DF.agencia AS agencia, DF.contaCorrente AS contacorrente, "
 			+ "DF.rendaFamiliar AS rendafamiliar, DF.rendaPessoal AS rendapessoal, DF.observacao AS observacao "
-			+ "FROM Cliente C LEFT JOIN Endereco E ON C.idEndereco = E.idEndereco LEFT JOIN CIDADE CD ON E.idCidade = CD.idCidade "
+			+ "FROM Cliente C LEFT JOIN Endereco E ON C.idEndereco = E.idEndereco LEFT JOIN Cidade CD ON E.idCidade = CD.idCidade "
 			+ "LEFT JOIN DadosFinanceiros DF ON DF.idDadosFinanceiros = C.idDadosFinanceiros "
-			+ "LEFT JOIN ESTADO EST ON EST.idEstado = CD.idEstado WHERE C.idCliente = ?";
+			+ "LEFT JOIN Estado EST ON EST.idEstado = CD.idEstado WHERE C.idCliente = ?";
 
 	private final String SELECT_INFO_FUNCIONARIO_BY_ID = "SELECT F.idFuncionario AS idfuncionario, F.CPF AS cpf, F.nome AS nome, "
-			+ "F.RG AS rg, F.dataNascimento AS datanascimento, F.cargo AS cargo, F.email AS email, F.telefone AS telefone, E.logradouro AS logradouro, E.numero AS numero, E.bairro AS bairro,"
+			+ "F.RG AS rg, F.dataNascimento AS datanascimento, F.cargo AS cargo, F.email AS email, F.telefone AS telefone, E.logradouro AS logradouro, E.complemento AS complemento, E.numero AS numero, E.bairro AS bairro,"
 			+ "E.CEP AS CEP, CD.nome AS nomecidade, EST.idEstado AS iduf, EST.sigla AS siglauf"
 			+ "FROM Funcionario F LEFT JOIN Endereco E ON F.idEndereco = E.idEndereco LEFT JOIN Cidade CD ON E.idCidade = CD.idCidade "
 			+ "LEFT JOIN ESTADO EST ON EST.idEstado = CD.idEstado WHERE F.idFuncionario = ?";
@@ -74,7 +74,7 @@ public class ManipuladorBanco {
 	private final String UPDATE_CLIENTE_BY_ID = "UPDATE Cliente SET nomeCompleto = ?, dataNascimento = ?, CPF = ?, RG = ?, idEndereco = ?, idDadosFinanceiros = ? WHERE idCliente = ?";
 	private final String UPDATE_PLANOEMPRESTIMO_BY_ID = "UPDATE PlanoEmprestimo SET nome = ?, dataCadastro = ?, jurosTotal = ?, jurosMensal = ?, valorMinimo = ?, valorMaximo = ?, minParcelas = ?, maxParcelas = ?, observacao = ? WHERE idPlanoEmprestimo = ?";
 	private final String UPDATE_FUNCIONARIO_BY_ID = "UPDATE Funcionario SET nome = ?, dataNascimento = ?, CPF = ?, RG = ?, cargo = ?, email = ?, telefone = ?, idEndereco = ? WHERE idFuncionario = ?";
-	private final String UPDATE_ENDERECO_BY_ID = "UPDATE Endereco SET logradouro = ?, numero = ?, bairro = ?, cidade = ? WHERE idEndereco = ?";
+	private final String UPDATE_ENDERECO_BY_ID = "UPDATE Endereco SET logradouro = ?, complemento = ?, numero = ?, bairro = ?, cidade = ? WHERE idEndereco = ?";
 	private final String UPDATE_CONTRATO_BY_ID = "UPDATE Contrato SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dadaTerminoContrato = ?, idCliente = ?, idPlanoEmprestimo = ? WHERE idContrato = ?";
 	private final String UPDATE_DADOSFINANCEIROS_BY_ID = "UPDATE DadosFinanceiros SET banco = ?, agencia = ?, contaCorrente = ?, rendaFamiliar = ?, rendaPessoal = ?, observacao = ? WHERE idDadosFinanceiros = ?";
 
@@ -133,9 +133,10 @@ public class ManipuladorBanco {
 			PreparedStatement prepared = this.conexao.prepareStatement(INSERT_ENDERECO,
 					Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, endereco.getLogradouro());
-			prepared.setInt(2, endereco.getNumero());
-			prepared.setString(3, endereco.getBairro());
-			prepared.setInt(4, idFKCidade);
+			prepared.setString(2, endereco.getComplemento());
+			prepared.setInt(3, endereco.getNumero());
+			prepared.setString(4, endereco.getBairro());
+			prepared.setInt(5, idFKCidade);
 			prepared.executeUpdate();
 			ResultSet set = prepared.getGeneratedKeys();
 			if (set.next()) {
@@ -292,10 +293,11 @@ public class ManipuladorBanco {
 			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_ENDERECO_BY_ID,
 					Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, endereco.getLogradouro());
-			prepared.setInt(2, endereco.getNumero());
-			prepared.setString(3, endereco.getBairro());
-			prepared.setInt(4, endereco.getCidade().getIdCidade());
-			prepared.setInt(5, endereco.getIdEndereco());
+			prepared.setString(2, endereco.getComplemento());
+			prepared.setInt(3, endereco.getNumero());
+			prepared.setString(4, endereco.getBairro());
+			prepared.setInt(5, endereco.getCidade().getIdCidade());
+			prepared.setInt(6, endereco.getIdEndereco());
 			prepared.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -435,24 +437,23 @@ public class ManipuladorBanco {
 
 	public List<Cliente> buscarCliente(int codigo, String nome, String cpf, Date dataNasc) {
 		List<Cliente> buscarCliente = new ArrayList<Cliente>();
-		String SELECT_CLIENTE_BY_ = "SELECT * FROM Cliente WHERE ";
-
+		String SELECT_CLIENTE_BY_ = "SELECT * FROM Cliente WHERE 1 = 1";
+		
 		if (codigo > 0) {
-			SELECT_CLIENTE_BY_ += " idCliente = " + codigo;
-		} else if (cpf != null) {
-			SELECT_CLIENTE_BY_ += " CPF = " + cpf;
-		} else if (nome != null) {
+			SELECT_CLIENTE_BY_ += " AND idCliente = " + codigo;
+		} else if (cpf != null && cpf.trim().length() > 0) {
+			SELECT_CLIENTE_BY_ += " AND CPF = '" + cpf + "'";
+		} else if (nome != null && nome.trim().length() > 0) {
 			if (dataNasc != null) {
-				SELECT_CLIENTE_BY_ += " nomeCompleto = " + nome + " AND dataNascimento = " + dataNasc;
+				SELECT_CLIENTE_BY_ += " AND nomeCompleto LIKE '%" + nome + "%'" + " AND dataNascimento = '" + dataNasc + "'";
 			} else {
-				SELECT_CLIENTE_BY_ += " nomeCompleto = " + nome;
+				SELECT_CLIENTE_BY_ += " AND nomeCompleto LIKE '%" + nome + "%'";
 			}
 		} else if (dataNasc != null) {
-			SELECT_CLIENTE_BY_ += " AND dataNascimento = " + dataNasc;
+			SELECT_CLIENTE_BY_ += " AND dataNascimento = '" + dataNasc + "'";
 		}
-
+		
 		try {
-			System.out.println(SELECT_CLIENTE_BY_);
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CLIENTE_BY_);
 			ResultSet set = preparedStatement.executeQuery();
 			while (set.next()) {
@@ -475,9 +476,26 @@ public class ManipuladorBanco {
 		List<Funcionario> buscarFuncionario = new ArrayList<Funcionario>();
 		String SELECT_FUNCIONARIO_BY_ = "SELECT * FROM Funcionario WHERE 1 = 1";
 		
+		/*if (codigo > 0) {
+			SELECT_FUNCIONARIO_BY_ += " AND idFuncionario = " + codigo;
+		} 
+		
+		if (!cpf.isEmpty()) {
+			SELECT_FUNCIONARIO_BY_ += " AND CPF = '" + cpf + "'";
+		} 
+		
+		if (!nome.isEmpty()) {
+			SELECT_FUNCIONARIO_BY_ += " AND nome = '" + nome + "'";
+		}		
+		
+		if(date != null){
+			SELECT_FUNCIONARIO_BY_ += " AND dataNascimento = '" + date + "'";
+		}
+		 */
+		
 		if (codigo > 0) {
 			SELECT_FUNCIONARIO_BY_ += " AND idFuncionario = " + codigo;
-		} else if ( cpf != null  ) {
+		} else if ( cpf != null && cpf.trim().length() > 0) {
 			SELECT_FUNCIONARIO_BY_ += " AND CPF = " + cpf;
 		} else if (nome != null) {
 			if (date != null) {
@@ -488,7 +506,7 @@ public class ManipuladorBanco {
 		} else if (date != null) {
 			SELECT_FUNCIONARIO_BY_ += " AND dataNascimento = " + date;
 		}
-		System.out.println(SELECT_FUNCIONARIO_BY_);
+		
 		try {
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_FUNCIONARIO_BY_);
 			ResultSet set = preparedStatement.executeQuery();
@@ -650,7 +668,6 @@ public class ManipuladorBanco {
 		if (plano.trim().length() > 0) {
 			SELECT_PLANO_EMPRESTIMO_BY += " AND nome = '" + plano + "'";
 		}
-		System.out.println(SELECT_PLANO_EMPRESTIMO_BY);
 		try {
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_PLANO_EMPRESTIMO_BY);
 			ResultSet set = preparedStatement.executeQuery();
@@ -691,6 +708,7 @@ public class ManipuladorBanco {
 				cidade.setEstado(estado);
 				cidade.setNome(set.getString("nomecidade"));
 				Endereco endereco = new Endereco();
+				endereco.setComplemento(set.getString("complemento"));
 				endereco.setBairro(set.getString("bairro"));
 				endereco.setNumero(set.getInt("numero"));
 				endereco.setLogradouro(set.getString("logradouro"));
@@ -721,7 +739,7 @@ public class ManipuladorBanco {
 		Funcionario funcionario = null;
 
 		try {
-			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_INFO_CLIENTE_BY_ID);
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_INFO_FUNCIONARIO_BY_ID);
 			preparedStatement.setInt(1, codigo);
 			ResultSet set = preparedStatement.executeQuery();
 			while (set.next()) {
@@ -733,6 +751,7 @@ public class ManipuladorBanco {
 				endereco.setBairro(set.getString("bairro"));
 				endereco.setNumero(set.getInt("numero"));
 				endereco.setLogradouro(set.getString("logradouro"));
+				endereco.setComplemento(set.getString("complemento"));
 				endereco.setCidade(cidade);
 				funcionario = new Funcionario();
 				funcionario.setEndereco(endereco);
