@@ -173,8 +173,7 @@ public class SimulacaoView extends JFrame {
 
 	public void addTabela(String[][] dados) {
 		modelo = new DefaultTableModel(dados, colunas);
-		jTable = new JTable(modelo);
-		jScrollPane1_1 = new JScrollPane(jTable);
+		jTable.setModel(modelo);
 	}
 
 	public void setValorParcela(double valor){
