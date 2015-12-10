@@ -52,8 +52,9 @@ public class SimulacaoView extends JFrame {
 		modelo = new DefaultTableModel(null, colunas);
 		jTable = new JTable(modelo);
 		jScrollPane1_1 = new JScrollPane(jTable);
-		
-		
+		jScrollPane1_1.setBounds(21, 182, 360, 86);
+		contentPane.add(jScrollPane1_1);
+
 		JLabel lblValorFinanciado = new JLabel("Valor Financiado");
 		lblValorFinanciado.setBounds(24, 25, 89, 14);
 		contentPane.add(lblValorFinanciado);
@@ -106,12 +107,12 @@ public class SimulacaoView extends JFrame {
 		JLabel lblResultadoDaSimulao = new JLabel("Resultado da Simulacao");
 		lblResultadoDaSimulao.setBounds(21, 157, 119, 14);
 		contentPane.add(lblResultadoDaSimulao);
-		
+		/*
 		textFieldValorFinal = new JTextField();
 		textFieldValorFinal.setBounds(21, 182, 360, 86);
 		contentPane.add(textFieldValorFinal);
 		textFieldValorFinal.setColumns(10);
-		
+		*/
 		JScrollBar scrollBar = new JScrollBar();
 		scrollBar.setBounds(380, 181, 17, 87);
 		contentPane.add(scrollBar);
