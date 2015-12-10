@@ -11,13 +11,13 @@ import java.util.logging.Logger;
 
 import model.Cliente;
 import model.Contrato;
+import model.DadosFinanceiros;
 import model.PerfilCliente;
 import model.PlanoEmprestimo;
 import model.StatusContrato;
 import view.InterfaceUsuario;
 import view.combo.SituacaoCombo;
 import db.ManipuladorBanco;
-import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
 
 public class ContratoController {
 
@@ -36,7 +36,7 @@ public class ContratoController {
 			int contaCorrente = cl.getDadosFinanceiros().getContaCorrente();
 			InterfaceUsuario.carregarDadosCliente(agencia, banco, contaCorrente);
 		} else {
-			InterfaceUsuario.exibirMensagemContratoCadastro("Cliente n√£o encontrado.");
+			InterfaceUsuario.exibirMensagemContratoCadastro("Cliente n„o encontrado.");
 		}
 	}
 
@@ -272,4 +272,13 @@ public class ContratoController {
 		return db.getQntdMinParcelasParaPlano(codigo);
 	}
 
+	public void getDadosBancariosPorCodigoCliente(int codigo) {
+		Cliente cliente = db.buscarDadosCliente(codigo);
+		DadosFinanceiros dadosFinanceiros = cliente.getDadosFinanceiros();
+		String banco = dadosFinanceiros.getBanco();
+		String agencia = dadosFinanceiros.getAgencia();
+		int contaCorrente = dadosFinanceiros.getContaCorrente();
+		
+		InterfaceUsuario.carregarDadosCliente(banco, agencia, contaCorrente);
+	}
 }

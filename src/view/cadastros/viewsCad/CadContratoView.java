@@ -239,6 +239,17 @@ public class CadContratoView extends JFrame {
 		comboBoxCliente = new JComboBox();
 		comboBoxCliente.setBounds(10, 61, 357, 20);
 		contentPane.add(comboBoxCliente);
+		
+		comboBoxCliente.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clienteAlterado();
+			}
+			
+		});
+		
+		
 		comboBoxPlanoEmprestimo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				planoAlterado();
@@ -248,6 +259,16 @@ public class CadContratoView extends JFrame {
 		carregarClienteCombo();
 		carregarPlanoCombo();
 		carregarSituacaoCombo();
+	}
+
+	protected void clienteAlterado() {
+		ClienteCombo clienteCombo = (ClienteCombo) comboBoxCliente.getSelectedItem();
+		int codigo = clienteCombo.getCodigo();
+		carregarDadosBancarios(codigo);
+	}
+
+	private void carregarDadosBancarios(int codigo) {
+		InterfaceUsuario.getDadosBancariosPorCodigoCliente(codigo);
 	}
 
 	protected void planoAlterado() {
@@ -291,13 +312,10 @@ public class CadContratoView extends JFrame {
 		JOptionPane.showMessageDialog(null, mensagem);
 	}
 
-	public void povoarDadosCliente(String banco, String agencia,
-			int contaCorrente) {
+	public void povoarDadosCliente(String banco, String agencia, int contaCorrente) {
 		textFieldBanco.setText(banco);
-		;
 		textFieldAgencia.setText(agencia);
 		textFieldContaCorrente.setText(String.valueOf(contaCorrente));
-		;
 	}
 
 	private void carregarSituacaoCombo() {

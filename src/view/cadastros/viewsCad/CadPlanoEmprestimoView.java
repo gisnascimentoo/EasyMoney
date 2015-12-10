@@ -19,8 +19,6 @@ import javax.swing.text.MaskFormatter;
 
 import view.InterfaceUsuario;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
 public class CadPlanoEmprestimoView extends JFrame {
 
 	private JPanel contentPane;

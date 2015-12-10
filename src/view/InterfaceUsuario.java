@@ -454,6 +454,9 @@ public class InterfaceUsuario {
 	public static int getMinParcelasParaPlano(int codigo) {
 		return contratoController.getMinQntdParcelasParaPlano(codigo);
 	}
-	
-	
+
+	public static void getDadosBancariosPorCodigoCliente(int codigo) {
+		contratoController.getDadosBancariosPorCodigoCliente(codigo);
+	}
+
 }
