@@ -33,7 +33,7 @@ public class SimulacaoView extends JFrame {
 	
 	//TODO
 	//Verificar quais colunas mostradas
-	String[] colunas = new String[] { "Valor Prestação", "Valor Financiado" };
+	String[] colunas = new String[] { "Valor Prestacao", "Valor Financiado" };
 
 
 	/**
@@ -59,7 +59,7 @@ public class SimulacaoView extends JFrame {
 		contentPane.add(lblValorFinanciado);
 		
 		textFieldValorFinanciado = new JTextField();
-		textFieldValorFinanciado.setBounds(45, 47, 214, 20);
+		textFieldValorFinanciado.setBounds(45, 47, 209, 20);
 		contentPane.add(textFieldValorFinanciado);
 		textFieldValorFinanciado.setColumns(10);
 		
@@ -68,13 +68,13 @@ public class SimulacaoView extends JFrame {
 		contentPane.add(lblValorDaPrestao);
 		
 		textFieldValorPrestacao = new JTextField();
-		textFieldValorPrestacao.setBounds(299, 47, 98, 20);
+		textFieldValorPrestacao.setBounds(272, 47, 125, 20);
 		contentPane.add(textFieldValorPrestacao);
 		textFieldValorPrestacao.setEditable(false);
 		textFieldValorPrestacao.setColumns(10);
 		
 		JLabel lblR = new JLabel("R$");
-		lblR.setBounds(280, 50, 20, 14);
+		lblR.setBounds(255, 50, 20, 14);
 		contentPane.add(lblR);
 		
 		JLabel label = new JLabel("R$");
