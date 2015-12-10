@@ -311,7 +311,7 @@ public class CadClienteView extends JFrame {
 		textFieldBairro.setText(bairro);
 		textFieldCidade.setText(nomeCidade);
 		textFieldComplemento.setText(complemento);
-		comboBoxUF.setSelectedItem(new Estado(idUf, uf));
+		setSelectedValue(comboBoxUF, idUf);
 		textFieldBanco.setText(banco);
 		textFieldAgencia.setText(agencia);
 		textFieldContaCorrente.setText("" + contaCorrente);
@@ -378,6 +378,20 @@ public class CadClienteView extends JFrame {
 		}
 
 	}
+	
+	public static void setSelectedValue(JComboBox comboBox, int value)
+    {
+        EstadoCombo item;
+        for (int i = 0; i < comboBox.getItemCount(); i++)
+        {
+            item = (EstadoCombo)comboBox.getItemAt(i);
+            if (item.getCodigo() == value)
+            {
+                comboBox.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
 
 	private void carregarEstadoCombo() {
 		comboBoxUF.setModel(new DefaultComboBoxModel(new Vector(

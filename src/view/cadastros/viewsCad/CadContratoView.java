@@ -24,6 +24,7 @@ import javax.swing.text.MaskFormatter;
 
 import view.InterfaceUsuario;
 import view.combo.ClienteCombo;
+import view.combo.EstadoCombo;
 import view.combo.ParcelasCombo;
 import view.combo.PlanoCombo;
 import view.combo.SituacaoCombo;
@@ -115,6 +116,7 @@ public class CadContratoView extends JFrame {
 		textFieldCodContrato.setBounds(112, 8, 255, 20);
 		contentPane.add(textFieldCodContrato);
 		textFieldCodContrato.setColumns(10);
+		textFieldCodContrato.setEnabled(false);
 
 		JLabel lblCliente = new JLabel("* Cliente");
 		lblCliente.setBounds(10, 46, 46, 14);
@@ -136,6 +138,7 @@ public class CadContratoView extends JFrame {
 		textFieldBanco.setBounds(10, 107, 223, 20);
 		contentPane.add(textFieldBanco);
 		textFieldBanco.setColumns(10);
+		textFieldBanco.setEnabled(false);
 
 		JLabel lblAgncia = new JLabel("* Agencia");
 		lblAgncia.setBounds(242, 92, 92, 14);
@@ -145,7 +148,8 @@ public class CadContratoView extends JFrame {
 		textFieldAgencia.setBounds(242, 107, 125, 20);
 		contentPane.add(textFieldAgencia);
 		textFieldAgencia.setColumns(10);
-
+		textFieldAgencia.setEnabled(false);
+		
 		JLabel lblContacorrente = new JLabel("* Conta-corrente");
 		lblContacorrente.setBounds(386, 92, 138, 14);
 		contentPane.add(lblContacorrente);
@@ -154,6 +158,7 @@ public class CadContratoView extends JFrame {
 		textFieldContaCorrente.setBounds(386, 107, 138, 20);
 		contentPane.add(textFieldContaCorrente);
 		textFieldContaCorrente.setColumns(10);
+		textFieldContaCorrente.setEnabled(false);
 
 		JLabel lblPlanoDeEmprestimo = new JLabel("* Plano de Emprestimo");
 		lblPlanoDeEmprestimo.setBounds(10, 190, 188, 14);
@@ -324,6 +329,20 @@ public class CadContratoView extends JFrame {
 		textFieldAgencia.setText(agencia);
 		textFieldContaCorrente.setText(String.valueOf(contaCorrente));
 	}
+	
+	public static void setSelectedValue(JComboBox comboBox, int value)
+    {
+        EstadoCombo item;
+        for (int i = 0; i < comboBox.getItemCount(); i++)
+        {
+            item = (EstadoCombo)comboBox.getItemAt(i);
+            if (item.getCodigo() == value)
+            {
+                comboBox.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
 
 	private void carregarSituacaoCombo() {
 		comboBoxSituacao.setModel(new DefaultComboBoxModel(new Vector(

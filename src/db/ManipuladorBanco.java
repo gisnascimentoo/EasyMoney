@@ -64,7 +64,6 @@ public class ManipuladorBanco {
 	private final String SELECT_FUNCIONARIO_BY_CPF = "SELECT * FROM Funcionario WHERE CPF = ?";
 	private final String SELECT_CLIENTE_BY_CPF = "SELECT * FROM Cliente WHERE CPF = ?";
 
-
 	/*
 	 * Update
 	 */
@@ -319,7 +318,7 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String editarClienteBanco(Cliente cliente) {
 
 		String sqlParaRecuperarIds = "SELECT C.idEndereco AS idEndereco, C.idDadosFinanceiros as idDadosFinanceiros,"
@@ -422,20 +421,15 @@ public class ManipuladorBanco {
 
 	public void editarContratoBanco(Contrato contrato) {
 		try {
-//"UPDATE Contrato SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dadaTerminoContrato = ?, statusContrato = ?, idCliente = ?, idPlanoEmprestimo = ? WHERE idContrato = ?";
 			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_CONTRATO_BY_ID,
 					Statement.RETURN_GENERATED_KEYS);
 			prepared.setInt(1, contrato.getQntdParcelas());
 			prepared.setDouble(2, contrato.getValorEmprestimo());
-			System.out.println("ManipuladorBanco.editarContratoBanco(): " + contrato.getValorParcelas());
 			prepared.setDouble(3, contrato.getValorParcelas());
 			prepared.setDate(4, contrato.getDataTerminoContrato());
 			prepared.setString(5, contrato.getStatusContrato());
-			System.out.println("ManipuladorBanco.editarContratoBanco(): " + contrato.getCliente().getIdCliente());
 			prepared.setInt(6, contrato.getCliente().getIdCliente());
-			System.out.println("ManipuladorBanco.editarContratoBanco(): " + contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());
 			prepared.setInt(7, contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());
-			System.out.println("ManipuladorBanco.editarContratoBanco(): " + contrato.getIdContrato());
 			prepared.setInt(8, contrato.getIdContrato());
 			prepared.executeUpdate();
 		} catch (Exception e) {
@@ -460,21 +454,22 @@ public class ManipuladorBanco {
 	public List<Cliente> buscarCliente(int codigo, String nome, String cpf, Date dataNasc) {
 		List<Cliente> buscarCliente = new ArrayList<Cliente>();
 		String SELECT_CLIENTE_BY_ = "SELECT * FROM Cliente WHERE 1 = 1";
-		
+
 		if (codigo > 0) {
 			SELECT_CLIENTE_BY_ += " AND idCliente = " + codigo;
 		} else if (cpf != null && cpf.trim().length() > 0) {
 			SELECT_CLIENTE_BY_ += " AND CPF = '" + cpf + "'";
 		} else if (nome != null && nome.trim().length() > 0) {
 			if (dataNasc != null) {
-				SELECT_CLIENTE_BY_ += " AND nomeCompleto LIKE '%" + nome + "%'" + " AND dataNascimento = '" + dataNasc + "'";
+				SELECT_CLIENTE_BY_ += " AND nomeCompleto LIKE '%" + nome + "%'" + " AND dataNascimento = '" + dataNasc
+						+ "'";
 			} else {
 				SELECT_CLIENTE_BY_ += " AND nomeCompleto LIKE '%" + nome + "%'";
 			}
 		} else if (dataNasc != null) {
 			SELECT_CLIENTE_BY_ += " AND dataNascimento = '" + dataNasc + "'";
 		}
-		
+
 		try {
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CLIENTE_BY_);
 			ResultSet set = preparedStatement.executeQuery();
@@ -497,20 +492,20 @@ public class ManipuladorBanco {
 	public List<Funcionario> buscarFuncionario(int codigo, String nome, String cpf, Date date) {
 		List<Funcionario> buscarFuncionario = new ArrayList<Funcionario>();
 		String SELECT_FUNCIONARIO_BY_ = "SELECT * FROM Funcionario WHERE 1 = 1";
-		
+
 		if (codigo > 0) {
 			SELECT_FUNCIONARIO_BY_ += " AND idFuncionario = " + codigo;
-		} 
-		
+		}
+
 		if (!cpf.isEmpty()) {
 			SELECT_FUNCIONARIO_BY_ += " AND CPF = '" + cpf + "'";
-		} 
-		
+		}
+
 		if (!nome.isEmpty()) {
 			SELECT_FUNCIONARIO_BY_ += " AND nome LIKE '%" + nome + "%'";
-		}		
-		
-		if(date != null){
+		}
+
+		if (date != null) {
 			SELECT_FUNCIONARIO_BY_ += " AND dataNascimento = '" + date + "'";
 		}
 
@@ -542,17 +537,19 @@ public class ManipuladorBanco {
 	}
 
 	public String excluiCliente(int id) {
-		
-//		String sqlParaRecuperarIds = "SELECT idContrato FROM Cliente c JOIN Contrato co WHERE c.idCliente = co.idCliente";
-//		int idContrato;
-//		
-//		PreparedStatement preparedEndereco = this.conexao.prepareStatement(sqlParaRecuperarIds);
-//		ResultSet set = preparedEndereco.executeQuery();
-//		while (set.next()) {
-//			idContrato = set.getInt("idContrato");
-//			funcionario.getEndereco().setIdEndereco(idEndereco);
-//			this.editarEnderecoBanco(funcionario.getEndereco());
-		
+
+		// String sqlParaRecuperarIds = "SELECT idContrato FROM Cliente c JOIN
+		// Contrato co WHERE c.idCliente = co.idCliente";
+		// int idContrato;
+		//
+		// PreparedStatement preparedEndereco =
+		// this.conexao.prepareStatement(sqlParaRecuperarIds);
+		// ResultSet set = preparedEndereco.executeQuery();
+		// while (set.next()) {
+		// idContrato = set.getInt("idContrato");
+		// funcionario.getEndereco().setIdEndereco(idEndereco);
+		// this.editarEnderecoBanco(funcionario.getEndereco());
+
 		try {
 			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_CLIENTE_BY_ID);
 			prepared.setInt(1, id);
@@ -793,43 +790,39 @@ public class ManipuladorBanco {
 		String SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX = "SELECT CON.idContrato as idContrato , CON.valorEmprestimo as valorEmprestimo, "
 				+ "C.nomeCompleto as nomeCompleto FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE statusContrato = ? "
 				+ "AND dataCriacaoContrato >= ? AND dataTerminoContrato <= ?";
-		
-		if (intervaloInicio == null) {
+
+		if (intervaloInicio == null && intervaloFinal == null) {
+			SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX = "SELECT CON.idContrato as idContrato , CON.valorEmprestimo as valorEmprestimo, "
+					+ "C.nomeCompleto as nomeCompleto FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE statusContrato = ? ";
+		} else if (intervaloInicio == null) {
 			SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX = "SELECT CON.idContrato as idContrato , CON.valorEmprestimo as valorEmprestimo, "
 					+ "C.nomeCompleto as nomeCompleto FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE statusContrato = ? AND "
-					+ "dataTerminoContrato <= ?";	
-		}
-		if (intervaloFinal == null) {
+					+ "dataTerminoContrato <= ?";
+		} else if (intervaloFinal == null) {
 			SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX = "SELECT CON.idContrato as idContrato , CON.valorEmprestimo as valorEmprestimo, "
 					+ "C.nomeCompleto as nomeCompleto FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE statusContrato = ? AND "
 					+ "dataCriacaoContrato >= ?";
 		}
-		if (intervaloInicio == null && intervaloFinal == null) {
-			SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX = "SELECT CON.idContrato as idContrato , CON.valorEmprestimo as valorEmprestimo, "
-					+ "C.nomeCompleto as nomeCompleto FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE statusContrato = ? ";
-		}
-		
 
 		if (tipoIndex == 0) {
 			statusContrato = "Aprovado";
 		} else {
 			statusContrato = "Rejeitado";
 		}
-		
+
 		try {
-			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX);
+			PreparedStatement preparedStatement = this.conexao
+					.prepareStatement(SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX);
 			if (intervaloInicio == null && intervaloFinal == null) {
 				preparedStatement.setString(1, statusContrato);
-			}
-			else if (intervaloInicio == null) {
+			} else if (intervaloInicio == null) {
 				preparedStatement.setString(1, statusContrato);
 				preparedStatement.setDate(2, intervaloFinal);
-			}
-			else if (intervaloFinal == null ) {
+			} else if (intervaloFinal == null) {
 				preparedStatement.setString(1, statusContrato);
 				preparedStatement.setDate(2, intervaloInicio);
 			}
-			
+
 			ResultSet set = preparedStatement.executeQuery();
 			while (set.next()) {
 				Cliente cliente = new Cliente();
@@ -858,7 +851,7 @@ public class ManipuladorBanco {
 			return "Contrato n�oo pode ser deletado! Tente novamente!";
 		}
 	}
-	
+
 	public void excluiContratoAntesCliente(int codigo) {
 		try {
 			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_CONTRATO_BY_ID);
@@ -874,15 +867,14 @@ public class ManipuladorBanco {
 		String SELECT_CONTRATO_BY = "SELECT CON.idContrato AS id, C.nomeCompleto AS nomecliente, CON.statusContrato AS status, C.cpf as cpf FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE  ";
 		if (codigo > 0) {
 			SELECT_CONTRATO_BY += " CON.idContrato = " + codigo;
-		}
-		else if (codigoSitucao != null) {
+		} else if (codigoSitucao != null) {
 			if (nome != null && !nome.isEmpty()) {
-				SELECT_CONTRATO_BY += " C.nomeCompleto LIKE '%" + nome + "%' AND CON.statusContrato = '" + codigoSitucao + "'";
+				SELECT_CONTRATO_BY += " C.nomeCompleto LIKE '%" + nome + "%' AND CON.statusContrato = '" + codigoSitucao
+						+ "'";
 			} else {
 				SELECT_CONTRATO_BY += " CON.statusContrato = '" + codigoSitucao + "'";
 			}
-		}
-		else if (nome != null) {
+		} else if (nome != null) {
 			SELECT_CONTRATO_BY += " C.nomeCompleto LIKE '%" + nome + "%'";
 		}
 
@@ -927,9 +919,28 @@ public class ManipuladorBanco {
 		}
 	}
 
-	// nao entendi p ara que serve essa funcao
 	public List<PlanoEmprestimo> buscarPlanoEmprestimoPorPerfil(String perfilCliente) {
 		List<PlanoEmprestimo> listaPlanos = new ArrayList<PlanoEmprestimo>();
+		if (perfilCliente == PerfilCliente.PERFIL_A.getName()) {
+			listaPlanos.add(buscarPlano(0, "Plano 1").get(0));
+		} else {
+			if (perfilCliente == PerfilCliente.PERFIL_B.getName()) {
+				listaPlanos.add(buscarPlano(0, "Plano 1").get(0));
+				listaPlanos.add(buscarPlano(0, "Plano 2").get(0));
+			} else {
+				if (perfilCliente == PerfilCliente.PERFIL_C.getName()) {
+					listaPlanos.add(buscarPlano(0, "Plano 1").get(0));
+					listaPlanos.add(buscarPlano(0, "Plano 2").get(0));
+					listaPlanos.add(buscarPlano(0, "Plano 3").get(0));
+				} else if (perfilCliente == PerfilCliente.PERFIL_D.getName()) {
+					listaPlanos.add(buscarPlano(0, "Plano 1").get(0));
+					listaPlanos.add(buscarPlano(0, "Plano 2").get(0));
+					listaPlanos.add(buscarPlano(0, "Plano 3").get(0));
+					listaPlanos.add(buscarPlano(0, "Plano 4").get(0));
+				}
+			}
+		}
+		// List<PlanoEmprestimo> listaPlanos = new ArrayList<PlanoEmprestimo>();
 		// SELECT * FROM PlanoEmprestimo WHERE ? >= valorMinimo AND ? <=
 		// valorMaximo
 		return listaPlanos;
@@ -1005,7 +1016,7 @@ public class ManipuladorBanco {
 		}
 		return planoEmprestimo.getMaxParcelas();
 	}
-	
+
 	public int getQntdMinParcelasParaPlano(int codigo) {
 		PlanoEmprestimo planoEmprestimo = null;
 		try {

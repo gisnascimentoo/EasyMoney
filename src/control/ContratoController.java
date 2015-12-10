@@ -36,7 +36,7 @@ public class ContratoController {
 			int contaCorrente = cl.getDadosFinanceiros().getContaCorrente();
 			InterfaceUsuario.carregarDadosCliente(agencia, banco, contaCorrente);
 		} else {
-			InterfaceUsuario.exibirMensagemContratoCadastro("Cliente não encontrado.");
+			InterfaceUsuario.exibirMensagemContratoCadastro("Cliente nï¿½o encontrado.");
 		}
 	}
 
@@ -84,9 +84,10 @@ public class ContratoController {
 		return db.buscarPlanoEmprestimoId(idPlanoEmprestimo);
 	}
 
-	// Retorna se o perfil do cliente está aprovado ou reprovado
+	// Retorna se o perfil do cliente estï¿½ aprovado ou reprovado
 	public boolean analisaPerfilComPlano(PlanoEmprestimo planoSelecionado) {
 		String pfc = recuperaPerfilCliente(cl.getDadosFinanceiros().getRendaPessoal());
+		System.out.println(pfc);
 		List<PlanoEmprestimo> lPlanosPossiveis = recuperaPlanosPerfil(pfc);
 		boolean aprovado = false;
 		for (int i = 0; i < lPlanosPossiveis.size(); i++) {
@@ -149,7 +150,7 @@ public class ContratoController {
 		if (persistidoSucesso) {
 			InterfaceUsuario.exibirMensagemContratoCadastro("Contrato cadastrado com sucesso.");
 		} else {
-			InterfaceUsuario.exibirMensagemContratoCadastro("Não foi possível cadastrar o contrato.");
+			InterfaceUsuario.exibirMensagemContratoCadastro("Nï¿½o foi possï¿½vel cadastrar o contrato.");
 		}
 	}
 

@@ -265,9 +265,23 @@ public class CadFuncionarioView extends JFrame {
 		textFieldNumero.setText(""+numero);
 		textFieldBairro.setText(bairro);
 		textFieldCidade.setText(nomeCidade);
-		comboBoxUF.setSelectedItem(new EstadoCombo(idUf, uf));
+		setSelectedValue(comboBoxUF, idUf);
 		edicao = true;
 	}
+	
+	public static void setSelectedValue(JComboBox comboBox, int value)
+    {
+        EstadoCombo item;
+        for (int i = 0; i < comboBox.getItemCount(); i++)
+        {
+            item = (EstadoCombo)comboBox.getItemAt(i);
+            if (item.getCodigo() == value)
+            {
+                comboBox.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
 
 	protected void fechar() {
 		this.dispose();
