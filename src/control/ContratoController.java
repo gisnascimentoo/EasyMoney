@@ -157,7 +157,8 @@ public class ContratoController {
 			double valorEmprestimo, double valorParcelas, String dataTermino, String observacoes) {
 		PlanoEmprestimo plEmprestimo = recuperaPlanoEmprestimo(idPlanoEmprestimo);
 
-		Cliente clt = (Cliente) db.buscarCliente(idCliente, null, null, null);
+		Cliente clt = (Cliente) db.buscarDadosCliente(idCliente);
+		cl = clt;
 
 		boolean persistidoSucesso = false;
 
@@ -171,6 +172,7 @@ public class ContratoController {
 		}
 
 		Contrato contrato = db.buscarContratoId(codContrato);
+		contrato.setIdContrato(codContrato);
 		contrato.setCliente(clt);
 		contrato.setDataTerminoContrato(this.formatDate(dataTermino));
 		contrato.setQntdParcelas(numParcelas);
@@ -195,20 +197,21 @@ public class ContratoController {
 
 	public void recuperaContrato(int idContrato) {
 		Contrato contrato = db.buscarContratoId(idContrato);
-		String cliente = contrato.getCliente().getNomeCompleto();
-		String banco = contrato.getCliente().getDadosFinanceiros().getBanco();
-		String agencia = contrato.getCliente().getDadosFinanceiros().getAgencia();
-		int contaCorrente = contrato.getCliente().getDadosFinanceiros().getContaCorrente();
+		Cliente cliente = db.buscarDadosCliente(contrato.getCliente().getIdCliente());
+		String nome = cliente.getNomeCompleto();
+		String banco = cliente.getDadosFinanceiros().getBanco();
+		String agencia = cliente.getDadosFinanceiros().getAgencia();
+		int contaCorrente = cliente.getDadosFinanceiros().getContaCorrente();
 		Date dataTermino = contrato.getDataTerminoContrato();
 		int qntdParcelas = contrato.getQntdParcelas();
 		double valorEmprestimo = contrato.getValorEmprestimo();
 		double valorParcelas = contrato.getValorParcelas();
 		String nomePlano = contrato.getPlanoEmprestimo().getNome();
-		int codCliente = contrato.getCliente().getIdCliente();
+		int codCliente = cliente.getIdCliente();
 		int codPlano = contrato.getPlanoEmprestimo().getIdPlanoEmprestimo();
 		String status = contrato.getStatusContrato();
 		String observacoes = contrato.getObservacoes();
-		InterfaceUsuario.carregarContrato(idContrato, cliente, banco, agencia, contaCorrente, valorEmprestimo,
+		InterfaceUsuario.carregarContrato(idContrato, nome, banco, agencia, contaCorrente, valorEmprestimo,
 				valorParcelas, dataTermino, observacoes, nomePlano, qntdParcelas, status, codCliente, codPlano);
 	}
 
@@ -233,7 +236,7 @@ public class ContratoController {
 		boolean confirmacao = InterfaceUsuario.confirmarExclusaoContrato();
 		if (confirmacao) {
 			String mensagem = db.excluiContrato(codigo);
-			InterfaceUsuario.exibirMensagemContratoCadastro(mensagem);
+			InterfaceUsuario.exibirMensagemContratoList(mensagem);
 		}
 	}
 

@@ -294,12 +294,13 @@ public class InterfaceUsuario {
 		contratoController.editarContrato(codContrato, idCliente, status, idPlanoEmprestimo, numParcelas,
 				valorEmprestimo, valorParcelas, dataTermino, observacoes);
 	}
-
+	
 	public static void carregarContrato(int codContrato, String nomeCliente, String banco, String agencia,
 			int contaCorrente, double valorEmprestimo, double valorParcelas, Date dataTermino, String observacao,
 			String nomePlano, int qntdParelas, String status, int codCliente, int codPlano) {
 		novoContratoView = new CadContratoView(codContrato, nomeCliente, banco, agencia, contaCorrente,
 				valorEmprestimo, valorParcelas, dataTermino, observacao, nomePlano, qntdParelas, status, codCliente, codPlano);
+		novoContratoView.setVisible(true);
 	}
 
 	public static void novoContratoView(double valorEmprestimo, int valorParcelas, int indexPlanoEmprestimo,
@@ -408,7 +409,7 @@ public class InterfaceUsuario {
 
 	public static void editarContratoCarregarPorId(int codigo) {
 		contratoController.recuperaContrato(codigo);
-		
+		novoContratoView.habilitarEdicao();
 	}
 
 	public static boolean confirmarExclusaoContrato() {
@@ -462,6 +463,10 @@ public class InterfaceUsuario {
 
 	public static void carregaListaContrato(String[][] dados) {
 		listContratoView.addTabela(dados);
+	}
+
+	public static void exibirMensagemContratoList(String mensagem) {
+		listContratoView.mostrarMensagem(mensagem);
 	}
 
 }

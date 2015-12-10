@@ -75,15 +75,15 @@ public class ManipuladorBanco {
 	private final String UPDATE_PLANOEMPRESTIMO_BY_ID = "UPDATE PlanoEmprestimo SET nome = ?, dataCadastro = ?, jurosTotal = ?, jurosMensal = ?, valorMinimo = ?, valorMaximo = ?, minParcelas = ?, maxParcelas = ?, observacao = ? WHERE idPlanoEmprestimo = ?";
 	private final String UPDATE_FUNCIONARIO_BY_ID = "UPDATE Funcionario SET nome = ?, dataNascimento = ?, CPF = ?, RG = ?, cargo = ?, email = ?, telefone = ?, idEndereco = ? WHERE idFuncionario = ?";
 	private final String UPDATE_ENDERECO_BY_ID = "UPDATE Endereco SET logradouro = ?, complemento = ?, numero = ?, bairro = ?, cidade = ? WHERE idEndereco = ?";
-	private final String UPDATE_CONTRATO_BY_ID = "UPDATE Contrato SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dadaTerminoContrato = ?, idCliente = ?, idPlanoEmprestimo = ? WHERE idContrato = ?";
+	private final String UPDATE_CONTRATO_BY_ID = "UPDATE Contrato SET qtdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dataTerminoContrato = ?, statusContrato = ?,  idCliente = ?, idPlanoEmprestimo = ? WHERE idContrato = ?";
 	private final String UPDATE_DADOSFINANCEIROS_BY_ID = "UPDATE DadosFinanceiros SET banco = ?, agencia = ?, contaCorrente = ?, rendaFamiliar = ?, rendaPessoal = ?, observacao = ? WHERE idDadosFinanceiros = ?";
 
 	/*
 	 * Delete
 	 */
-	private final String DELETE_CONTRATO_BY_ID = "DELETE FROM Cliente WHERE idCliente = ?";
+	private final String DELETE_CONTRATO_BY_ID = "DELETE FROM Contrato WHERE idContrato = ?";
 	private final String DELETE_PLANOEMPRESTIMO_BY_ID = "DELETE FROM PlanoEmprestimo WHERE idPlanoEmprestimo = ?";
-	private final String DELETE_CLIENTE_BY_ID = "DELETE FROM Cliente WHERE IDCLIENTE = ?";
+	private final String DELETE_CLIENTE_BY_ID = "DELETE FROM Cliente WHERE idCliente = ?";
 	private final String DELETE_FUNCIONARIO_BY_ID = "DELETE FROM Funcionario WHERE idFuncionario = ?";
 
 	Connection conexao;
@@ -405,15 +405,20 @@ public class ManipuladorBanco {
 
 	public void editarContratoBanco(Contrato contrato) {
 		try {
+//"UPDATE Contrato SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dadaTerminoContrato = ?, statusContrato = ?, idCliente = ?, idPlanoEmprestimo = ? WHERE idContrato = ?";
 			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_CONTRATO_BY_ID,
 					Statement.RETURN_GENERATED_KEYS);
 			prepared.setInt(1, contrato.getQntdParcelas());
 			prepared.setDouble(2, contrato.getValorEmprestimo());
+			System.out.println("ManipuladorBanco.editarContratoBanco(): " + contrato.getValorParcelas());
 			prepared.setDouble(3, contrato.getValorParcelas());
 			prepared.setDate(4, contrato.getDataTerminoContrato());
 			prepared.setString(5, contrato.getStatusContrato());
+			System.out.println("ManipuladorBanco.editarContratoBanco(): " + contrato.getCliente().getIdCliente());
 			prepared.setInt(6, contrato.getCliente().getIdCliente());
+			System.out.println("ManipuladorBanco.editarContratoBanco(): " + contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());
 			prepared.setInt(7, contrato.getPlanoEmprestimo().getIdPlanoEmprestimo());
+			System.out.println("ManipuladorBanco.editarContratoBanco(): " + contrato.getIdContrato());
 			prepared.setInt(8, contrato.getIdContrato());
 			prepared.executeUpdate();
 		} catch (Exception e) {
@@ -585,7 +590,6 @@ public class ManipuladorBanco {
 	public Contrato buscarContratoId(int codContrato) {
 		Contrato contrato = null;
 		Cliente cliente = null;
-		Funcionario funcionario = null;
 		PlanoEmprestimo planoEmprestimo = null;
 		try {
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CONTRATO_BY_ID);
@@ -596,7 +600,7 @@ public class ManipuladorBanco {
 				cliente.setIdCliente(set.getInt("idCliente"));
 				planoEmprestimo = new PlanoEmprestimo();
 				planoEmprestimo.setIdPlanoEmprestimo(set.getInt("idPlanoEmprestimo"));
-				contrato = new Contrato(set.getInt("qntdParcelas"), set.getFloat("valorEmprestimo"),
+				contrato = new Contrato(set.getInt("qtdParcelas"), set.getFloat("valorEmprestimo"),
 						set.getFloat("valorParcelas"), set.getDate("dataCriacaoContrato"),
 						set.getDate("dataTerminoContrato"), cliente, set.getString("statusContrato"), planoEmprestimo,
 						set.getString("observacoes"));
@@ -812,7 +816,7 @@ public class ManipuladorBanco {
 			return "Contrato deletado com sucesso";
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "Contrato n√£o pode ser deletado! Tente novamente!";
+			return "Contrato n„oo pode ser deletado! Tente novamente!";
 		}
 	}
 

@@ -4,6 +4,7 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -77,7 +78,14 @@ public class CadContratoView extends JFrame {
 		textFieldContaCorrente.setText(String.valueOf(contaCorrente));
 		textFieldValorEmprestimo.setText(String.valueOf(valorEmprestimo));
 		textFieldValorParcelas.setText(String.valueOf(valorParcelas));
-		formattedFieldDataTermino.setText(dataTermino.toString());
+		/**
+		 * Conversao de sql.Date para maskformatter
+		 */
+		Date dateToFormat = new Date(dataTermino.getTime());
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		String formatted = formatter.format(dateToFormat);
+		
+		formattedFieldDataTermino.setText(formatted);
 		textFieldObservacoes.setText(observacao);
 		comboBoxPlanoEmprestimo.setSelectedItem(new PlanoCombo(codPlano,
 				nomePlano));
@@ -295,7 +303,6 @@ public class CadContratoView extends JFrame {
 			
 		double valorEmprestimo = InterfaceUsuario.transformaStringDouble(textFieldValorEmprestimo.getText());
 		double valorParcelas = InterfaceUsuario.transformaStringDouble(textFieldValorParcelas.getText());
-		
 		if(edicao){
 			int codContrato = InterfaceUsuario.transformaStringInt(textFieldCodContrato.getText());
 			InterfaceUsuario.editarContrato(codContrato, idCliente, situacao, idPlano, qntdParcela, valorEmprestimo, valorParcelas, formattedFieldDataTermino.getText(), textFieldObservacoes.getText());
@@ -340,5 +347,9 @@ public class CadContratoView extends JFrame {
 	private void carregarPlanoCombo() {
 		comboBoxPlanoEmprestimo.setModel(new DefaultComboBoxModel(new Vector(
 				InterfaceUsuario.carregaPlanoCombo())));
+	}
+
+	public void habilitarEdicao() {
+		edicao = true;
 	}
 }
