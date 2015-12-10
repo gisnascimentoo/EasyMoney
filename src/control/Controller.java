@@ -179,7 +179,7 @@ public class Controller {
 	public void editarCadastrofuncionario(int codigo, String nome, String dataNascimento, int CPF, int RG, String cargo,
 			String email, int telefone, String logradouro, String complemento, int numero, String bairro, String nomeCidade,
 			int uf) {
-		boolean camposOK = verificaCamposObrigatoriosFuncionario(nomeCidade, this.formatDate(dataNascimento), CPF, RG, logradouro);
+		boolean camposOK = verificaCamposObrigatoriosFuncionario(nome, this.formatDate(dataNascimento), CPF, RG, logradouro);
 		if (!camposOK) {
 			InterfaceUsuario.exibirMensagemFuncionarioCadastro("Campos obrigat�rios n�o preenchidos");
 		} else {

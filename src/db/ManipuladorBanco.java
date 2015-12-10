@@ -64,9 +64,6 @@ public class ManipuladorBanco {
 	private final String SELECT_FUNCIONARIO_BY_CPF = "SELECT * FROM Funcionario WHERE CPF = ?";
 	private final String SELECT_CLIENTE_BY_CPF = "SELECT * FROM Cliente WHERE CPF = ?";
 
-	private final String SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX = "SELECT CON.idContrato as idContrato , CON.valorEmprestimo as valorEmprestimo, "
-			+ "C.nomeCompleto as nomeCompleto FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE statusContrato = ? "
-			+ "AND dataCriacaoContrato >= ? AND dataTerminoContrato <= ?";
 
 	/*
 	 * Update
@@ -364,10 +361,26 @@ public class ManipuladorBanco {
 
 	public String editarFuncionarioBanco(Funcionario funcionario) {
 
-		String sqlParaRecuperarIds = "SELECT idEndereco FROM Funcionario WHERE idFuncionario = ?";
+		String sqlParaRecuperarIds = "SELECT F.idEndereco AS idEndereco, "
+				+ " ci.idCidade AS idCidade, ci.idEstado as idEstado FROM Funcionario F JOIN Endereco E "
+				+ "ON F.idEndereco = F.idEndereco JOIN Cidade ci ON E.idCidade = ci.idCidade WHERE F.idFuncionario = ?";
 		int idEndereco;
+		int idCidade;
+		int idEstado;
 
 		try {
+			PreparedStatement preparedEndereco = this.conexao.prepareStatement(sqlParaRecuperarIds);
+			preparedEndereco.setInt(1, funcionario.getIdFuncionario());
+			ResultSet set = preparedEndereco.executeQuery();
+			if (set.next()) {
+				idEndereco = set.getInt("idEndereco");
+				idCidade = set.getInt("idCidade");
+				idEstado = set.getInt("idEstado");
+				funcionario.getEndereco().setIdEndereco(idEndereco);
+				funcionario.getEndereco().getCidade().setIdCidade(idCidade);
+				funcionario.getEndereco().getCidade().getEstado().setIdEstado(idEstado);
+				this.editarEnderecoBanco(funcionario.getEndereco());
+			}
 			this.editarEnderecoBanco(funcionario.getEndereco());
 			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_FUNCIONARIO_BY_ID,
 					Statement.RETURN_GENERATED_KEYS);
@@ -381,13 +394,6 @@ public class ManipuladorBanco {
 			prepared.setInt(8, funcionario.getEndereco().getIdEndereco());
 			prepared.setInt(9, funcionario.getIdFuncionario());
 			prepared.executeUpdate();
-			PreparedStatement preparedEndereco = this.conexao.prepareStatement(sqlParaRecuperarIds);
-			ResultSet set = preparedEndereco.executeQuery();
-			while (set.next()) {
-				idEndereco = set.getInt("idEndereco");
-				funcionario.getEndereco().setIdEndereco(idEndereco);
-				this.editarEnderecoBanco(funcionario.getEndereco());
-			}
 			return "Cadastro alterado com sucesso";
 		} catch (Exception e) {
 			return "" + e.getMessage();
@@ -783,21 +789,47 @@ public class ManipuladorBanco {
 
 	public List<Contrato> buscarRelatorio(Date intervaloInicio, Date intervaloFinal, int tipoIndex) {
 		List<Contrato> listaContrato = new ArrayList<Contrato>();
-
 		String statusContrato;
+		String SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX = "SELECT CON.idContrato as idContrato , CON.valorEmprestimo as valorEmprestimo, "
+				+ "C.nomeCompleto as nomeCompleto FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE statusContrato = ? "
+				+ "AND dataCriacaoContrato >= ? AND dataTerminoContrato <= ?";
+		
+		if (intervaloInicio == null) {
+			SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX = "SELECT CON.idContrato as idContrato , CON.valorEmprestimo as valorEmprestimo, "
+					+ "C.nomeCompleto as nomeCompleto FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE statusContrato = ? AND "
+					+ "dataTerminoContrato <= ?";	
+		}
+		if (intervaloFinal == null) {
+			SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX = "SELECT CON.idContrato as idContrato , CON.valorEmprestimo as valorEmprestimo, "
+					+ "C.nomeCompleto as nomeCompleto FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE statusContrato = ? AND "
+					+ "dataCriacaoContrato >= ?";
+		}
+		if (intervaloInicio == null && intervaloFinal == null) {
+			SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX = "SELECT CON.idContrato as idContrato , CON.valorEmprestimo as valorEmprestimo, "
+					+ "C.nomeCompleto as nomeCompleto FROM Contrato CON JOIN Cliente C ON CON.idCliente = C.idCliente WHERE statusContrato = ? ";
+		}
+		
 
 		if (tipoIndex == 0) {
 			statusContrato = "Aprovado";
 		} else {
 			statusContrato = "Rejeitado";
 		}
-
+		
 		try {
-			PreparedStatement preparedStatement = this.conexao
-					.prepareStatement(SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX);
-			preparedStatement.setString(1, statusContrato);
-			preparedStatement.setDate(2, intervaloInicio);
-			preparedStatement.setDate(3, intervaloFinal);
+			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_CONTRATO_BY_INTERVALO_MES_E_INDEX);
+			if (intervaloInicio == null && intervaloFinal == null) {
+				preparedStatement.setString(1, statusContrato);
+			}
+			else if (intervaloInicio == null) {
+				preparedStatement.setString(1, statusContrato);
+				preparedStatement.setDate(2, intervaloFinal);
+			}
+			else if (intervaloFinal == null ) {
+				preparedStatement.setString(1, statusContrato);
+				preparedStatement.setDate(2, intervaloInicio);
+			}
+			
 			ResultSet set = preparedStatement.executeQuery();
 			while (set.next()) {
 				Cliente cliente = new Cliente();

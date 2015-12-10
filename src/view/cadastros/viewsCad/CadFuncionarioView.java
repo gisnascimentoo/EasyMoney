@@ -262,7 +262,7 @@ public class CadFuncionarioView extends JFrame {
 		textFieldTelefone.setText(""+telefone);
 		textFieldLogradouro.setText(logradouro);
 		textFieldComplemento.setText(complemento);
-		textFieldNome.setText(""+numero);
+		textFieldNumero.setText(""+numero);
 		textFieldBairro.setText(bairro);
 		textFieldCidade.setText(nomeCidade);
 		comboBoxUF.setSelectedItem(new EstadoCombo(idUf, uf));

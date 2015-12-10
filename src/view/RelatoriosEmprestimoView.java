@@ -124,12 +124,12 @@ public class RelatoriosEmprestimoView extends JFrame {
 			}
 		}
 		int tipoIndex;
-		if(tipo.equals("Emprestimos Aprovados")){
+		if(tipo.equals("Empréstimos Aprovados")){
 			tipoIndex = 0;
 		}else{
 			tipoIndex = 1;
 		}
-		 InterfaceUsuario.gerarRelatorio(formattedFieldDataInicio.getText(),
+		InterfaceUsuario.gerarRelatorio(formattedFieldDataInicio.getText(),
 		formattedFieldDataTermino.getText(), tipoIndex);
 	}
 
