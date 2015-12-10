@@ -190,10 +190,13 @@ public class CadPlanoEmprestimoView extends JFrame {
 			double valorMinimo, double valorMaximo, int minParcelas,
 			int maxParcelas, String observacao) {
 		init();
+		Date dateToFormat = new Date(dataCadastro.getTime());
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		String formatted = formatter.format(dateToFormat);
 		edicao = true;
 		textFieldCodPlano.setText("" + idPlanoEmprestimo);
 		textFieldPlanoEmprestimo.setText(nome);
-		formattedFieldDataNascimento.setText("" + dataCadastro);
+		formattedFieldDataNascimento.setText("" + formatted);
 		textFieldJurosValorTotal.setText("" + jurosTotal);
 		textFieldJurosMensal.setText("" + jurosMensal);
 		textFieldValorMinimo.setText("" + valorMinimo);

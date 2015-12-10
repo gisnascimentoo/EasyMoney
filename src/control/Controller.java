@@ -93,7 +93,7 @@ public class Controller {
 				Endereco novoEndereco = new Endereco(logradouro, numero, bairro, novaCidade, complemento);
 				DadosFinanceiros novoDadosFinanceiro = new DadosFinanceiros(banco, agencia, contaCorrente, rendaFamiliar,
 						rendaPessoal, observacao);
-				Cliente cliente = new Cliente(cpf, nomeCompleto, rg, this.formatDate(dataNascimento), novoEndereco, novoDadosFinanceiro);
+				Cliente cliente = new Cliente(codigo, cpf, nomeCompleto, rg, this.formatDate(dataNascimento), novoEndereco, novoDadosFinanceiro);
 				String msg = db.editarClienteBanco(cliente);
 				InterfaceUsuario.exibirMensagemClienteCadastro(msg);
 			}
@@ -186,7 +186,7 @@ public class Controller {
 			Estado estado = new Estado(uf, null);
 			Cidade cidade = new Cidade(nomeCidade, estado);
 			Endereco endereco = new Endereco(logradouro, numero, bairro, cidade, complemento);
-			Funcionario funcionario = new Funcionario(nome, this.formatDate(dataNascimento), CPF, RG, cargo, email, telefone, endereco);
+			Funcionario funcionario = new Funcionario(codigo, nome, this.formatDate(dataNascimento), CPF, RG, cargo, email, telefone, endereco);
 			String msg = db.editarFuncionarioBanco(funcionario);
 			InterfaceUsuario.exibirMensagemFuncionario(msg);
 		}
@@ -323,6 +323,9 @@ public class Controller {
 	}
 
 	public java.sql.Date formatDate(String date) {
+		if(date.equals("  /  /    ")) {
+			return null;
+		}
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		java.sql.Date data = null;
 		try {

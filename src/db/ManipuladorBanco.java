@@ -56,10 +56,10 @@ public class ManipuladorBanco {
 			+ "LEFT JOIN Estado EST ON EST.idEstado = CD.idEstado WHERE C.idCliente = ?";
 
 	private final String SELECT_INFO_FUNCIONARIO_BY_ID = "SELECT F.idFuncionario AS idfuncionario, F.CPF AS cpf, F.nome AS nome, "
-			+ "F.RG AS rg, F.dataNascimento AS datanascimento, F.cargo AS cargo, F.email AS email, F.telefone AS telefone, E.logradouro AS logradouro, E.complemento AS complemento, E.numero AS numero, E.bairro AS bairro,"
-			+ "E.CEP AS CEP, CD.nome AS nomecidade, EST.idEstado AS iduf, EST.sigla AS siglauf"
+			+ "F.RG AS rg, F.dataNascimento AS datanascimento, F.cargo AS cargo, F.email AS email, F.telefone AS telefone, E.logradouro AS logradouro, E.complemento AS complemento, E.numero AS numero, E.bairro AS bairro, "
+			+ "E.CEP AS cep, CD.nome AS nomecidade, EST.idEstado AS iduf, EST.sigla AS siglauf "
 			+ "FROM Funcionario F LEFT JOIN Endereco E ON F.idEndereco = E.idEndereco LEFT JOIN Cidade CD ON E.idCidade = CD.idCidade "
-			+ "LEFT JOIN ESTADO EST ON EST.idEstado = CD.idEstado WHERE F.idFuncionario = ?";
+			+ "LEFT JOIN Estado EST ON EST.idEstado = CD.idEstado WHERE F.idFuncionario = ?";
 
 	private final String SELECT_FUNCIONARIO_BY_CPF = "SELECT * FROM Funcionario WHERE CPF = ?";
 	private final String SELECT_CLIENTE_BY_CPF = "SELECT * FROM Cliente WHERE CPF = ?";
@@ -74,16 +74,18 @@ public class ManipuladorBanco {
 	private final String UPDATE_CLIENTE_BY_ID = "UPDATE Cliente SET nomeCompleto = ?, dataNascimento = ?, CPF = ?, RG = ?, idEndereco = ?, idDadosFinanceiros = ? WHERE idCliente = ?";
 	private final String UPDATE_PLANOEMPRESTIMO_BY_ID = "UPDATE PlanoEmprestimo SET nome = ?, dataCadastro = ?, jurosTotal = ?, jurosMensal = ?, valorMinimo = ?, valorMaximo = ?, minParcelas = ?, maxParcelas = ?, observacao = ? WHERE idPlanoEmprestimo = ?";
 	private final String UPDATE_FUNCIONARIO_BY_ID = "UPDATE Funcionario SET nome = ?, dataNascimento = ?, CPF = ?, RG = ?, cargo = ?, email = ?, telefone = ?, idEndereco = ? WHERE idFuncionario = ?";
-	private final String UPDATE_ENDERECO_BY_ID = "UPDATE Endereco SET logradouro = ?, complemento = ?, numero = ?, bairro = ?, cidade = ? WHERE idEndereco = ?";
+	private final String UPDATE_ENDERECO_BY_ID = "UPDATE Endereco SET logradouro = ?, complemento = ?, numero = ?, bairro = ?, idCidade = ? WHERE idEndereco = ?";
 	private final String UPDATE_CONTRATO_BY_ID = "UPDATE Contrato SET qntdParcelas = ?, valorEmprestimo = ?, valorParcelas = ?, dadaTerminoContrato = ?, idCliente = ?, idPlanoEmprestimo = ? WHERE idContrato = ?";
 	private final String UPDATE_DADOSFINANCEIROS_BY_ID = "UPDATE DadosFinanceiros SET banco = ?, agencia = ?, contaCorrente = ?, rendaFamiliar = ?, rendaPessoal = ?, observacao = ? WHERE idDadosFinanceiros = ?";
-
+	private final String UPDATE_CIDADE_BY_ID = "UPDATE Cidade SET nome = ?, idEstado = ? WHERE idCidade = ?";
 	/*
 	 * Delete
 	 */
 	private final String DELETE_CONTRATO_BY_ID = "DELETE FROM Cliente WHERE idCliente = ?";
 	private final String DELETE_PLANOEMPRESTIMO_BY_ID = "DELETE FROM PlanoEmprestimo WHERE idPlanoEmprestimo = ?";
-	private final String DELETE_CLIENTE_BY_ID = "DELETE FROM Cliente WHERE IDCLIENTE = ?";
+	private final String DELETE_CLIENTE_BY_ID = "DELETE FROM Cliente c LEFT JOIN Contrato ci ON c.idCliente = ci.idCliente LEFT JOIN Endereco "
+			+ " e ON c.idEndereco = e.idEndereco LEFT JOIN DadosFinanciados d ON c.idDadosFinanciados = d.idDadosFinanciados "
+			+ " LEFT JOIN PlanoEmprestimo p ON ci.idPlanoEmprestimo =  p.idPlanoEmprestimo WHERE c.idCliente = ?";
 	private final String DELETE_FUNCIONARIO_BY_ID = "DELETE FROM Funcionario WHERE idFuncionario = ?";
 
 	Connection conexao;
@@ -320,31 +322,40 @@ public class ManipuladorBanco {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public String editarClienteBanco(Cliente cliente) {
 
-		String sqlParaRecuperarIds = "SELECT idEndereco, idDadosFinanceiros FROM Cliente WHERE idCliente = ?";
+		String sqlParaRecuperarIds = "SELECT C.idEndereco AS idEndereco, C.idDadosFinanceiros as idDadosFinanceiros,"
+				+ " ci.idCidade AS idCidade, ci.idEstado as idEstado FROM Cliente C JOIN Endereco E "
+				+ "ON C.idEndereco = E.idEndereco JOIN Cidade ci ON E.idCidade = ci.idCidade WHERE idCliente = ?";
 		int idEndereco;
 		int idDadosFinanceiros;
+		int idCidade;
 		try {
+			PreparedStatement preparedEndereco = this.conexao.prepareStatement(sqlParaRecuperarIds);
+			preparedEndereco.setInt(1, cliente.getIdCliente());
+			ResultSet set = preparedEndereco.executeQuery();
+			if (set.next()) {
+				idEndereco = set.getInt("idEndereco");
+				idDadosFinanceiros = set.getInt("idDadosFinanceiros");
+				idCidade = set.getInt("idCidade");
+				cliente.getEndereco().setIdEndereco(idEndereco);
+				cliente.getDadosFinanceiros().setIdDadosFinanceiros(idDadosFinanceiros);
+				cliente.getEndereco().getCidade().setIdCidade(idCidade);
+				cliente.getEndereco().getCidade().getEstado().setIdEstado(set.getInt("idEstado"));
+				this.editarEnderecoBanco(cliente.getEndereco());
+				this.editarDadosFinanceirosBanco(cliente.getDadosFinanceiros());
+			}
 			PreparedStatement prepared = this.conexao.prepareStatement(UPDATE_CLIENTE_BY_ID,
 					Statement.RETURN_GENERATED_KEYS);
 			prepared.setString(1, cliente.getNomeCompleto());
 			prepared.setDate(2, cliente.getDataNascimento());
 			prepared.setInt(3, cliente.getCPF());
 			prepared.setInt(4, cliente.getRG());
-			prepared.setInt(5, cliente.getIdCliente());
+			prepared.setInt(5, cliente.getEndereco().getIdEndereco());
+			prepared.setInt(6, cliente.getDadosFinanceiros().getIdDadosFinanceiros());
+			prepared.setInt(7, cliente.getIdCliente());
 			prepared.executeUpdate();
-			PreparedStatement preparedEndereco = this.conexao.prepareStatement(sqlParaRecuperarIds);
-			ResultSet set = preparedEndereco.executeQuery();
-			while (set.next()) {
-				idEndereco = set.getInt("idEndereco");
-				cliente.getEndereco().setIdEndereco(idEndereco);
-				idDadosFinanceiros = set.getInt("idDadosFinanceiros");
-				cliente.getDadosFinanceiros().setIdDadosFinanceiros(idDadosFinanceiros);
-				this.editarEnderecoBanco(cliente.getEndereco());
-				this.editarDadosFinanceirosBanco(cliente.getDadosFinanceiros());
-			}
 			return "Cadastro alterado com sucesso";
 		} catch (Exception e) {
 			return "" + e.getMessage();
@@ -476,7 +487,7 @@ public class ManipuladorBanco {
 		List<Funcionario> buscarFuncionario = new ArrayList<Funcionario>();
 		String SELECT_FUNCIONARIO_BY_ = "SELECT * FROM Funcionario WHERE 1 = 1";
 		
-		/*if (codigo > 0) {
+		if (codigo > 0) {
 			SELECT_FUNCIONARIO_BY_ += " AND idFuncionario = " + codigo;
 		} 
 		
@@ -485,28 +496,13 @@ public class ManipuladorBanco {
 		} 
 		
 		if (!nome.isEmpty()) {
-			SELECT_FUNCIONARIO_BY_ += " AND nome = '" + nome + "'";
+			SELECT_FUNCIONARIO_BY_ += " AND nome LIKE '%" + nome + "%'";
 		}		
 		
 		if(date != null){
 			SELECT_FUNCIONARIO_BY_ += " AND dataNascimento = '" + date + "'";
 		}
-		 */
-		
-		if (codigo > 0) {
-			SELECT_FUNCIONARIO_BY_ += " AND idFuncionario = " + codigo;
-		} else if ( cpf != null && cpf.trim().length() > 0) {
-			SELECT_FUNCIONARIO_BY_ += " AND CPF = " + cpf;
-		} else if (nome != null) {
-			if (date != null) {
-				SELECT_FUNCIONARIO_BY_ += " AND nome = " + nome + " AND dataNascimento = " + date;
-			} else {
-				SELECT_FUNCIONARIO_BY_ += " AND nome = " + nome;
-			}
-		} else if (date != null) {
-			SELECT_FUNCIONARIO_BY_ += " AND dataNascimento = " + date;
-		}
-		
+
 		try {
 			PreparedStatement preparedStatement = this.conexao.prepareStatement(SELECT_FUNCIONARIO_BY_);
 			ResultSet set = preparedStatement.executeQuery();
@@ -535,6 +531,17 @@ public class ManipuladorBanco {
 	}
 
 	public String excluiCliente(int id) {
+		
+//		String sqlParaRecuperarIds = "SELECT idContrato FROM Cliente c JOIN Contrato co WHERE c.idCliente = co.idCliente";
+//		int idContrato;
+//		
+//		PreparedStatement preparedEndereco = this.conexao.prepareStatement(sqlParaRecuperarIds);
+//		ResultSet set = preparedEndereco.executeQuery();
+//		while (set.next()) {
+//			idContrato = set.getInt("idContrato");
+//			funcionario.getEndereco().setIdEndereco(idEndereco);
+//			this.editarEnderecoBanco(funcionario.getEndereco());
+		
 		try {
 			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_CLIENTE_BY_ID);
 			prepared.setInt(1, id);
@@ -813,6 +820,16 @@ public class ManipuladorBanco {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return "Contrato não pode ser deletado! Tente novamente!";
+		}
+	}
+	
+	public void excluiContratoAntesCliente(int codigo) {
+		try {
+			PreparedStatement prepared = this.conexao.prepareStatement(DELETE_CONTRATO_BY_ID);
+			prepared.setInt(1, codigo);
+			prepared.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 

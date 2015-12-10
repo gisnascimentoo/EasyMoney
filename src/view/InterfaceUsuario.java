@@ -186,7 +186,6 @@ public class InterfaceUsuario {
 			String agencia, int contaCorrente, double rendaFamiliar, double rendaPessoal, String observacao) {
 		controller.editarCadastroCliente(codigo, cpf, nomeCompleto, rg, dataNascimento, logradouro, numero,
 				bairro, nomeCidade, complemento, uf, banco, agencia, contaCorrente, rendaFamiliar, rendaPessoal, observacao);
-
 	}
 
 	public static void cadastrarFuncionario(String nome, String dataNascimento, int CPF, int RG, String cargo,
@@ -208,6 +207,7 @@ public class InterfaceUsuario {
 			String nomeCidade, String uf, int idUf) {
 		cadFuncionarioView = new CadFuncionarioView(codigo, nome, dataNascimento, CPF, RG, cargo, email, telefone,
 				logradouro, complemento, numero, bairro, nomeCidade, uf, idUf);
+		cadFuncionarioView.setVisible(true);
 	}
 
 	public static void carregaEdicaoCliente(int codigo, int cpf, String nomeCompleto, int rg,
@@ -280,7 +280,7 @@ public class InterfaceUsuario {
 			String observacao) {
 		cadPlanoEmprestimoView = new CadPlanoEmprestimoView(codigo, nome, dataCadastro, jurosTotal, jurosMensal,
 				valorMinimo, valorMaximo, minParcelas, maxParcelas, observacao);
-
+		cadPlanoEmprestimoView.setVisible(true);
 	}
 
 	public static void cadastrarContrato(int idCliente, String status, int idPlanoEmprestimo, int numParcelas,
@@ -334,7 +334,7 @@ public class InterfaceUsuario {
 	}
 
 	public static void editarFuncionarioCarregarPorId(int codigo) {
-		controller.buscaDadosCliente(codigo);
+		controller.buscaDadosFuncionario(codigo);
 
 	}
 

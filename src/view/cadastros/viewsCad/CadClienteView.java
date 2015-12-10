@@ -298,22 +298,20 @@ public class CadClienteView extends JFrame {
 			String agencia, int contaCorrente, double rendaFamiliar,
 			double rendaPessoal, String observacao) {
 		init();
+		Date dateToFormat = new Date(dataNascimento.getTime());
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		String formatted = formatter.format(dateToFormat);
 		textFieldCodCliente.setText("" + codigo);
 		textFieldCPF.setText("" + cpf);
 		textFieldNome.setText(nomeCompleto);
 		textFieldRG.setText("" + rg);
-		System.out.println(dataNascimento);
-		formattedFieldDataNascimento.setText("" + dataNascimento);
-		System.out.println(logradouro);
+		formattedFieldDataNascimento.setText("" + formatted);
 		textFieldLogradouro.setText(logradouro);
 		textFieldNumero.setText("" + numero);
 		textFieldBairro.setText(bairro);
 		textFieldCidade.setText(nomeCidade);
 		textFieldComplemento.setText(complemento);
-		System.out.println(idUf);
-		System.out.println(uf);		
 		comboBoxUF.setSelectedItem(new Estado(idUf, uf));
-		System.out.println(comboBoxUF.getSelectedItem().toString());
 		textFieldBanco.setText(banco);
 		textFieldAgencia.setText(agencia);
 		textFieldContaCorrente.setText("" + contaCorrente);

@@ -178,10 +178,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`planoEmprestimo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`planoEmprestimo` ;
+DROP TABLE IF EXISTS `mydb`.`PlanoEmprestimo` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`planoEmprestimo` (
-  `idplanoEmprestimo` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `mydb`.`PlanoEmprestimo` (
+  `idPlanoEmprestimo` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(150) NULL,
   `dataCadastro` DATE NULL,
   `jurosTotal` FLOAT NULL,
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`planoEmprestimo` (
   `maxParcelas` INT NULL,
   `minParcelas` INT NULL,
   `observacao` VARCHAR(1500) NULL,
-  PRIMARY KEY (`idplanoEmprestimo`))
+  PRIMARY KEY (`idPlanoEmprestimo`))
 ENGINE = InnoDB;
 
 
@@ -210,19 +210,19 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Contrato` (
   `dataTerminoContrato` DATE NULL,
   `statusContrato` VARCHAR(150) NULL,
   `idCliente` INT NOT NULL,
-  `idplanoEmprestimo` INT NOT NULL,
+  `idPlanoEmprestimo` INT NOT NULL,
   `observacoes` VARCHAR(4000) NULL,
   PRIMARY KEY (`idContrato`),
   INDEX `fk_Contrato_Cliente1_idx` (`idCliente` ASC),
-  INDEX `fk_Contrato_planoEmprestimo1_idx` (`idplanoEmprestimo` ASC),
+  INDEX `fk_Contrato_planoEmprestimo1_idx` (`idPlanoEmprestimo` ASC),
   CONSTRAINT `fk_Contrato_Cliente1`
     FOREIGN KEY (`idCliente`)
     REFERENCES `mydb`.`Cliente` (`idCliente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Contrato_planoEmprestimo1`
-    FOREIGN KEY (`idplanoEmprestimo`)
-    REFERENCES `mydb`.`planoEmprestimo` (`idplanoEmprestimo`)
+    FOREIGN KEY (`idPlanoEmprestimo`)
+    REFERENCES `mydb`.`PlanoEmprestimo` (`idPlanoEmprestimo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

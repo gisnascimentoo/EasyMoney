@@ -140,8 +140,7 @@ public class RelatoriosEmprestimoView extends JFrame {
 
 	public void addTabela(String[][] dados) {
 		modelo = new DefaultTableModel(dados, colunas);
-		table = new JTable(modelo);
-		jScrollPane1_1 = new JScrollPane(table);
+		table.setModel(modelo);
 		
 	}
 }

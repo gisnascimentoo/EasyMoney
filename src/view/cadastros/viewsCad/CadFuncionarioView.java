@@ -25,6 +25,7 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.TextEvent;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -248,9 +249,12 @@ public class CadFuncionarioView extends JFrame {
 			String email, int telefone, String logradouro, String complemento,int numero,
 			String bairro, String nomeCidade, String uf, int idUf) {
 		init();
+		Date dateToFormat = new Date(dataNascimento.getTime());
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		String formatted = formatter.format(dateToFormat);
 		textFieldCodFuncionario.setText(""+codigo);
 		textFieldNome.setText(nome);
-		formattedFieldDataNascimento.setText(""+dataNascimento);
+		formattedFieldDataNascimento.setText(""+formatted);
 		textFieldCPF.setText(""+CPF);
 		textFieldRG.setText(""+RG);
 		comboBoxCargo.setSelectedItem(cargo);
@@ -260,7 +264,6 @@ public class CadFuncionarioView extends JFrame {
 		textFieldComplemento.setText(complemento);
 		textFieldNome.setText(""+numero);
 		textFieldBairro.setText(bairro);
-		//CEP
 		textFieldCidade.setText(nomeCidade);
 		comboBoxUF.setSelectedItem(new EstadoCombo(idUf, uf));
 		edicao = true;
