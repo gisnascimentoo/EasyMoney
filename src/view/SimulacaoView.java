@@ -33,8 +33,7 @@ public class SimulacaoView extends JFrame {
 	
 	//TODO
 	//Verificar quais colunas mostradas
-	String[] colunas = new String[] { "Codigo", "Cliente", "Situacao",
-			"CPF"};
+	String[] colunas = new String[] { "Valor Prestação", "Valor Financiado" };
 
 
 	/**
@@ -164,10 +163,8 @@ public class SimulacaoView extends JFrame {
 		double valorParcela = InterfaceUsuario.calcularValorParcelas(comboBoxPlanoEmprestimo.getSelectedItem().toString(), textFieldNumMeses.getText(), textFieldValorFinanciado.getText());
 		double valorFinal = InterfaceUsuario.calcularSimulacao(textFieldNumMeses.getText(), valorParcela);
 		String[][] dados = new String[3][2];
-		dados[0][0] = "Valor Parcela";
-		dados[0][1] = "Valor Final Parcelamento";
-		dados[1][0] = "R$ "+String.valueOf(valorParcela);
-		dados[1][1] = "R$ "+String.valueOf(valorFinal);
+		dados[0][0] = "R$ "+String.valueOf(valorParcela);
+		dados[0][1] = "R$ "+String.valueOf(valorFinal);
 		InterfaceUsuario.carregaDadosTabelaSimulacao(dados, valorParcela);
 	}
 
