@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JScrollBar;
 
@@ -95,6 +97,7 @@ public class SimulacaoView extends JFrame {
 		comboBoxPlanoEmprestimo = new JComboBox();
 		comboBoxPlanoEmprestimo.setBounds(152, 113, 107, 20);
 		contentPane.add(comboBoxPlanoEmprestimo);
+		carregarPlanoCombo();
 		
 		JButton btnCalcular = new JButton("Calcular");
 		btnCalcular.setBounds(299, 112, 98, 23);
@@ -141,11 +144,14 @@ public class SimulacaoView extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				gerarContrato();
-				
 			}
 		});
 	}
 
+	private void carregarPlanoCombo() {
+		comboBoxPlanoEmprestimo.setModel(new DefaultComboBoxModel(new Vector(
+				InterfaceUsuario.carregaPlanoCombo())));
+	}
 
 	protected void gerarContrato() {
 		// TODO Auto-generated method stub
